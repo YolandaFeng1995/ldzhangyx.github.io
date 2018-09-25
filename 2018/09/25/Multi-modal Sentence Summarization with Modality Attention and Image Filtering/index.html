@@ -30,7 +30,8 @@
 <meta property="og:description" content="宗成庆老师的这篇文章发表于ACL’18，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。原文：www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf 论文笔记摘要本文介绍了一种多模态句子摘要任务，输入为一张图片和一对句子，输出为摘要。作者称其为MMSS任务。任务的难点在于怎么将视觉信息输入">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/25/Multi-modal%20Sentence%20Summarization%20with%20Modality%20Attention%20and%20Image%20Filtering/1.png">
-<meta property="og:updated_time" content="2018-09-25T21:40:07.013Z">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/09/25/Multi-modal%20Sentence%20Summarization%20with%20Modality%20Attention%20and%20Image%20Filtering/2.png">
+<meta property="og:updated_time" content="2018-09-25T22:29:09.708Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Multi-modal Sentence Summarization with Modality Attention and Image Filtering》论文笔记">
 <meta name="twitter:description" content="宗成庆老师的这篇文章发表于ACL’18，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。原文：www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf 论文笔记摘要本文介绍了一种多模态句子摘要任务，输入为一张图片和一对句子，输出为摘要。作者称其为MMSS任务。任务的难点在于怎么将视觉信息输入">
@@ -169,7 +170,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">摘要</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模型结构"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">模型结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模型图"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">模型图</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#句子Encoder"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">句子Encoder</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#图片Encoder"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">图片Encoder</span></a></li></ol></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -207,7 +208,18 @@
                 </div>
                 <div class="image-caption"></div>
             </figure>
-
+<p>图片展示了多模态模型的实际效果要好于文本模型。</p>
+<h2 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h2><p>模型可见由句子编码器，图片编码器，摘要解码器和图片过滤器四个部分组成。</p>
+<h3 id="模型图"><a href="#模型图" class="headerlink" title="模型图"></a>模型图</h3><p>模型简图如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="句子Encoder"><a href="#句子Encoder" class="headerlink" title="句子Encoder"></a>句子Encoder</h3><p>模型的句子Encoder使用了Bi-GRU。<br>[\overrightarrow(h)_i =  GRU(E[x_i], \overrightarrow(h)_{i-1})]<br>[\overleftarrow(h)_i =  GRU(E[x_i], \overleftarrow(h)_{i-1})]</p>
+<h3 id="图片Encoder"><a href="#图片Encoder" class="headerlink" title="图片Encoder"></a>图片Encoder</h3>
         </div>
 
         <blockquote class="post-copyright">
@@ -215,12 +227,12 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-25T21:40:07.013Z" itemprop="dateUpdated">2018-09-25 15:40:07</time>
+    最后更新时间：<time datetime="2018-09-25T22:29:09.708Z" itemprop="dateUpdated">2018-09-25 16:29:09</time>
 </span><br>
 
 
         
-        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/09/25/Multi-modal Sentence Summarization with Modality Attention and Image Filtering/" target="_blank" rel="external">http://ldzhangyx.github.io/2018/09/25/Multi-modal Sentence Summarization with Modality Attention and Image Filtering/</a>
+        原文地址：<a href="/2018/09/25/Multi-modal Sentence Summarization with Modality Attention and Image Filtering/" target="_blank" rel="external">http://ldzhangyx.github.io/2018/09/25/Multi-modal Sentence Summarization with Modality Attention and Image Filtering/</a>
         
     </div>
     
@@ -483,6 +495,27 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 <script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
 
 
 
