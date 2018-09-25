@@ -202,11 +202,23 @@
 <p>介绍主要是讲了文本摘要的历史，以及多模态方法最早应用在翻译领域，表现特别好，但是作者认为在摘要上表现得应该更好。</p>
 <p>在解决MMSS任务的时候，作者准备使用分层注意力机制，底层分别关注图片和文本的内部，而上层对两个模态进行平衡。因为图片不能表现很多抽象内容，所以图片特征需要过滤去噪；为了解决生成句子结巴的问题，使用了coverage方法。</p>
 <p>顺便他们做了一个数据集，真是让人肝疼的工作量。</p>
-<p><img src="1.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>图片展示了多模态模型的实际效果要好于文本模型。</p>
 <h2 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h2><p>模型可见由句子编码器，图片编码器，摘要解码器和图片过滤器四个部分组成。</p>
 <h3 id="模型图"><a href="#模型图" class="headerlink" title="模型图"></a>模型图</h3><p>模型简图如下：</p>
-<p><img src="2.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="句子Encoder"><a href="#句子Encoder" class="headerlink" title="句子Encoder"></a>句子Encoder</h3><p>模型的句子Encoder使用了Bi-GRU。</p>
 <script type="math/tex; mode=display">a=b</script><script type="math/tex; mode=display">\overrightarrow(h)\_i =  GRU(E[x\_i], \overrightarrow(h)\_{i-1})</script><script type="math/tex; mode=display">\overleftarrow(h)_i =  GRU(E[x_i], \overleftarrow(h)_{i-1})</script><h3 id="图片Encoder"><a href="#图片Encoder" class="headerlink" title="图片Encoder"></a>图片Encoder</h3>
         </div>
