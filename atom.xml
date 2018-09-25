@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2018-09-25T21:12:42.243Z</updated>
+  <updated>2018-09-25T21:40:07.013Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://ldzhangyx.github.io/2018/09/25/Multi-modal%20Sentence%20Summarization%20with%20Modality%20Attention%20and%20Image%20Filtering/"/>
     <id>http://ldzhangyx.github.io/2018/09/25/Multi-modal Sentence Summarization with Modality Attention and Image Filtering/</id>
     <published>2018-09-25T20:07:31.000Z</published>
-    <updated>2018-09-25T21:12:42.243Z</updated>
+    <updated>2018-09-25T21:40:07.013Z</updated>
     
     <content type="html"><![CDATA[<p>宗成庆老师的这篇文章发表于<a href="https://acl2018.org/programme/papers/" target="_blank" rel="noopener">ACL’18</a>，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。<br>原文：<a href="http://www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf" target="_blank" rel="noopener">www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf</a></p><h1 id="论文笔记"><a href="#论文笔记" class="headerlink" title="论文笔记"></a>论文笔记</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>本文介绍了一种多模态句子摘要任务，输入为一张图片和一对句子，输出为摘要。作者称其为MMSS任务。任务的难点在于怎么将视觉信息输入到框架里，以及怎么减小噪音。针对这两个问题，作者分别提出了两个方法：同时施加不同的注意力到文本和图片上；使用图像过滤Image Filter来降噪。</p><p>介绍主要是讲了文本摘要的历史，以及多模态方法最早应用在翻译领域，表现特别好，但是作者认为在摘要上表现得应该更好。</p><p>在解决MMSS任务的时候，作者准备使用分层注意力机制，底层分别关注图片和文本的内部，而上层对两个模态进行平衡。因为图片不能表现很多抽象内容，所以图片特征需要过滤去噪；为了解决生成句子结巴的问题，使用了coverage方法。</p><p>顺便他们做了一个数据集，真是让人肝疼的工作量。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure>]]></content>
     
