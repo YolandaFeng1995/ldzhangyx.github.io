@@ -21,20 +21,20 @@
     
     
     <meta name="keywords" content="论文笔记,多模态,生成式摘要,自然语言处理">
-    <meta name="description" content="宗成庆老师的这篇文章发表于ACL’18，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。原文：www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf 论文笔记摘要本文介绍了一种多模态句子摘要任务，输入为一张图片和一对句子，输出为摘要。作者称其为MMSS任务。任务的难点在于怎么将视觉信息输入">
+    <meta name="description" content="宗成庆老师的这篇文章发表于ACL’18，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。原文：www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf">
 <meta name="keywords" content="论文笔记,多模态,生成式摘要,自然语言处理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《Multi-modal Sentence Summarization with Modality Attention and Image Filtering》论文笔记">
 <meta property="og:url" content="http://ldzhangyx.github.io/2018/09/25/Multi-modal Sentence Summarization with Modality Attention and Image Filtering/index.html">
 <meta property="og:site_name" content="Yixiao Zhang&#39;s Website">
-<meta property="og:description" content="宗成庆老师的这篇文章发表于ACL’18，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。原文：www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf 论文笔记摘要本文介绍了一种多模态句子摘要任务，输入为一张图片和一对句子，输出为摘要。作者称其为MMSS任务。任务的难点在于怎么将视觉信息输入">
+<meta property="og:description" content="宗成庆老师的这篇文章发表于ACL’18，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。原文：www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/25/Multi-modal%20Sentence%20Summarization%20with%20Modality%20Attention%20and%20Image%20Filtering/1.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/25/Multi-modal%20Sentence%20Summarization%20with%20Modality%20Attention%20and%20Image%20Filtering/2.png">
-<meta property="og:updated_time" content="2018-09-25T22:41:47.489Z">
+<meta property="og:updated_time" content="2018-09-25T22:51:19.603Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Multi-modal Sentence Summarization with Modality Attention and Image Filtering》论文笔记">
-<meta name="twitter:description" content="宗成庆老师的这篇文章发表于ACL’18，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。原文：www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf 论文笔记摘要本文介绍了一种多模态句子摘要任务，输入为一张图片和一对句子，输出为摘要。作者称其为MMSS任务。任务的难点在于怎么将视觉信息输入">
+<meta name="twitter:description" content="宗成庆老师的这篇文章发表于ACL’18，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。原文：www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf">
 <meta name="twitter:image" content="http://ldzhangyx.github.io/2018/09/25/Multi-modal%20Sentence%20Summarization%20with%20Modality%20Attention%20and%20Image%20Filtering/1.png">
     
         <link rel="alternate" type="application/atom+xml" title="Yixiao Zhang&#39;s Website" href="/atom.xml">
@@ -196,7 +196,8 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>宗成庆老师的这篇文章发表于<a href="https://acl2018.org/programme/papers/" target="_blank" rel="noopener">ACL’18</a>，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。<br>原文：<a href="http://www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf" target="_blank" rel="noopener">www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf</a></p>
+            <p>宗成庆老师的这篇文章发表于<a href="https://acl2018.org/programme/papers/" target="_blank" rel="noopener">ACL’18</a>，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。<br>原文：www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf</p>
+<a id="more"></a>
 <h1 id="论文笔记"><a href="#论文笔记" class="headerlink" title="论文笔记"></a>论文笔记</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>本文介绍了一种多模态句子摘要任务，输入为一张图片和一对句子，输出为摘要。作者称其为MMSS任务。任务的难点在于怎么将视觉信息输入到框架里，以及怎么减小噪音。针对这两个问题，作者分别提出了两个方法：同时施加不同的注意力到文本和图片上；使用图像过滤Image Filter来降噪。</p>
 <p>介绍主要是讲了文本摘要的历史，以及多模态方法最早应用在翻译领域，表现特别好，但是作者认为在摘要上表现得应该更好。</p>
 <p>在解决MMSS任务的时候，作者准备使用分层注意力机制，底层分别关注图片和文本的内部，而上层对两个模态进行平衡。因为图片不能表现很多抽象内容，所以图片特征需要过滤去噪；为了解决生成句子结巴的问题，使用了coverage方法。</p>
@@ -218,9 +219,8 @@
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h3 id="句子Encoder"><a href="#句子Encoder" class="headerlink" title="句子Encoder"></a>句子Encoder</h3><p>模型的句子Encoder使用了Bi-GRU。<br>$$a=b$$<br>&lt;!–$$\overrightarrow(h)_i =  GRU(E[x_i], \overrightarrow(h)_{i-1})$$</p>
-<p>$$\overleftarrow(h)_i =  GRU(E[x_i], \overleftarrow(h)_{i-1})$$–&gt;</p>
-<h3 id="图片Encoder"><a href="#图片Encoder" class="headerlink" title="图片Encoder"></a>图片Encoder</h3>
+<h3 id="句子Encoder"><a href="#句子Encoder" class="headerlink" title="句子Encoder"></a>句子Encoder</h3><p>模型的句子Encoder使用了Bi-GRU。</p>
+<script type="math/tex; mode=display">a=b</script><script type="math/tex; mode=display">\overrightarrow(h)\_i =  GRU(E[x\_i], \overrightarrow(h)\_{i-1})</script><script type="math/tex; mode=display">\overleftarrow(h)_i =  GRU(E[x_i], \overleftarrow(h)_{i-1})</script><h3 id="图片Encoder"><a href="#图片Encoder" class="headerlink" title="图片Encoder"></a>图片Encoder</h3>
         </div>
 
         <blockquote class="post-copyright">
@@ -228,7 +228,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-25T22:41:47.489Z" itemprop="dateUpdated">2018-09-25 16:41:47</time>
+    最后更新时间：<time datetime="2018-09-25T22:51:19.603Z" itemprop="dateUpdated">2018-09-25 16:51:19</time>
 </span><br>
 
 
@@ -274,7 +274,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/09/25/Multi-modal Sentence Summarization with Modality Attention and Image Filtering/&title=《《Multi-modal Sentence Summarization with Modality Attention and Image Filtering》论文笔记》 — Yixiao Zhang's Website&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/09/25/Multi-modal Sentence Summarization with Modality Attention and Image Filtering/&title=《《Multi-modal Sentence Summarization with Modality Attention and Image Filtering》论文笔记》 — Yixiao Zhang's Website&source=宗成庆老师的这篇文章发表于ACL’18，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。原文：www.nlpr.ia.a..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -434,7 +434,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/09/25/Multi-modal Sentence Summarization with Modality Attention and Image Filtering/&title=《《Multi-modal Sentence Summarization with Modality Attention and Image Filtering》论文笔记》 — Yixiao Zhang's Website&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/09/25/Multi-modal Sentence Summarization with Modality Attention and Image Filtering/&title=《《Multi-modal Sentence Summarization with Modality Attention and Image Filtering》论文笔记》 — Yixiao Zhang's Website&source=宗成庆老师的这篇文章发表于ACL’18，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。原文：www.nlpr.ia.a..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
