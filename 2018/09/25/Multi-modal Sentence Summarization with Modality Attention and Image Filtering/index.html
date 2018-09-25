@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/25/Multi-modal%20Sentence%20Summarization%20with%20Modality%20Attention%20and%20Image%20Filtering/1.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/25/Multi-modal%20Sentence%20Summarization%20with%20Modality%20Attention%20and%20Image%20Filtering/2.png">
-<meta property="og:updated_time" content="2018-09-25T23:00:22.572Z">
+<meta property="og:updated_time" content="2018-09-25T23:41:15.726Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Multi-modal Sentence Summarization with Modality Attention and Image Filtering》论文笔记">
 <meta name="twitter:description" content="宗成庆老师的这篇文章发表于ACL’18，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。原文：www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf">
@@ -170,7 +170,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模型结构"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">模型结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模型图"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">模型图</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#句子Encoder"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">句子Encoder</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#图片Encoder"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">图片Encoder</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模型结构"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">模型结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模型图"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">模型图</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#句子Encoder"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">句子Encoder</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#图片Encoder"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">图片Encoder</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#摘要Decoder"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">摘要Decoder</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Hierarchical-Attention"><span class="post-toc-number">1.2.5.</span> <span class="post-toc-text">Hierarchical Attention</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Coverage-Model-覆盖率模型"><span class="post-toc-number">1.2.6.</span> <span class="post-toc-text">Coverage Model(覆盖率模型)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Image-Filter"><span class="post-toc-number">1.2.7.</span> <span class="post-toc-text">Image Filter</span></a></li></ol></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -220,7 +220,16 @@
                 <div class="image-caption"></div>
             </figure>
 <h3 id="句子Encoder"><a href="#句子Encoder" class="headerlink" title="句子Encoder"></a>句子Encoder</h3><p>模型的句子Encoder使用了Bi-GRU。</p>
-<script type="math/tex; mode=display">a=b</script><script type="math/tex; mode=display">\overrightarrow(h)\_i =  GRU(E[x\_i], \overrightarrow(h)\_{i-1})</script><script type="math/tex; mode=display">\overleftarrow(h)_i =  GRU(E[x_i], \overleftarrow(h)_{i-1})</script><h3 id="图片Encoder"><a href="#图片Encoder" class="headerlink" title="图片Encoder"></a>图片Encoder</h3>
+<script type="math/tex; mode=display">a=b</script><script type="math/tex; mode=display">\overrightarrow(h)\_i =  GRU(E[x\_i], \overrightarrow(h)\_{i-1})</script><script type="math/tex; mode=display">\overleftarrow(h)_i =  GRU(E[x_i], \overleftarrow(h)_{i-1})</script><h3 id="图片Encoder"><a href="#图片Encoder" class="headerlink" title="图片Encoder"></a>图片Encoder</h3><p>图片Encoder使用了VGG19，抽取了两种特征：7x7x512的局部特征（flatten之后成为了49x512），和4096维的全局特征。其中局部特征表示为：</p>
+<h3 id="摘要Decoder"><a href="#摘要Decoder" class="headerlink" title="摘要Decoder"></a>摘要Decoder</h3><p>Decoder使用了单向GRU：</p>
+<p>其中，初始状态$s_0$，作者提出了几种初始化策略：</p>
+<p>其中，q为全局特征，a为各个局部特征，如上文所说。</p>
+<h3 id="Hierarchical-Attention"><a href="#Hierarchical-Attention" class="headerlink" title="Hierarchical Attention"></a>Hierarchical Attention</h3><p>在Decoder使用的context向量$c_t$，使用一个顶层的Attention，对图片context和文本context进行平衡统一：</p>
+<p>其中，</p>
+<p>对于文字的attention，使用普通的attention：</p>
+<p>而对于图片attention，作者将每个feature map作为输入，进行attention处理：</p>
+<h3 id="Coverage-Model-覆盖率模型"><a href="#Coverage-Model-覆盖率模型" class="headerlink" title="Coverage Model(覆盖率模型)"></a>Coverage Model(覆盖率模型)</h3><p>覆盖率模型可以参考《Get to the point》一文的论文笔记。</p>
+<h3 id="Image-Filter"><a href="#Image-Filter" class="headerlink" title="Image Filter"></a>Image Filter</h3>
         </div>
 
         <blockquote class="post-copyright">
@@ -228,7 +237,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-25T23:00:22.572Z" itemprop="dateUpdated">2018-09-25 17:00:22</time>
+    最后更新时间：<time datetime="2018-09-25T23:41:15.726Z" itemprop="dateUpdated">2018-09-25 17:41:15</time>
 </span><br>
 
 
@@ -544,5 +553,20 @@ MathJax.Hub.Queue(function() {
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
