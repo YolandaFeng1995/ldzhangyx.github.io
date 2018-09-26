@@ -25,24 +25,24 @@ ga('send', 'pageview');
     
     
     
-    <title>about | Yixiao Zhang&#39;s Website</title>
+    <title>Yixiao Zhang(张逸霄) | Yixiao Zhang&#39;s Website</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="">
-    <meta name="description" content="用户自定义页面功能演示">
+    <meta name="description" content="关于我">
 <meta property="og:type" content="website">
-<meta property="og:title" content="about">
+<meta property="og:title" content="Yixiao Zhang(张逸霄)">
 <meta property="og:url" content="http://ldzhangyx.github.io/about/index.html">
 <meta property="og:site_name" content="Yixiao Zhang&#39;s Website">
-<meta property="og:description" content="用户自定义页面功能演示">
+<meta property="og:description" content="关于我">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-23T08:58:09.689Z">
+<meta property="og:updated_time" content="2018-09-26T20:59:00.058Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="用户自定义页面功能演示">
+<meta name="twitter:title" content="Yixiao Zhang(张逸霄)">
+<meta name="twitter:description" content="关于我">
     
         <link rel="alternate" type="application/atom+xml" title="Yixiao Zhang&#39;s Website" href="/atom.xml">
     
@@ -130,7 +130,7 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">about</div>
+        <div class="flex-col header-title ellipsis">Yixiao Zhang(张逸霄)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -152,10 +152,10 @@ ga('send', 'pageview');
 <header class="content-header page-header">
 
     <div class="container fade-scale">
-        <h1 class="title">about</h1>
+        <h1 class="title">Yixiao Zhang(张逸霄)</h1>
         <h5 class="subtitle">
             
-                用户自定义页面功能演示
+                关于我
             
         </h5>
     </div>
@@ -169,19 +169,111 @@ ga('send', 'pageview');
 <div class="container body-wrap">
     <article class="page-article fade" itemprop="blogPage">
         <div class="post-content page-content" id="page-content" itemprop="pageContent">
-            <p>Hello?</p>
+            <h1 id="个人简介"><a href="#个人简介" class="headerlink" title="个人简介"></a>个人简介</h1><p>我是张逸霄，电子科技大学2015级本科生。目前我正在加拿大University of Lethbridge进行暑期研究。我的研究兴趣包含自然语言处理的各个方面：摘要、问答、语义、文本生成，还有一个特定的小领域：音乐生成。</p>
+<p>如果你想看到我的简历，我随后会将其放入此页面。</p>
+<h1 id="科研经历"><a href="#科研经历" class="headerlink" title="科研经历"></a>科研经历</h1><p>@card{<br>    @timeline{</p>
+<pre><code>    2018
+
+    @item{
+
+        7月，加入[Mitacs Globalink Program](http://www.mitacs.ca/en)，赴加拿大[University of Lethbridge](http://www.uleth.ca/)进行文本摘要相关领域的暑期研究。
+
+    }
+
+    2016
+
+    @item{
+
+        6月，加入电子科大智能学习科学与应用研究所，进行自然语言处理相关方向的学习。
+
+    }
+
+
+
+}
+</code></pre></div>
 
         </div>
 
         
 
         
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
 
 
         
 
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "vjXNi1yCMdQOFUwuQ8kmMcBC-gzGzoHsz",
+            appKey: "FntMqfzRaFO2Jm4fjUC9Mz4S",
+            avatar: "mm",
+            placeholder: "随便写点什么吧",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
     </article>
     
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        非常感谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
 
 </div>
 
@@ -224,7 +316,7 @@ ga('send', 'pageview');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/about/&title=《about》 — Yixiao Zhang's Website&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/about/&title=《Yixiao Zhang(张逸霄)》 — Yixiao Zhang's Website&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -234,7 +326,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/about/&title=《about》 — Yixiao Zhang's Website&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/about/&title=《Yixiao Zhang(张逸霄)》 — Yixiao Zhang's Website&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -244,7 +336,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《about》 — Yixiao Zhang's Website&url=http://ldzhangyx.github.io/about/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Yixiao Zhang(张逸霄)》 — Yixiao Zhang's Website&url=http://ldzhangyx.github.io/about/&via=http://ldzhangyx.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -268,7 +360,7 @@ ga('send', 'pageview');
 
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 
 
 </script>

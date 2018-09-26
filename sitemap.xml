@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ldzhangyx.github.io/about/index.html</loc>
+    
+    <lastmod>2018-09-26T20:59:00.058Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ldzhangyx.github.io/2018/09/26/xiaoice-band/</loc>
     
     <lastmod>2018-09-26T08:53:14.183Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://ldzhangyx.github.io/2018/09/25/Multi-modal%20Sentence%20Summarization%20with%20Modality%20Attention%20and%20Image%20Filtering/</loc>
     
     <lastmod>2018-09-26T07:07:45.350Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/about/index.html</loc>
-    
-    <lastmod>2018-09-23T08:58:09.689Z</lastmod>
     
   </url>
   
