@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/25/Multi-modal%20Sentence%20Summarization%20with%20Modality%20Attention%20and%20Image%20Filtering/1.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/25/Multi-modal%20Sentence%20Summarization%20with%20Modality%20Attention%20and%20Image%20Filtering/2.png">
-<meta property="og:updated_time" content="2018-09-26T00:12:38.346Z">
+<meta property="og:updated_time" content="2018-09-26T00:50:35.840Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Multi-modal Sentence Summarization with Modality Attention and Image Filtering》论文笔记">
 <meta name="twitter:description" content="宗成庆老师的这篇文章发表于ACL’18，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。原文：www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf">
@@ -40,7 +40,7 @@
         <link rel="alternate" type="application/atom+xml" title="Yixiao Zhang&#39;s Website" href="/atom.xml">
     
     <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
@@ -221,9 +221,14 @@
             </figure>
 <h3 id="句子Encoder"><a href="#句子Encoder" class="headerlink" title="句子Encoder"></a>句子Encoder</h3><p>模型的句子Encoder使用了Bi-GRU。</p>
 <script type="math/tex; mode=display">\overrightarrow{h}_i =  GRU(E[x_i], \overrightarrow{h}_{i-1})</script><script type="math/tex; mode=display">\overleftarrow{h}_i =  GRU(E[x_i], \overleftarrow{h}_{i-1})</script><h3 id="图片Encoder"><a href="#图片Encoder" class="headerlink" title="图片Encoder"></a>图片Encoder</h3><p>图片Encoder使用了VGG19，抽取了两种特征：7x7x512的局部特征（flatten之后成为了49x512），和4096维的全局特征。其中局部特征表示为：</p>
-<h3 id="摘要Decoder"><a href="#摘要Decoder" class="headerlink" title="摘要Decoder"></a>摘要Decoder</h3><p>Decoder使用了单向GRU：</p>
-<p>其中，初始状态$s_0$，作者提出了几种初始化策略：</p>
-<p>其中，q为全局特征，a为各个局部特征，如上文所说。</p>
+<script type="math/tex; mode=display">
+A = (a_1, ..., a_L), L=49 and \\
+a_l \in \mathbb{R}^512</script><h3 id="摘要Decoder"><a href="#摘要Decoder" class="headerlink" title="摘要Decoder"></a>摘要Decoder</h3><p>Decoder使用了单向GRU：</p>
+<script type="math/tex; mode=display">s_t = GRU(s_{t-1}, y_{t-1}, c_t)</script><p>其中，初始状态$s_0$，作者提出了几种初始化策略：</p>
+<script type="math/tex; mode=display">s_0 = tanh(\mathbf{W}_{h2}[\overrightarrow{h}_{n};\overleftarrow{h}_{1}]+ \mathbf{W}_{q}q)</script><p>利用了全局特征；</p>
+<script type="math/tex; mode=display">s_0 = tanh(\mathbf{W}_{h3}[\overrightarrow{h}_{n};\overleftarrow{h}_{1}]+ \mathbf{W}_{v}\frac{1}{L}\sum_{i=1}^{L}a_i)</script><p>与</p>
+<script type="math/tex; mode=display">s_0 = tanh(\mathbf{W}_{h3}[\overrightarrow{h}_{n};\overleftarrow{h}_{1}]+ \mathbf{W}_{v}\frac{1}{L}\sum_{i=1}^{L}a_ia_i)</script><p>利用了局部特征；</p>
+<p>其中，$q$为全局特征，$a$为各个局部特征，如上文所说。</p>
 <h3 id="Hierarchical-Attention"><a href="#Hierarchical-Attention" class="headerlink" title="Hierarchical Attention"></a>Hierarchical Attention</h3><p>在Decoder使用的context向量$c_t$，使用一个顶层的Attention，对图片context和文本context进行平衡统一：</p>
 <p>其中，</p>
 <p>对于文字的attention，使用普通的attention：</p>
@@ -237,7 +242,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-26T00:12:38.346Z" itemprop="dateUpdated">2018-09-25 18:12:38</time>
+    最后更新时间：<time datetime="2018-09-26T00:50:35.840Z" itemprop="dateUpdated">2018-09-25 18:50:35</time>
 </span><br>
 
 
@@ -482,7 +487,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 
 </script>
 
-<script src="/js/main.min.js?v=1.7.2"></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
 
 
 <div class="search-panel" id="search-panel">
@@ -502,7 +507,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 </li>
 </template>
 
-<script src="/js/search.min.js?v=1.7.2" async></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
 
