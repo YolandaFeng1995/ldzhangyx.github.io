@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2018-09-26T08:50:05.520Z</updated>
+  <updated>2018-09-26T08:53:14.183Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -21,11 +21,13 @@
     <link href="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/"/>
     <id>http://ldzhangyx.github.io/2018/09/26/xiaoice-band/</id>
     <published>2018-09-26T08:47:41.000Z</published>
-    <updated>2018-09-26T08:50:05.520Z</updated>
+    <updated>2018-09-26T08:53:14.183Z</updated>
     
     <summary type="html">
     
     </summary>
+    
+      <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
