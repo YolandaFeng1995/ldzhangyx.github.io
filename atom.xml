@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2018-09-26T22:52:51.434Z</updated>
+  <updated>2018-09-26T22:56:57.622Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://ldzhangyx.github.io/2018/09/26/attention-is-all-you-need/"/>
     <id>http://ldzhangyx.github.io/2018/09/26/attention-is-all-you-need/</id>
     <published>2018-09-26T22:50:53.000Z</published>
-    <updated>2018-09-26T22:52:51.434Z</updated>
+    <updated>2018-09-26T22:56:57.622Z</updated>
     
     <summary type="html">
     
@@ -41,18 +41,22 @@
     <link href="http://ldzhangyx.github.io/2018/09/26/deep-para-generation/"/>
     <id>http://ldzhangyx.github.io/2018/09/26/deep-para-generation/</id>
     <published>2018-09-26T22:44:14.000Z</published>
-    <updated>2018-09-26T22:49:25.135Z</updated>
+    <updated>2018-09-27T22:42:54.756Z</updated>
+    
+    <content type="html"><![CDATA[<p>这篇文章发表在2018年的AAAI上，继承了VAE在自然语言处理上的应用，将其应用于句子复述上，用于生成相似的句子；同时因为RNN可以作为语言模型使用，语句的语法正确性也有一定提升。<br>论文地址：<a href="https://arxiv.org/pdf/1709.05074.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1709.05074.pdf</a></p><a id="more"></a><h1 id="背景材料"><a href="#背景材料" class="headerlink" title="背景材料"></a>背景材料</h1><p>关于变分自编码器在NLP领域的相关介绍，可以看<a href="http://rsarxiv.github.io/2017/03/02/PaperWeekly%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%83%E6%9C%9F/" target="_blank" rel="noopener">这篇讨论</a>。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.jpg" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>关于文本生成的背景研究，可以看<a href="https://www.msra.cn/zh-cn/news/features/ruihua-song-20161226" target="_blank" rel="noopener">这篇文章</a>。</p><p>关于VAE的原理（流形学习）和工程实现，可以看<a href="https://blog.csdn.net/JackyTintin/article/details/53641885" target="_blank" rel="noopener">这篇博文</a>。这篇博文详细介绍了VAE的训练过程，Encoder部分（识别模型）和Decoder部分（生成模型）的结构和各个参数的含义。这篇文章同时也提及了reparemetriazation trick的原理。</p><h1 id="论文笔记"><a href="#论文笔记" class="headerlink" title="论文笔记"></a>论文笔记</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>复述生成是NLP一个重要的课题，本文的模型将VAE和LSTM结合起来生成复述。传统的VAE结合RNN时，生成的句子不符合复述的要求，所以我们将模型的Encoder和Decoder都将原始的句子作为condition进行干涉，这样就达到了复述的效果。这个模型简单、模块化，可以生成不同的多种复述。在量化评测里，本模型明显优于state-of-the-art模型；分析发现模型语法良好；在新数据集上进行了测试，提供了一个baseline。</p><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2>]]></content>
     
     <summary type="html">
+    
+      &lt;p&gt;这篇文章发表在2018年的AAAI上，继承了VAE在自然语言处理上的应用，将其应用于句子复述上，用于生成相似的句子；同时因为RNN可以作为语言模型使用，语句的语法正确性也有一定提升。&lt;br&gt;论文地址：&lt;a href=&quot;https://arxiv.org/pdf/1709.05074.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://arxiv.org/pdf/1709.05074.pdf&lt;/a&gt;&lt;/p&gt;
     
     </summary>
     
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="LSTM" scheme="http://ldzhangyx.github.io/tags/LSTM/"/>
+      <category term="循环神经网络" scheme="http://ldzhangyx.github.io/tags/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
     
-      <category term="VAE" scheme="http://ldzhangyx.github.io/tags/VAE/"/>
+      <category term="变分自编码器" scheme="http://ldzhangyx.github.io/tags/%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8/"/>
     
       <category term="自动问答" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E5%8A%A8%E9%97%AE%E7%AD%94/"/>
     

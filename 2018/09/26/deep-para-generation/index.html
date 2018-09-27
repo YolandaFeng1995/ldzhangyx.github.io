@@ -31,16 +31,21 @@ ga('send', 'pageview');
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="LSTM,VAE,自动问答,句子复述">
-    <meta name="keywords" content="LSTM,VAE,自动问答,句子复述">
+    <meta name="keywords" content="循环神经网络,变分自编码器,自动问答,句子复述">
+    <meta name="description" content="这篇文章发表在2018年的AAAI上，继承了VAE在自然语言处理上的应用，将其应用于句子复述上，用于生成相似的句子；同时因为RNN可以作为语言模型使用，语句的语法正确性也有一定提升。论文地址：https://arxiv.org/pdf/1709.05074.pdf">
+<meta name="keywords" content="循环神经网络,变分自编码器,自动问答,句子复述">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《A Deep Generative Framework for Paraphrase Generation》论文笔记">
 <meta property="og:url" content="http://ldzhangyx.github.io/2018/09/26/deep-para-generation/index.html">
 <meta property="og:site_name" content="Yixiao Zhang&#39;s Website">
+<meta property="og:description" content="这篇文章发表在2018年的AAAI上，继承了VAE在自然语言处理上的应用，将其应用于句子复述上，用于生成相似的句子；同时因为RNN可以作为语言模型使用，语句的语法正确性也有一定提升。论文地址：https://arxiv.org/pdf/1709.05074.pdf">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-26T22:49:25.135Z">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/deep-para-generation/1.jpg">
+<meta property="og:updated_time" content="2018-09-27T22:42:54.756Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《A Deep Generative Framework for Paraphrase Generation》论文笔记">
+<meta name="twitter:description" content="这篇文章发表在2018年的AAAI上，继承了VAE在自然语言处理上的应用，将其应用于句子复述上，用于生成相似的句子；同时因为RNN可以作为语言模型使用，语句的语法正确性也有一定提升。论文地址：https://arxiv.org/pdf/1709.05074.pdf">
+<meta name="twitter:image" content="http://ldzhangyx.github.io/2018/09/26/deep-para-generation/1.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="Yixiao Zhang&#39;s Website" href="/atom.xml">
     
@@ -172,6 +177,13 @@ ga('send', 'pageview');
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#背景材料"><span class="post-toc-number">1.</span> <span class="post-toc-text">背景材料</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">2.</span> <span class="post-toc-text">论文笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引入"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">引入</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
 
 <article id="post-deep-para-generation"
   class="post-article article-type-post fade" itemprop="blogPost">
@@ -194,7 +206,20 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            
+            <p>这篇文章发表在2018年的AAAI上，继承了VAE在自然语言处理上的应用，将其应用于句子复述上，用于生成相似的句子；同时因为RNN可以作为语言模型使用，语句的语法正确性也有一定提升。<br>论文地址：<a href="https://arxiv.org/pdf/1709.05074.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1709.05074.pdf</a></p>
+<a id="more"></a>
+<h1 id="背景材料"><a href="#背景材料" class="headerlink" title="背景材料"></a>背景材料</h1><p>关于变分自编码器在NLP领域的相关介绍，可以看<a href="http://rsarxiv.github.io/2017/03/02/PaperWeekly%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%83%E6%9C%9F/" target="_blank" rel="noopener">这篇讨论</a>。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>关于文本生成的背景研究，可以看<a href="https://www.msra.cn/zh-cn/news/features/ruihua-song-20161226" target="_blank" rel="noopener">这篇文章</a>。</p>
+<p>关于VAE的原理（流形学习）和工程实现，可以看<a href="https://blog.csdn.net/JackyTintin/article/details/53641885" target="_blank" rel="noopener">这篇博文</a>。这篇博文详细介绍了VAE的训练过程，Encoder部分（识别模型）和Decoder部分（生成模型）的结构和各个参数的含义。这篇文章同时也提及了reparemetriazation trick的原理。</p>
+<h1 id="论文笔记"><a href="#论文笔记" class="headerlink" title="论文笔记"></a>论文笔记</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>复述生成是NLP一个重要的课题，本文的模型将VAE和LSTM结合起来生成复述。传统的VAE结合RNN时，生成的句子不符合复述的要求，所以我们将模型的Encoder和Decoder都将原始的句子作为condition进行干涉，这样就达到了复述的效果。这个模型简单、模块化，可以生成不同的多种复述。在量化评测里，本模型明显优于state-of-the-art模型；分析发现模型语法良好；在新数据集上进行了测试，提供了一个baseline。</p>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2>
         </div>
 
         <blockquote class="post-copyright">
@@ -202,7 +227,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-26T22:49:25.135Z" itemprop="dateUpdated">2018-09-26 16:49:25</time>
+    最后更新时间：<time datetime="2018-09-27T22:42:54.756Z" itemprop="dateUpdated">2018-09-27 16:42:54</time>
 </span><br>
 
 
@@ -228,7 +253,7 @@ ga('send', 'pageview');
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LSTM/">LSTM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VAE/">VAE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/句子复述/">句子复述</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自动问答/">自动问答</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/变分自编码器/">变分自编码器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/句子复述/">句子复述</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/循环神经网络/">循环神经网络</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自动问答/">自动问答</a></li></ul>
 
 
             
@@ -248,7 +273,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/09/26/deep-para-generation/&title=《《A Deep Generative Framework for Paraphrase Generation》论文笔记》 — Yixiao Zhang's Website&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/09/26/deep-para-generation/&title=《《A Deep Generative Framework for Paraphrase Generation》论文笔记》 — Yixiao Zhang's Website&source=这篇文章发表在2018年的AAAI上，继承了VAE在自然语言处理上的应用，将其应用于句子复述上，用于生成相似的句子；同时因为RNN可以作为语言模型使用，语..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -428,7 +453,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/09/26/deep-para-generation/&title=《《A Deep Generative Framework for Paraphrase Generation》论文笔记》 — Yixiao Zhang's Website&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/09/26/deep-para-generation/&title=《《A Deep Generative Framework for Paraphrase Generation》论文笔记》 — Yixiao Zhang's Website&source=这篇文章发表在2018年的AAAI上，继承了VAE在自然语言处理上的应用，将其应用于句子复述上，用于生成相似的句子；同时因为RNN可以作为语言模型使用，语..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
