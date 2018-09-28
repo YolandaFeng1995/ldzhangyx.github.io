@@ -69,24 +69,24 @@
     <link href="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/"/>
     <id>http://ldzhangyx.github.io/2018/09/26/xiaoice-band/</id>
     <published>2018-09-26T08:47:41.000Z</published>
-    <updated>2018-09-26T22:50:26.848Z</updated>
+    <updated>2018-09-28T07:54:25.516Z</updated>
     
-    <content type="html"><![CDATA[<p>仍在施工中……</p><a id="more"></a>]]></content>
+    <content type="html"><![CDATA[<p>小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。<br>论文地址：<a href="http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music" target="_blank" rel="noopener">http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music</a></p><a id="more"></a><h1 id="论文笔记"><a href="#论文笔记" class="headerlink" title="论文笔记"></a>论文笔记</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>以前的模型在歌曲生成中有限制，因为歌曲对旋律和联系都有要求。除此之外，一些关系到歌曲质量的因子，例如和弦行进和节奏模式上做的不好。而且多轨音乐如何保证其和谐程度也是个未探索的问题。</p><p>本文提出了一个着力在流行音乐生成的端到端模型，“小冰乐队”，歌曲通过几种乐器进行演奏。对于旋律和和弦行进，本文设计了Chord based Rhythm and Melody CrossGeneration Model (CRMCG)架构；对于多轨音乐的组织，本文设计了Multi-Instrument Co-Arrangement Model (MICA)架构。</p><p>模型在一个真实世界数据集上做了拓展实验，证明了小冰乐队的有效性。</p><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>文章首先介绍了一下音乐生成的历史。2003年Conklin从真实音乐中采样生成音乐；之后N-gram和Markov模型也应用于生成上。这些方法需要手动选取特征。Magenta使用DRNN从MIDI中学习生成音乐，然而只是单轨。</p><p>现有的方法并没有很好的解决一些重要挑战。特别在这几个方向：</p><ul><li>和弦行进在流行音乐里通常是存在的，其指导了旋律的走向。如果能将和弦行进作为输入进行音乐生成，这是有好处的；流行音乐有几个固定的节奏模式（pattern），让歌曲更加结构化、暂停恰当。然而现有的逐个音符的生成模型无法考虑节奏模式，另一方面，这些模型尽管使用了和弦，但只是用单和弦作为输入的一个feature，而不考虑和弦的整体行进。</li></ul>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;仍在施工中……&lt;/p&gt;
+      &lt;p&gt;小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。&lt;br&gt;论文地址：&lt;a href=&quot;http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music&lt;/a&gt;&lt;/p&gt;
     
     </summary>
     
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
     
       <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
     
-      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
+      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -108,13 +108,13 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
+      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
       <category term="多模态" scheme="http://ldzhangyx.github.io/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/"/>
     
       <category term="生成式摘要" scheme="http://ldzhangyx.github.io/tags/%E7%94%9F%E6%88%90%E5%BC%8F%E6%91%98%E8%A6%81/"/>
-    
-      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
     
   </entry>
   

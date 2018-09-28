@@ -31,19 +31,19 @@ ga('send', 'pageview');
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="论文笔记,自然语言处理,音乐生成">
-    <meta name="description" content="仍在施工中……">
-<meta name="keywords" content="论文笔记,自然语言处理,音乐生成">
+    <meta name="keywords" content="音乐生成,自然语言处理,论文笔记">
+    <meta name="description" content="小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。论文地址：http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music">
+<meta name="keywords" content="音乐生成,自然语言处理,论文笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music》论文笔记">
 <meta property="og:url" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/index.html">
 <meta property="og:site_name" content="Yixiao Zhang&#39;s Website">
-<meta property="og:description" content="仍在施工中……">
+<meta property="og:description" content="小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。论文地址：http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-26T22:50:26.848Z">
+<meta property="og:updated_time" content="2018-09-28T07:54:25.516Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music》论文笔记">
-<meta name="twitter:description" content="仍在施工中……">
+<meta name="twitter:description" content="小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。论文地址：http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music">
     
         <link rel="alternate" type="application/atom+xml" title="Yixiao Zhang&#39;s Website" href="/atom.xml">
     
@@ -175,6 +175,13 @@ ga('send', 'pageview');
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Introduction</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
 
 <article id="post-xiaoice-band"
   class="post-article article-type-post fade" itemprop="blogPost">
@@ -197,8 +204,16 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>仍在施工中……</p>
+            <p>小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。<br>论文地址：<a href="http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music" target="_blank" rel="noopener">http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music</a></p>
 <a id="more"></a>
+<h1 id="论文笔记"><a href="#论文笔记" class="headerlink" title="论文笔记"></a>论文笔记</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>以前的模型在歌曲生成中有限制，因为歌曲对旋律和联系都有要求。除此之外，一些关系到歌曲质量的因子，例如和弦行进和节奏模式上做的不好。而且多轨音乐如何保证其和谐程度也是个未探索的问题。</p>
+<p>本文提出了一个着力在流行音乐生成的端到端模型，“小冰乐队”，歌曲通过几种乐器进行演奏。对于旋律和和弦行进，本文设计了Chord based Rhythm and Melody CrossGeneration Model (CRMCG)架构；对于多轨音乐的组织，本文设计了Multi-Instrument Co-Arrangement Model (MICA)架构。</p>
+<p>模型在一个真实世界数据集上做了拓展实验，证明了小冰乐队的有效性。</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>文章首先介绍了一下音乐生成的历史。2003年Conklin从真实音乐中采样生成音乐；之后N-gram和Markov模型也应用于生成上。这些方法需要手动选取特征。Magenta使用DRNN从MIDI中学习生成音乐，然而只是单轨。</p>
+<p>现有的方法并没有很好的解决一些重要挑战。特别在这几个方向：</p>
+<ul>
+<li>和弦行进在流行音乐里通常是存在的，其指导了旋律的走向。如果能将和弦行进作为输入进行音乐生成，这是有好处的；流行音乐有几个固定的节奏模式（pattern），让歌曲更加结构化、暂停恰当。然而现有的逐个音符的生成模型无法考虑节奏模式，另一方面，这些模型尽管使用了和弦，但只是用单和弦作为输入的一个feature，而不考虑和弦的整体行进。</li>
+</ul>
 
         </div>
 
@@ -207,7 +222,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-26T22:50:26.848Z" itemprop="dateUpdated">2018-09-26 16:50:26</time>
+    最后更新时间：<time datetime="2018-09-28T07:54:25.516Z" itemprop="dateUpdated">2018-09-28 01:54:25</time>
 </span><br>
 
 
@@ -253,7 +268,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/09/26/xiaoice-band/&title=《《XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music》论文笔记》 — Yixiao Zhang's Website&source=仍在施工中……" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/09/26/xiaoice-band/&title=《《XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music》论文笔记》 — Yixiao Zhang's Website&source=小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。论文地址..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -433,7 +448,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/09/26/xiaoice-band/&title=《《XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music》论文笔记》 — Yixiao Zhang's Website&source=仍在施工中……" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/09/26/xiaoice-band/&title=《《XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music》论文笔记》 — Yixiao Zhang's Website&source=小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。论文地址..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
