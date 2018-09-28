@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2018-09-26T22:56:57.622Z</updated>
+  <updated>2018-09-28T02:08:08.041Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,26 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>《Attention is All You Need》论文笔记</title>
-    <link href="http://ldzhangyx.github.io/2018/09/26/attention-is-all-you-need/"/>
-    <id>http://ldzhangyx.github.io/2018/09/26/attention-is-all-you-need/</id>
-    <published>2018-09-26T22:50:53.000Z</published>
-    <updated>2018-09-26T22:56:57.622Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="attention" scheme="http://ldzhangyx.github.io/tags/attention/"/>
-    
-      <category term="机器翻译" scheme="http://ldzhangyx.github.io/tags/%E6%9C%BA%E5%99%A8%E7%BF%BB%E8%AF%91/"/>
-    
-  </entry>
   
   <entry>
     <title>《A Deep Generative Framework for Paraphrase Generation》论文笔记</title>
@@ -82,11 +62,11 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
+      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
       <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
     
-      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
     
   </entry>
   
@@ -108,13 +88,13 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
       <category term="多模态" scheme="http://ldzhangyx.github.io/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/"/>
     
       <category term="生成式摘要" scheme="http://ldzhangyx.github.io/tags/%E7%94%9F%E6%88%90%E5%BC%8F%E6%91%98%E8%A6%81/"/>
+    
+      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
