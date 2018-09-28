@@ -47,7 +47,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/deep-para-generation/5.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/deep-para-generation/6.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/deep-para-generation/7.png">
-<meta property="og:updated_time" content="2018-09-28T02:05:49.199Z">
+<meta property="og:updated_time" content="2018-09-28T02:08:08.041Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《A Deep Generative Framework for Paraphrase Generation》论文笔记">
 <meta name="twitter:description" content="这篇文章发表在2018年的AAAI上，继承了VAE在自然语言处理上的应用，将其应用于句子复述上，用于生成相似的句子；同时因为RNN可以作为语言模型使用，语句的语法正确性也有一定提升。论文地址：https://arxiv.org/pdf/1709.05074.pdf">
@@ -233,7 +233,7 @@ ga('send', 'pageview');
 <script type="math/tex; mode=display">L(\theta, \varPhi; x^{(i)})) = -KL(q_\varPhi(z|x^{(i)})||p_\theta(z)) + E_{q_\varPhi(z|x)}[\log p_\theta(x^{(i)}|z)]</script><p>优化目标变为后面两项。</p>
 <p>具体的推导可以参考<a href="https://arxiv.org/pdf/1606.05908.pdf" target="_blank" rel="noopener">这个教程</a>。</p>
 <p>更多地，在建模文字数据的时候，也可以使用KL-term annealing以及dropout of inputs of the decoder等训练技巧，避免一些问题。</p>
-<h3 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h3><p>我们的训练集使用了N对句子，表示为${\mathbf{s}<em>n^{(o), \mathbf{s}_n^{(p)}}^N</em>{n=1}$，其中原始句子用$o$标注，复述句子用$p$标注。句子的向量表示标记为$x^{(o)}$与$x^{(p)}，</p>
+<h3 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h3><p>我们的训练集使用了N对句子，表示为${\mathbf{s}_n^{(o), \mathbf{s}_n^{(p)}}^N_{n=1}$，其中原始句子用$o$标注，复述句子用$p$标注。句子的向量表示标记为$x^{(o)}$与$x^{(p)}$，</p>
 <p>去掉LSTM后，本文的宏观模型如图所示：</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -307,7 +307,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-28T02:05:49.199Z" itemprop="dateUpdated">2018-09-27 20:05:49</time>
+    最后更新时间：<time datetime="2018-09-28T02:08:08.041Z" itemprop="dateUpdated">2018-09-27 20:08:08</time>
 </span><br>
 
 
