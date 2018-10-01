@@ -161,19 +161,23 @@ ga('send', 'pageview');
             ">全部</a>
         
 
-            <a href="/tags/论文笔记/" style="-webkit-order:5;order:5" class="tags-list-item waves-effect waves-button waves-light">论文笔记</a>
+            <a href="/tags/论文笔记/" style="-webkit-order:4;order:4" class="tags-list-item waves-effect waves-button waves-light">论文笔记</a>
 
         
 
-            <a href="/tags/多模态/" style="-webkit-order:6;order:6" class="tags-list-item waves-effect waves-button waves-light">多模态</a>
+            <a href="/tags/多模态/" style="-webkit-order:5;order:5" class="tags-list-item waves-effect waves-button waves-light">多模态</a>
 
         
 
-            <a href="/tags/生成式摘要/" style="-webkit-order:7;order:7" class="tags-list-item waves-effect waves-button waves-light">生成式摘要</a>
+            <a href="/tags/生成式摘要/" style="-webkit-order:6;order:6" class="tags-list-item waves-effect waves-button waves-light">生成式摘要</a>
 
         
 
-            <a href="/tags/自然语言处理/" style="-webkit-order:8;order:8" class="tags-list-item waves-effect waves-button waves-light">自然语言处理</a>
+            <a href="/tags/自然语言处理/" style="-webkit-order:7;order:7" class="tags-list-item waves-effect waves-button waves-light">自然语言处理</a>
+
+        
+
+            <a href="/tags/音乐生成/" style="-webkit-order:8;order:8" class="tags-list-item waves-effect waves-button waves-light">音乐生成</a>
 
         
 
@@ -190,10 +194,6 @@ ga('send', 'pageview');
         
 
             <a href="/tags/句子复述/" style="-webkit-order:3;order:3" class="tags-list-item waves-effect waves-button waves-light">句子复述</a>
-
-        
-
-            <a href="/tags/音乐生成/" style="-webkit-order:4;order:4" class="tags-list-item waves-effect waves-button waves-light">音乐生成</a>
 
         
     </nav>
@@ -410,5 +410,20 @@ MathJax.Hub.Queue(function() {
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

@@ -42,7 +42,8 @@ ga('send', 'pageview');
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/1.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/2.png">
-<meta property="og:updated_time" content="2018-09-28T08:53:00.425Z">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/3.png">
+<meta property="og:updated_time" content="2018-10-01T09:57:37.197Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music》论文笔记">
 <meta name="twitter:description" content="小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。论文地址：http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music">
@@ -181,7 +182,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Introduction</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Ralated-Work"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Ralated Work</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#音乐生成"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">音乐生成</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多任务学习"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">多任务学习</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#背景知识-名词定义"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">背景知识/名词定义</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#和弦的行进"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">和弦的行进</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节奏模式"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">节奏模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#乐器特点"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">乐器特点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题陈述-amp-模型结构"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">问题陈述 &amp; 模型结构</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Introduction</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Ralated-Work"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Ralated Work</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#音乐生成"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">音乐生成</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多任务学习"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">多任务学习</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#背景知识-名词定义"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">背景知识/名词定义</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#和弦的行进"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">和弦的行进</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节奏模式"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">节奏模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#乐器特点"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">乐器特点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题陈述-amp-模型结构"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">问题陈述 &amp; 模型结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题陈述"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">问题陈述</span></a></li></ol></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -256,7 +257,26 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure>
 <h3 id="乐器特点"><a href="#乐器特点" class="headerlink" title="乐器特点"></a>乐器特点</h3><p>很多流行歌是多轨的，而钢琴一般负责主旋律，其他乐器负责伴奏。</p>
-<h2 id="问题陈述-amp-模型结构"><a href="#问题陈述-amp-模型结构" class="headerlink" title="问题陈述 &amp; 模型结构"></a>问题陈述 &amp; 模型结构</h2>
+<h2 id="问题陈述-amp-模型结构"><a href="#问题陈述-amp-模型结构" class="headerlink" title="问题陈述 &amp; 模型结构"></a>问题陈述 &amp; 模型结构</h2><h3 id="问题陈述"><a href="#问题陈述" class="headerlink" title="问题陈述"></a>问题陈述</h3><p>在音乐生成的任务上，给定输入为和弦进行式</p>
+<script type="math/tex; mode=display">C = \{c_1, C_2, ..., c_{l_c}\}</script><p>其中$c_i$为和弦的one-hot编码，$l_c$是序列长度。</p>
+<p>要生成的节奏</p>
+<script type="math/tex; mode=display">R_i = \{r_{i1}, r_{i2}, ..., r_{il_r}\}</script><p>和旋律</p>
+<script type="math/tex; mode=display">M_i = \{r_{i1}, r_{i2}, ..., r_{il_m}\}</script><p>。</p>
+<p>框架分为四个部分（如图）：</p>
+<ol>
+<li>数据处理</li>
+<li>CRMCG单音轨旋律生成</li>
+<li>MICA多音轨组织生成</li>
+<li>展示</li>
+</ol>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -264,7 +284,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-28T08:53:00.425Z" itemprop="dateUpdated">2018-09-28 02:53:00</time>
+    最后更新时间：<time datetime="2018-10-01T09:57:37.197Z" itemprop="dateUpdated">2018-10-01 03:57:37</time>
 </span><br>
 
 
@@ -600,5 +620,20 @@ MathJax.Hub.Queue(function() {
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
