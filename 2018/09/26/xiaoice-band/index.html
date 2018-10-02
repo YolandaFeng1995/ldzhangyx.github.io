@@ -31,9 +31,9 @@ ga('send', 'pageview');
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="论文笔记,自然语言处理,音乐生成">
+    <meta name="keywords" content="音乐生成,自然语言处理,论文笔记">
     <meta name="description" content="小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。论文地址：http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music">
-<meta name="keywords" content="论文笔记,自然语言处理,音乐生成">
+<meta name="keywords" content="音乐生成,自然语言处理,论文笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music》论文笔记">
 <meta property="og:url" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/index.html">
@@ -42,8 +42,11 @@ ga('send', 'pageview');
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/1.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/2.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/4.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/3.png">
-<meta property="og:updated_time" content="2018-10-01T09:57:37.197Z">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/5.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/7.png">
+<meta property="og:updated_time" content="2018-10-02T00:09:00.330Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music》论文笔记">
 <meta name="twitter:description" content="小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。论文地址：http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music">
@@ -182,7 +185,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Introduction</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Ralated-Work"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Ralated Work</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#音乐生成"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">音乐生成</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多任务学习"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">多任务学习</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#背景知识-名词定义"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">背景知识/名词定义</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#和弦的行进"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">和弦的行进</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节奏模式"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">节奏模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#乐器特点"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">乐器特点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题陈述-amp-模型结构"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">问题陈述 &amp; 模型结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题陈述"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">问题陈述</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Introduction</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Ralated-Work"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Ralated Work</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#音乐生成"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">音乐生成</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多任务学习"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">多任务学习</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#背景知识-名词定义"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">背景知识/名词定义</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#和弦的行进"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">和弦的行进</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节奏模式"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">节奏模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#乐器特点"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">乐器特点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题陈述-amp-模型结构"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">问题陈述 &amp; 模型结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题陈述"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">问题陈述</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CRMCG"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">CRMCG</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#节奏生成"><span class="post-toc-number">1.5.2.1.</span> <span class="post-toc-text">节奏生成</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#旋律生成"><span class="post-toc-number">1.5.2.2.</span> <span class="post-toc-text">旋律生成</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#损失函数"><span class="post-toc-number">1.5.2.3.</span> <span class="post-toc-text">损失函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MICA"><span class="post-toc-number">1.5.3.</span> <span class="post-toc-text">MICA</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MICA-1"><span class="post-toc-number">1.5.3.1.</span> <span class="post-toc-text">MICA</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Attention-Cell"><span class="post-toc-number">1.5.3.2.</span> <span class="post-toc-text">Attention Cell</span></a></li></ol></li></ol></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -257,8 +260,16 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure>
 <h3 id="乐器特点"><a href="#乐器特点" class="headerlink" title="乐器特点"></a>乐器特点</h3><p>很多流行歌是多轨的，而钢琴一般负责主旋律，其他乐器负责伴奏。</p>
-<h2 id="问题陈述-amp-模型结构"><a href="#问题陈述-amp-模型结构" class="headerlink" title="问题陈述 &amp; 模型结构"></a>问题陈述 &amp; 模型结构</h2><h3 id="问题陈述"><a href="#问题陈述" class="headerlink" title="问题陈述"></a>问题陈述</h3><p>在音乐生成的任务上，给定输入为和弦进行式</p>
-<script type="math/tex; mode=display">C = \{c_1, C_2, ..., c_{l_c}\}</script><p>其中$c_i$为和弦的one-hot编码，$l_c$是序列长度。</p>
+<h2 id="问题陈述-amp-模型结构"><a href="#问题陈述-amp-模型结构" class="headerlink" title="问题陈述 &amp; 模型结构"></a>问题陈述 &amp; 模型结构</h2><p>表中为使用的数学符号含义。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="问题陈述"><a href="#问题陈述" class="headerlink" title="问题陈述"></a>问题陈述</h3><p>在音乐生成的任务上，给定输入为和弦进行式</p>
+<script type="math/tex; mode=display">C = \{c_1, c_2, ..., c_{l_c}\}</script><p>其中$c_i$为和弦的one-hot编码，$l_c$是序列长度。</p>
 <p>要生成的节奏</p>
 <script type="math/tex; mode=display">R_i = \{r_{i1}, r_{i2}, ..., r_{il_r}\}</script><p>和旋律</p>
 <script type="math/tex; mode=display">M_i = \{r_{i1}, r_{i2}, ..., r_{il_m}\}</script><p>。</p>
@@ -276,6 +287,36 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
+<h3 id="CRMCG"><a href="#CRMCG" class="headerlink" title="CRMCG"></a>CRMCG</h3><p>CRMCG的模型框架如图所示：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>图中我用Surface Pen做了一些不影响阅读的标记。</p>
+<p>给定一个长度为N的和弦行进，我们要生成的当然是N个音乐片段。我们将这N个音乐片段标记为${p_1, p_2, …, p_N}$，每一个片段里（假设片段$i$），有着节奏$R_i$和旋律$M_i$。</p>
+<p>和弦的one-hot编码需要降维。通过一个Embedding矩阵输出和弦的低维表示：</p>
+<script type="math/tex; mode=display">\overline{C} = E_cC, E_c \in \mathbb{R}^{V_c * d}</script><p>然后使用一个GRU来处理和弦。然后使用这些hidden states来帮助生成节奏和旋律。</p>
+<script type="math/tex; mode=display">\overline{h}^c_{i,0} = GRU(\overline{c}_i), i= 1,2,...,l_c</script><h4 id="节奏生成"><a href="#节奏生成" class="headerlink" title="节奏生成"></a>节奏生成</h4><p>生成的节奏需要与音乐已经存在的部分保持和谐。所以，要把之前的音乐部分考虑进去。</p>
+<p>首先我们将之前生成的节奏Embedding回来：</p>
+<script type="math/tex; mode=display">\overline{R}_{t-1} = E_rR_{t-1}, E_r \in \mathbb{R}^{V_r * d}</script><script type="math/tex; mode=display">\overline{M}_{t-1} = E_mM_{t-1}, E_m \in \mathbb{R}^{V_m * d}</script><p>其中$V_m$与$V_r$是音符和鼓点的字典尺寸。然后输入GRU Encoder：</p>
+<script type="math/tex; mode=display">\overline{h}^m_{t-1,i} = GRU(\overline{m}_{t-1,i}), i= 1,2,...,l_m</script><script type="math/tex; mode=display">\overline{h}^r_{t-1,i} = GRU(\overline{r}_{t-1,i}), i= 1,2,...,l_r</script><p>将两个Encoder最后的hidden states进行concat拼接，然后线性变换作为Decoder的初始state，依次进行decode。</p>
+<script type="math/tex; mode=display">s^r_0 = g(W[\overline{h}^m_{t-1,l_m}, \overline{h}^r_{t-1,l_r}]+b), W \in \mathbb{R}^{b*b}</script><script type="math/tex; mode=display">s^r_i = GRU(u^r_{i-1}, s^r_{i-1}), i>0</script><script type="math/tex; mode=display">y^r_i = softmax(s^r_i)</script><h4 id="旋律生成"><a href="#旋律生成" class="headerlink" title="旋律生成"></a>旋律生成</h4><p>不同于节奏生成，旋律的生成要考虑到和弦的因素。与节奏部分类似地，将三个hidden state进行拼接，然后进行Decode。</p>
+<script type="math/tex; mode=display">s^m_0 = g(W[\overline{h}^m_{t-1,l_m}, \overline{h}^r_{t,l_r}, \overline{h}^c_t]+b), W \in \mathbb{R}^{b*b}</script><script type="math/tex; mode=display">s^m_i = GRU(u^m_{i-1}, s^m_{i-1}), i>0</script><script type="math/tex; mode=display">y^m_i = softmax(s^m_i)</script><h4 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h4><p>对于两个部分，分别设置一个损失函数，形式都为softmax cross-entropy函数。在节奏模块，只更新与节奏损失$L^r$有关的参数；在旋律模块，更新所有参数。</p>
+<h3 id="MICA"><a href="#MICA" class="headerlink" title="MICA"></a>MICA</h3><h4 id="MICA-1"><a href="#MICA-1" class="headerlink" title="MICA"></a>MICA</h4><p>设计了一个One-to-Many Sequence Generation任务（OSMG）。不同于常规的多序列学习，OSMG生成的序列有着紧密的联系。</p>
+<p>如同下图所示，Decoder的hidden state包含了序列信息。所以，在生成一个音轨中的音符的时候，自然地引入了其他音轨的hidden state。作者设计了两个合作的cell在decoder的隐层之间进行hidden states的整合。</p>
+<h4 id="Attention-Cell"><a href="#Attention-Cell" class="headerlink" title="Attention Cell"></a>Attention Cell</h4><p>作者设计了一个attention cell，捕获其它task的state供current states使用，结构如下图：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>attention机制如下列公式：</p>
+<p>$$ a^i<em>{t,k} = \sum^T</em>{j=1}\alpha<em>{t,ij}h^j</em>{t,k-1}, \<br>e<em>{t,ij} = v^T\tanh(Wh^i</em>{t,k-1}+Uh^j<em>{t,k-1}), W,U \in \mathbb{R}^{b*b}, \<br>\alpha</em>{t,ij} = \frac{exp(e<em>{t,ij})}{\sum^T</em>{s=1}exp(e_{t,is})}</p>
 
         </div>
 
@@ -284,7 +325,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-10-01T09:57:37.197Z" itemprop="dateUpdated">2018-10-01 03:57:37</time>
+    最后更新时间：<time datetime="2018-10-02T00:09:00.330Z" itemprop="dateUpdated">2018-10-01 18:09:00</time>
 </span><br>
 
 
