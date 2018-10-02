@@ -31,9 +31,9 @@ ga('send', 'pageview');
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="音乐生成,自然语言处理,论文笔记">
+    <meta name="keywords" content="论文笔记,自然语言处理,音乐生成">
     <meta name="description" content="小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。论文地址：http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music">
-<meta name="keywords" content="音乐生成,自然语言处理,论文笔记">
+<meta name="keywords" content="论文笔记,自然语言处理,音乐生成">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music》论文笔记">
 <meta property="og:url" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/index.html">
@@ -55,7 +55,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/14.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/15.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/16.png">
-<meta property="og:updated_time" content="2018-10-02T07:46:02.574Z">
+<meta property="og:updated_time" content="2018-10-02T07:47:29.997Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music》论文笔记">
 <meta name="twitter:description" content="小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。论文地址：http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music">
@@ -352,7 +352,7 @@ ga('send', 'pageview');
             </figure>
 <h4 id="损失函数-1"><a href="#损失函数-1" class="headerlink" title="损失函数"></a>损失函数</h4><p>受上述公式的启发，作者优化了以相同Encoder生成的表示为条件的几个条件概率项的总和。</p>
 <script type="math/tex; mode=display">L(\theta) = {argmax}_\theta(\sum_{T_k}(frac{1}{N_p}\sum^{N_p}_ilogp(Y_i^{T_k}|X_i^{T_k};\theta)))</script><p>其中$\theta = {\theta_{src}, \theta_{trgT_k},T_k = 1,2,…, T_m}$，$m$是任务的总数。$\theta_{src}$是源encoder的参数集，$\theta_{trgT_k}$是第$T_k$个目标音轨的参数集，$N_p$是第$p$个序列对，平行training corpus的大小。</p>
-<h4 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h4><p>假设已经有了旋律序列$M_i = {m_{i1}, m|<em>{i2), …,m\</em>{il_m}}$，下一个步骤是生成其他的乐器音轨，去配合这个旋律。使用GRU处理序列，得到Decoder的初始state：</p>
+<h4 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h4><p>假设已经有了旋律序列$M_i = {m_{i1}, m|_{i2), …,m_{il_m}}$，下一个步骤是生成其他的乐器音轨，去配合这个旋律。使用GRU处理序列，得到Decoder的初始state：</p>
 <script type="math/tex; mode=display">\overline{M} = E_mM, Em \in \mathbb{R}^{V_m * d}</script><script type="math/tex; mode=display">s^m_0 = GRU(\overline{m}_i, l_m)</script><p>多序列decoder的输出，与其他乐器音轨联系，所以考虑旋律和其他的伴奏音轨：</p>
 <script type="math/tex; mode=display">s^i_t = AttentionCell(y^i_{t-1}, s^i_{t-1}), t>0, or</script><script type="math/tex; mode=display">s^i_t = MLPCell(u^i_{t-1}, s^i_{t-1})， t>0</script><script type="math/tex; mode=display">y^i_t = softmax(s^i_t)</script><p>其中，$s^i_t$是第$i$个任务在第$t$个step的hidden state。作者使用softmax层，利用这个state得到第$i$个乐器的序列。Attention Cell和MLP Cell，用来得到合作的state，包含了本身的乐器state和其他乐器的state，保持所有乐器和谐。</p>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>作者在两个数据集上做了实验，包括旋律生成和组织生成。</p>
@@ -464,7 +464,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-10-02T07:46:02.574Z" itemprop="dateUpdated">2018-10-02 01:46:02</time>
+    最后更新时间：<time datetime="2018-10-02T07:47:29.997Z" itemprop="dateUpdated">2018-10-02 01:47:29</time>
 </span><br>
 
 
