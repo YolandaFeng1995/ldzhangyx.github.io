@@ -49,7 +49,10 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/8.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/9.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/10.png">
-<meta property="og:updated_time" content="2018-10-02T00:34:38.287Z">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/11.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/12.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/13.png">
+<meta property="og:updated_time" content="2018-10-02T00:59:42.892Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music》论文笔记">
 <meta name="twitter:description" content="小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。论文地址：http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music">
@@ -188,7 +191,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Introduction</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Ralated-Work"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Ralated Work</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#音乐生成"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">音乐生成</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多任务学习"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">多任务学习</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#背景知识-名词定义"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">背景知识/名词定义</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#和弦的行进"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">和弦的行进</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节奏模式"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">节奏模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#乐器特点"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">乐器特点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题陈述-amp-模型结构"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">问题陈述 &amp; 模型结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题陈述"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">问题陈述</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CRMCG"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">CRMCG</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#节奏生成"><span class="post-toc-number">1.5.2.1.</span> <span class="post-toc-text">节奏生成</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#旋律生成"><span class="post-toc-number">1.5.2.2.</span> <span class="post-toc-text">旋律生成</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#损失函数"><span class="post-toc-number">1.5.2.3.</span> <span class="post-toc-text">损失函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MICA"><span class="post-toc-number">1.5.3.</span> <span class="post-toc-text">MICA</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MICA-1"><span class="post-toc-number">1.5.3.1.</span> <span class="post-toc-text">MICA</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Attention-Cell"><span class="post-toc-number">1.5.3.2.</span> <span class="post-toc-text">Attention Cell</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MLP-Cell"><span class="post-toc-number">1.5.3.3.</span> <span class="post-toc-text">MLP Cell</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#损失函数-1"><span class="post-toc-number">1.5.3.4.</span> <span class="post-toc-text">损失函数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#生成"><span class="post-toc-number">1.5.3.5.</span> <span class="post-toc-text">生成</span></a></li></ol></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Introduction</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Ralated-Work"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Ralated Work</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#音乐生成"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">音乐生成</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多任务学习"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">多任务学习</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#背景知识-名词定义"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">背景知识/名词定义</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#和弦的行进"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">和弦的行进</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节奏模式"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">节奏模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#乐器特点"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">乐器特点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题陈述-amp-模型结构"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">问题陈述 &amp; 模型结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题陈述"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">问题陈述</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CRMCG"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">CRMCG</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#节奏生成"><span class="post-toc-number">1.5.2.1.</span> <span class="post-toc-text">节奏生成</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#旋律生成"><span class="post-toc-number">1.5.2.2.</span> <span class="post-toc-text">旋律生成</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#损失函数"><span class="post-toc-number">1.5.2.3.</span> <span class="post-toc-text">损失函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MICA"><span class="post-toc-number">1.5.3.</span> <span class="post-toc-text">MICA</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MICA-1"><span class="post-toc-number">1.5.3.1.</span> <span class="post-toc-text">MICA</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Attention-Cell"><span class="post-toc-number">1.5.3.2.</span> <span class="post-toc-text">Attention Cell</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MLP-Cell"><span class="post-toc-number">1.5.3.3.</span> <span class="post-toc-text">MLP Cell</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#损失函数-1"><span class="post-toc-number">1.5.3.4.</span> <span class="post-toc-text">损失函数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#生成"><span class="post-toc-number">1.5.3.5.</span> <span class="post-toc-text">生成</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实验"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">实验</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数据描述"><span class="post-toc-number">1.6.1.</span> <span class="post-toc-text">数据描述</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#训练细节"><span class="post-toc-number">1.6.2.</span> <span class="post-toc-text">训练细节</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#旋律生成-1"><span class="post-toc-number">1.6.3.</span> <span class="post-toc-text">旋律生成</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Baseline"><span class="post-toc-number">1.6.3.1.</span> <span class="post-toc-text">Baseline</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Performance"><span class="post-toc-number">1.6.4.</span> <span class="post-toc-text">Performance</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#和弦进行的分析"><span class="post-toc-number">1.6.5.</span> <span class="post-toc-text">和弦进行的分析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#休止符分析"><span class="post-toc-number">1.6.6.</span> <span class="post-toc-text">休止符分析</span></a></li></ol></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -348,7 +351,56 @@ ga('send', 'pageview');
 <script type="math/tex; mode=display">L(\theta) = {argmax}_\theta(\sum_{T_k}(frac{1}{N_p}\sum^{N_p}_ilogp(Y_i^{T_k}|X_i^{T_k};\theta)))</script><p>其中$\theta = {\theta_{src}, \theta_{trgT_k},T_k = 1,2,…, T_m}$，$m$是任务的总数。$\theta_{src}$是源encoder的参数集，$\theta_{trgT_k}$是第$T_k$个目标音轨的参数集，$N_p$是第$p$个序列对，平行training corpus的大小。</p>
 <h4 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h4><p>假设已经有了旋律序列$M_i = {m_{i1}, m|<em>{i2), …,m\</em>{il_m}}$，下一个步骤是生成其他的乐器音轨，去配合这个旋律。使用GRU处理序列，得到Decoder的初始state：</p>
 <script type="math/tex; mode=display">\overline{M} = E_mM, Em \in \mathbb{R}^{V_m * d}</script><script type="math/tex; mode=display">s^m_0 = GRU(\overline{m}_i, l_m)</script><p>多序列decoder的输出，与其他乐器音轨联系，所以考虑旋律和其他的伴奏音轨：</p>
-
+<script type="math/tex; mode=display">s^i_t = AttentionCell(y^i_{t-1}, s^i_{t-1}), t>0, or</script><script type="math/tex; mode=display">s^i_t = MLPCell(u^i_{t-1}, s^i_{t-1})， t>0</script><script type="math/tex; mode=display">y^i_t = softmax(s^i_t)</script><p>其中，$s^i_t$是第$i$个任务在第$t$个step的hidden state。作者使用softmax层，利用这个state得到第$i$个乐器的序列。Attention Cell和MLP Cell，用来得到合作的state，包含了本身的乐器state和其他乐器的state，保持所有乐器和谐。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>作者在两个数据集上做了实验，包括旋律生成和组织生成。</p>
+<h3 id="数据描述"><a href="#数据描述" class="headerlink" title="数据描述"></a>数据描述</h3><p>做实验的数据集叫做真实世界数据集（a real-world dataset），包含了超过50000个MIDI文件。去除掉没有区分音轨的文件，最后14,077个文件得以保留。每个MIDI文件包含了几种不同的音轨，如：旋律、鼓、贝斯、弦乐。</p>
+<p>为保证实验结果可靠性，作者将所有的MIDI文件移到了C大调或者A小调，保证音乐在同样的调上。然后作者设置速度为60bpm，将一个period片段设置为两个小节长。数据集统计如下表：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="11.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="训练细节"><a href="#训练细节" class="headerlink" title="训练细节"></a>训练细节</h3><p>采用9855个文件作为训练集，2855个用于调整参数，最后1407个文件作为训练集。</p>
+<p>每个GRU的hidden unit设为256，Attention Cell和MLP Cell的参数维度为256。模型使用SGD进行训练，batch size为64，验证集使用交叉熵损失函数。</p>
+<h3 id="旋律生成-1"><a href="#旋律生成-1" class="headerlink" title="旋律生成"></a>旋律生成</h3><p>只使用MIDI的旋律音轨。</p>
+<h4 id="Baseline"><a href="#Baseline" class="headerlink" title="Baseline"></a>Baseline</h4><ul>
+<li>Magenta，Google的RNN项目</li>
+<li>GANMidi，Yi-Hsuan Yang的MidiNet</li>
+</ul>
+<p>设计了三种不同的方法进行评测：</p>
+<ul>
+<li>完整版</li>
+<li>移除了和弦信息</li>
+<li>分别基于两个损失函数进行交叉训练。</li>
+</ul>
+<h3 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h3><p>使用8个志愿者打分。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>考虑下列因素：</p>
+<ul>
+<li>节奏</li>
+<li>旋律</li>
+<li>整合性/整体结构</li>
+<li>适合唱的程度</li>
+</ul>
+<h3 id="和弦进行的分析"><a href="#和弦进行的分析" class="headerlink" title="和弦进行的分析"></a>和弦进行的分析</h3><p>作者定义了和弦精确度，来度量生成的旋律是否符合输入的和弦序列：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="13.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>其中$P$是period片段的数量，$y_i$是第$i$个生成旋律，检测出来的和弦，而$\widetilde{y_i}$是输入的和弦。</p>
+<p>准确度达到了82.25%，同时发现随着和弦精确度提升，旋律质量得到了保证。</p>
+<h3 id="休止符分析"><a href="#休止符分析" class="headerlink" title="休止符分析"></a>休止符分析</h3>
         </div>
 
         <blockquote class="post-copyright">
@@ -356,7 +408,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-10-02T00:34:38.287Z" itemprop="dateUpdated">2018-10-01 18:34:38</time>
+    最后更新时间：<time datetime="2018-10-02T00:59:42.892Z" itemprop="dateUpdated">2018-10-01 18:59:42</time>
 </span><br>
 
 
