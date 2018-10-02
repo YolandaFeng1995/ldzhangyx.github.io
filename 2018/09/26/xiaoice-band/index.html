@@ -31,9 +31,9 @@ ga('send', 'pageview');
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="论文笔记,自然语言处理,音乐生成">
+    <meta name="keywords" content="音乐生成,自然语言处理,论文笔记">
     <meta name="description" content="小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。论文地址：http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music">
-<meta name="keywords" content="论文笔记,自然语言处理,音乐生成">
+<meta name="keywords" content="音乐生成,自然语言处理,论文笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music》论文笔记">
 <meta property="og:url" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/index.html">
@@ -55,7 +55,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/14.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/15.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2018/09/26/xiaoice-band/16.png">
-<meta property="og:updated_time" content="2018-10-02T01:14:09.863Z">
+<meta property="og:updated_time" content="2018-10-02T07:46:02.574Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《XiaoIce Band: A Melody and Arrangement Generation Framework for Pop Music》论文笔记">
 <meta name="twitter:description" content="小冰乐队是我一直想做笔记的一篇论文，做音乐生成的人不多，这篇论文思路和我的想法又有些相似。这篇由中科大和微软合作撰写的论文，发表在KDD’18上。论文地址：http://www.kdd.org/kdd2018/accepted-papers/view/xiaoice-banda-melody-and-arrangement-generation-framework-for-pop-music">
@@ -446,8 +446,17 @@ ga('send', 'pageview');
 <li>音符分布的均方误差</li>
 <li>空白结果</li>
 </ul>
-<p>具体的分析在这里略过</p>
-<h1 id="见解和感想"><a href="#见解和感想" class="headerlink" title="见解和感想"></a>见解和感想</h1>
+<p>具体的分析在这里略过。</p>
+<h1 id="见解和感想"><a href="#见解和感想" class="headerlink" title="见解和感想"></a>见解和感想</h1><p>这篇论文的亮点是显而易见的。</p>
+<p>首先在单音轨的音乐生成里，在流行音乐的框架中捕捉了和弦行进式，将其作为输入，进行训练。和弦行进式很好的把握了音乐的主要节奏，是一个很好的突破口。</p>
+<p>我大二刚接触音乐生成的时候，想的思路就是通过和弦行进式进行音乐生成。但是那个时候限于我编码能力太弱，想法未能落地，也接触不到相关的老师来指点我，完全是自己摸索的。总而言之，和弦行进式这个总体思路我非常赞同。</p>
+<p>在单音轨的音乐训练时，数据的预处理非常重要。现在Kaggle有很多音乐相关的数据集，这是我以前没有注意到的。也许有非常合适的数据集来做相关的研究，但是就我目前所知，自带和弦行进式的数据集非常难找。<strong>也就是说数据预处理本身就是一项有挑战性的工作</strong>。对我来说，这个数据的来源非常有趣，我以后也会去Kaggle里找找有趣的数据集。</p>
+<p>音乐相关的工具也是音乐生成的难点之一。怎么表示音乐？这篇文章提到的处理方法是将音符和节奏的one-hot编码embedding处理，作为输入。我认为这一点处理得比较模糊。音符的时长怎么办？一些问题在论文里没有讲述清楚。目前通用的编码是music21编码，<strong>我认为在工程实现上使用music21去处理移调、变速等问题是一个比较现实的做法</strong>。</p>
+<p>那么多音轨音乐呢？这是我认为本文最出彩的一点，可以说是多音轨生成开先河的一个方法。我阅读论文的大部分时间都在理解多音轨音乐的结构上。Attention Cell和MLP Cell我认为非常有创意——如果是我自己来做多音轨，我可能会想到利用Attention，但无法以明确的形式将这个方法落地。</p>
+<p>本文提出了一些分析方法，我认为是具有其独到之处的。音乐生成和文本生成一样，都有着没法量化的困难，而本文所做的分析恰恰是对Evaluation一个很好的补充。本文结合了和弦行进式，提出了一个Chord Accuracy，我在文中翻译为和弦精确度。这是一个直接的分析方法，又没有像BLEU那样放在音符的层次，而是放在了和弦的层次。我在这里好奇一点，作者是怎么识别生成音乐所属的和弦的？如果有一个自动的办法，<strong>可不可以将其加入Loss函数</strong>？</p>
+<p>对于音符分布的分析方法对我来说也是一个启发，因为音乐生成的休止也一直是悬而未决的难题，或者说没有根本理论来解决。现在通过分布来衡量，那么对于休止就有了一个漂亮的量化过程。下面是我的想法：<strong>如果我们训练一个VAE，类似句子复述的问题一样，将生成的音乐进行微调，使两个分布尽量接近，会怎么样呢</strong></p>
+<p>总而言之，这篇文章在多音轨音乐的生成上做了贡献，是一篇非常棒的文章。美中不足的是，作者在细节上面没有完全说明；没有放出音乐的sample导致无法客观评估其生成水准，以及最终的效果理应还有调整与改进的途径。</p>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -455,7 +464,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-10-02T01:14:09.863Z" itemprop="dateUpdated">2018-10-01 19:14:09</time>
+    最后更新时间：<time datetime="2018-10-02T07:46:02.574Z" itemprop="dateUpdated">2018-10-02 01:46:02</time>
 </span><br>
 
 
