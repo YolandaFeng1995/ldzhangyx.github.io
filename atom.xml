@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2018-10-10T09:02:00.772Z</updated>
+  <updated>2018-10-15T14:42:35.549Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>self-attention与attention简要梳理</title>
+    <link href="http://ldzhangyx.github.io/2018/10/14/self-attention/"/>
+    <id>http://ldzhangyx.github.io/2018/10/14/self-attention/</id>
+    <published>2018-10-14T15:31:02.000Z</published>
+    <updated>2018-10-15T14:42:35.549Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Attention的计算机制"><a href="#Attention的计算机制" class="headerlink" title="Attention的计算机制"></a>Attention的计算机制</h1><h2 id="总说"><a href="#总说" class="headerlink" title="总说"></a>总说</h2><p>Attention机制主要作用在Decode阶段。在这一阶段，$s_t$的运算受到了$s_{t-1}$，$y_{t-1}$和$c_t$的影响。根据目前比较统一的观点，Attention值的计算是相似度比较的结果。Decoder端的Query与Encoder端的各个Key进行相似度比较得到不同的权重，最后对各个Key对应的Value进行归一化的加权累加，得到Attention Value。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.jpg" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>在实际应用中，Key就是Value，即K=V；而K与Q（Query）实际上也常用Hidden State来计算。</p><h2 id="相似度计算"><a href="#相似度计算" class="headerlink" title="相似度计算"></a>相似度计算</h2><p>相似度计算有几种方式。下面公式中$t$代表Decoder第$t$时刻，$s$代表Encoder中第$s$个位置的hidden state。</p><p>点积注意力：<script type="math/tex">s(h_t, h_s) = h_t^Th_s</script></p><p>一般的注意力：<script type="math/tex">s(h_t, h_s) = h_t^TW_ah_s</script></p><p>连接(concat)注意力：<script type="math/tex">s(h_t, h_s) = V_a^T\tanh(W_a[h_t;h_s])</script></p><p>加性注意力：<script type="math/tex">s(h_t, h_s) = V_a^T\tanh(Wh_t+Uh_s])</script></p><h2 id="之后的计算"><a href="#之后的计算" class="headerlink" title="之后的计算"></a>之后的计算</h2><p>我们将$s(h_t, h_i)$进行相似度计算的结果（记为$e_{ti}$）进行softmax归一化，再权值相加，得到最终的attention值：</p><script type="math/tex; mode=display">\alpha_{t,i}^{txt} = \frac{exp(e_{t,i}^{txt})}{\sum_{j=1}^N\exp(e_{t,j}^{txt})}</script><script type="math/tex; mode=display">c_{txt} = \sum_{i=1}^N\alpha_{t,i}^{txt}h_i</script><p>从统一的角度来看，如果将Decoder端的Query视为整体Q，Key视为Encoder端的整体K，Value在自然语言处理中一般直接使用K，记为V。所以，</p><script type="math/tex; mode=display">Q \in \mathbb{R}^{n*d_k}, K \in \mathbb{R}^{m*d_k}, V \in \mathbb{R}^{m*d_v}</script><p>所以上述Attention可以简要的抽象成下列公式：</p><script type="math/tex; mode=display">Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p>其实质是将序列Q编码成了一个新的$n*d_v$的序列。如果将Query的逐个向量分开，那么公式也可以这么表达：</p><script type="math/tex; mode=display">Attention(Q_t, K, V) = \sum_{s=1}^m\frac{1}{z}\exp(\frac{<q_t, k_s>}{\sqrt{d_k}})v_s</script>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Attention的计算机制&quot;&gt;&lt;a href=&quot;#Attention的计算机制&quot; class=&quot;headerlink&quot; title=&quot;Attention的计算机制&quot;&gt;&lt;/a&gt;Attention的计算机制&lt;/h1&gt;&lt;h2 id=&quot;总说&quot;&gt;&lt;a href=&quot;#总说&quot;
+      
+    
+    </summary>
+    
+      <category term="术语梳理" scheme="http://ldzhangyx.github.io/categories/%E6%9C%AF%E8%AF%AD%E6%A2%B3%E7%90%86/"/>
+    
+    
+      <category term="attention" scheme="http://ldzhangyx.github.io/tags/attention/"/>
+    
+  </entry>
   
   <entry>
     <title>克苏鲁神话 中文合集</title>
@@ -40,33 +65,6 @@
       <category term="TRPG" scheme="http://ldzhangyx.github.io/tags/TRPG/"/>
     
       <category term="克苏鲁神话" scheme="http://ldzhangyx.github.io/tags/%E5%85%8B%E8%8B%8F%E9%B2%81%E7%A5%9E%E8%AF%9D/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>lethbridge-review</title>
-    <link href="http://ldzhangyx.github.io/2018/10/10/lethbridge-review/"/>
-    <id>http://ldzhangyx.github.io/2018/10/10/lethbridge-review/</id>
-    <published>2018-10-10T08:30:08.000Z</published>
-    <updated>2018-10-10T08:41:10.302Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h1 id="来加拿大之前"><a href="#来加拿大之前" class="headerlink" title="来加拿大之前"></a>来加拿大之前</h1><h1 id="在加拿大的故事"><a href="#在加拿大的故事" class="headerlink" title="在加拿大的故事"></a>在加拿大的故事</h1><h1 id="回国"><a href="#回国" class="headerlink" title="回国"></a>回国</h1>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;h1 id=&quot;来加拿大之前&quot;&gt;&lt;a href=&quot;#来加拿大之前&quot; class=&quot;headerlink&quot; title=&quot;来加拿大之前&quot;&gt;&lt;/a&gt;来
-      
-    
-    </summary>
-    
-      <category term="实习经历" scheme="http://ldzhangyx.github.io/categories/%E5%AE%9E%E4%B9%A0%E7%BB%8F%E5%8E%86/"/>
-    
-    
-      <category term="实习经历" scheme="http://ldzhangyx.github.io/tags/%E5%AE%9E%E4%B9%A0%E7%BB%8F%E5%8E%86/"/>
-    
-      <category term="想法" scheme="http://ldzhangyx.github.io/tags/%E6%83%B3%E6%B3%95/"/>
     
   </entry>
   

@@ -25,25 +25,27 @@ ga('send', 'pageview');
     
     
     
-    <title>克苏鲁神话 中文合集 | Yixiao Zhang&#39;s Website</title>
+    <title>self-attention与attention简要梳理 | Yixiao Zhang&#39;s Website</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="TRPG,克苏鲁神话">
-    <meta name="description" content="前言自己加入TRPG的团体已经有大半年了，然而一直对克苏鲁神话体系大背景不是特别了解。成为守秘人带团的时候，我的参照是规则书和剧本，却不能灵活地演绎一些新的剧情。 于是我Google了克苏鲁神话体系，终于在GitHub上找到了一个还算满意的开源项目。很多文章都是竹子翻译的，我个人认为翻译质量尚可，放在我的网站上，权当补档吧。 版权本电子书的版权归作者和译者所有。 GitHub地址点这里。 文档下载">
-<meta name="keywords" content="TRPG,克苏鲁神话">
+    <meta name="keywords" content="attention">
+    <meta name="description" content="Attention的计算机制总说Attention机制主要作用在Decode阶段。在这一阶段，$s_t$的运算受到了$s_{t-1}$，$y_{t-1}$和$c_t$的影响。根据目前比较统一的观点，Attention值的计算是相似度比较的结果。Decoder端的Query与Encoder端的各个Key进行相似度比较得到不同的权重，最后对各个Key对应的Value进行归一化的加权累加，得到Atten">
+<meta name="keywords" content="attention">
 <meta property="og:type" content="article">
-<meta property="og:title" content="克苏鲁神话 中文合集">
-<meta property="og:url" content="http://ldzhangyx.github.io/2018/10/10/cthulhu-book-share/index.html">
+<meta property="og:title" content="self-attention与attention简要梳理">
+<meta property="og:url" content="http://ldzhangyx.github.io/2018/10/14/self-attention/index.html">
 <meta property="og:site_name" content="Yixiao Zhang&#39;s Website">
-<meta property="og:description" content="前言自己加入TRPG的团体已经有大半年了，然而一直对克苏鲁神话体系大背景不是特别了解。成为守秘人带团的时候，我的参照是规则书和剧本，却不能灵活地演绎一些新的剧情。 于是我Google了克苏鲁神话体系，终于在GitHub上找到了一个还算满意的开源项目。很多文章都是竹子翻译的，我个人认为翻译质量尚可，放在我的网站上，权当补档吧。 版权本电子书的版权归作者和译者所有。 GitHub地址点这里。 文档下载">
+<meta property="og:description" content="Attention的计算机制总说Attention机制主要作用在Decode阶段。在这一阶段，$s_t$的运算受到了$s_{t-1}$，$y_{t-1}$和$c_t$的影响。根据目前比较统一的观点，Attention值的计算是相似度比较的结果。Decoder端的Query与Encoder端的各个Key进行相似度比较得到不同的权重，最后对各个Key对应的Value进行归一化的加权累加，得到Atten">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-10T09:02:00.772Z">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/10/14/self-attention/1.jpg">
+<meta property="og:updated_time" content="2018-10-15T14:42:35.549Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="克苏鲁神话 中文合集">
-<meta name="twitter:description" content="前言自己加入TRPG的团体已经有大半年了，然而一直对克苏鲁神话体系大背景不是特别了解。成为守秘人带团的时候，我的参照是规则书和剧本，却不能灵活地演绎一些新的剧情。 于是我Google了克苏鲁神话体系，终于在GitHub上找到了一个还算满意的开源项目。很多文章都是竹子翻译的，我个人认为翻译质量尚可，放在我的网站上，权当补档吧。 版权本电子书的版权归作者和译者所有。 GitHub地址点这里。 文档下载">
+<meta name="twitter:title" content="self-attention与attention简要梳理">
+<meta name="twitter:description" content="Attention的计算机制总说Attention机制主要作用在Decode阶段。在这一阶段，$s_t$的运算受到了$s_{t-1}$，$y_{t-1}$和$c_t$的影响。根据目前比较统一的观点，Attention值的计算是相似度比较的结果。Decoder端的Query与Encoder端的各个Key进行相似度比较得到不同的权重，最后对各个Key对应的Value进行归一化的加权累加，得到Atten">
+<meta name="twitter:image" content="http://ldzhangyx.github.io/2018/10/14/self-attention/1.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="Yixiao Zhang&#39;s Website" href="/atom.xml">
     
@@ -131,7 +133,7 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">克苏鲁神话 中文合集</div>
+        <div class="flex-col header-title ellipsis">self-attention与attention简要梳理</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -153,15 +155,15 @@ ga('send', 'pageview');
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">克苏鲁神话 中文合集</h1>
+        <h1 class="title">self-attention与attention简要梳理</h1>
         <h5 class="subtitle">
             
-                <time datetime="2018-10-10T08:41:45.000Z" itemprop="datePublished" class="page-time">
-  2018-10-10
+                <time datetime="2018-10-14T15:31:02.000Z" itemprop="datePublished" class="page-time">
+  2018-10-14
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/TRPG/">TRPG</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/术语梳理/">术语梳理</a></li></ul>
 
             
         </h5>
@@ -178,21 +180,21 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#版权"><span class="post-toc-number">2.</span> <span class="post-toc-text">版权</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#文档下载"><span class="post-toc-number">3.</span> <span class="post-toc-text">文档下载</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Attention的计算机制"><span class="post-toc-number">1.</span> <span class="post-toc-text">Attention的计算机制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总说"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">总说</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#相似度计算"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">相似度计算</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#之后的计算"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">之后的计算</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-cthulhu-book-share"
+<article id="post-self-attention"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">克苏鲁神话 中文合集</h1>
+        <h1 class="post-card-title">self-attention与attention简要梳理</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-10-10 16:41:45" datetime="2018-10-10T08:41:45.000Z"  itemprop="datePublished">2018-10-10</time>
+            <time class="post-time" title="2018-10-14 23:31:02" datetime="2018-10-14T15:31:02.000Z"  itemprop="datePublished">2018-10-14</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/TRPG/">TRPG</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/术语梳理/">术语梳理</a></li></ul>
 
 
 
@@ -204,13 +206,25 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>自己加入TRPG的团体已经有大半年了，然而一直对克苏鲁神话体系大背景不是特别了解。成为守秘人带团的时候，我的参照是规则书和剧本，却不能灵活地演绎一些新的剧情。</p>
-<p>于是我Google了克苏鲁神话体系，终于在GitHub上找到了一个还算满意的开源项目。很多文章都是竹子翻译的，我个人认为翻译质量尚可，放在我的网站上，权当补档吧。</p>
-<h1 id="版权"><a href="#版权" class="headerlink" title="版权"></a>版权</h1><p>本电子书的版权归作者和译者所有。</p>
-<p>GitHub地址<a href="https://github.com/jokester/coc-zh" target="_blank" rel="noopener">点这里</a>。</p>
-<h1 id="文档下载"><a href="#文档下载" class="headerlink" title="文档下载"></a>文档下载</h1><p>点击这里可以直接下载。</p>
-<p><a href="coc-zh.pdf">点击下载</a></p>
-
+            <h1 id="Attention的计算机制"><a href="#Attention的计算机制" class="headerlink" title="Attention的计算机制"></a>Attention的计算机制</h1><h2 id="总说"><a href="#总说" class="headerlink" title="总说"></a>总说</h2><p>Attention机制主要作用在Decode阶段。在这一阶段，$s_t$的运算受到了$s_{t-1}$，$y_{t-1}$和$c_t$的影响。根据目前比较统一的观点，Attention值的计算是相似度比较的结果。Decoder端的Query与Encoder端的各个Key进行相似度比较得到不同的权重，最后对各个Key对应的Value进行归一化的加权累加，得到Attention Value。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在实际应用中，Key就是Value，即K=V；而K与Q（Query）实际上也常用Hidden State来计算。</p>
+<h2 id="相似度计算"><a href="#相似度计算" class="headerlink" title="相似度计算"></a>相似度计算</h2><p>相似度计算有几种方式。下面公式中$t$代表Decoder第$t$时刻，$s$代表Encoder中第$s$个位置的hidden state。</p>
+<p>点积注意力：<script type="math/tex">s(h_t, h_s) = h_t^Th_s</script></p>
+<p>一般的注意力：<script type="math/tex">s(h_t, h_s) = h_t^TW_ah_s</script></p>
+<p>连接(concat)注意力：<script type="math/tex">s(h_t, h_s) = V_a^T\tanh(W_a[h_t;h_s])</script></p>
+<p>加性注意力：<script type="math/tex">s(h_t, h_s) = V_a^T\tanh(Wh_t+Uh_s])</script></p>
+<h2 id="之后的计算"><a href="#之后的计算" class="headerlink" title="之后的计算"></a>之后的计算</h2><p>我们将$s(h_t, h_i)$进行相似度计算的结果（记为$e_{ti}$）进行softmax归一化，再权值相加，得到最终的attention值：</p>
+<script type="math/tex; mode=display">\alpha_{t,i}^{txt} = \frac{exp(e_{t,i}^{txt})}{\sum_{j=1}^N\exp(e_{t,j}^{txt})}</script><script type="math/tex; mode=display">c_{txt} = \sum_{i=1}^N\alpha_{t,i}^{txt}h_i</script><p>从统一的角度来看，如果将Decoder端的Query视为整体Q，Key视为Encoder端的整体K，Value在自然语言处理中一般直接使用K，记为V。所以，</p>
+<script type="math/tex; mode=display">Q \in \mathbb{R}^{n*d_k}, K \in \mathbb{R}^{m*d_k}, V \in \mathbb{R}^{m*d_v}</script><p>所以上述Attention可以简要的抽象成下列公式：</p>
+<script type="math/tex; mode=display">Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p>其实质是将序列Q编码成了一个新的$n*d_v$的序列。如果将Query的逐个向量分开，那么公式也可以这么表达：</p>
+<script type="math/tex; mode=display">Attention(Q_t, K, V) = \sum_{s=1}^m\frac{1}{z}\exp(\frac{<q_t, k_s>}{\sqrt{d_k}})v_s</script>
         </div>
 
         <blockquote class="post-copyright">
@@ -218,12 +232,12 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-10-10T09:02:00.772Z" itemprop="dateUpdated">2018-10-10 17:02:00</time>
+    最后更新时间：<time datetime="2018-10-15T14:42:35.549Z" itemprop="dateUpdated">2018-10-15 22:42:35</time>
 </span><br>
 
 
         
-        原文地址：<a href="/2018/10/10/cthulhu-book-share/" target="_blank" rel="external">http://ldzhangyx.github.io/2018/10/10/cthulhu-book-share/</a>
+        原文地址：<a href="/2018/10/14/self-attention/" target="_blank" rel="external">http://ldzhangyx.github.io/2018/10/14/self-attention/</a>
         
     </div>
     
@@ -244,7 +258,7 @@ ga('send', 'pageview');
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TRPG/">TRPG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/克苏鲁神话/">克苏鲁神话</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/attention/">attention</a></li></ul>
 
 
             
@@ -254,7 +268,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/10/10/cthulhu-book-share/&title=《克苏鲁神话 中文合集》 — Yixiao Zhang's Website&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/10/14/self-attention/&title=《self-attention与attention简要梳理》 — Yixiao Zhang's Website&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -264,22 +278,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/10/10/cthulhu-book-share/&title=《克苏鲁神话 中文合集》 — Yixiao Zhang's Website&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/10/14/self-attention/&title=《self-attention与attention简要梳理》 — Yixiao Zhang's Website&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/10/10/cthulhu-book-share/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/10/14/self-attention/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《克苏鲁神话 中文合集》 — Yixiao Zhang's Website&url=http://ldzhangyx.github.io/2018/10/10/cthulhu-book-share/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《self-attention与attention简要梳理》 — Yixiao Zhang's Website&url=http://ldzhangyx.github.io/2018/10/14/self-attention/&via=http://ldzhangyx.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/10/10/cthulhu-book-share/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/10/14/self-attention/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -299,21 +313,14 @@ ga('send', 'pageview');
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2018/10/14/self-attention/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">self-attention与attention简要梳理</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2018/09/26/deep-para-generation/" id="post-next" class="post-nav-link">
+      <a href="/2018/10/10/cthulhu-book-share/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">《A Deep Generative Framework for Paraphrase Generation》论文笔记</h4>
+        <h4 class="title">克苏鲁神话 中文合集</h4>
       </a>
     </div>
   
@@ -434,7 +441,7 @@ ga('send', 'pageview');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/10/10/cthulhu-book-share/&title=《克苏鲁神话 中文合集》 — Yixiao Zhang's Website&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/10/14/self-attention/&title=《self-attention与attention简要梳理》 — Yixiao Zhang's Website&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -444,22 +451,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/10/10/cthulhu-book-share/&title=《克苏鲁神话 中文合集》 — Yixiao Zhang's Website&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/10/14/self-attention/&title=《self-attention与attention简要梳理》 — Yixiao Zhang's Website&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/10/10/cthulhu-book-share/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/10/14/self-attention/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《克苏鲁神话 中文合集》 — Yixiao Zhang's Website&url=http://ldzhangyx.github.io/2018/10/10/cthulhu-book-share/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《self-attention与attention简要梳理》 — Yixiao Zhang's Website&url=http://ldzhangyx.github.io/2018/10/14/self-attention/&via=http://ldzhangyx.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/10/10/cthulhu-book-share/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/10/14/self-attention/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -470,7 +477,7 @@ ga('send', 'pageview');
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3aS3KkMBAFQO5/abxtRxv6VUntCKTUagKPgWRRrt9xxOd8Oe9X7n/6euXqzle/NflgYGA8lnHenvwBOeb9Plfg5N0wMDD2YSShMAdUGSNhGgMDAyMJgslLjN8BAwMDoxdwm4+Mi1gMDAyMahF7dYuzeJJw/MVaHAMD44GMvOv+///+ynwDAwPjUYxeoLy/Qy/hy4PsH0/EwMBYmpEHuDwtS4YEyaepLn9gYGCsyug19/N2WPV1e0seGBgYOzPywFpdnqg27D58UAwMjKUZSdI2vooxkg7m408MDIy1GTmmB64ujQ0lnRgYGNsweg39JPjmsGqqioGBsSqj1w4bWdhKMEkC+usKBgbGBozqoPH+ejWkTusaYmBgbMCYtQBxxGckNF9ui2BgYCzHyNOvXgpYqKGLofzoZZEYGBgPZ/QGA9VQO6sZV1i2wMDAWJpRLWt7jx9ZTZswg8XAwHgUo5ec5UtgecGcPBEDA2M3RjV0lkNhXOL2AjoGBsYOjOpCWG/MmfzP+yd+aA5iYGBsw5ibJt4PG3rNvss3wcDA2JiRh+BeW3/WmBMDA2NVxlk80VeJy918FFFOCjEwMBZijDTI8kBZXdHIy9cyBgMD47GM6gCyWvqOJH8YGBgYvcCXFJYjY4ChWhwDAwMjLmKr+Oo4oblHhoGBsRkjb66N19bRR8TAwNiAka87zFoIG8FgYGDsxshLx7kDyGS0OfJnAAMDYwnGDxTEGQbbeO4/AAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLUlEQVR42u3aS27DMAxF0ex/0ynQUYDW9n2kUzTk1SgoXFnHA4IfPR54Pb/X6+/Xdf7k0X/93OFoz9uWDBkyPpaRvuD86EcHSsH8bDJkyNjD4EGWH/Q8KqakizPLkCFDBt46/Sjnn0OGDBkyaoxaaCZ78iAuQ4aMnQweBGshmHwIUjzfUIvLkCHjAxm1wcDf/H77fEOGDBn/nvEMV6c9VxuOolPJkCFjNIOkZWmUS0cCaZANMlwZMmSMY6Tt+9qH6Fwpu8DIkCFjAYMkdmi7xtiADzhlyJCxh9EPpvy6WAoOrmXIkCFjNCPdLuV1gjI/mwwZMrYxaqGzj+TlNPo0MmTIGMfgpSk/XG14QMYAh59PhgwZCxidMrWWbr6xayhDhoxBjFoq1sk9OwXtRddQhgwZQxmdRLDfeiOXLcjZZMiQMZtBNuLXL0jBWXtjkBrKkCFjHCMtI3lix+M9ZwQzDRkyZIxj8CY+TxP58+nFiwuSDBkyhjJ486s4XAxLYv68DBkyNjD4MDJNBzkvDbW//EWGDBlrGKSxddeQoD8SkCFDxh5GGlh5sZo+k74XNd1kyJAxgvEMV6es5dfI0uAuQ4aM2Qy+alvw6xf9tp0MGTJmM3iQPQ+1nUsSaRErQ4aMnYy0TZ+272uD0uBUMmTIkIGb9bXmWpomtgKuDBkyFjDIZYu7UkZ+pUOGDBkbGGkRy5PFViufh34ZMmSMZty1UY1dG0jUdpMhQ8YHMr4ApE2tY0VQelsAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
