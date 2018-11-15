@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Yixiao Zhang&#39;s Website</title>
+  <title>张逸霄的技术小站</title>
   
-  
+  <subtitle>当然也可能有一些非技术内容</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
@@ -10,7 +10,7 @@
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
-    <name>Yixiao Zhang</name>
+    <name>张逸霄</name>
     
   </author>
   
