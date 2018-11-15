@@ -150,33 +150,6 @@
   </entry>
   
   <entry>
-    <title>【微软大法好】VS Tools for AI全攻略（4）——选择适合自己的虚拟机</title>
-    <link href="http://ldzhangyx.github.io/2018/04/21/vstools-4/"/>
-    <id>http://ldzhangyx.github.io/2018/04/21/vstools-4/</id>
-    <published>2018-04-21T06:09:00.000Z</published>
-    <updated>2018-11-15T12:08:59.913Z</updated>
-    
-    <content type="html"><![CDATA[<p>当我们选择好了自己的虚拟机后，也许效果不尽如人意。就比如我，发现代码在训练一段时间之后，CPU的使用率会下降。</p><p>这个时候我们就要开始考虑，是不是我们选择的虚拟机不是适合自己的型号。</p><p>Azure的虚拟机分为下面几种：</p><ul><li><span class="notranslate"><a href="https://translate.googleusercontent.com/translate_c?depth=1&amp;hl=en&amp;rurl=translate.google.com&amp;sl=en&amp;sp=nmt4&amp;tl=zh-CN&amp;u=https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general&amp;xid=17259,1500003,15700023,15700124,15700149,15700168,15700173,15700186,15700201&amp;usg=ALkJrhiOs_kAXgkZrv74RxSWSmecKG2-zw" target="_blank" rel="noopener">一般用途</a> </span></li><li><span class="notranslate"> <a href="https://translate.googleusercontent.com/translate_c?depth=1&amp;hl=en&amp;rurl=translate.google.com&amp;sl=en&amp;sp=nmt4&amp;tl=zh-CN&amp;u=https://docs.microsoft.com/en-us/azure/virtual-machines/virtual-machines-windows-sizes-memory&amp;xid=17259,1500003,15700023,15700124,15700149,15700168,15700173,15700186,15700201&amp;usg=ALkJrhiY3cbwikNqNump6dMDkyZErcmdzg" target="_blank" rel="noopener">内存优化</a> </span></li><li><span class="notranslate"> <a href="https://translate.googleusercontent.com/translate_c?depth=1&amp;hl=en&amp;rurl=translate.google.com&amp;sl=en&amp;sp=nmt4&amp;tl=zh-CN&amp;u=https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-compute&amp;xid=17259,1500003,15700023,15700124,15700149,15700168,15700173,15700186,15700201&amp;usg=ALkJrhhYMwZezmZ_bEr-hBZnt1kXyXBibg" target="_blank" rel="noopener">计算优化</a> </span></li><li><span class="notranslate"> <a href="https://translate.googleusercontent.com/translate_c?depth=1&amp;hl=en&amp;rurl=translate.google.com&amp;sl=en&amp;sp=nmt4&amp;tl=zh-CN&amp;u=https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-gpu&amp;xid=17259,1500003,15700023,15700124,15700149,15700168,15700173,15700186,15700201&amp;usg=ALkJrhhGXqjkrP97arSjEysBvXiiPigk2g" target="_blank" rel="noopener">GPU优化</a> </span></li><li><span class="notranslate"> <a href="https://translate.googleusercontent.com/translate_c?depth=1&amp;hl=en&amp;rurl=translate.google.com&amp;sl=en&amp;sp=nmt4&amp;tl=zh-CN&amp;u=https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-hpc&amp;xid=17259,1500003,15700023,15700124,15700149,15700168,15700173,15700186,15700201&amp;usg=ALkJrhimUv0Qa82IcNiCGMHYLykMsgUvIw" target="_blank" rel="noopener">高性能计算</a> </span></li><li><span class="notranslate"> <a href="https://translate.googleusercontent.com/translate_c?depth=1&amp;hl=en&amp;rurl=translate.google.com&amp;sl=en&amp;sp=nmt4&amp;tl=zh-CN&amp;u=https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-storage&amp;xid=17259,1500003,15700023,15700124,15700149,15700168,15700173,15700186,15700201&amp;usg=ALkJrhjS4rQT-gfWN328kRYoEtoUvSO44w" target="_blank" rel="noopener">存储优化</a> </span></li></ul><p>其中，一般用途可能是我们创建虚拟机时最常用的型号。现在我们来看一下一般用途虚拟机的配置和特别之处。</p><p>一般用途虚拟机也分为很多种，我在这里提及一种最便宜的虚拟机：B系列。</p><p>&nbsp;</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180421140205894-1064545323.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>微软在B系列中提及了CPU credit，这意味着B系列根本就不适合跑长时间计算的程序。</p><p>在虚拟机的ACU计算中，我们也可以明显发现，每个vCPU的计算能力也是有强有弱。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180421140500990-1678822611.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>&nbsp;</p><p>&nbsp;一般用途的虚拟机，计算能力在虚拟机中的底层。</p><p>&nbsp;</p><p>那么为了跑机器学习程序，在不选择带GPU的昂贵NC/NV系列虚拟机的情况下，应该首选F系列。</p><blockquote><p><span class="notranslate"><span class="notranslate">Fsv2系列基于Intel&reg;Xeon&reg;Platinum 8168处理器，具有2.7 GHz的基本核心频率和3.7 GHz的最大单核Turbo频率。 <span class="notranslate">英特尔&reg;可扩展处理器新推出的英特尔&reg;AVX-512指令将为单精度和双精度浮点运算的矢量处理工作负载提供高达2倍的性能提升。 <span class="notranslate">换句话说，它们对于任何计算工作量都非常快。</span>&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</span></span></span></p><p><span class="notranslate">以每小时定价较低的价格，Fsv2系列是基于每个vCPU的Azure计算单元（ACU）的Azure产品组合的性价比中的最佳价值。 </span></p><p><span class="notranslate"> F系列基于2.4 GHz英特尔至强&reg;E5-2673 v3（Haswell）处理器，采用英特尔睿频加速技术2.0可以实现3.1 GHz的时钟速度。 <span class="notranslate">这与Dv2系列虚拟机具有相同的CPU性能。 </span>&lt;/span&gt;</span></p><p><span class="notranslate">对于需要更快CPU的工作负载而言，F系列虚拟机是非常好的选择，但不需要每个vCPU都有足够的内存或临时存储。 <span class="notranslate">诸如分析，游戏服务器，Web服务器和批处理等工作负载将受益于F系列的价值。 </span>&lt;/span&gt;</span></p></blockquote><p>&nbsp;</p><p>我们来看看F系列的定价和性能：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180421140756350-2133019219.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>对照一下其他型号：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180421140839311-199788858.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>&nbsp;</p><p>毫无疑问，在计算型任务上，F系列是相对比较优秀的解。</p><p>&nbsp;</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;当我们选择好了自己的虚拟机后，也许效果不尽如人意。就比如我，发现代码在训练一段时间之后，CPU的使用率会下降。&lt;/p&gt;
-&lt;p&gt;这个时候我们就要开始考虑，是不是我们选择的虚拟机不是适合自己的型号。&lt;/p&gt;
-&lt;p&gt;Azure的虚拟机分为下面几种：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;s
-      
-    
-    </summary>
-    
-    
-      <category term="VS Tools for AI" scheme="http://ldzhangyx.github.io/tags/VS-Tools-for-AI/"/>
-    
-  </entry>
-  
-  <entry>
     <title>10分钟快速构建Unity中的万能对话系统 / 叙事系统 / 剧情系统</title>
     <link href="http://ldzhangyx.github.io/2018/04/05/unity-fungus/"/>
     <id>http://ldzhangyx.github.io/2018/04/05/unity-fungus/</id>
@@ -198,6 +171,133 @@
     
     
       <category term="Unity" scheme="http://ldzhangyx.github.io/tags/Unity/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题</title>
+    <link href="http://ldzhangyx.github.io/2017/12/21/%E3%80%90TensorFlow%E9%9A%8F%E7%AC%94%E3%80%91%E5%85%B3%E4%BA%8E%E4%B8%80%E4%B8%AA%E7%9F%A9%E9%98%B5%E4%B8%8E%E5%A4%9A%E4%B8%AA%E7%9F%A9%E9%98%B5%E7%9B%B8%E4%B9%98%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>http://ldzhangyx.github.io/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/</id>
+    <published>2017-12-20T17:00:00.000Z</published>
+    <updated>2018-11-15T12:39:52.823Z</updated>
+    
+    <content type="html"><![CDATA[<p>问题描述：</p><p>Specifically, I want to do matmul(A,B) where</p><p>&nbsp;’A’ has shape (m,n)</p><p>&nbsp;’B’ has shape (k,n,p)</p><p>and the result should have shape (k,m,p)</p><hr><p>参考网站：</p><p><a href="https://groups.google.com/a/tensorflow.org/forum/#!topic/discuss/4tgsOSxwtkY" target="_blank" rel="noopener">https://groups.google.com/a/tensorflow.org/forum/#!topic/discuss/4tgsOSxwtkY</a></p><p><a href="https://stackoverflow.com/questions/38235555/tensorflow-matmul-of-input-matrix-with-batch-data" target="_blank" rel="noopener">https://stackoverflow.com/questions/38235555/tensorflow-matmul-of-input-matrix-with-batch-data</a></p><hr><p>解决办法：</p><p>1，我们知道TensorFlow的matmul已经支持了batch，即：</p><pre><code>A = tf.Variable(tf.random_normal(shape=(a, b, n, m)))B = tf.Variable(tf.random_normal(shape=(a, b, m, k)))tf.matmul(A, B)</code></pre><p>会返回(a,b,n,k)，前面的N个维度会被保留。但是适用情景与题目不符。</p><p>2，所以我们自然想到reshape。</p><p><span class="comment-copy">You can conflate the two dimensions not used in the multiplication using reshape, multiply the two matrices, and then call reshape again to get the desired shape. This is equivalent to doing batch multiplication.</span></p><p><span class="comment-copy">简而言之呢，就是，你可以将乘法中用不到的维度reshape到后面去，比如</span></p><p><span class="comment-copy">(k, m, p) =&gt; (m, p * k)</span></p><p>进行矩阵乘法得到：(n, p * k)</p><p>之后reshape成：(k, n, p)。</p><p>虽然有些麻烦，但这是唯一的解决办法了。</p><p>适用情景：A矩阵只有一个，但是B矩阵有batch_num个，需要逐个进行矩阵乘法的场合。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;问题描述：&lt;/p&gt;
+&lt;p&gt;Specifically, I want to do matmul(A,B) where&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;’A’ has shape (m,n)&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;’B’ has shape (k,n,p)&lt;/p&gt;
+&lt;p&gt;and 
+      
+    
+    </summary>
+    
+    
+      <category term="TensorFlow" scheme="http://ldzhangyx.github.io/tags/TensorFlow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【微软大法好】VS Tools for AI全攻略（4）：从样例库中快速构建项目进行深度学习</title>
+    <link href="http://ldzhangyx.github.io/2017/12/05/%E3%80%90%E5%BE%AE%E8%BD%AF%E5%A4%A7%E6%B3%95%E5%A5%BD%E3%80%91VS-Tools-for-AI%E5%85%A8%E6%94%BB%E7%95%A5%EF%BC%884%EF%BC%89%EF%BC%9A%E4%BB%8E%E6%A0%B7%E4%BE%8B%E5%BA%93%E4%B8%AD%E5%BF%AB%E9%80%9F%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E8%BF%9B%E8%A1%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://ldzhangyx.github.io/2017/12/05/【微软大法好】VS-Tools-for-AI全攻略（4）：从样例库中快速构建项目进行深度学习/</id>
+    <published>2017-12-05T10:14:00.000Z</published>
+    <updated>2018-11-15T12:40:36.639Z</updated>
+    
+    <content type="html"><![CDATA[<p>接着上面一篇的内容来讲。</p><p>首先我们可能会在自己搭建的Azure虚拟机中遇到各种各样的问题，我在这里先记录一下自己遇到的问题。首先一张训练过程截图：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="http://images2017.cnblogs.com/blog/1037202/201712/1037202-20171205203559581-1756457266.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>&nbsp;</p><p>看见没有，上面的红叉叉都是我踩的坑&hellip;&hellip;</p><hr><p>&nbsp;</p><p>1，首先要注意的是Windows环境和Linux环境下，文件目录的问题。为了避免坑，建议在Submit代码时，将存储目录变为/home/user/…的绝对目录。</p><p>2，事先上传数据集。点击存储，可以发现VS允许你对Azure虚拟机的文件系统进行<strong>图形化的操作</strong>。如果你要批量上传/下载文件，指令也是多线程的。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="http://images2017.cnblogs.com/blog/1037202/201712/1037202-20171205205348300-1421782047.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>3，安装好必要的库。除了TensorFlow以外，你可能还需要安装numpy, scipy, pillow, gcc等一系列库。不过这些库的实际选择，可以根据你的需要来取舍。</p><p>4，指令一定要从python改成python3.</p><hr><p>接下来进入正题。什么是样例库？</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="http://images2017.cnblogs.com/blog/1037202/201712/1037202-20171205210021050-1446891224.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>当你点击工具栏中的AI Tools，再点击Gallery，就可以找到样例库。我们现在试着打开其中一个样例。</p><p>&nbsp;</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;接着上面一篇的内容来讲。&lt;/p&gt;
+&lt;p&gt;首先我们可能会在自己搭建的Azure虚拟机中遇到各种各样的问题，我在这里先记录一下自己遇到的问题。首先一张训练过程截图：&lt;/p&gt;
+&lt;figure class=&quot;image-bubble&quot;&gt;
+                &lt;div c
+      
+    
+    </summary>
+    
+    
+      <category term="VS Tools for AI" scheme="http://ldzhangyx.github.io/tags/VS-Tools-for-AI/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【微软大法好】VS Tools for AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC/NV系列</title>
+    <link href="http://ldzhangyx.github.io/2017/12/03/%E3%80%90%E5%BE%AE%E8%BD%AF%E5%A4%A7%E6%B3%95%E5%A5%BD%E3%80%91VS-Tools-for-AI%E5%85%A8%E6%94%BB%E7%95%A5%EF%BC%883%EF%BC%89%EF%BC%9A%E4%BD%8E%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B9%9F%E8%83%BD%E7%8E%A9%E8%BD%AC%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E6%97%A0%E9%9C%80NC-NV%E7%B3%BB%E5%88%97/"/>
+    <id>http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC-NV系列/</id>
+    <published>2017-12-03T14:14:00.000Z</published>
+    <updated>2018-11-15T12:40:31.771Z</updated>
+    
+    <content type="html"><![CDATA[<p>接着上文，现在我们需要一种穷人的方法来搭建好Azure虚拟机。</p><p>思路很简单，因为AI组件的原理其实是传送了script文件和命令上去，那么我们这个虚拟机只要做好了所有的配置，那么我们就可以将它当作深度学习虚拟机来用了。</p><p>写到这里，我忍不住哀叹一声。买不起外置显卡的穷人，只能绞尽脑汁想这种省钱的办法。</p><p>新建一个Ubuntu 16.04LTS虚拟机。当然选择Windows虚拟机也是可以的，只是不太主流。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203215333304-446155281.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>选择存储之后，使用XShell远程连接虚拟机（这样比较方便）。</p><p>注意此时的虚拟机，GPU约等于没有，所以我们不得不运行CPU版本。所以这个虚拟机的性能会比较差，但是虚拟机此时也可以拿来用作其他事情，比如当作私有云盘，或者是tizi。</p><p><strong>具体的安装步骤可以查看<a href="http://www.cnblogs.com/ldzhangyx/p/7624771.html，这篇博文主要讲述了如何deploy你的虚拟机，并且安装好TensorFlow环境。注意，与那篇文章有些区别的是，Azure虚拟机一般情况下不能带动CUDA，所以我们需要做的仅仅是：" target="_blank" rel="noopener">http://www.cnblogs.com/ldzhangyx/p/7624771.html，这篇博文主要讲述了如何deploy你的虚拟机，并且安装好TensorFlow环境。注意，与那篇文章有些区别的是，Azure虚拟机一般情况下不能带动CUDA，所以我们需要做的仅仅是：</a></strong></p><p><strong>1，安装Python3</strong></p><p><strong>2，安装TensotFlow及必要的依赖库（如pandas），这个依赖库的列表可能很长，所以也可以安装Anaconda来做到一次性配置。</strong></p><p><strong>TIPS：一定要安装好所有的依赖库，具体的列表可以通过报错信息确定。</strong></p><p>下面的操作以Ubuntu版本为准，Windows版本的配置方法类似。</p><p>我们打开VS installer，安装Azure SDK。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203215923476-712735973.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><hr><p>&nbsp;</p><p>安装完成之后的主要步骤参见：<a href="https://github.com/Microsoft/vs-tools-for-ai/blob/master/docs/tensorflow-vm.md" target="_blank" rel="noopener">https://github.com/Microsoft/vs-tools-for-ai/blob/master/docs/tensorflow-vm.md</a></p><p>这里做出中文的说明。</p><p>1，打开你的解决方案。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203220226804-1047305166.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>2，选择服务器资源管理器，使用SSH连接好你的虚拟机。（记得提前给你的虚拟机设置静态IP）</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203220428413-1012102344.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203220539944-339700366.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>连接完成之后你可以发现Remote machine里多了你的虚拟机。你可以点进去看看你虚拟机的文件。</p><p>&nbsp;</p><p>3，提交一个Job。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203220629991-972301993.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>在解决方案管理器里提交job，有几个参数需要注意一下：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203221536569-163455782.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>&nbsp;</p><p>cluster是你的虚拟机名字。在第三行有一个Job Name必须写，你选一个自己喜欢的名字就好，作为job的区分标识。</p><p>下面这些参数有些复杂，但是如果你直接提交的话，将会报类似的错误。</p><p>点击这里查看所有的Jobs：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203220848991-224244246.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>&nbsp;如果你选择了Python2/3双版本共存，可能会出现这样的错误：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203221233460-1588080758.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>&nbsp;</p><p>原因出在这里：</p><p>如果我们在Summit的时候填写的是python，那么虚拟机会执行python tensorflowapplication.py这一条指令。</p><p>而我们之前为了方便，安装了Python3使得两版本共存，那么python调用的其实是python2.要使虚拟机调用Python3，我们只需要这么修改：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203221133335-1003452712.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>&nbsp;</p><p>这样我们就可以使用Python3了。</p><p>提交，查看结果：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203221305101-1765862488.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>如果你要在执行的时候指定一些参数，也是在类似的地方进行调整。</p><p>&nbsp;</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;接着上文，现在我们需要一种穷人的方法来搭建好Azure虚拟机。&lt;/p&gt;
+&lt;p&gt;思路很简单，因为AI组件的原理其实是传送了script文件和命令上去，那么我们这个虚拟机只要做好了所有的配置，那么我们就可以将它当作深度学习虚拟机来用了。&lt;/p&gt;
+&lt;p&gt;写到这里，我忍不住哀叹一声
+      
+    
+    </summary>
+    
+    
+      <category term="VS Tools for AI" scheme="http://ldzhangyx.github.io/tags/VS-Tools-for-AI/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【微软大法好】VS Tools for AI全攻略（2）</title>
+    <link href="http://ldzhangyx.github.io/2017/12/03/%E3%80%90%E5%BE%AE%E8%BD%AF%E5%A4%A7%E6%B3%95%E5%A5%BD%E3%80%91VS-Tools-for-AI%E5%85%A8%E6%94%BB%E7%95%A5%EF%BC%882%EF%BC%89/"/>
+    <id>http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（2）/</id>
+    <published>2017-12-03T13:47:00.000Z</published>
+    <updated>2018-11-15T12:40:27.428Z</updated>
+    
+    <content type="html"><![CDATA[<p>接着上文，我们来讨论如何使用Azure资源来训练我们的tensorflow项目。Azure云我个人用得很多，主要是因为微软爸爸批了150刀每月的额度，我可以愉快地玩耍。</p><p>那么针对Azure，有成套的两个方案解决问题。</p><p>方案一（比较有钱的、对速度要求高的）：使用Deep Learning Virtual Machine - NC系列虚拟机</p><p>这个是真贵&hellip;&hellip;具体配置方案如下：</p><p>首先你得有一个Azure。这一段不讲。</p><p>然后进入你的Azure Portal，新建一个这样的虚拟机：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203214100022-533166350.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203214144038-1498482763.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203214259554-1202344991.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>&nbsp;</p><p>根据云虚拟机的一般情况，你可以在创建虚拟机的时候用密码创建，然后使用XShell生成RSA密钥对，使用SSH远程连接。一般来说SSH连接都是更加主流且常见的连接方式。</p><p>之后选择配置。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203214515616-1997324886.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>别急着说贵，必要情况下，这个GPU好到足以撑起整个实验室。请看配置：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203214612397-1942731584.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>看到K80，你就会瞬间觉得这个价格无比良心了。</p><p>但是对于那些个人用户来说，肯定是用不到这么高端的配置的。对于这些个人用户，该怎么做呢？</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;接着上文，我们来讨论如何使用Azure资源来训练我们的tensorflow项目。Azure云我个人用得很多，主要是因为微软爸爸批了150刀每月的额度，我可以愉快地玩耍。&lt;/p&gt;
+&lt;p&gt;那么针对Azure，有成套的两个方案解决问题。&lt;/p&gt;
+&lt;p&gt;方案一（比较有钱的、对速度要
+      
+    
+    </summary>
+    
+    
+      <category term="VS Tools for AI" scheme="http://ldzhangyx.github.io/tags/VS-Tools-for-AI/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【微软大法好】VS Tools for AI全攻略</title>
+    <link href="http://ldzhangyx.github.io/2017/12/03/%E3%80%90%E5%BE%AE%E8%BD%AF%E5%A4%A7%E6%B3%95%E5%A5%BD%E3%80%91VS-Tools-for-AI%E5%85%A8%E6%94%BB%E7%95%A5/"/>
+    <id>http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略/</id>
+    <published>2017-12-03T13:25:00.000Z</published>
+    <updated>2018-11-15T12:41:40.809Z</updated>
+    
+    <content type="html"><![CDATA[<p>大家都知道微软在Connect();17大会上发布了VS Tools for AI，旨在提升Visual Studio和VSCode对日益增长的深度学习需求的体验。看了一圈，网上似乎没有一个完整的中文教程来教你怎么完整配置深度学习方案。</p><p>与此同时我也接了一个活，是俱乐部与MSRA的项目，项目的目的之一是向VS Tools for AI的samples库里增加新的算法，所以这篇技术文章就应运而生了。</p><p>本文将分为以下几个部分来进行阐述：</p><p><strong>1，什么是VS Tools for AI</strong></p><p><strong>2，怎么在本地配置好VS Tools for AI的前端</strong></p><p><strong>3，怎么配置Azure云上的后端环境</strong></p><p><strong>4，怎么连接前后端，以及怎么运行TensorFlow实例</strong></p><p>============================================================</p><p><strong>1，什么是VS Tools for AI？</strong></p><p>VS Tools for AI（下称AI组件）的官网地址：<a href="https://www.visualstudio.com/downloads/ai-tools-vs/" target="_blank" rel="noopener">https://www.visualstudio.com/downloads/ai-tools-vs/</a></p><p>GitHub地址：<a href="https://github.com/Microsoft/vs-tools-for-ai" target="_blank" rel="noopener">https://github.com/Microsoft/vs-tools-for-ai</a></p><p>简而言之，AI组件的用处，是让你快速构建、训练一个深度学习Project。</p><p>AI组件的主要功能有：</p><p><span id="result_box" class="short_text" lang="zh-CN"><span>-开发，调试和部署深度学习和人工智能解决方案：<span id="result_box" lang="zh-CN"><span>AI组件是支持CNTK，Google TensorFlow，Theano，Keras，Caffe2等深度学习框架的扩展。 您可以通过开放式架构使用其他深度学习框架。 <span>AI组件利用对Python，C / C ++ / C＃的现有代码支持，并为Cognitive Toolkit BrainScript提供额外的支持。</span>&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</span></span></span></span></p><p><span class="short_text" lang="zh-CN"><span><span lang="zh-CN"><span><span>-使用&ldquo;样本库&rdquo;（就是上文提到的样例）快速构建代码：<span id="result_box" lang="zh-CN"><span>AI组件与Azure机器学习集成在一起，可以轻松浏览使用CNTK，TensorFlow，MMLSpark等的样本实验库。 <span>这使得开始深入学习AI项目很容易。</span>&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</span></span></span></span></span></span></span></p><p><span class="short_text" lang="zh-CN"><span><span lang="zh-CN"><span><span><span lang="zh-CN"><span><span>-<span id="result_box" lang="zh-CN"><span>在Azure中扩展深度学习训练并运行AI模型：<span>用于AI的Visual Studio工具与Azure批处理AI和Azure机器学习服务集成，以便向Azure GPU虚拟机，Spark群集等提交深度学习作业。 <span>您可以监视最近的实验的性能，然后生成一个Web服务来为新的智能应用程序供电。</span>&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</span></span></span></span></span></span></span></span></span></span></span></p><p><span class="short_text" lang="zh-CN"><span><span lang="zh-CN"><span><span><span lang="zh-CN"><span><span><span lang="zh-CN"><span><span><span>-<span id="result_box" lang="zh-CN">高效的AI开发人员工具，可以训练模型并将AI注入到您的应用程序中：AI组件可为开发人员和数据科学家提供最强大的一整套集成工具，用于创建，调试和部署其自定义深度学习模型。 <span>使用Visual Studio的强大功能，您可以使用刚刚培训的模型无缝地构建应用程序，而无需切换IDE。</span>&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</span></span></span></span></span></span></span></span></span></span></span></span></span></p><p><span class="short_text" lang="zh-CN"><span><span lang="zh-CN"><span><span><span lang="zh-CN"><span><span><span lang="zh-CN"><span><span><span><span lang="zh-CN"><span>-<span id="result_box" lang="zh-CN"><span>用TensorBoard等集成开放工具可视化您的模型处理：AI组件</span>&lt;/span&gt;<span id="result_box" lang="zh-CN"><span>还集成了使用TensorBoard进行模型训练和实验的监控和可视化。 <span>在TensorBoard中打开您的作业，以在本地和远程虚拟机上运行。</span>&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p><hr><p>&nbsp;</p><p>2，怎么在本地配置好你的AI组件前端</p><p>通过阅读上文的overview，我们知道，AI组件可以说是弥补了VS的一个短板，那么要怎么安装AI组件呢？</p><p>&nbsp;</p><p>首先你得安装好Visual Studio 2017。其Community版本依然是免费的，我因为是MSP，拥有VS Enterprise的订阅，感谢微软爸爸给我饭吃。在安装过程中，选择好Python组件，安装Anaconda 4.4以及Python3.</p><p>&nbsp;<figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203211702788-1760377837.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure></p><p>在这里安装，当然你也可以选择独立地安装Anaconda和Python3，并且将其加入到系统变量中，以便于在shell中调用。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203211756507-483638538.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>之后，在上文提到的网址里下载AI组件，作为一个插件安装。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203211843632-1982243054.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>&nbsp;</p><p>&nbsp;安装完毕之后，你已经做好了初步准备。</p><p>&nbsp;</p><p>接下来，请在本机安装好TensorFlow（CPU与GPU均可），版本1.4最佳（最新版本）。CPU版本只需要</p><div class="cnblogs_code"><pre>pip install tensorflow</pre></div><p>即可，而安装GPU版本则需要安装对应版本的CUDA和CuDNN。因为本学期我换了一台笔记本，轻薄本没有独立显卡，所以我安装的是CPU版本。</p><p>&nbsp;</p><hr><p>&nbsp;</p><p><strong>调试你的TensorFlow代码</strong></p><p>在Visual Studio中创建一个新的TensorFlow项目：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203212224304-1535986104.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>&nbsp;</p><p>如果一切顺利的话，你将可以看见图中的选择框。</p><p>之后熟悉的工作区回来了。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203212310116-2112595579.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>&nbsp;当然，我觉得TensorFlow的基础知识不需要我来逐一讲解，看这篇博文的人应该都具有一定的TensorFlow编程技巧。</p><p>编写完之后按下F5，自动启动shell，运行程序，console中输出结果。</p><p>&nbsp;</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;大家都知道微软在Connect();17大会上发布了VS Tools for AI，旨在提升Visual Studio和VSCode对日益增长的深度学习需求的体验。看了一圈，网上似乎没有一个完整的中文教程来教你怎么完整配置深度学习方案。&lt;/p&gt;
+&lt;p&gt;与此同时我也接了一个活
+      
+    
+    </summary>
+    
+    
+      <category term="VS Tools for AI" scheme="http://ldzhangyx.github.io/tags/VS-Tools-for-AI/"/>
     
   </entry>
   

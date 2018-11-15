@@ -25,30 +25,25 @@ ga('send', 'pageview');
     
     
     
-    <title>【Python音乐生成】可能有用的一些Python库 | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
+    <title>【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题 | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="">
-    <meta name="description" content="1，Python-MIDI，很多操作库的前置库。作者提供了一个python3的branch。git clone下来之后注意切换到这个branch之后再运行setup.py。                                                                                                            实际使用的时">
+    <meta name="keywords" content="TensorFlow">
+    <meta name="description" content="问题描述： Specifically, I want to do matmul(A,B) where &amp;nbsp;’A’ has shape (m,n) &amp;nbsp;’B’ has shape (k,n,p) and the result should have shape (k,m,p)  参考网站： https://groups.google.com/a/tensorflow.org/foru">
+<meta name="keywords" content="TensorFlow">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Python音乐生成】可能有用的一些Python库">
-<meta property="og:url" content="http://ldzhangyx.github.io/2017/11/05/【Python音乐生成】可能有用的一些Python库/index.html">
+<meta property="og:title" content="【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题">
+<meta property="og:url" content="http://ldzhangyx.github.io/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/index.html">
 <meta property="og:site_name" content="张逸霄的技术小站">
-<meta property="og:description" content="1，Python-MIDI，很多操作库的前置库。作者提供了一个python3的branch。git clone下来之后注意切换到这个branch之后再运行setup.py。                                                                                                            实际使用的时">
+<meta property="og:description" content="问题描述： Specifically, I want to do matmul(A,B) where &amp;nbsp;’A’ has shape (m,n) &amp;nbsp;’B’ has shape (k,n,p) and the result should have shape (k,m,p)  参考网站： https://groups.google.com/a/tensorflow.org/foru">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105215112310-1907169873.png">
-<meta property="og:image" content="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105215531295-1873892334.png">
-<meta property="og:image" content="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105215442873-553231678.png">
-<meta property="og:image" content="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105215705091-1523489110.png">
-<meta property="og:image" content="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105220027341-70214963.png">
-<meta property="og:updated_time" content="2018-11-15T12:36:40.089Z">
+<meta property="og:updated_time" content="2018-11-15T12:39:52.823Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Python音乐生成】可能有用的一些Python库">
-<meta name="twitter:description" content="1，Python-MIDI，很多操作库的前置库。作者提供了一个python3的branch。git clone下来之后注意切换到这个branch之后再运行setup.py。                                                                                                            实际使用的时">
-<meta name="twitter:image" content="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105215112310-1907169873.png">
+<meta name="twitter:title" content="【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题">
+<meta name="twitter:description" content="问题描述： Specifically, I want to do matmul(A,B) where &amp;nbsp;’A’ has shape (m,n) &amp;nbsp;’B’ has shape (k,n,p) and the result should have shape (k,m,p)  参考网站： https://groups.google.com/a/tensorflow.org/foru">
     
         <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
     
@@ -136,7 +131,7 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">【Python音乐生成】可能有用的一些Python库</div>
+        <div class="flex-col header-title ellipsis">【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -158,11 +153,11 @@ ga('send', 'pageview');
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">【Python音乐生成】可能有用的一些Python库</h1>
+        <h1 class="title">【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题</h1>
         <h5 class="subtitle">
             
-                <time datetime="2017-11-05T14:01:00.000Z" itemprop="datePublished" class="page-time">
-  2017-11-05
+                <time datetime="2017-12-20T17:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-12-21
 </time>
 
 
@@ -179,13 +174,13 @@ ga('send', 'pageview');
 <div class="container body-wrap">
     
 
-<article id="post-【Python音乐生成】可能有用的一些Python库"
+<article id="post-【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">【Python音乐生成】可能有用的一些Python库</h1>
+        <h1 class="post-card-title">【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-11-05 22:01:00" datetime="2017-11-05T14:01:00.000Z"  itemprop="datePublished">2017-11-05</time>
+            <time class="post-time" title="2017-12-21 01:00:00" datetime="2017-12-20T17:00:00.000Z"  itemprop="datePublished">2017-12-21</time>
 
             
 
@@ -198,57 +193,30 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>1，Python-MIDI，很多操作库的前置库。作者提供了一个python3的branch。git clone下来之后注意切换到这个branch之后再运行setup.py。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105215112310-1907169873.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>实际使用的时候，使用</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> midi</span><br></pre></td></tr></table></figure>
-<p>进行使用。</p>
-<p>&nbsp;</p>
-<p>2，pretty-midi，非常有用的一个库，将midi进行了二次转换，变成piano-roll。这个库被用在Google Magenta里，我自己的项目也要使用它。master分支现在已经支持了Python3.</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105215531295-1873892334.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>&nbsp;</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105215442873-553231678.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>&nbsp;</p>
-<p>3，<span class="col-11 text-gray-dark mr-2">fluidsynth3，原作者感觉像是跑路了，有大神写出了其Python3版本，真的非常感谢。这个库是上面pretty-midi的前置库。</span></p>
-<p><span class="col-11 text-gray-dark mr-2"><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105215705091-1523489110.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure></span></p>
-<p>&nbsp;</p>
-<p>以上就是最常见的几个专门处理音乐的库了。</p>
-<p>当然一些自己用过的库感觉也是可以的。</p>
-<p>4，mingus，第三方推出了其Python3版本。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105220027341-70214963.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>&nbsp;</p>
-<p>最后默默祝福自己顺利写出论文来&hellip;&hellip;</p>
-<p>&nbsp;</p>
+            <p>问题描述：</p>
+<p>Specifically, I want to do matmul(A,B) where</p>
+<p>&nbsp;’A’ has shape (m,n)</p>
+<p>&nbsp;’B’ has shape (k,n,p)</p>
+<p>and the result should have shape (k,m,p)</p>
+<hr>
+<p>参考网站：</p>
+<p><a href="https://groups.google.com/a/tensorflow.org/forum/#!topic/discuss/4tgsOSxwtkY" target="_blank" rel="noopener">https://groups.google.com/a/tensorflow.org/forum/#!topic/discuss/4tgsOSxwtkY</a></p>
+<p><a href="https://stackoverflow.com/questions/38235555/tensorflow-matmul-of-input-matrix-with-batch-data" target="_blank" rel="noopener">https://stackoverflow.com/questions/38235555/tensorflow-matmul-of-input-matrix-with-batch-data</a></p>
+<hr>
+<p>解决办法：</p>
+<p>1，我们知道TensorFlow的matmul已经支持了batch，即：</p>
+<pre><code>A = tf.Variable(tf.random_normal(shape=(a, b, n, m)))
+B = tf.Variable(tf.random_normal(shape=(a, b, m, k)))
+tf.matmul(A, B)
+</code></pre><p>会返回(a,b,n,k)，前面的N个维度会被保留。但是适用情景与题目不符。</p>
+<p>2，所以我们自然想到reshape。</p>
+<p><span class="comment-copy">You can conflate the two dimensions not used in the multiplication using reshape, multiply the two matrices, and then call reshape again to get the desired shape. This is equivalent to doing batch multiplication.</span></p>
+<p><span class="comment-copy">简而言之呢，就是，你可以将乘法中用不到的维度reshape到后面去，比如</span></p>
+<p><span class="comment-copy">(k, m, p) =&gt; (m, p * k)</span></p>
+<p>进行矩阵乘法得到：(n, p * k)</p>
+<p>之后reshape成：(k, n, p)。</p>
+<p>虽然有些麻烦，但这是唯一的解决办法了。</p>
+<p>适用情景：A矩阵只有一个，但是B矩阵有batch_num个，需要逐个进行矩阵乘法的场合。</p>
 
         </div>
 
@@ -257,12 +225,12 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-11-15T12:36:40.089Z" itemprop="dateUpdated">2018-11-15 20:36:40</time>
+    最后更新时间：<time datetime="2018-11-15T12:39:52.823Z" itemprop="dateUpdated">2018-11-15 20:39:52</time>
 </span><br>
 
 
         
-        原文地址：<a href="/2017/11/05/【Python音乐生成】可能有用的一些Python库/" target="_blank" rel="external">http://ldzhangyx.github.io/2017/11/05/【Python音乐生成】可能有用的一些Python库/</a>
+        原文地址：<a href="/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/" target="_blank" rel="external">http://ldzhangyx.github.io/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/</a>
         
     </div>
     
@@ -283,6 +251,8 @@ ga('send', 'pageview');
 
         <div class="post-footer">
             
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TensorFlow/">TensorFlow</a></li></ul>
+
 
             
 <div class="page-share-wrap">
@@ -291,7 +261,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2017/11/05/【Python音乐生成】可能有用的一些Python库/&title=《【Python音乐生成】可能有用的一些Python库》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/&title=《【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -301,22 +271,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2017/11/05/【Python音乐生成】可能有用的一些Python库/&title=《【Python音乐生成】可能有用的一些Python库》 — 张逸霄的技术小站&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/&title=《【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题》 — 张逸霄的技术小站&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2017/11/05/【Python音乐生成】可能有用的一些Python库/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【Python音乐生成】可能有用的一些Python库》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2017/11/05/【Python音乐生成】可能有用的一些Python库/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/&via=http://ldzhangyx.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2017/11/05/【Python音乐生成】可能有用的一些Python库/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -339,18 +309,18 @@ ga('send', 'pageview');
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略/" id="post-prev" class="post-nav-link">
+      <a href="/2018/04/05/unity-fungus/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">【微软大法好】VS Tools for AI全攻略</h4>
+        <h4 class="title">10分钟快速构建Unity中的万能对话系统 / 叙事系统 / 剧情系统</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/10/10/cthulhu-book-share/" id="post-next" class="post-nav-link">
+      <a href="/2017/12/05/【微软大法好】VS-Tools-for-AI全攻略（4）：从样例库中快速构建项目进行深度学习/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">克苏鲁神话 中文合集</h4>
+        <h4 class="title">【微软大法好】VS Tools for AI全攻略（4）：从样例库中快速构建项目进行深度学习</h4>
       </a>
     </div>
   
@@ -471,7 +441,7 @@ ga('send', 'pageview');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2017/11/05/【Python音乐生成】可能有用的一些Python库/&title=《【Python音乐生成】可能有用的一些Python库》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/&title=《【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -481,22 +451,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2017/11/05/【Python音乐生成】可能有用的一些Python库/&title=《【Python音乐生成】可能有用的一些Python库》 — 张逸霄的技术小站&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/&title=《【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题》 — 张逸霄的技术小站&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2017/11/05/【Python音乐生成】可能有用的一些Python库/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【Python音乐生成】可能有用的一些Python库》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2017/11/05/【Python音乐生成】可能有用的一些Python库/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/&via=http://ldzhangyx.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2017/11/05/【Python音乐生成】可能有用的一些Python库/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -507,7 +477,7 @@ ga('send', 'pageview');
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADLElEQVR42u3aUY6jQAwFwLn/pbMHyALPNpGCU3xFmQBdjTSmn/vvLz5eb8f7X4/Oyq9/ft/quTcc2NjY2A9hv06P5DfJjd+vdv65901hhNjY2Njr2PlAJyUnL0VJyTx6PNF9sbGxsbEPhpi/8x+dm0xNXgKxsbGxsatDqZ6VX+f899jY2NjYSZmpFqe7li752D6SpWFjY2N/PbvaiP3mzx/pb2NjY2N/MftVPPKiVd3ikwRYvSL3n5FgY2NjL2LnBaAXyvcWLdXy2Rs/NjY29ib2OWwS+uexfj65SbEsjBkbGxt7HTuZgl5jYLK8qbZ+C+UNGxsbeyk7Lza94L7XNq42d6PxYGNjY69g3xvH99oAvdioOhJsbGzsfez8ondF83l01WsbR4UNGxsbeym7F9nkhao6TVV8XoCxsbGxd7OTUD5fwORN2WT68u1BF9OEjY2NvZQ9b6DO2fOiFT0SbGxs7EXsJGSfhP7V69+7ZediWYKNjY29jj0Jbgpd5fj76jQlhfawv42NjY39WHYvJMqpeaGaNBuS2OviOWNjY2M/lp2/6FdLUS/Qn5TGvIxhY2Nj72NXI/5eeWuWmQGpMN3Y2NjYq9nVMlNt5faCrV5JOxwJNjY29mPZvegnH9b8l5PWLzY2NvYvsPPX9/PIPnn1L3Sei+Wt2uTAxsbG3srOS1SvAVyNpfLIqReKYWNjY29i926TF7BekyDZDDRaMmFjY2OvY+e3mW/EyQvhpGFw8SCxsbGxf4AdnTyOhHqRVjJNF9fBxsbGXsTOQ/zk+14BazZoW+PHxsbG3seex0OTlvCkqVDdDISNjY29m50H7j1edVjVZkBSwC5WYNjY2Ngr2NWh5HF/tQFc3axTXahgY2Nj72C/ikfvTb7a7u0tisrJGTY2NvYKdvVff166eoAJe3I1bGxs7KezqxFS0uj9xNbMSQG7aA9gY2Njr2BP2rpJ2yCfrLuWGRfjx8bGxv559mRp0ZuCXsx0eDVsbGzsH2ZXS9S8RZFPSr7UwcbGxt7HzhsAkyVKdaNPNfovRF3Y2NjYi9i9gOZzrd98mvLGQHNDDzY2Nva3s/8BHcSbpzrFh8sAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD9ElEQVR42u3ay24bMRAEQP3/TytXA46o7hnKToDiyZAVLlkbYDyPxyNezy/r1Sfn73/9/Pt3zrvlZ/u+/+MTCwcOHDhwlNudL58TPIP1ap9XV3r12/OrKs6AAwcOHDguceTH2sTzcwD+xOXzO+LAgQMHjt/lSC6QfN4mivlzceDAgQPH/8iRPGBT/jt/P/8tDhw4cOD4eY6kONgGtvM+bSEyCfD5v71QK8WBAwcOHPOZgaJI92/+/JH5Dhw4cODAcSzGtcMHbaibFRlnAXi2cODAgQPHnmPfENqUEdt41/4pMLsXDhw4cODYcLShK0mTklbQJmzPQuyw4YQDBw4cOEYc+0vOWkr7ALkpDv7lmzhw4MCBY83Rpk+bkYVZipgnckmork+IAwcOHDjKE+bJTzsokOwTpVUL+jqZxIEDBw4clziSo2wKf5v9ZyW/WQKJAwcOHDg+x5EPuuUDCkkSmDel8mGLIgzjwIEDB441x630KS/nJQfN4fISYf0HBA4cOHDgGHG0j3yWawZxa4SiTuRw4MCBA8eaI28azUbT2nGEljLHWi0cOHDgwFFeOwl7n2sd3TpDfsJioAEHDhw4cMwzpsfsiLOBg3MqlT+x/aTuyOHAgQMHjpIjv0bbXipCWpnUbYqJb8IzDhw4cOD4AMemYNcea9MWyouVRXMLBw4cOHCsOdqt94Fwtv+sONiS4cCBAweOPUfeBGqTtLbJ1ILOUs0Lcxw4cODAgSMvjbWltEVYnb2k2W71LXDgwIEDx+IWedjblPBmhcV8tCJPDt+cGQcOHDhwrDk2LZy8kTOsWY4Cdl58fNOLw4EDBw4cI47kYu06X2+W7CUvYxNcceDAgQPHLY4k3cq/synY3R2Ya8N/fVUcOHDgwBHXwdoCX57y7VtKswBc/4/AgQMHDhxrjrzkN3vwbGQtD71tY+xNFw4HDhw4cCw4zhdum095CS9JqPLRijzVTMI8Dhw4cODYcLSlt32LKE/VcrI8Sr55Cg4cOHDgWHO0gwubcDsbR9gULmeJHw4cOHDg2HC0QfFWMN4cepPIvbkRDhw4cOC4xNH29zcBL2k15a2szUjfX3bDgQMHDhxrjrYYdz5W3qzKUWYpZT4wgQMHDhw47nI8y5WHsVkZ8XF11fvjwIEDB441x2zrfHxhFvlnqWOeQOavFgcOHDhwzDjy4Dor+SVjCnkC2RYT8wYVDhw4cOC4y9G2edog18b2Fuva/jhw4MCB45c4zsMBm9ZRfqpNyvfyKThw4MCB48c58qveak3NyIYoOHDgwIHjEsdsiGF2xLbg2Aby9jXjwIEDB467HLOmUVs03IzN7UP+7BXiwIEDB46S4w81fipc48B6dQAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 
