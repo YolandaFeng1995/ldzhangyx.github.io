@@ -32,18 +32,18 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="PyTorch,软件工程,Python">
-    <meta name="description" content="提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。 保持工程的模块化一个我认为整洁的项目应该遵循这样的结构，现在我以一个Encoder-Decoder框架为例进行描述。 +—data|—+log|—+dataset|  |  +—train.txt|  |  +—test.txt+—model|  +—in">
+    <meta name="description" content="提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。 保持工程的模块化一个我认为整洁的项目应该遵循这样的结构，现在我以一个Encoder-Decoder框架为例进行描述。 123456789101112131415161718192021222324&apos;&apos;&apos;The structure of my project">
 <meta name="keywords" content="PyTorch,软件工程,Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PyTorch工程中，提升代码体验的几点想法">
 <meta property="og:url" content="http://ldzhangyx.github.io/2018/11/15/python-init/index.html">
 <meta property="og:site_name" content="张逸霄的技术小站">
-<meta property="og:description" content="提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。 保持工程的模块化一个我认为整洁的项目应该遵循这样的结构，现在我以一个Encoder-Decoder框架为例进行描述。 +—data|—+log|—+dataset|  |  +—train.txt|  |  +—test.txt+—model|  +—in">
+<meta property="og:description" content="提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。 保持工程的模块化一个我认为整洁的项目应该遵循这样的结构，现在我以一个Encoder-Decoder框架为例进行描述。 123456789101112131415161718192021222324&apos;&apos;&apos;The structure of my project">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-15T09:20:11.144Z">
+<meta property="og:updated_time" content="2018-11-15T10:57:07.726Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PyTorch工程中，提升代码体验的几点想法">
-<meta name="twitter:description" content="提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。 保持工程的模块化一个我认为整洁的项目应该遵循这样的结构，现在我以一个Encoder-Decoder框架为例进行描述。 +—data|—+log|—+dataset|  |  +—train.txt|  |  +—test.txt+—model|  +—in">
+<meta name="twitter:description" content="提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。 保持工程的模块化一个我认为整洁的项目应该遵循这样的结构，现在我以一个Encoder-Decoder框架为例进行描述。 123456789101112131415161718192021222324&apos;&apos;&apos;The structure of my project">
     
         <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
     
@@ -156,7 +156,7 @@ ga('send', 'pageview');
         <h1 class="title">PyTorch工程中，提升代码体验的几点想法</h1>
         <h5 class="subtitle">
             
-                <time datetime="2018-11-15T09:20:11.000Z" itemprop="datePublished" class="page-time">
+                <time datetime="2018-11-15T09:20:34.192Z" itemprop="datePublished" class="page-time">
   2018-11-15
 </time>
 
@@ -189,7 +189,7 @@ ga('send', 'pageview');
     <div class="post-card">
         <h1 class="post-card-title">PyTorch工程中，提升代码体验的几点想法</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-11-15 17:20:11" datetime="2018-11-15T09:20:11.000Z"  itemprop="datePublished">2018-11-15</time>
+            <time class="post-time" title="2018-11-15 17:20:34" datetime="2018-11-15T09:20:34.192Z"  itemprop="datePublished">2018-11-15</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/软件工程/">软件工程</a></li></ul>
@@ -206,7 +206,7 @@ ga('send', 'pageview');
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。</p>
 <h2 id="保持工程的模块化"><a href="#保持工程的模块化" class="headerlink" title="保持工程的模块化"></a>保持工程的模块化</h2><p>一个我认为整洁的项目应该遵循这样的结构，现在我以一个Encoder-Decoder框架为例进行描述。</p>
-<p>+—data<br>|—+log<br>|—+dataset<br>|  |  +—train.txt<br>|  |  +—test.txt<br>+—model<br>|  +—<strong>init</strong>.py<br>|  +—encoder.py<br>|  +—decoder.py<br>|  +—(model<em>name).py<br>|  +—highway.py<br>|  …<br>+—utils<br>|  +—<em>_init</em></em>.py<br>|  +—batch_loader.py<br>|  +—parameters.py<br>|  +—functional.py<br>|  …<br>+—README.md<br>+—LICENSE<br>+—test.py<br>+—train.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''The structure of my project.</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">+--data</span><br><span class="line">|--+log</span><br><span class="line">|--+dataset</span><br><span class="line">|  |  +--train.txt</span><br><span class="line">|  |  +--test.txt</span><br><span class="line">+--model</span><br><span class="line">|  +--__init__.py</span><br><span class="line">|  +--encoder.py</span><br><span class="line">|  +--decoder.py</span><br><span class="line">|  +--(model_name).py</span><br><span class="line">|  +--highway.py</span><br><span class="line">|  ...</span><br><span class="line">+--utils</span><br><span class="line">|  +--__init__.py</span><br><span class="line">|  +--batch_loader.py</span><br><span class="line">|  +--parameters.py</span><br><span class="line">|  +--functional.py</span><br><span class="line">|  ...</span><br><span class="line">+--README.md</span><br><span class="line">+--LICENSE</span><br><span class="line">+--test.py</span><br><span class="line">+--train.py</span><br></pre></td></tr></table></figure>
 <p>在data文件夹里，放置数据集和模型，以及log输出；<br>在model文件夹里，将模型尽可能模块化，并用一个顶层模块将子模块组合起来。这个顶层模块要实现训练与测试的类方法。<br>在utils里放置参数列表文件，小工具，以及对数据预处理的文件。（我曾见过有用Jupyter Notebook进行可视化的数据清理的做法）<br>如果要开源，请加入README.md和LICENSE，一般我会选择GPL v3的License。<br>在test.py和train.py里实例化模型，进行训练和测试。</p>
 <p>一个可以参照的GitHub开源项目可以点这里：<a href="https://github.com/kefirski/pytorch_RVAE" target="_blank" rel="noopener">https://github.com/kefirski/pytorch_RVAE</a></p>
 <h2 id="写一个好的注释"><a href="#写一个好的注释" class="headerlink" title="写一个好的注释"></a>写一个好的注释</h2><p>Google曾经发布过一个<a href="https://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/contents/" target="_blank" rel="noopener">代码风格指南</a>，里面详细地介绍了Python代码应当遵循的有用的规范。在里面的函数一节里，就提及了注释的规范。</p>
@@ -234,7 +234,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-11-15T09:20:11.144Z" itemprop="dateUpdated">2018-11-15 17:20:11</time>
+    最后更新时间：<time datetime="2018-11-15T10:57:07.726Z" itemprop="dateUpdated">2018-11-15 18:57:07</time>
 </span><br>
 
 
@@ -563,5 +563,20 @@ MathJax.Hub.Queue(function() {
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

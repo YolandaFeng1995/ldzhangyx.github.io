@@ -170,7 +170,7 @@ ga('send', 'pageview');
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2018-11-15 17:20:11" datetime="2018-11-15T09:20:11.000Z"  itemprop="datePublished">2018-11-15</time>
+        <time class="post-time" title="2018-11-15 17:20:34" datetime="2018-11-15T09:20:34.192Z"  itemprop="datePublished">2018-11-15</time>
 
         
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/软件工程/">软件工程</a></li></ul>
@@ -196,7 +196,7 @@ ga('send', 'pageview');
     
         提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。
 保持工程的模块化一个我认为整洁的项目应该遵循这样的结构，现在我以一个Encoder-Decoder框架为例进行描述。
-+—data|—+log|—+dataset|  |  +—train.txt|  |  +—test.txt+—model|  +...
+123456789101112131415161718192021222324'''The structure of my proj...
     
 
         <a href="/2018/11/15/python-init/" class="post-more waves-effect waves-button">
@@ -618,5 +618,20 @@ MathJax.Hub.Queue(function() {
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
