@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ldzhangyx.github.io/2017/10/10/cthulhu-book-share/</loc>
+    
+    <lastmod>2018-11-15T11:23:18.475Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ldzhangyx.github.io/2018/11/15/python-init/</loc>
     
-    <lastmod>2018-11-15T10:57:07.726Z</lastmod>
+    <lastmod>2018-11-15T11:05:06.669Z</lastmod>
     
   </url>
   
@@ -19,13 +26,6 @@
     <loc>http://ldzhangyx.github.io/2018/10/14/self-attention/</loc>
     
     <lastmod>2018-10-15T14:47:38.351Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/2018/10/10/cthulhu-book-share/</loc>
-    
-    <lastmod>2018-10-10T09:02:00.772Z</lastmod>
     
   </url>
   
