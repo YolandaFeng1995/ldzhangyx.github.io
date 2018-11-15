@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-126536496-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>【微软大法好】VS Tools for AI全攻略（4）——选择适合自己的虚拟机 | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="VS Tools for AI">
+    <meta name="description" content="当我们选择好了自己的虚拟机后，也许效果不尽如人意。就比如我，发现代码在训练一段时间之后，CPU的使用率会下降。 这个时候我们就要开始考虑，是不是我们选择的虚拟机不是适合自己的型号。 Azure的虚拟机分为下面几种：  一般用途   内存优化   计算优化   GPU优化   高性能计算   存储优化   其中，一般用途可能是我们创建虚拟机时最常用的型号。现在我们来看一下一般用途虚拟机的配置和特别之">
+<meta name="keywords" content="VS Tools for AI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【微软大法好】VS Tools for AI全攻略（4）——选择适合自己的虚拟机">
+<meta property="og:url" content="http://ldzhangyx.github.io/2018/04/21/vstools-4/index.html">
+<meta property="og:site_name" content="张逸霄的技术小站">
+<meta property="og:description" content="当我们选择好了自己的虚拟机后，也许效果不尽如人意。就比如我，发现代码在训练一段时间之后，CPU的使用率会下降。 这个时候我们就要开始考虑，是不是我们选择的虚拟机不是适合自己的型号。 Azure的虚拟机分为下面几种：  一般用途   内存优化   计算优化   GPU优化   高性能计算   存储优化   其中，一般用途可能是我们创建虚拟机时最常用的型号。现在我们来看一下一般用途虚拟机的配置和特别之">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180421140205894-1064545323.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180421140500990-1678822611.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180421140756350-2133019219.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180421140839311-199788858.png">
+<meta property="og:updated_time" content="2018-11-15T12:08:59.913Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【微软大法好】VS Tools for AI全攻略（4）——选择适合自己的虚拟机">
+<meta name="twitter:description" content="当我们选择好了自己的虚拟机后，也许效果不尽如人意。就比如我，发现代码在训练一段时间之后，CPU的使用率会下降。 这个时候我们就要开始考虑，是不是我们选择的虚拟机不是适合自己的型号。 Azure的虚拟机分为下面几种：  一般用途   内存优化   计算优化   GPU优化   高性能计算   存储优化   其中，一般用途可能是我们创建虚拟机时最常用的型号。现在我们来看一下一般用途虚拟机的配置和特别之">
+<meta name="twitter:image" content="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180421140205894-1064545323.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">张逸霄</h5>
+          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ldzhangyx" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">【微软大法好】VS Tools for AI全攻略（4）——选择适合自己的虚拟机</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">【微软大法好】VS Tools for AI全攻略（4）——选择适合自己的虚拟机</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-04-21T06:09:00.000Z" itemprop="datePublished" class="page-time">
+  2018-04-21
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-vstools-4"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">【微软大法好】VS Tools for AI全攻略（4）——选择适合自己的虚拟机</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-04-21 14:09:00" datetime="2018-04-21T06:09:00.000Z"  itemprop="datePublished">2018-04-21</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>当我们选择好了自己的虚拟机后，也许效果不尽如人意。就比如我，发现代码在训练一段时间之后，CPU的使用率会下降。</p>
+<p>这个时候我们就要开始考虑，是不是我们选择的虚拟机不是适合自己的型号。</p>
+<p>Azure的虚拟机分为下面几种：</p>
+<ul>
+<li><span class="notranslate"><a href="https://translate.googleusercontent.com/translate_c?depth=1&amp;hl=en&amp;rurl=translate.google.com&amp;sl=en&amp;sp=nmt4&amp;tl=zh-CN&amp;u=https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general&amp;xid=17259,1500003,15700023,15700124,15700149,15700168,15700173,15700186,15700201&amp;usg=ALkJrhiOs_kAXgkZrv74RxSWSmecKG2-zw" target="_blank" rel="noopener">一般用途</a> </span></li>
+<li><span class="notranslate"> <a href="https://translate.googleusercontent.com/translate_c?depth=1&amp;hl=en&amp;rurl=translate.google.com&amp;sl=en&amp;sp=nmt4&amp;tl=zh-CN&amp;u=https://docs.microsoft.com/en-us/azure/virtual-machines/virtual-machines-windows-sizes-memory&amp;xid=17259,1500003,15700023,15700124,15700149,15700168,15700173,15700186,15700201&amp;usg=ALkJrhiY3cbwikNqNump6dMDkyZErcmdzg" target="_blank" rel="noopener">内存优化</a> </span></li>
+<li><span class="notranslate"> <a href="https://translate.googleusercontent.com/translate_c?depth=1&amp;hl=en&amp;rurl=translate.google.com&amp;sl=en&amp;sp=nmt4&amp;tl=zh-CN&amp;u=https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-compute&amp;xid=17259,1500003,15700023,15700124,15700149,15700168,15700173,15700186,15700201&amp;usg=ALkJrhhYMwZezmZ_bEr-hBZnt1kXyXBibg" target="_blank" rel="noopener">计算优化</a> </span></li>
+<li><span class="notranslate"> <a href="https://translate.googleusercontent.com/translate_c?depth=1&amp;hl=en&amp;rurl=translate.google.com&amp;sl=en&amp;sp=nmt4&amp;tl=zh-CN&amp;u=https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-gpu&amp;xid=17259,1500003,15700023,15700124,15700149,15700168,15700173,15700186,15700201&amp;usg=ALkJrhhGXqjkrP97arSjEysBvXiiPigk2g" target="_blank" rel="noopener">GPU优化</a> </span></li>
+<li><span class="notranslate"> <a href="https://translate.googleusercontent.com/translate_c?depth=1&amp;hl=en&amp;rurl=translate.google.com&amp;sl=en&amp;sp=nmt4&amp;tl=zh-CN&amp;u=https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-hpc&amp;xid=17259,1500003,15700023,15700124,15700149,15700168,15700173,15700186,15700201&amp;usg=ALkJrhimUv0Qa82IcNiCGMHYLykMsgUvIw" target="_blank" rel="noopener">高性能计算</a> </span></li>
+<li><span class="notranslate"> <a href="https://translate.googleusercontent.com/translate_c?depth=1&amp;hl=en&amp;rurl=translate.google.com&amp;sl=en&amp;sp=nmt4&amp;tl=zh-CN&amp;u=https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-storage&amp;xid=17259,1500003,15700023,15700124,15700149,15700168,15700173,15700186,15700201&amp;usg=ALkJrhjS4rQT-gfWN328kRYoEtoUvSO44w" target="_blank" rel="noopener">存储优化</a> </span></li>
+</ul>
+<p>其中，一般用途可能是我们创建虚拟机时最常用的型号。现在我们来看一下一般用途虚拟机的配置和特别之处。</p>
+<p>一般用途虚拟机也分为很多种，我在这里提及一种最便宜的虚拟机：B系列。</p>
+<p>&nbsp;</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180421140205894-1064545323.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>微软在B系列中提及了CPU credit，这意味着B系列根本就不适合跑长时间计算的程序。</p>
+<p>在虚拟机的ACU计算中，我们也可以明显发现，每个vCPU的计算能力也是有强有弱。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180421140500990-1678822611.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>&nbsp;</p>
+<p>&nbsp;一般用途的虚拟机，计算能力在虚拟机中的底层。</p>
+<p>&nbsp;</p>
+<p>那么为了跑机器学习程序，在不选择带GPU的昂贵NC/NV系列虚拟机的情况下，应该首选F系列。</p>
+<blockquote>
+<p><span class="notranslate"><span class="notranslate">Fsv2系列基于Intel&reg;Xeon&reg;Platinum 8168处理器，具有2.7 GHz的基本核心频率和3.7 GHz的最大单核Turbo频率。 <span class="notranslate">英特尔&reg;可扩展处理器新推出的英特尔&reg;AVX-512指令将为单精度和双精度浮点运算的矢量处理工作负载提供高达2倍的性能提升。 <span class="notranslate">换句话说，它们对于任何计算工作量都非常快。</span>&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</span></span></span></p>
+<p><span class="notranslate">以每小时定价较低的价格，Fsv2系列是基于每个vCPU的Azure计算单元（ACU）的Azure产品组合的性价比中的最佳价值。 </span></p>
+<p><span class="notranslate"> F系列基于2.4 GHz英特尔至强&reg;E5-2673 v3（Haswell）处理器，采用英特尔睿频加速技术2.0可以实现3.1 GHz的时钟速度。 <span class="notranslate">这与Dv2系列虚拟机具有相同的CPU性能。 </span>&lt;/span&gt;</span></p>
+<p><span class="notranslate">对于需要更快CPU的工作负载而言，F系列虚拟机是非常好的选择，但不需要每个vCPU都有足够的内存或临时存储。 <span class="notranslate">诸如分析，游戏服务器，Web服务器和批处理等工作负载将受益于F系列的价值。 </span>&lt;/span&gt;</span></p>
+</blockquote>
+<p>&nbsp;</p>
+<p>我们来看看F系列的定价和性能：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180421140756350-2133019219.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>对照一下其他型号：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180421140839311-199788858.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>&nbsp;</p>
+<p>毫无疑问，在计算型任务上，F系列是相对比较优秀的解。</p>
+<p>&nbsp;</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-11-15T12:08:59.913Z" itemprop="dateUpdated">2018-11-15 20:08:59</time>
+</span><br>
+
+
+        
+        原文地址：<a href="/2018/04/21/vstools-4/" target="_blank" rel="external">http://ldzhangyx.github.io/2018/04/21/vstools-4/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://ldzhangyx.github.io">
+            <img src="/img/avatar.jpg" alt="张逸霄">
+            张逸霄
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VS-Tools-for-AI/">VS Tools for AI</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/04/21/vstools-4/&title=《【微软大法好】VS Tools for AI全攻略（4）——选择适合自己的虚拟机》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/04/21/vstools-4/&title=《【微软大法好】VS Tools for AI全攻略（4）——选择适合自己的虚拟机》 — 张逸霄的技术小站&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/04/21/vstools-4/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【微软大法好】VS Tools for AI全攻略（4）——选择适合自己的虚拟机》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/04/21/vstools-4/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/04/21/vstools-4/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/09/25/Multi-modal Sentence Summarization with Modality Attention and Image Filtering/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">《Multi-modal Sentence Summarization with Modality Attention and Image Filtering》论文笔记</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/04/05/unity-fungus/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">10分钟快速构建Unity中的万能对话系统 / 叙事系统 / 剧情系统</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "vjXNi1yCMdQOFUwuQ8kmMcBC-gzGzoHsz",
+            appKey: "FntMqfzRaFO2Jm4fjUC9Mz4S",
+            avatar: "mm",
+            placeholder: "随便写点什么吧",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        非常感谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>张逸霄 &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/04/21/vstools-4/&title=《【微软大法好】VS Tools for AI全攻略（4）——选择适合自己的虚拟机》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/04/21/vstools-4/&title=《【微软大法好】VS Tools for AI全攻略（4）——选择适合自己的虚拟机》 — 张逸霄的技术小站&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/04/21/vstools-4/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【微软大法好】VS Tools for AI全攻略（4）——选择适合自己的虚拟机》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/04/21/vstools-4/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/04/21/vstools-4/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJElEQVR42u3aO3LDMAwFQN//0kqbIqYfADozEpdVZizTXBUIPny94nX9Wu8+XT+ffHf9KxsWBgbGbRnXcq1/IOddwap+CwMD4zRGcogkmK6DbMKuhmkMDAyMXclfvgMGBgbGroCbh8tqsMbAwMCYFLF5kbneP39NX6nFMTAwbsjIu+7///dX5hsYGBi3YlzFVR1w5rtdg4WBgfFsRh7gclhS4vZ2+PDiMDAwjmFMQt56n8llsihZxMDAeChjfv2repls1zjzbYaLgYFxDCNp6ydN/146WB6XYmBgPJrRO2518NnjVV8cBgbGUxn5IfY22tbBPQqsvfwUAwPjtoxd5egkEVyH1w9sDAyMAxhRS2swXIymE/GrLNfiGBgYN2dU07ikKZbPTtfPlKtwDAyMhzImx6qmktWAW7gohoGBcRgjCYLlsWL8ad6e+yPDxcDAOIaRh9RkGJCXuNV9ov8bGBgYj2D0Vn4VI08uqy8CAwPjNEZ+iGpp2it9m1UqBgbGwYxeqldtpSVXNz6ksxgYGAcw8iKzejmjultvHwwMjHMYk/Zctd0/H3NiYGCcwLiKa+9Bv5LbYmBgPI4xj9a9Ztn8+V6wxsDAuC8jCZSTFn9vnFDeEwMD4wDGvGStpn1zZPl2BgYGxsGM3gizF+ILNzswMDAOZsyvkVXDbtTIw8DAOICRhL/5p72SdXMtjoGBcUNG75rFfACZJ5G7SmsMDIwbMn4ADXJ/rZydWqEAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Yixiao Zhang's Website';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Yixiao Zhang's Website';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
