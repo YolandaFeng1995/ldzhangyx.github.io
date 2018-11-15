@@ -61,7 +61,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180405004141050-2046709108.png">
 <meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180405004410717-185537589.png">
 <meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201804/1037202-20180405004444651-290821369.png">
-<meta property="og:updated_time" content="2018-11-15T12:08:35.677Z">
+<meta property="og:updated_time" content="2018-11-15T12:12:47.495Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="10分钟快速构建Unity中的万能对话系统 &#x2F; 叙事系统 &#x2F; 剧情系统">
 <meta name="twitter:description" content="&amp;nbsp; 我真的很久没有写过一个完整的攻略了（笑），咸鱼了很久之后还是想来写一个好玩的。这次主要是梳理一下Unity的小众插件Fungus的核心功能，并且快速掌握其使用方法。 官方文档：http://fungusdocs.snozbot.com/ 视频教程：https://www.youtube.com/watch?v=9zqUx0xZBv4 那么首先Fungus是什么呢？Fungus提供了一">
@@ -343,34 +343,7 @@ ga('send', 'pageview');
 <p>&nbsp;</p>
 <p>&nbsp;然后将剧情以这样的方式添加：[character] [portrait] [position] [hide] [&lt;&lt;&lt; | &gt;&gt;&gt;]: [Dialogue text]</p>
 <p>示例：</p>
-<div class="fragment">
-> <div class="line">john bored left: Oh, so that's how you use the Conversation command.</div>
-> 
-> <div class="line">sherlock eyeroll right: Yes, well done John.</div>
-> 
-> <div class="line">You catch on quickly don't you?</div>
-> 
-> <div class="line">hide john "offscreen left": I sure do.</div>
-> 
-> <div class="line">-- This is a comment, it doesn't appear in the conversation</div>
-> 
-> <div class="line">john angry middle: Wait, what!</div>
-> 
-> <div class="line">left: There's no need to be rude Sherlock!</div>
-> 
-> <div class="line">bored: Not like that would stop you.</div>
-> 
-> <div class="line">sherlock excited: AHA! So that's how you do a conversation from Lua!</div>
-> 
-> <div class="line">Fascinating.</div>
-> 
-> <div class="line">john &lt;&lt;&lt;: Yes, riveting.</div>
-> 
-> <div class="line">john hide:</div>
-> 
-> <div class="line">sherlock hide:</div>
-</div>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">john bored left: Oh, so that&apos;s how you use the Conversation command.</span><br><span class="line">sherlock eyeroll right: Yes, well done John.</span><br><span class="line">You catch on quickly don&apos;t you?</span><br><span class="line">hide john &quot;offscreen left&quot;: I sure do.</span><br><span class="line">-- This is a comment, it doesn&apos;t appear in the conversation</span><br><span class="line">john angry middle: Wait, what!</span><br><span class="line">left: There&apos;s no need to be rude Sherlock!</span><br><span class="line">bored: Not like that would stop you.</span><br><span class="line">sherlock excited: AHA! So that&apos;s how you do a conversation from Lua!</span><br><span class="line">Fascinating.</span><br><span class="line">john &lt;&lt;&lt;: Yes, riveting.</span><br><span class="line">john hide:</span><br><span class="line">sherlock hide:</span><br></pre></td></tr></table></figure>
 <p>接下来就能顺利展开剧情了。</p>
 <p>&nbsp;</p>
 <p>接下来是一个重要功能：Menu。Menu可以为我们做出剧情走向，即根据选择跳转到不同的Block。</p>
@@ -463,7 +436,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-11-15T12:08:35.677Z" itemprop="dateUpdated">2018-11-15 20:08:35</time>
+    最后更新时间：<time datetime="2018-11-15T12:12:47.495Z" itemprop="dateUpdated">2018-11-15 20:12:47</time>
 </span><br>
 
 
@@ -556,9 +529,9 @@ ga('send', 'pageview');
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/10/10/cthulhu-book-share/" id="post-next" class="post-nav-link">
+      <a href="/2017/11/05/【Python音乐生成】可能有用的一些Python库/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">克苏鲁神话 中文合集</h4>
+        <h4 class="title">【Python音乐生成】可能有用的一些Python库</h4>
       </a>
     </div>
   
