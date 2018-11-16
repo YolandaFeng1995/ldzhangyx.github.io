@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ldzhangyx.github.io/2018/11/15/python-init/</loc>
+    
+    <lastmod>2018-11-16T05:30:09.290Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/2018/11/16/focal-loss/</loc>
+    
+    <lastmod>2018-11-15T16:06:53.836Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ldzhangyx.github.io/2017/12/21/%E3%80%90TensorFlow%E9%9A%8F%E7%AC%94%E3%80%91%E5%85%B3%E4%BA%8E%E4%B8%80%E4%B8%AA%E7%9F%A9%E9%98%B5%E4%B8%8E%E5%A4%9A%E4%B8%AA%E7%9F%A9%E9%98%B5%E7%9B%B8%E4%B9%98%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
     
     <lastmod>2018-11-15T12:39:52.823Z</lastmod>
@@ -16,23 +30,9 @@
   </url>
   
   <url>
-    <loc>http://ldzhangyx.github.io/2018/04/05/unity-fungus/</loc>
-    
-    <lastmod>2018-11-15T12:12:47.495Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://ldzhangyx.github.io/2017/10/10/cthulhu-book-share/</loc>
     
     <lastmod>2018-11-15T11:23:18.475Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/2018/11/15/python-init/</loc>
-    
-    <lastmod>2018-11-15T11:05:06.669Z</lastmod>
     
   </url>
   
