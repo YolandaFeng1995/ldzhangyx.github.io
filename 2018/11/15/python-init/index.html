@@ -40,7 +40,7 @@ ga('send', 'pageview');
 <meta property="og:site_name" content="张逸霄的技术小站">
 <meta property="og:description" content="提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-16T05:34:36.390Z">
+<meta property="og:updated_time" content="2018-11-16T05:36:17.636Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PyTorch工程中，提升代码体验的几点想法">
 <meta name="twitter:description" content="提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。">
@@ -178,7 +178,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#保持工程的模块化"><span class="post-toc-number">1.</span> <span class="post-toc-text">保持工程的模块化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写一个好的注释"><span class="post-toc-number">2.</span> <span class="post-toc-text">写一个好的注释</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在容易混淆的函数声明中使用类型约束"><span class="post-toc-number">3.</span> <span class="post-toc-text">在容易混淆的函数声明中使用类型约束</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用数据类装饰器（Python-3-7特性）"><span class="post-toc-number">4.</span> <span class="post-toc-text">使用数据类装饰器（Python 3.7特性）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用新的Super方法调用"><span class="post-toc-number">5.</span> <span class="post-toc-text">使用新的Super方法调用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用-init-py文件"><span class="post-toc-number">6.</span> <span class="post-toc-text">使用_init_.py文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在必要的时候使用assert"><span class="post-toc-number">7.</span> <span class="post-toc-text">在必要的时候使用assert</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#持续更新中"><span class="post-toc-number">8.</span> <span class="post-toc-text">持续更新中</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#保持工程的模块化"><span class="post-toc-number">1.</span> <span class="post-toc-text">保持工程的模块化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写一个好的注释"><span class="post-toc-number">2.</span> <span class="post-toc-text">写一个好的注释</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在容易混淆的函数声明中使用类型约束"><span class="post-toc-number">3.</span> <span class="post-toc-text">在容易混淆的函数声明中使用类型约束</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用数据类装饰器（Python-3-7特性）"><span class="post-toc-number">4.</span> <span class="post-toc-text">使用数据类装饰器（Python 3.7特性）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用新的Super方法调用"><span class="post-toc-number">5.</span> <span class="post-toc-text">使用新的Super方法调用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用-init-py文件"><span class="post-toc-number">6.</span> <span class="post-toc-text">使用__init__.py文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在必要的时候使用assert"><span class="post-toc-number">7.</span> <span class="post-toc-text">在必要的时候使用assert</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#持续更新中"><span class="post-toc-number">8.</span> <span class="post-toc-text">持续更新中</span></a></li></ol>
         </nav>
     </aside>
 
@@ -227,8 +227,8 @@ ga('send', 'pageview');
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Model</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Model, self).__init__()</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
 <p>但是这个超类方法可以被下列写法完全替代：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Model</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure></p>
 <p>推荐使用。</p>
-<h2 id="使用-init-py文件"><a href="#使用-init-py文件" class="headerlink" title="使用_init_.py文件"></a>使用_<em>init_</em>.py文件</h2><p>这个文件的作用是将文件夹变为一个Python模块。Python 中的每个模块的包中，都有_<em>init_</em>.py 文件。</p>
-<p>通常_<em>init_<em>.py 文件为空，但是我们还可以为它增加其他的功能。我们在导入一个包时，实际上是导入了它的_<em>init_</em>.py文件。这样我们可以在__init\</em></em>.py文件中批量导入我们所需要的模块，而不再需要一个一个的导入。</p>
+<h2 id="使用-init-py文件"><a href="#使用-init-py文件" class="headerlink" title="使用__init__.py文件"></a>使用__init__.py文件</h2><p>这个文件的作用是将文件夹变为一个Python模块。Python 中的每个模块的包中，都有__init__.py 文件。</p>
+<p>通常__init__.py 文件为空，但是我们还可以为它增加其他的功能。我们在导入一个包时，实际上是导入了它的__init__.py文件。这样我们可以在__init__.py文件中批量导入我们所需要的模块，而不再需要一个一个的导入。</p>
 <p>这样做在写代码时有个额外的好处：在Visual Studio Code等编辑器中，编辑器能够进行<strong>智能提示和自动补全</strong>。</p>
 <h2 id="在必要的时候使用assert"><a href="#在必要的时候使用assert" class="headerlink" title="在必要的时候使用assert"></a>在必要的时候使用assert</h2><p>assert是一个不怎么被提起的功能，然而我在实际使用中感受到assert可以帮助我们进行debug。一般来说，我进行debug最常用的方法是进行单步调试，在<strong>关键的地方打断点，观察变量列表</strong>；然而断点的机制决定了它并不是持久化的debug策略，我们在与其他人协作写代码的时候，也无法提醒其重点关注和检查哪些问题。</p>
 <p>用于持久化进行测试的常见方法一般是将需要观察的变量进行print输出，然后<strong>观察output控制台</strong>。然而print函数在debug过程中可是要去掉的。所以assert函数可以<strong>在关键的地方对变量进行检查</strong>。通过这种检查，函数的功能得以保证，且无需添加if，避免了过深的隐蔽bug；此外，assert语句可以提醒其他的阅读这段代码的人：这个地方的变量应当满足什么要求，是怎么样的一个变量。</p>
@@ -240,7 +240,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-11-16T05:34:36.390Z" itemprop="dateUpdated">2018-11-16 13:34:36</time>
+    最后更新时间：<time datetime="2018-11-16T05:36:17.636Z" itemprop="dateUpdated">2018-11-16 13:36:17</time>
 </span><br>
 
 
