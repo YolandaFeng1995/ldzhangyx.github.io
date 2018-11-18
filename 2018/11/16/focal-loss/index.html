@@ -40,10 +40,12 @@ ga('send', 'pageview');
 <meta property="og:site_name" content="张逸霄的技术小站">
 <meta property="og:description" content="Kaiming He的一篇《Focal Loss for Dense Object Detection》是我一直想读的一篇文章。这篇文章将Focal Loss用于目标检测，然而其在NLP中也能得到运用。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-18T09:25:09.381Z">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/11/16/focal-loss/1.jpg">
+<meta property="og:updated_time" content="2018-11-18T10:52:01.713Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Focal Loss以及其在NLP领域运用的思考">
 <meta name="twitter:description" content="Kaiming He的一篇《Focal Loss for Dense Object Detection》是我一直想读的一篇文章。这篇文章将Focal Loss用于目标检测，然而其在NLP中也能得到运用。">
+<meta name="twitter:image" content="http://ldzhangyx.github.io/2018/11/16/focal-loss/1.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
     
@@ -178,7 +180,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Focal-Loss的概念和公式"><span class="post-toc-number">1.</span> <span class="post-toc-text">Focal Loss的概念和公式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么Focal-Loss要出现"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">为什么Focal Loss要出现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#公式"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">公式</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Focal-Loss的概念和公式"><span class="post-toc-number">1.</span> <span class="post-toc-text">Focal Loss的概念和公式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么Focal-Loss要出现"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">为什么Focal Loss要出现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#公式"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">公式</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#思考"><span class="post-toc-number">2.</span> <span class="post-toc-text">思考</span></a></li></ol>
         </nav>
     </aside>
 
@@ -211,11 +213,39 @@ ga('send', 'pageview');
 <p>以前的一些思路集中在采样样本，使更少（等同于更难训练）的那类样本在数据中所占的比重更大，Focal Loss并没有进行采样，而是对容易的那类进行了降权处理，结果上有很好的效果。</p>
 <h2 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h2><p>首先将分类问题常用的交叉熵公式摆出来。</p>
 <script type="math/tex; mode=display">
-\CE(p, y) = 
+CE(p, y) = 
 \begin {cases}
-& -\log(p)  & if y = 1 \\ 
+& -\log(p)  & \text{if} y = 1 \\ 
 & -\log(1-p) &  \text{otherwise}\\
-\end {cases}</script>
+\end {cases}</script><p>公式里的CE指的是交叉熵，$p$指的是期望输出，也就是预测样本属于1的概率。$y$表示label，取值为${±1}$。于是在这个二分类问题里，我们可以自然地将其合并为一个公式：</p>
+<script type="math/tex; mode=display">
+CE(p,y) = -\frac{1}{n}\sum_{x}[y\log(p)+(1-y)\log(1-p)]</script><p>其中n为训练输入的个数，当然这里$y \in {1,0}$。对交叉熵的基础细节有模糊之处可以看<a href="https://hit-scir.gitbooks.io/neural-networks-and-deep-learning-zh_cn/content/chap3/c3s1.html" target="_blank" rel="noopener">这篇博客</a>。</p>
+<p>定义变量$p_t$，使得：</p>
+<script type="math/tex; mode=display">
+p_t = 
+\begin {cases}
+& p  & \text{if} y = 1 \\ 
+& p &  \text{otherwise}\\
+\end {cases}</script><p>所以$CE(p,y)$可以被统一为一个式子：$-\log(p_t)$，这样$p_t$实际上就是反映了$p$与$y$的接近程度。$p_t$越大，说明分类越好。</p>
+<p>之后文章提出了平衡的交叉熵，使用一个$\alpha_t$来平衡交叉熵。这个因子的作用是手动平衡不同样本的交叉熵，控制正负样本对总loss的权重。</p>
+<p>训练时遇到很大的类别不平衡会主导交叉熵损失。易分负样本在梯度和损失中占据主导地位。而$\alpha$平衡了正负样本的重要性，它不会区别易分样本和难分样本。与之不同，作者将损失函数变形降低易分样本的权重，专注于训练难分负样本。</p>
+<p>现在在交叉熵上加入另一个因子，用于动态调节权重：</p>
+<script type="math/tex; mode=display">
+FL(p_t) = -(1-p_t)^\gamma\log(p_t)</script><p>FL即为Focal Loss，$\gamma$是一个可以调节的参数，当这个参数不同时，对loss的影响如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>其中参数为0的时候，Focal Loss退化为交叉熵CE。从图中我们可以很直观地看到，$p_t$越大，$FL(p_t)$越小，其对总体loss所做的贡献就越小；反过来说，$p_t$越小（小于0.5的情况也就是被误分类），越能反映在总体loss上。实验发现$\gamma=2$时效果最好，在这种情况下，一个样本被分类的$P_t=0.9$的损失比CE小1000多倍。这样就增加了那些误分类的重要性。</p>
+<p>作者最后将$\alpha$-balanced loss也加入了公式，最后公式为：</p>
+<script type="math/tex; mode=display">
+FL(p_t) = -\alpha_t(1-p_t)^\gamma\log(p_t)</script><h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><p>Focal Loss完全是一个通用性的Loss，面对样本不平衡的情况不失为一个好选择。</p>
+<p>在文本分类上，我认为Focal Loss可以成为一个自然的选择。苏剑林在<a href="https://kexue.fm/archives/4293" target="_blank" rel="noopener">他的文章</a>中提到了关注于模棱两可的样本，而少关注已经分类得很好的样本，从结果上看，其应对<strong>更难分类的样本</strong>的能力的确提升了。</p>
+<p>Focal Loss在原论文中用于提升目标检测的性能，因为目标检测的正样本数量的确远小于负样本。在自然语言处理方面也有一些任务面临着相似的问题。比如说抽取式文本摘要。一篇上千字的文本摘要，需要按照要求抽取出其中几句话，这里正负样本明显是很不平衡的；在生成式摘要中，Pointer Network试图在原文中找寻词语进行生成，这里并不能算一个严格的分类问题，但是交叉熵的损失函数仍然是可以研究一下的。</p>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -223,7 +253,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-11-18T09:25:09.381Z" itemprop="dateUpdated">2018-11-18 17:25:09</time>
+    最后更新时间：<time datetime="2018-11-18T10:52:01.713Z" itemprop="dateUpdated">2018-11-18 18:52:01</time>
 </span><br>
 
 
