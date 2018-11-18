@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2018-11-17T15:44:16.142Z</updated>
+  <updated>2018-11-18T15:06:42.752Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -17,16 +17,28 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>character-embedding</title>
+    <title>《Joint Learning of Character and Word Embeddings》论文笔记，以及Word Embedding闲聊</title>
     <link href="http://ldzhangyx.github.io/2018/11/17/character-embedding/"/>
     <id>http://ldzhangyx.github.io/2018/11/17/character-embedding/</id>
     <published>2018-11-17T15:44:16.000Z</published>
-    <updated>2018-11-17T15:44:16.142Z</updated>
+    <updated>2018-11-18T15:06:42.752Z</updated>
+    
+    <content type="html"><![CDATA[<p>这篇文章出自刘知远老师的组，其核心思想是利用词语丰富的内部含义，提升词语进行embedding的效果。文章是在2015年发表的，比较久远了。在这篇文章里我想同时聊一下最近Word Embedding的有趣的地方。</p><a id="more"></a><h1 id="CBOW"><a href="#CBOW" class="headerlink" title="CBOW"></a>CBOW</h1><p>先聊聊Character Embedding的前置模型——CBOW。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>CBOW在训练的时候，是利用一个单词的context去预测这个具体的词，而Skip-Gram模型根据中心词预测context。如下图所示，我们设每个单词的one-hot编码拥有$V$个维度，其上下文窗口大小有$C$。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="2.jpg" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>这样上下文的输入可以用一个$[C* V]$的矩阵表示。</p><p>之后，我们使用一个共享的权重矩阵$W_{V<em>N}$，将上下文映射成一个$[C</em>N]$维的矩阵。接下来对这个矩阵求平均得到$[1*N]$维的向量，作为隐层向量。</p><p>我们使用另一个输出权重矩阵$W’_{N<em>V}$，将这个$[1</em>N]$维的向量映射为$[1*V]$维的向量。将结果进行softmax处理，得到概率输出。训练目标是将这个输出与单词的one-hot编码尽量接近。</p><p>训练完成之后，我们得到了一个副产物：矩阵$W$。这个矩阵被称为look up table，任何一个单词的one-hot表示乘以这个矩阵都将得到自己的word embedding。</p><h1 id="Character-Embedding"><a href="#Character-Embedding" class="headerlink" title="Character Embedding"></a>Character Embedding</h1><p>这篇文章试图利用中文词语的内部结构（从直觉上来看，中文字单个字的意思和拉丁词的词根词缀有着一样的感觉），来丰富词语的语义。有一篇后续论文《Enriching Word Vectors with Subword Information》，试图在英语词汇上进行类似的研究。那篇文章试图将单词以词袋的方式联合表示，如：where被表示为&lt;wh,whe,her,ere,re,where&gt;。使用这种方式，单词的内在结构可以被很好地利用起来，同时可以强化那些词频低下的词的表示准确度。</p><p>中文embedding中也有利用更细粒度的嵌入，比如《Component-Enhanced Chinese Character Embeddings》提到使用部首表示更加丰富的信息。</p><h2 id="大致模型"><a href="#大致模型" class="headerlink" title="大致模型"></a>大致模型</h2><p>CWE（CCharacter-enhanced Word Embedding）的大致模型如下图所示。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="3.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>有几种方式去进行Character Embedding和Word Embedding的组合。总体公式如下：</p><script type="math/tex; mode=display">x_i = w_j \oplus \frac{1}{N_j}\sum_{k=1}^{N_j}c_k</script><p>第一种加和的方法是concatation，第二种加和的方法是将两个向量直接相加。实验表明直接相加的速度会快于前者。</p><p>限于一些词语（如巧克力），其单字并不能帮助词语丰富语义，所以作者决定将这类词语排除在外，只使用其word embedding。</p><p>为了保证这类词与加和了character embedding的词语有相似的长度，作者将上面得到的向量乘以1/2，进行处理。</p><script type="math/tex; mode=display">x_i = \frac{1}{2}(w_j + \frac{1}{N_j}\sum_{k=1}^{N_j}c_k)</script><h2 id="两个困难"><a href="#两个困难" class="headerlink" title="两个困难"></a>两个困难</h2><p>第一个困难是：与词相比, 汉字拥有的意思更多. 一个汉字在不同词中, 可能有不同的语义. 因此, 一个汉字对应一个 character embedding 是不够的。</p><p>作者的对策是：为一个汉字分配多个 character embedding, 以表示它的不同意思。</p><p>第二个困难是：不是所有词都能用汉字意思的语义结合来表意（如巧克力）。</p><p>作者的对策是：将这类词单独取出，不做character-embedding。</p><h2 id="解决一词多义现象"><a href="#解决一词多义现象" class="headerlink" title="解决一词多义现象"></a>解决一词多义现象</h2><p>第一个方案：针对character在word中的位置为其分配向量，分为3种情况：词头、词中和词尾。具体地说，<strong>能力</strong>和<strong>智能</strong>中的能用不同的向量表示。这种方法被称为<strong>Position-based Character Embeddings</strong>。</p><p>第二个方案：使用聚类。对character出现的情况做聚类，根据聚类结果创建不同的向量，称为模式向量。这个方法被称为<strong>cluster-based character embeddings</strong>。这个方法能与第一个结合起来，position-based character embeddings再做聚类。</p><p>第三个方案：无参聚类。针对第二种方法的聚类方法，第三个方案所得到的类别不具有固定的类数，而在训练中灵活地习得。</p><h1 id="其他模型（等待后续更新）"><a href="#其他模型（等待后续更新）" class="headerlink" title="其他模型（等待后续更新）"></a>其他模型（等待后续更新）</h1><h2 id="GloVe"><a href="#GloVe" class="headerlink" title="GloVe"></a>GloVe</h2><h2 id="FastText"><a href="#FastText" class="headerlink" title="FastText"></a>FastText</h2><h2 id="ELMo"><a href="#ELMo" class="headerlink" title="ELMo"></a>ELMo</h2><h2 id="BERT"><a href="#BERT" class="headerlink" title="BERT"></a>BERT</h2><h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><p>最近被BERT屠榜，word embedding要进入大开大合的时代了吗？我没有专门去看模型的实现，只知道它使用了海量参数，运用Transformer进行学习；但是看<a href="https://www.zhihu.com/question/298203515/answer/509470502" target="_blank" rel="noopener">吴俣的知乎回答</a>表示无法复现，所以我也暂时没有考虑深入思考这个方向。</p><p>但是说到word embedding，有一些很好的先验知识能让我们更容易学到精确的词向量。比如说，基于模式向量进行word embedding在文言文翻译任务上也许能提高任务结果；中文字的结构和内部含义的确是有用的信息；也许Analogical Reasoning这个衡量词向量质量的方面，传统的符号推理作为先验，也能帮助我们更好地学到词向量。</p><p>无论如何，在大多数任务上，只要挑一个自己觉得ok的词向量，我认为就可以了。如果之后要对词向量进行单独的训练，可以慢慢调整。这个词向量现在是GloVe_300d + ELMo，以后是BERT，这个广阔的领域等我以后有机会再深入学习吧。</p>]]></content>
     
     <summary type="html">
     
+      &lt;p&gt;这篇文章出自刘知远老师的组，其核心思想是利用词语丰富的内部含义，提升词语进行embedding的效果。文章是在2015年发表的，比较久远了。在这篇文章里我想同时聊一下最近Word Embedding的有趣的地方。&lt;/p&gt;
+    
     </summary>
     
+      <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Word Embedding" scheme="http://ldzhangyx.github.io/tags/Word-Embedding/"/>
+    
+      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+      <category term="中文NLP" scheme="http://ldzhangyx.github.io/tags/%E4%B8%AD%E6%96%87NLP/"/>
     
   </entry>
   
@@ -48,11 +60,11 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
+      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
       <category term="focal loss" scheme="http://ldzhangyx.github.io/tags/focal-loss/"/>
     
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
-      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
@@ -153,9 +165,9 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
       <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
       <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
     
@@ -179,9 +191,9 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
       <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
       <category term="多模态" scheme="http://ldzhangyx.github.io/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/"/>
     
