@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2018-11-15T16:06:53.836Z</updated>
+  <updated>2018-11-17T15:44:16.142Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -17,16 +17,42 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>focal-loss</title>
-    <link href="http://ldzhangyx.github.io/2018/11/16/focal-loss/"/>
-    <id>http://ldzhangyx.github.io/2018/11/16/focal-loss/</id>
-    <published>2018-11-15T16:06:53.000Z</published>
-    <updated>2018-11-15T16:06:53.836Z</updated>
+    <title>character-embedding</title>
+    <link href="http://ldzhangyx.github.io/2018/11/17/character-embedding/"/>
+    <id>http://ldzhangyx.github.io/2018/11/17/character-embedding/</id>
+    <published>2018-11-17T15:44:16.000Z</published>
+    <updated>2018-11-17T15:44:16.142Z</updated>
     
     <summary type="html">
     
     </summary>
     
+    
+  </entry>
+  
+  <entry>
+    <title>Focal Loss以及其在NLP领域运用的思考</title>
+    <link href="http://ldzhangyx.github.io/2018/11/16/focal-loss/"/>
+    <id>http://ldzhangyx.github.io/2018/11/16/focal-loss/</id>
+    <published>2018-11-15T16:06:53.000Z</published>
+    <updated>2018-11-18T09:25:09.381Z</updated>
+    
+    <content type="html"><![CDATA[<p>Kaiming He的一篇《Focal Loss for Dense Object Detection》是我一直想读的一篇文章。这篇文章将Focal Loss用于目标检测，然而其在NLP中也能得到运用。</p><a id="more"></a><h1 id="Focal-Loss的概念和公式"><a href="#Focal-Loss的概念和公式" class="headerlink" title="Focal Loss的概念和公式"></a>Focal Loss的概念和公式</h1><h2 id="为什么Focal-Loss要出现"><a href="#为什么Focal-Loss要出现" class="headerlink" title="为什么Focal Loss要出现"></a>为什么Focal Loss要出现</h2><p>Focal Loss的出现是为了解决训练集正负样本极度不平衡的情况。作者认为更少的部分学习起来更难，于是在Focal Loss上设计得更加倾向于这一类样本。</p><p>作者提出通过reshape标准交叉熵损失解决类别不均衡（Class Imbalance）,这样它就能降低容易分类的样例的比重（Well-classified Examples）。这个方法专注训练在Hard Examples的稀疏集合上，能够防止大量的Easy Negatives在训练中压倒训练器。</p><p>以前的一些思路集中在采样样本，使更少（等同于更难训练）的那类样本在数据中所占的比重更大，Focal Loss并没有进行采样，而是对容易的那类进行了降权处理，结果上有很好的效果。</p><h2 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h2><p>首先将分类问题常用的交叉熵公式摆出来。</p><script type="math/tex; mode=display">\CE(p, y) = \begin {cases}& -\log(p)  & if y = 1 \\ & -\log(1-p) &  \text{otherwise}\\\end {cases}</script>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Kaiming He的一篇《Focal Loss for Dense Object Detection》是我一直想读的一篇文章。这篇文章将Focal Loss用于目标检测，然而其在NLP中也能得到运用。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="focal loss" scheme="http://ldzhangyx.github.io/tags/focal-loss/"/>
+    
+      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
@@ -155,11 +181,11 @@
     
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
+      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
       <category term="多模态" scheme="http://ldzhangyx.github.io/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/"/>
     
       <category term="生成式摘要" scheme="http://ldzhangyx.github.io/tags/%E7%94%9F%E6%88%90%E5%BC%8F%E6%91%98%E8%A6%81/"/>
-    
-      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
