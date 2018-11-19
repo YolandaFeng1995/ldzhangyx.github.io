@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ldzhangyx.github.io/2018/11/19/pytorch-2/</loc>
+    
+    <lastmod>2018-11-19T16:22:55.215Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ldzhangyx.github.io/2018/11/19/pytorch-1119/</loc>
     
     <lastmod>2018-11-19T05:38:10.161Z</lastmod>

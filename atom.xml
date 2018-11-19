@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2018-11-19T05:38:10.161Z</updated>
+  <updated>2018-11-19T16:22:55.215Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>pytorch代码编写的日常(11.19)</title>
+    <link href="http://ldzhangyx.github.io/2018/11/19/pytorch-2/"/>
+    <id>http://ldzhangyx.github.io/2018/11/19/pytorch-2/</id>
+    <published>2018-11-19T07:23:51.000Z</published>
+    <updated>2018-11-19T16:22:55.215Z</updated>
+    
+    <content type="html"><![CDATA[<p>这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。</p><a id="more"></a><h1 id="k折交叉验证"><a href="#k折交叉验证" class="headerlink" title="k折交叉验证"></a>k折交叉验证</h1><p>我找了一圈，发现PyTorch在对数据集的处理上，并没有设置方便进行交叉验证的API。在编程实践中可以这么完成k折交叉验证：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyDataset</span><span class="params">(data.Dataset)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    数据集类继承PyTorch的Dataset类，进行处理。</span></span><br><span class="line"><span class="string">    数据集以csv读取为例。</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, root, state = <span class="string">'Train'</span>, k = <span class="number">0</span>)</span>:</span></span><br><span class="line">        <span class="string">'''初始化对象。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            root: 存放数据的目录。</span></span><br><span class="line"><span class="string">            state: 控制要读取训练集、验证集、测试集。</span></span><br><span class="line"><span class="string">            k: 用于控制k折交叉验证。</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        self.root = root </span><br><span class="line">        self.state = state</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.state == <span class="string">'Train'</span>:</span><br><span class="line">            path = root + <span class="string">'train.csv'</span></span><br><span class="line">            self.train_data = pd.read_csv(path)</span><br><span class="line">            self.data = pd.concat(</span><br><span class="line">                [self.train_data[:int((k % <span class="number">10</span>) * len(self.train_data) / <span class="number">10</span>)], </span><br><span class="line">                 self.train_data[int((k % <span class="number">10</span> + <span class="number">1</span>) * len(self.train_data) / <span class="number">10</span>):]])</span><br><span class="line">            self.data = self.data.reset_index(drop = <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.state == <span class="string">'Valid'</span>:</span><br><span class="line">            path = root + <span class="string">'train.csv'</span></span><br><span class="line">            self.train_data = pd.read_csv(path)</span><br><span class="line">            self.data = self.train_data[int((k % <span class="number">10</span>) * len(self.train_data) /<span class="number">10</span>):</span><br><span class="line">                                        int((k % <span class="number">10</span> + <span class="number">1</span>) * len(self.train_data) /<span class="number">10</span>)]</span><br><span class="line">            self.data = self.data.reset_index(drop = <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.state == <span class="string">'test'</span>:</span><br><span class="line">            path = root + <span class="string">'test.csv'</span></span><br><span class="line">            self.data = pd.read_csv(path)</span><br></pre></td></tr></table></figure><p>这样通过切片的方式，将训练集和验证集分成了k份，训练集拥有k-1份数据。</p><h1 id="loss的设计"><a href="#loss的设计" class="headerlink" title="loss的设计"></a>loss的设计</h1><p>回归问题一般来说使用MSE，但是PyTorch也提供了Huber Loss，在API里命名为SmoothL1Loss。</p><p>使用loss时遵循这样的方法使用：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">loss = nn.SmoothL1Loss</span><br><span class="line">logits = ...</span><br><span class="line">labels = ...</span><br><span class="line">output = loss(logits, labels)</span><br></pre></td></tr></table></figure><h1 id="loss与optim的联动关系"><a href="#loss与optim的联动关系" class="headerlink" title="loss与optim的联动关系"></a>loss与optim的联动关系</h1><p>在optimizer定义的时候，需要将网络参数输入。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">optimizer = t.optim.Adam(model.learnable_parameters(), </span><br><span class="line">                        parameters.learning_rate,</span><br><span class="line">                        weight_decay=<span class="number">0.01</span>)</span><br></pre></td></tr></table></figure><p>learnable_parameters()是我手动定义的一个类方法，根据requires_grad标志获取所有需要学习的参数。</p><p>此时optimizer已经存储了所有参数的储存地址（也就是指针）。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">loss = nn.MSELoss()</span><br><span class="line">output = loss(logits, label)</span><br><span class="line">optimizer.zero_grad()</span><br><span class="line">output.backward()</span><br><span class="line">optimizer.step()</span><br></pre></td></tr></table></figure><p>optimizer.zero_grad()将梯度清零，防止梯度错误累加。<br>output.backward()将所有参数的更新梯度一次性求出来。<br>optimizer.step()根据求得的梯度自动进行更新，这个函数无需传参，因为loss与optim被设计为能很好联动的机制。</p><h1 id="model-train-与model-eval"><a href="#model-train-与model-eval" class="headerlink" title="model.train()与model.eval()"></a>model.train()与model.eval()</h1><p>这个机制用来控制dropout和Batch Normalize层。BN层的主要用途是进行批量正规化，减少不当初始化对学习效果的负面影响。</p><p>在训练代码前加入model.train()，在验证和测试代码前加入model.eval()，model为模型对象。</p><h1 id="requires-grad的默认值"><a href="#requires-grad的默认值" class="headerlink" title="requires_grad的默认值"></a>requires_grad的默认值</h1><p>PyTorch 0.4版本取消了Tensor的参数Volatile，现在requires_grad用于控制参数是否能被学习，默认为False。</p><p>但是重要的是，在模型的<strong>init</strong>方法中被定义的层，<strong>这个参数默认为True</strong>，不需要再改一遍了。</p><h1 id="trainer的编写范式"><a href="#trainer的编写范式" class="headerlink" title="trainer的编写范式"></a>trainer的编写范式</h1><p>trainer作为网络模型的类方法出现，其定义和调用方法如下。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">trainer</span><span class="params">(self, optimizer)</span>:</span> <span class="comment"># 如果自己定义了batch_loader也可以在这里用。这里主要定义一些不会变的参数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(iteration, batch_size, use_cuda, input, label)</span>:</span></span><br><span class="line">        logits = self(input) <span class="comment"># 这里调用的是forward类方法，保持参数一致即可</span></span><br><span class="line">        logits = logits.view(<span class="number">-1</span>,<span class="number">1</span>) <span class="comment"># 可能需要做一次转置</span></span><br><span class="line">        loss = nn.MSELoss()</span><br><span class="line">        mse = loss(logits, label)</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">return</span> mse</span><br><span class="line">    <span class="keyword">return</span> train <span class="comment"># 返回一个函数对象</span></span><br></pre></td></tr></table></figure><p>调用：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> iteration, [input, label] <span class="keyword">in</span> enumerate(data_loader): <span class="comment"># data_loader是自己写好的，是DataLoader类</span></span><br><span class="line">    train_step = model.trainer(optimizer)</span><br><span class="line"></span><br><span class="line">    output = step(iteration, batch_size, cuda, input, label) <span class="comment"># 这是目的</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="PyTorch" scheme="http://ldzhangyx.github.io/categories/PyTorch/"/>
+    
+    
+      <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
+    
+  </entry>
   
   <entry>
     <title>PyTorch模型加载与保存的最佳实践</title>
@@ -82,9 +104,9 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
       <category term="Word Embedding" scheme="http://ldzhangyx.github.io/tags/Word-Embedding/"/>
+    
+      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
     
       <category term="中文NLP" scheme="http://ldzhangyx.github.io/tags/%E4%B8%AD%E6%96%87NLP/"/>
     
@@ -108,11 +130,11 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
+      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
       <category term="focal loss" scheme="http://ldzhangyx.github.io/tags/focal-loss/"/>
     
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
-      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
@@ -213,9 +235,9 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
       <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
       <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
     
@@ -239,9 +261,9 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
       <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
       <category term="多模态" scheme="http://ldzhangyx.github.io/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/"/>
     
