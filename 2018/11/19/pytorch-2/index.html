@@ -25,7 +25,7 @@ ga('send', 'pageview');
     
     
     
-    <title>pytorch代码编写的日常(11.19) | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
+    <title>PyTorch代码编写的日常(11.19) | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -35,14 +35,14 @@ ga('send', 'pageview');
     <meta name="description" content="这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。">
 <meta name="keywords" content="PyTorch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pytorch代码编写的日常(11.19)">
+<meta property="og:title" content="PyTorch代码编写的日常(11.19)">
 <meta property="og:url" content="http://ldzhangyx.github.io/2018/11/19/pytorch-2/index.html">
 <meta property="og:site_name" content="张逸霄的技术小站">
 <meta property="og:description" content="这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-19T16:22:55.215Z">
+<meta property="og:updated_time" content="2018-11-20T04:48:59.869Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pytorch代码编写的日常(11.19)">
+<meta name="twitter:title" content="PyTorch代码编写的日常(11.19)">
 <meta name="twitter:description" content="这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。">
     
         <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
@@ -131,7 +131,7 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">pytorch代码编写的日常(11.19)</div>
+        <div class="flex-col header-title ellipsis">PyTorch代码编写的日常(11.19)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -153,7 +153,7 @@ ga('send', 'pageview');
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">pytorch代码编写的日常(11.19)</h1>
+        <h1 class="title">PyTorch代码编写的日常(11.19)</h1>
         <h5 class="subtitle">
             
                 <time datetime="2018-11-19T07:23:51.000Z" itemprop="datePublished" class="page-time">
@@ -187,7 +187,7 @@ ga('send', 'pageview');
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">pytorch代码编写的日常(11.19)</h1>
+        <h1 class="post-card-title">PyTorch代码编写的日常(11.19)</h1>
         <div class="post-meta">
             <time class="post-time" title="2018-11-19 15:23:51" datetime="2018-11-19T07:23:51.000Z"  itemprop="datePublished">2018-11-19</time>
 
@@ -211,7 +211,7 @@ ga('send', 'pageview');
 <p>这样通过切片的方式，将训练集和验证集分成了k份，训练集拥有k-1份数据。</p>
 <h1 id="loss的设计"><a href="#loss的设计" class="headerlink" title="loss的设计"></a>loss的设计</h1><p>回归问题一般来说使用MSE，但是PyTorch也提供了Huber Loss，在API里命名为SmoothL1Loss。</p>
 <p>使用loss时遵循这样的方法使用：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">loss = nn.SmoothL1Loss</span><br><span class="line">logits = ...</span><br><span class="line">labels = ...</span><br><span class="line">output = loss(logits, labels)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">loss = nn.SmoothL1Loss()</span><br><span class="line">logits = ...</span><br><span class="line">labels = ...</span><br><span class="line">output = loss(logits, labels)</span><br></pre></td></tr></table></figure>
 <h1 id="loss与optim的联动关系"><a href="#loss与optim的联动关系" class="headerlink" title="loss与optim的联动关系"></a>loss与optim的联动关系</h1><p>在optimizer定义的时候，需要将网络参数输入。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">optimizer = t.optim.Adam(model.learnable_parameters(), </span><br><span class="line">                        parameters.learning_rate,</span><br><span class="line">                        weight_decay=<span class="number">0.01</span>)</span><br></pre></td></tr></table></figure>
 <p>learnable_parameters()是我手动定义的一个类方法，根据requires_grad标志获取所有需要学习的参数。</p>
@@ -234,7 +234,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-11-19T16:22:55.215Z" itemprop="dateUpdated">2018-11-20 00:22:55</time>
+    最后更新时间：<time datetime="2018-11-20T04:48:59.869Z" itemprop="dateUpdated">2018-11-20 12:48:59</time>
 </span><br>
 
 
@@ -270,7 +270,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&title=《pytorch代码编写的日常(11.19)》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&title=《PyTorch代码编写的日常(11.19)》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -280,7 +280,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&title=《pytorch代码编写的日常(11.19)》 — 张逸霄的技术小站&source=这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&title=《PyTorch代码编写的日常(11.19)》 — 张逸霄的技术小站&source=这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -290,7 +290,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《pytorch代码编写的日常(11.19)》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PyTorch代码编写的日常(11.19)》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&via=http://ldzhangyx.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -443,7 +443,7 @@ ga('send', 'pageview');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&title=《pytorch代码编写的日常(11.19)》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&title=《PyTorch代码编写的日常(11.19)》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -453,7 +453,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&title=《pytorch代码编写的日常(11.19)》 — 张逸霄的技术小站&source=这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&title=《PyTorch代码编写的日常(11.19)》 — 张逸霄的技术小站&source=这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -463,7 +463,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《pytorch代码编写的日常(11.19)》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PyTorch代码编写的日常(11.19)》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&via=http://ldzhangyx.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
