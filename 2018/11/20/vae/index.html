@@ -25,25 +25,31 @@ ga('send', 'pageview');
     
     
     
-    <title>PyTorch模型加载与保存的最佳实践 | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
+    <title>几类VAE的简要整理 | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="PyTorch">
-    <meta name="description" content="一般来说PyTorch有两种保存和读取模型参数的方法。但这篇文章我记录了一种最佳实践，可以在加载模型时避免掉一些问题。">
-<meta name="keywords" content="PyTorch">
+    <meta name="keywords" content="变分自编码器,GAN,VAE">
+    <meta name="description" content="VAE在我心里，是NLP领域生成模型的一把好手。在很多Task上，VAE的表现其实不如RNN，但是其出色的地方在于足够灵活，能生成出很多不一样的符合条件的结果。这么几年下来，VAE也有着各种各样的变体，也会顺便提一下。">
+<meta name="keywords" content="变分自编码器,GAN,VAE">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PyTorch模型加载与保存的最佳实践">
-<meta property="og:url" content="http://ldzhangyx.github.io/2018/11/19/pytorch-1119/index.html">
+<meta property="og:title" content="几类VAE的简要整理">
+<meta property="og:url" content="http://ldzhangyx.github.io/2018/11/20/vae/index.html">
 <meta property="og:site_name" content="张逸霄的技术小站">
-<meta property="og:description" content="一般来说PyTorch有两种保存和读取模型参数的方法。但这篇文章我记录了一种最佳实践，可以在加载模型时避免掉一些问题。">
+<meta property="og:description" content="VAE在我心里，是NLP领域生成模型的一把好手。在很多Task上，VAE的表现其实不如RNN，但是其出色的地方在于足够灵活，能生成出很多不一样的符合条件的结果。这么几年下来，VAE也有着各种各样的变体，也会顺便提一下。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-19T05:38:10.161Z">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/11/20/vae/1.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/11/20/vae/3.jpg">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/11/20/vae/2.jpg">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/11/20/vae/4.jpg">
+<meta property="og:image" content="http://ldzhangyx.github.io/2018/11/20/vae/5.png">
+<meta property="og:updated_time" content="2018-11-20T11:12:16.315Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PyTorch模型加载与保存的最佳实践">
-<meta name="twitter:description" content="一般来说PyTorch有两种保存和读取模型参数的方法。但这篇文章我记录了一种最佳实践，可以在加载模型时避免掉一些问题。">
+<meta name="twitter:title" content="几类VAE的简要整理">
+<meta name="twitter:description" content="VAE在我心里，是NLP领域生成模型的一把好手。在很多Task上，VAE的表现其实不如RNN，但是其出色的地方在于足够灵活，能生成出很多不一样的符合条件的结果。这么几年下来，VAE也有着各种各样的变体，也会顺便提一下。">
+<meta name="twitter:image" content="http://ldzhangyx.github.io/2018/11/20/vae/1.png">
     
         <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
     
@@ -131,7 +137,7 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">PyTorch模型加载与保存的最佳实践</div>
+        <div class="flex-col header-title ellipsis">几类VAE的简要整理</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -153,11 +159,11 @@ ga('send', 'pageview');
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">PyTorch模型加载与保存的最佳实践</h1>
+        <h1 class="title">几类VAE的简要整理</h1>
         <h5 class="subtitle">
             
-                <time datetime="2018-11-18T16:57:03.000Z" itemprop="datePublished" class="page-time">
-  2018-11-19
+                <time datetime="2018-11-20T05:25:32.000Z" itemprop="datePublished" class="page-time">
+  2018-11-20
 </time>
 
 
@@ -176,18 +182,18 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#传统方案："><span class="post-toc-number">1.</span> <span class="post-toc-text">传统方案：</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#改进的方案"><span class="post-toc-number">2.</span> <span class="post-toc-text">改进的方案</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VAE-amp-Conditional-VAE"><span class="post-toc-number">1.</span> <span class="post-toc-text">VAE &amp; Conditional VAE</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#VAE"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">VAE</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CVAE"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">CVAE</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#AAE"><span class="post-toc-number">2.</span> <span class="post-toc-text">AAE</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-pytorch-1119"
+<article id="post-vae"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">PyTorch模型加载与保存的最佳实践</h1>
+        <h1 class="post-card-title">几类VAE的简要整理</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-11-19 00:57:03" datetime="2018-11-18T16:57:03.000Z"  itemprop="datePublished">2018-11-19</time>
+            <time class="post-time" title="2018-11-20 13:25:32" datetime="2018-11-20T05:25:32.000Z"  itemprop="datePublished">2018-11-20</time>
 
             
 
@@ -200,22 +206,54 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>一般来说PyTorch有两种保存和读取模型参数的方法。但这篇文章我记录了一种最佳实践，可以在加载模型时避免掉一些问题。</p>
+            <p>VAE在我心里，是NLP领域生成模型的一把好手。在很多Task上，VAE的表现其实不如RNN，但是其出色的地方在于足够灵活，能生成出很多不一样的符合条件的结果。这么几年下来，VAE也有着各种各样的变体，也会顺便提一下。</p>
 <a id="more"></a>
-<h1 id="传统方案："><a href="#传统方案：" class="headerlink" title="传统方案："></a>传统方案：</h1><p>第一种方案是保存整个模型：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.save(model_object, <span class="string">'model.pth'</span>)</span><br></pre></td></tr></table></figure>
-<p>第二种方法是保存模型网络参数：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.save(model_object.state_dict(), <span class="string">'params.pth'</span>)</span><br></pre></td></tr></table></figure>
-<p>加载的时候分别这样加载：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = torch.load(<span class="string">'model.pth'</span>)</span><br></pre></td></tr></table></figure>
-<p>以及：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model_object.load_state_dict(torch.load(<span class="string">'params.pth'</span>))</span><br></pre></td></tr></table></figure>
-<h1 id="改进的方案"><a href="#改进的方案" class="headerlink" title="改进的方案"></a>改进的方案</h1><p>注意到这个方案是因为模型在加载之后，loss会飙升之后再慢慢降回来。查阅有关分析之后，判定是优化器optimizer的问题。</p>
-<p>如果模型的保存是<strong>为了恢复训练状态</strong>，那么可以考虑同时保存优化器optimizer的参数：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">state = &#123;</span><br><span class="line">    <span class="string">'epoch'</span>: epoch,</span><br><span class="line">    <span class="string">'net'</span>: model.state_dict(),</span><br><span class="line">    <span class="string">'optimizer'</span>: optimizer.state_dict(),</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">torch.save(state, filepath)</span><br></pre></td></tr></table></figure>
-<p>然后这样加载：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">checkpoint = torch.load(model_path)</span><br><span class="line">model.load_state_dict(checkpoint[<span class="string">'net'</span>])</span><br><span class="line">optimizer.load_state_dict(checkpoint[<span class="string">'optimizer'</span>])</span><br><span class="line">start_epoch =  checkpoint[<span class="string">'epoch'</span>] + <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>如果模型的保存是为了<strong>方便以后进行validation和test</strong>，可以在加载完之后制定model.eval()固定dropout和BN层。</p>
+<h2 id="VAE-amp-Conditional-VAE"><a href="#VAE-amp-Conditional-VAE" class="headerlink" title="VAE &amp; Conditional VAE"></a>VAE &amp; Conditional VAE</h2><h3 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h3><p>首先来看VAE，其比较详细的解释可以看<a href="https://zhuanlan.zhihu.com/p/34998569" target="_blank" rel="noopener">这里</a>。VAE的模型结构如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>其Encoder提取输入的特征，并将其map到一个正态分布上。用神经网络输出其均值和方差，得到一个正态分布。这个正态分布体现了输入的特征。编码器不能自由地使用整个潜在空间，而是必须限制产生的z，使其可能服从先验分布。</p>
+<p>对正态分布进行采样，采样数据通过Decoder进行输出。采样可以通过重参数技巧进行代换，保证了整个过程可导，绕开了采样这个不可导的动作。</p>
+<p>为了保证模型具有一定的生成能力，输出的方差需要进行控制，所以要求这个正态分布向标准正态分布看齐。</p>
+<p>使用KL散度衡量这个分布与标准正态分布的距离，其Loss可以推导为下列式子：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>LOSS = KL散度 + 生成图片与原图片的交叉熵</p>
+<p>之后ELBO的提出都是为了方便计算。VAE 的变分下界，是直接基于 KL 散度就得到的。所以直接承认了 KL 散度的话，就没有变分的什么事了<a href="https://zhuanlan.zhihu.com/p/34998569" target="_blank" rel="noopener">参考</a>。，大体模型就是这个样子。</p>
+<h3 id="CVAE"><a href="#CVAE" class="headerlink" title="CVAE"></a>CVAE</h3><p>CVAE是一类模型，通过在Encoder与Decoder中添加标签来控制生成结果的类别。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>其实现方法是，每一类label，其正态分布存在均值，于是Encoder编码形成的正态分布，不仅方差要接近标准正态分布，而且均值要接近label的均值，可以通过修改KL散度实现：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="AAE"><a href="#AAE" class="headerlink" title="AAE"></a>AAE</h2><p>AAE，对抗自编码器，在2015年于《Adversial Autoencoders》提出来。其详细介绍在<a href="http://kissg.me/2017/12/17/papernotes03/" target="_blank" rel="noopener">这里</a>可以查看。</p>
+<p>其与VAE最显著的特征是将KL散度惩罚替换成了对抗学习的过程。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 
         </div>
 
@@ -224,12 +262,12 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-11-19T05:38:10.161Z" itemprop="dateUpdated">2018-11-19 13:38:10</time>
+    最后更新时间：<time datetime="2018-11-20T11:12:16.315Z" itemprop="dateUpdated">2018-11-20 19:12:16</time>
 </span><br>
 
 
         
-        原文地址：<a href="/2018/11/19/pytorch-1119/" target="_blank" rel="external">http://ldzhangyx.github.io/2018/11/19/pytorch-1119/</a>
+        原文地址：<a href="/2018/11/20/vae/" target="_blank" rel="external">http://ldzhangyx.github.io/2018/11/20/vae/</a>
         
     </div>
     
@@ -250,7 +288,7 @@ ga('send', 'pageview');
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PyTorch/">PyTorch</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GAN/">GAN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VAE/">VAE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/变分自编码器/">变分自编码器</a></li></ul>
 
 
             
@@ -260,7 +298,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/11/19/pytorch-1119/&title=《PyTorch模型加载与保存的最佳实践》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/11/20/vae/&title=《几类VAE的简要整理》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -270,22 +308,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/11/19/pytorch-1119/&title=《PyTorch模型加载与保存的最佳实践》 — 张逸霄的技术小站&source=一般来说PyTorch有两种保存和读取模型参数的方法。但这篇文章我记录了一种最佳实践，可以在加载模型时避免掉一些问题。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/11/20/vae/&title=《几类VAE的简要整理》 — 张逸霄的技术小站&source=VAE在我心里，是NLP领域生成模型的一把好手。在很多Task上，VAE的表现其实不如RNN，但是其出色的地方在于足够灵活，能生成出很多不一样的符合条件的..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/11/19/pytorch-1119/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/11/20/vae/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PyTorch模型加载与保存的最佳实践》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/11/19/pytorch-1119/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《几类VAE的简要整理》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/11/20/vae/&via=http://ldzhangyx.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/11/19/pytorch-1119/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/11/20/vae/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -305,21 +343,14 @@ ga('send', 'pageview');
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2018/11/19/pytorch-2/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">PyTorch代码编写的日常(11.19)</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2018/11/17/character-embedding/" id="post-next" class="post-nav-link">
+      <a href="/2018/11/19/pytorch-2/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">《Joint Learning of Character and Word Embeddings》论文笔记，以及Word Embedding闲聊</h4>
+        <h4 class="title">PyTorch代码编写的日常(11.19)</h4>
       </a>
     </div>
   
@@ -440,7 +471,7 @@ ga('send', 'pageview');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/11/19/pytorch-1119/&title=《PyTorch模型加载与保存的最佳实践》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/11/20/vae/&title=《几类VAE的简要整理》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -450,22 +481,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/11/19/pytorch-1119/&title=《PyTorch模型加载与保存的最佳实践》 — 张逸霄的技术小站&source=一般来说PyTorch有两种保存和读取模型参数的方法。但这篇文章我记录了一种最佳实践，可以在加载模型时避免掉一些问题。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/11/20/vae/&title=《几类VAE的简要整理》 — 张逸霄的技术小站&source=VAE在我心里，是NLP领域生成模型的一把好手。在很多Task上，VAE的表现其实不如RNN，但是其出色的地方在于足够灵活，能生成出很多不一样的符合条件的..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/11/19/pytorch-1119/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/11/20/vae/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PyTorch模型加载与保存的最佳实践》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/11/19/pytorch-1119/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《几类VAE的简要整理》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/11/20/vae/&via=http://ldzhangyx.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/11/19/pytorch-1119/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/11/20/vae/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -476,7 +507,7 @@ ga('send', 'pageview');
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNklEQVR42u3aQY7cMAwEwP3/px0gpwDJ2N2ig2Sl0mngmbVVOnBpkl9f8bp+rvvPv165v/77bz5df3lhYGB8W8Z1uz5t/f7BybYmz/rDPTEwMA5gtEH2Puzeh+AElu8NAwMD4/4BScrYpnoYGBgYbwXcJFzmiWCSJmJgYGC05bC80JYfSv5cDAyM0xhvNQb+xud/0N/AwMD4zxjXeCVJ29odij1gYGBszUhSuiQEr41TtInmww4xMDAOYExeVtvELh+tKI4SAwNjU0YyJNEGwfZQXhi2wMDA2JrRlukn+Pb+9U4wMDA2ZSQvnHk1vi33t+NoRQ8WAwPjMMYk7LaFvPxYH/obGBgY2zHabbVX5sMcD+kjBgbGAYx89KENmnmzc1Tmw8DAOIDRFvHbl95kW+2Qx8P/DQwMjI0Yeamr/XZtQ/MxDgwMjP0YyR+3yeLiqMSkYIeBgbE1Yy2Mzoe92mZndE8MDIxNGfOXyQR2/8u1AY6PVUMMDIztGHlRbC28tmli27z8OCKGgYGxHaNtCSTJ3BWsyX2K6h0GBsamjHYkYq15mSSXdbkNAwNjU0Y+TpEU9/PjeKFSiIGBcQDjKte8hdnePzpKDAyMrRlrbYC83N+G1LVXZQwMjBMYbVGsLeLnr82jQ8HAwDiA0SZ5bfl+Xkp7+FsMDAyM2/Caf5snf4v9DQwMjOMZSektb21OmqYYGBhnMt5qBrybLBYFOwwMjK0Zk8bApNy/1godjYthYGB8P8YPwtBqmLnxCAoAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxUlEQVR42u3aQW7EIAwF0Ln/pdNtpSrkGwOTSo9VpDDkMQvLNnw+8bj+jLu3yfzfcz47Bi4ubpt7DccYNMbdbSxZ4XaruLi4B7njQJPjkm2Pnx9suLi4L+YmoWpuTVxc3P/LrYa5fH1cXNz3cPPUZK7BkRdXy2o1XFzcBjfvUu573tLfxcXFneJexbFqG3MDFxf3DLeToOTzk/IpXwcXF/cMdy4MJUFtLueK/hpcXNzN3Or1iypi7sLWQ4qDi4u7mTsOPdWDk/xtHgRxcXFPcscfmNtMtRwab+a2i4OLi7uNm4Oqn+wXPw8tG1xc3IPc8aTkEkZS0owLoai9gouLe5CbJz3VBKhTJuHi4p7n5sutOjKZ2wYuLu5JbufIs1P85M2UZSe0uLi48Zy87NmRBpUbsri4uAe51YbF3EFsJ9HBxcX9Lrda5CRbXZaF4eLibuZexZEs2mmSLuim4OLitrlzzZH8Y3lbpFoU4eLi7ub2j1LuPpm3QgrJEC4u7kFuHmjmUqLFtRouLu7LuOPfdq5WFCo2XFzcV3Lz1KQa1KKjFFxc3CPczgWL/Hi1GhBxcXG/xc0bptWmajlIFQ93cXFxN3B/AOr1CwlU8hA7AAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
