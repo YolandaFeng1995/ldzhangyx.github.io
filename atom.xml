@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2018-11-20T11:12:16.315Z</updated>
+  <updated>2018-11-22T15:12:05.524Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PyTorch第三方库：PyTorch-NLP</title>
+    <link href="http://ldzhangyx.github.io/2018/11/22/pytorch-nlp/"/>
+    <id>http://ldzhangyx.github.io/2018/11/22/pytorch-nlp/</id>
+    <published>2018-11-22T11:41:40.000Z</published>
+    <updated>2018-11-22T15:12:05.524Z</updated>
+    
+    <content type="html"><![CDATA[<p>PyTorch-NLP在功能上与torchtext很像，但是其仍然有颇具特色的地方。</p><a id="more"></a><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>选择pip安装。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pytorch-nlp</span><br></pre></td></tr></table></figure><p>安装过程中你可能会遇到如下的坑：</p><blockquote><p>fatal error C1083: Cannot open include file: ‘io.h’: No such file or directory</p></blockquote><p>解决办法是安装Visual Studio一些相关的工具(<a href="https://stackoverflow.com/questions/40018405/cython-cannot-open-include-file-io-h-no-such-file-or-directory/40810172)。" target="_blank" rel="noopener">https://stackoverflow.com/questions/40018405/cython-cannot-open-include-file-io-h-no-such-file-or-directory/40810172)。</a></p><h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>基本的使用方法在<a href="https://pytorchnlp.readthedocs.io/en/latest/" target="_blank" rel="noopener">官方文档</a>里说得比较清楚，主要分为这几个用处。</p><h2 id="加载数据集"><a href="#加载数据集" class="headerlink" title="加载数据集"></a>加载数据集</h2><p>PyTorch-NLP实现了自己的Dataset的子类，直接调用即可。这些类已经好好地实现了<strong>len</strong>()和<strong>getitem</strong>()功能，我们只需要在自己的程序里写一个DataLoader用就好了。以WMT数据集举例：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> torchnlp.datasets <span class="keyword">import</span> wmt_dataset</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>train = wmt_dataset(train=<span class="keyword">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>train[:<span class="number">2</span>]</span><br><span class="line">[&#123;</span><br><span class="line">  <span class="string">'en'</span>: <span class="string">'Res@@ um@@ ption of the session'</span>,</span><br><span class="line">  <span class="string">'de'</span>: <span class="string">'Wiederaufnahme der Sitzungsperiode'</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">  <span class="string">'en'</span>: <span class="string">'I declare resumed the session of the European Parliament ad@@ jour@@ ned on...'</span></span><br><span class="line">  <span class="string">'de'</span>: <span class="string">'Ich erklär@@ e die am Freitag , dem 17. Dezember unterbro@@ ch@@ ene...'</span></span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure><h2 id="使用预训练好的词向量"><a href="#使用预训练好的词向量" class="headerlink" title="使用预训练好的词向量"></a>使用预训练好的词向量</h2><p>在BERT出来之前最好的词向量应该是FastText+ELMo的组合。如果想偷懒先快速实现模型的话，这个API可以帮你免去写词表、写Embedding层的过程，直接返回词向量。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> torchnlp.word_to_vector <span class="keyword">import</span> FastText</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>vectors = FastText()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>vectors[<span class="string">'hello'</span>]</span><br><span class="line"><span class="number">-1.7494</span></span><br><span class="line"><span class="number">0.6242</span></span><br><span class="line">...</span><br><span class="line"><span class="number">-0.6202</span></span><br><span class="line"><span class="number">2.0928</span></span><br><span class="line">[torch.FloatTensor of size <span class="number">100</span>]</span><br></pre></td></tr></table></figure><h2 id="使用丰富的神经网络层"><a href="#使用丰富的神经网络层" class="headerlink" title="使用丰富的神经网络层"></a>使用丰富的神经网络层</h2><p>我觉得比较有名的大概是SRU层和Attention层。SRU层号称将RNN训练得和CNN一样快，而Attention的实现使用了IBM的类似方法。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>attention = Attention(<span class="number">256</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>query = torch.randn(<span class="number">5</span>, <span class="number">1</span>, <span class="number">256</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>context = torch.randn(<span class="number">5</span>, <span class="number">5</span>, <span class="number">256</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>output, weights = attention(query, context)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>output.size()</span><br><span class="line">torch.Size([<span class="number">5</span>, <span class="number">1</span>, <span class="number">256</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>weights.size()</span><br><span class="line">torch.Size([<span class="number">5</span>, <span class="number">1</span>, <span class="number">5</span>])</span><br></pre></td></tr></table></figure><p>在这里关于attention的使用，可以看<a href="https://ibm.github.io/pytorch-seq2seq/public/models.html#module-seq2seq.models.attention" target="_blank" rel="noopener">IBM的文档</a>。简单解释一下呢，就是context是encoder的hidden states，其与output做了相似度计算，softmax之后参与decode过程，能理解self-attention的对这个肯定能理解。</p><h2 id="Text-Encoder"><a href="#Text-Encoder" class="headerlink" title="Text Encoder"></a>Text Encoder</h2><p>是Tensor2Tensor一部分功能的迁移实现，TextEncoder主要功能就是构建词汇表、实现符号到id的映射。Tensor2Tensor的GitHub可以点<a href="https://github.com/tensorflow/tensor2tensor/blob/master/README.md" target="_blank" rel="noopener">这里</a>。</p><p>实话说，Google这个项目做得挺漂亮的，外行人可以用一用。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchnlp.text_encoders <span class="keyword">import</span> WhitespaceEncoder</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a `WhitespaceEncoder` with a corpus of text</span></span><br><span class="line">encoder = WhitespaceEncoder([<span class="string">"now this ain't funny"</span>, <span class="string">"so don't you dare laugh"</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Encode and decode phrases</span></span><br><span class="line">encoder.encode(<span class="string">"this ain't funny."</span>) <span class="comment"># RETURNS: torch.LongTensor([6, 7, 1])</span></span><br><span class="line">encoder.decode(encoder.encode(<span class="string">"This ain't funny."</span>)) <span class="comment"># RETURNS: "this ain't funny."</span></span><br></pre></td></tr></table></figure><h2 id="数据采样"><a href="#数据采样" class="headerlink" title="数据采样"></a>数据采样</h2><p>sampler可以从数据集中进行采样，只需提供数据集对象，制定顺序即可。</p><p>我目前没有用到过这个API，但是它应该是一个很好用的采样工具，可以用于做验证。</p><h2 id="进行评测"><a href="#进行评测" class="headerlink" title="进行评测"></a>进行评测</h2><p>令人遗憾的是这里只实现了两个评测：精确度和BLEU。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> torch</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> torchnlp.metrics <span class="keyword">import</span> get_accuracy</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>targets = torch.LongTensor([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>outputs = torch.LongTensor([<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>accuracy, n_correct, n_total = get_accuracy(targets, outputs, ignore_index=<span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>accuracy</span><br><span class="line"><span class="number">0.8</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>n_correct</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>n_total</span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure><p>其中ignore_index表示忽略的index。</p><p>至于BLEU就更简单了。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>hypotheses = [</span><br><span class="line">    <span class="string">"The brown fox jumps over the dog 笑"</span>,</span><br><span class="line">    <span class="string">"The brown fox jumps over the dog 2 笑"</span></span><br><span class="line">]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>references = [</span><br><span class="line">    <span class="string">"The quick brown fox jumps over the lazy dog 笑"</span>,</span><br><span class="line">    <span class="string">"The quick brown fox jumps over the lazy dog 笑"</span></span><br><span class="line">]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>get_moses_multi_bleu(hypotheses, references, lowercase=<span class="keyword">True</span>)</span><br><span class="line"><span class="number">46.51</span></span><br></pre></td></tr></table></figure><p>两个list传进去，自动给出结果。还是挺方便的。</p><h2 id="工具包"><a href="#工具包" class="headerlink" title="工具包"></a>工具包</h2><p>有一些很有意思的工具可以用：</p><ul><li>对一个batch做padding</li><li>对一个tensor做padding</li><li>分割数据集</li><li>shuffle</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;PyTorch-NLP在功能上与torchtext很像，但是其仍然有颇具特色的地方。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="PyTorch" scheme="http://ldzhangyx.github.io/categories/PyTorch/"/>
+    
+    
+      <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
+    
+      <category term="NLP" scheme="http://ldzhangyx.github.io/tags/NLP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PyTorch与NLP的利器：TorchText</title>
+    <link href="http://ldzhangyx.github.io/2018/11/22/pytorch-3rd/"/>
+    <id>http://ldzhangyx.github.io/2018/11/22/pytorch-3rd/</id>
+    <published>2018-11-22T11:29:55.000Z</published>
+    <updated>2018-11-22T13:22:40.217Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>match-lstm</title>
+    <link href="http://ldzhangyx.github.io/2018/11/20/match-lstm/"/>
+    <id>http://ldzhangyx.github.io/2018/11/20/match-lstm/</id>
+    <published>2018-11-20T15:26:26.000Z</published>
+    <updated>2018-11-20T15:26:26.877Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>几类VAE的简要整理</title>
