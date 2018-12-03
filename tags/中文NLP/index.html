@@ -201,27 +201,27 @@ ga('send', 'pageview');
 
         
 
-            <a href="/tags/NLP/" style="-webkit-order:9;order:9" class="tags-list-item waves-effect waves-button waves-light">NLP</a>
+            <a href="/tags/attention/" style="-webkit-order:9;order:9" class="tags-list-item waves-effect waves-button waves-light">attention</a>
 
         
 
-            <a href="/tags/attention/" style="-webkit-order:10;order:10" class="tags-list-item waves-effect waves-button waves-light">attention</a>
+            <a href="/tags/变分自编码器/" style="-webkit-order:10;order:10" class="tags-list-item waves-effect waves-button waves-light">变分自编码器</a>
 
         
 
-            <a href="/tags/TensorFlow/" style="-webkit-order:11;order:11" class="tags-list-item waves-effect waves-button waves-light">TensorFlow</a>
+            <a href="/tags/GAN/" style="-webkit-order:11;order:11" class="tags-list-item waves-effect waves-button waves-light">GAN</a>
 
         
 
-            <a href="/tags/变分自编码器/" style="-webkit-order:12;order:12" class="tags-list-item waves-effect waves-button waves-light">变分自编码器</a>
+            <a href="/tags/VAE/" style="-webkit-order:12;order:12" class="tags-list-item waves-effect waves-button waves-light">VAE</a>
 
         
 
-            <a href="/tags/GAN/" style="-webkit-order:13;order:13" class="tags-list-item waves-effect waves-button waves-light">GAN</a>
+            <a href="/tags/NLP/" style="-webkit-order:13;order:13" class="tags-list-item waves-effect waves-button waves-light">NLP</a>
 
         
 
-            <a href="/tags/VAE/" style="-webkit-order:14;order:14" class="tags-list-item waves-effect waves-button waves-light">VAE</a>
+            <a href="/tags/TensorFlow/" style="-webkit-order:14;order:14" class="tags-list-item waves-effect waves-button waves-light">TensorFlow</a>
 
         
 
@@ -462,5 +462,20 @@ MathJax.Hub.Queue(function() {
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
