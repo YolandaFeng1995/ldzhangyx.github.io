@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2018-11-22T15:12:05.524Z</updated>
+  <updated>2018-12-11T06:35:42.583Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>用Python做统计的轻量化库：ststistics</title>
+    <link href="http://ldzhangyx.github.io/2018/12/11/stats/"/>
+    <id>http://ldzhangyx.github.io/2018/12/11/stats/</id>
+    <published>2018-12-11T06:08:13.000Z</published>
+    <updated>2018-12-11T06:35:42.583Z</updated>
+    
+    <content type="html"><![CDATA[<p>Python用于统计计算的时候，有一个标准库：statistics，可以做一下基本的统计计算。</p><a id="more"></a><p>从使用的角度来看，之所以称其为轻量库，是因为其没有引入额外的数据结构，并且使用简单方便。对于样本来说，需要提供的只是序列或者迭代器，譬如可以<strong>使用一个list</strong>作为函数输入。</p><h1 id="中心位置的计算"><a href="#中心位置的计算" class="headerlink" title="中心位置的计算"></a>中心位置的计算</h1><h2 id="平均值"><a href="#平均值" class="headerlink" title="平均值"></a>平均值</h2><p>mean(), 算术平均值。<br>harmonic_mean(), 谐波平均值。</p><h2 id="中位数"><a href="#中位数" class="headerlink" title="中位数"></a>中位数</h2><p>median(), 中位数。若数据量为偶数时，会取一个平均值作为插值中位数。<br>median_low(), 中位数，但数据为偶数时，会取较小的那个。<br>median_high(), 取较大的那个。<br>median_grouped( , interval = 1), 这个功能比较迷，将输入视为连续数据，并通过优先使用提供的间隔宽度找到中值范围，然后使用落在该范围内的数据集中的实际值的位置在该范围内插值来计算 50％ 百分位中值。interval取不同值是结果会改变。</p><h2 id="众数"><a href="#众数" class="headerlink" title="众数"></a>众数</h2><p>mode(), 要是数据不存在众数会报错，嗯……</p><h1 id="偏离值计算"><a href="#偏离值计算" class="headerlink" title="偏离值计算"></a>偏离值计算</h1><p>pstdev( , mu = None), 计算<strong>总体(population)</strong>标准差。<br>pvariance( , mu = None), 计算<strong>总体</strong>方差，当然就是标准差的平方。第二个参数mu可选，你可以先验地给一个总体平均值，也可以让算法自己算样本平均值。<br>对于这个函数，当其对整体调用的时候，自然可以计算出总体方差$\sigma$，但输入是样本的话，其返回应该是$S^2$，即有偏的样本方差（有N个自由度）。此时样本方差与总体方差可能不一致。所以当我们知道总体平均值mu时可以提供给函数，如果数据点有代表性，结果应该是无偏估计。</p><p>stdev(, xbar = None), 计算样本标准差。<br>variance( , xbar = None), 计算样本方差。<br>这个函数的样本方差使用了贝塞尔矫正（只有N-1个自由度）。结果应该是真实总体方差的无偏估计。</p><p>贝塞尔矫正：</p><p><script type="math/tex">s=\sqrt{\frac{^{\Sigma (x-\bar{x})^2}}{n-1}}</script> 表示样本方差。</p><p>因为高斯分布的边沿抽取的数据很少，那么预测方差一定小于大数据集的方差。通过分母减一，手动提高方差的数值。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Python用于统计计算的时候，有一个标准库：statistics，可以做一下基本的统计计算。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据挖掘" scheme="http://ldzhangyx.github.io/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
+    
+    
+      <category term="Python" scheme="http://ldzhangyx.github.io/tags/Python/"/>
+    
+      <category term="数据挖掘" scheme="http://ldzhangyx.github.io/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
+    
+      <category term="统计" scheme="http://ldzhangyx.github.io/tags/%E7%BB%9F%E8%AE%A1/"/>
+    
+      <category term="时序分析" scheme="http://ldzhangyx.github.io/tags/%E6%97%B6%E5%BA%8F%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
   
   <entry>
     <title>PyTorch第三方库：PyTorch-NLP</title>
