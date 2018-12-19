@@ -2,15 +2,6 @@
 <html>
 <head>
     
-<!-- Google Analytics -->
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-126536496-1', 'auto');
-ga('send', 'pageview');
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-<!-- End Google Analytics -->
-
 
     
 
@@ -20,15 +11,11 @@ ga('send', 'pageview');
 
     <meta charset="utf-8">
     
-    <meta name="google-site-verification" content="true">
-    
     
     
     
     <title>张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="">
@@ -42,8 +29,8 @@ ga('send', 'pageview');
     
         <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
     
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <link rel="shortcut icon" href="/">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
@@ -59,61 +46,19 @@ ga('send', 'pageview');
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+    <div class="brand-wrap" style="background-image:url(/)">
       <div class="brand">
         <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/img/avatar.jpg">
+          <img src="/">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">张逸霄</h5>
-          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+          <a href="mailto:undefined" class="mail">
         </hgroup>
       </div>
     </div>
     <div class="scroll-wrap flex-col">
       <ul class="nav">
-        
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-archives"></i>
-                归档
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/tags"  >
-                <i class="icon icon-lg icon-tags"></i>
-                标签
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/categories"  >
-                <i class="icon icon-lg icon-th-list"></i>
-                分类
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                关于我
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/ldzhangyx" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                GitHub
-              </a>
-            </li>
         
       </ul>
     </div>
@@ -128,20 +73,6 @@ ga('send', 'pageview');
         </a>
         <div class="flex-col header-title ellipsis">张逸霄的技术小站</div>
         
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
         
     </div>
 </header>
@@ -194,7 +125,7 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Attention的计算机制总说Attention机制主要作用在Decode阶段。在这一阶段，$s_t$的运算受到了$s_{t-1}$，$y_{t-1}$和$c_t$的影响。根据目前比较统一的观点，Attention值的计算是相似度比较的结果。Decoder端的Query与Encoder端的各个Key进行相似度比较得到不同的权重，最后对各个Key对应的Value进行归一化的加权累加，得到At...
+        Attention的计算机制总说Attention机制...
     
 
         <a href="/2018/10/14/self-attention/" class="post-more waves-effect waves-button">
@@ -381,13 +312,7 @@ ga('send', 'pageview');
 
     
         问题描述：
-Specifically, I want to do matmul(A,B) where
-&nbsp;’A’ has shape (m,n)
-&nbsp;’B’ has shape (k,n,p)
-and the result should have shape (k,m,p)
-
-参考网站：
-https://groups.google.com/a/tensorflow.org/f...
+Specifically, I want ...
     
 
         <a href="/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/" class="post-more waves-effect waves-button">
@@ -432,15 +357,7 @@ https://groups.google.com/a/tensorflow.org/f...
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        1，Python-MIDI，很多操作库的前置库。作者提供了一个python3的branch。git clone下来之后注意切换到这个branch之后再运行setup.py。
-
-                
-                    
-                    
-                
-                
-            
-实际使...
+        1，Python-MIDI，很多操作库的前置库。作者提...
     
 
         <a href="/2017/11/05/【Python音乐生成】可能有用的一些Python库/" class="post-more waves-effect waves-button">
@@ -481,11 +398,7 @@ https://groups.google.com/a/tensorflow.org/f...
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        前言自己加入TRPG的团体已经有大半年了，然而一直对克苏鲁神话体系大背景不是特别了解。成为守秘人带团的时候，我的参照是规则书和剧本，却不能灵活地演绎一些新的剧情。
-于是我Google了克苏鲁神话体系，终于在GitHub上找到了一个还算满意的开源项目。很多文章都是竹子翻译的，我个人认为翻译质量尚可，放在我的网站上，权当补档吧。
-版权本电子书的版权归作者和译者所有。
-GitHub地址点这里。
-文...
+        前言自己加入TRPG的团体已经有大半年了，然而一直对克...
     
 
         <a href="/2017/10/10/cthulhu-book-share/" class="post-more waves-effect waves-button">
@@ -518,15 +431,6 @@ GitHub地址点这里。
         <footer class="footer">
     <div class="top">
         
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
 
         <p>
             
@@ -536,7 +440,7 @@ GitHub地址点这里。
         </p>
     </div>
     <div class="bottom">
-        <p><span>张逸霄 &copy; 2017 - 2018</span>
+        <p><span>张逸霄 &copy; 2018</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -550,127 +454,21 @@ GitHub地址点这里。
 <a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
 
-
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/page/2/&title=张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/page/2/&title=张逸霄的技术小站&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/page/2/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=张逸霄的技术小站&url=http://ldzhangyx.github.io/page/2/&via=http://ldzhangyx.github.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/page/2/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABwUlEQVR42u3aUY6DMAxFUfa/abqAKnCfTUxndPOFVEFO+mHZjo8Dr/NykbdWvx47lly5cttcQlltnG75/c3475ArV+4gl3+abLw6JHm+scmVK/cnuSs6CXNy5cr9r9xaqVP7vly5ct/lkuLnGsfLJ/6rXLly3+L22xn95y39Xbly5Za4Z7hIo7PTGL3ZXa5cuSPcfmHTP2S8r1y5cke4aejhl6y1nAsVP3Llyt3MTVshKYgfnjRQ5MqVu5vL25f9kQtCvBnakCtX7giXbMBTEI5G8fW6VpMrV+42bi0ApQ3Qp65t5MqVO8N9toDphLagtSpXrtzNXJLWkIEJnr7wcmtZq8mVK3eES1oV6YVrf8JqGcjkypW7mUsuSNJnTk9TK7ly5b7F5WMWacuDN2GDOTK5cuWOcGvDWOklSi3RkStX7jw3bYg8hY5TH7ly5W7mnuGqvZWOf7W6KXLlym1z+6VLrXDqXNLIlSt3hhuXH2FqQihB20WuXLmD3DTQPDARho+N5sjkypX7Kjfdkh8gqNjkypX7p7i14ue64NkYyOTKlQtuLWvNzVoClH5Brly5k1zeMCWBhiQ0tbJKrly5I9wPURALCXE9x1IAAAAASUVORK5CYII=" alt="微信分享二维码">
-</div>
-
-
-
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+var BLOG = { ROOT: '/', SHARE: , REWARD: false };
 
 
 </script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
-
-
-
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
-
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script src="/js/main.min.js?v=1.7.2"></script>
 
 
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = 'Yixiao Zhang's Website';
-            clearTimeout(titleTime);
-        } else {
-            document.title = 'Yixiao Zhang's Website';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
 
 
 

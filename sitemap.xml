@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ldzhangyx.github.io/projects/index.html</loc>
+    
+    <lastmod>2018-12-19T07:00:23.372Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/about/index.html</loc>
+    
+    <lastmod>2018-12-19T06:51:40.621Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ldzhangyx.github.io/2018/12/18/ols/</loc>
     
     <lastmod>2018-12-19T02:48:08.464Z</lastmod>
@@ -19,13 +33,6 @@
     <loc>http://ldzhangyx.github.io/2018/12/11/stats/</loc>
     
     <lastmod>2018-12-11T06:57:07.118Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/about/index.html</loc>
-    
-    <lastmod>2018-12-04T13:06:54.794Z</lastmod>
     
   </url>
   
