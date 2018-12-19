@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-126536496-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>用Python做统计的轻量化库：statistics | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Python,统计,数据挖掘,时序分析">
+    <meta name="description" content="Python用于统计计算的时候，有一个标准库：statistics，可以做一下基本的统计计算。">
+<meta name="keywords" content="Python,统计,数据挖掘,时序分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Python做统计的轻量化库：statistics">
+<meta property="og:url" content="http://ldzhangyx.github.io/2018/12/11/stats/index.html">
+<meta property="og:site_name" content="张逸霄的技术小站">
+<meta property="og:description" content="Python用于统计计算的时候，有一个标准库：statistics，可以做一下基本的统计计算。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-11T06:57:07.118Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用Python做统计的轻量化库：statistics">
+<meta name="twitter:description" content="Python用于统计计算的时候，有一个标准库：statistics，可以做一下基本的统计计算。">
+    
+        <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">张逸霄</h5>
+          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ldzhangyx" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">用Python做统计的轻量化库：statistics</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">用Python做统计的轻量化库：statistics</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-12-11T06:08:13.000Z" itemprop="datePublished" class="page-time">
+  2018-12-11
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘/">数据挖掘</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#中心位置的计算"><span class="post-toc-number">1.</span> <span class="post-toc-text">中心位置的计算</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#平均值"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">平均值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#中位数"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">中位数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#众数"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">众数</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#偏离值计算"><span class="post-toc-number">2.</span> <span class="post-toc-text">偏离值计算</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-stats"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">用Python做统计的轻量化库：statistics</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-12-11 14:08:13" datetime="2018-12-11T06:08:13.000Z"  itemprop="datePublished">2018-12-11</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘/">数据挖掘</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Python用于统计计算的时候，有一个标准库：statistics，可以做一下基本的统计计算。</p>
+<a id="more"></a>
+<p>从使用的角度来看，之所以称其为轻量库，是因为其没有引入额外的数据结构，并且使用简单方便。对于样本来说，需要提供的只是序列或者迭代器，譬如可以<strong>使用一个list</strong>作为函数输入。</p>
+<h1 id="中心位置的计算"><a href="#中心位置的计算" class="headerlink" title="中心位置的计算"></a>中心位置的计算</h1><h2 id="平均值"><a href="#平均值" class="headerlink" title="平均值"></a>平均值</h2><p>mean(), 算术平均值。<br>harmonic_mean(), 谐波平均值。</p>
+<h2 id="中位数"><a href="#中位数" class="headerlink" title="中位数"></a>中位数</h2><p>median(), 中位数。若数据量为偶数时，会取一个平均值作为插值中位数。<br>median_low(), 中位数，但数据为偶数时，会取较小的那个。<br>median_high(), 取较大的那个。<br>median_grouped( , interval = 1), 这个功能比较迷，将输入视为连续数据，并通过优先使用提供的间隔宽度找到中值范围，然后使用落在该范围内的数据集中的实际值的位置在该范围内插值来计算 50％ 百分位中值。interval取不同值是结果会改变。</p>
+<h2 id="众数"><a href="#众数" class="headerlink" title="众数"></a>众数</h2><p>mode(), 要是数据不存在众数会报错，嗯……</p>
+<h1 id="偏离值计算"><a href="#偏离值计算" class="headerlink" title="偏离值计算"></a>偏离值计算</h1><p>pstdev( , mu = None), 计算<strong>总体(population)</strong>标准差。<br>pvariance( , mu = None), 计算<strong>总体</strong>方差，当然就是标准差的平方。第二个参数mu可选，你可以先验地给一个总体平均值，也可以让算法自己算样本平均值。<br>对于这个函数，当其对整体调用的时候，自然可以计算出总体方差$\sigma$，但输入是样本的话，其返回应该是$S^2$，即有偏的样本方差（有N个自由度）。此时样本方差与总体方差可能不一致。所以当我们知道总体平均值mu时可以提供给函数，如果数据点有代表性，结果应该是无偏估计。</p>
+<p>stdev(, xbar = None), 计算样本标准差。<br>variance( , xbar = None), 计算样本方差。<br>这个函数的样本方差使用了贝塞尔矫正（只有N-1个自由度）。结果应该是真实总体方差的无偏估计。</p>
+<p>贝塞尔矫正：</p>
+<p><script type="math/tex">s=\sqrt{\frac{^{\Sigma (x-\bar{x})^2}}{n-1}}</script> 表示样本方差。</p>
+<p>因为高斯分布的边沿抽取的数据很少，那么预测方差一定小于大数据集的方差。通过分母减一，手动提高方差的数值。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-12-11T06:57:07.118Z" itemprop="dateUpdated">2018-12-11 14:57:07</time>
+</span><br>
+
+
+        
+        原文地址：<a href="/2018/12/11/stats/" target="_blank" rel="external">http://ldzhangyx.github.io/2018/12/11/stats/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://ldzhangyx.github.io">
+            <img src="/img/avatar.jpg" alt="张逸霄">
+            张逸霄
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据挖掘/">数据挖掘</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/时序分析/">时序分析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/统计/">统计</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/12/11/stats/&title=《用Python做统计的轻量化库：statistics》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/12/11/stats/&title=《用Python做统计的轻量化库：statistics》 — 张逸霄的技术小站&source=Python用于统计计算的时候，有一个标准库：statistics，可以做一下基本的统计计算。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/12/11/stats/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《用Python做统计的轻量化库：statistics》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/12/11/stats/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/12/11/stats/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/12/18/ols/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">使用statsmodels库做线性回归的指南</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/11/22/pytorch-nlp/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">PyTorch第三方库：PyTorch-NLP</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "vjXNi1yCMdQOFUwuQ8kmMcBC-gzGzoHsz",
+            appKey: "FntMqfzRaFO2Jm4fjUC9Mz4S",
+            avatar: "mm",
+            placeholder: "随便写点什么吧",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        非常感谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>张逸霄 &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/12/11/stats/&title=《用Python做统计的轻量化库：statistics》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/12/11/stats/&title=《用Python做统计的轻量化库：statistics》 — 张逸霄的技术小站&source=Python用于统计计算的时候，有一个标准库：statistics，可以做一下基本的统计计算。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/12/11/stats/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《用Python做统计的轻量化库：statistics》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/12/11/stats/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/12/11/stats/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLElEQVR42u3aS5LCMAwFQO5/6cwBGMKTFBa22ysKQpL2QmV9Xq94XW/r/ddP11eveb/ysYWBgbEs47pdyQOS75P75//654kYGBgHMJKXuP+c/5pvVmHjMDAwMIKH3d8nP/BhYGBgzBlJFjn/BgMDA6OXxFYD8X2p7j5Z/WEujoGBsSBjclz79eef9DcwMDCWYlzFlR8Ke+Hyai0MDIy9Gb0EtTp4kbQEkjt82TgMDIxjGJPhrSQpnRfsmv0EDAyMxRnVNLJaUMu/qZb8vnQ5MDAwtmD0Dmrzl8uPg9GGYmBgHMmYPHI+bFFuiGJgYGzNqGaFyWOSQtukzPdADxYDA2NxRt5inDw4L8wlwRoDA2NvRu+FqmMQ1XjfLLdhYGBsypiUxqrNg17rtBDKMTAwNmXkI1y9UDhphRY2BQMDY2tGctM8XOYHzTzgjmZGMDAwNmLkBa+8epeH8jysN3NfDAyMxRm9NLV67Ks2O5N3w8DAOIcxaS5OimjVcbTypmBgYGzHqDYGeuCnBlU/bhMGBsYBjGpjoHd9dXQjvw8GBsZpjHmrIAnK86NnISPHwMBYlnEVVy/V7LU2HzvbYmBgLM7IV/7qvQJccn2v2YCBgbEHIw+yvaGN3uHvgbEwDAyM7RiT0Yfq8e4pZDkXx8DAOIbRSyarAbR8DMXAwMCImwRJ0b8adqMRDQwMjAMYeTNg8muyWdXGAwYGxgmM3ohDL33NX2KSWmNgYGzE+AMAlpNhwURzCwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Yixiao Zhang's Website';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Yixiao Zhang's Website';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

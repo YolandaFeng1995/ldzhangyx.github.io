@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-126536496-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>PyTorch工程中，提升代码体验的几点想法 | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Python,PyTorch,软件工程">
+    <meta name="description" content="提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。">
+<meta name="keywords" content="Python,PyTorch,软件工程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyTorch工程中，提升代码体验的几点想法">
+<meta property="og:url" content="http://ldzhangyx.github.io/2018/11/15/python-init/index.html">
+<meta property="og:site_name" content="张逸霄的技术小站">
+<meta property="og:description" content="提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-16T05:36:17.636Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PyTorch工程中，提升代码体验的几点想法">
+<meta name="twitter:description" content="提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。">
+    
+        <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">张逸霄</h5>
+          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ldzhangyx" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">PyTorch工程中，提升代码体验的几点想法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">PyTorch工程中，提升代码体验的几点想法</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-15T09:20:34.192Z" itemprop="datePublished" class="page-time">
+  2018-11-15
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/软件工程/">软件工程</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#保持工程的模块化"><span class="post-toc-number">1.</span> <span class="post-toc-text">保持工程的模块化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写一个好的注释"><span class="post-toc-number">2.</span> <span class="post-toc-text">写一个好的注释</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在容易混淆的函数声明中使用类型约束"><span class="post-toc-number">3.</span> <span class="post-toc-text">在容易混淆的函数声明中使用类型约束</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用数据类装饰器（Python-3-7特性）"><span class="post-toc-number">4.</span> <span class="post-toc-text">使用数据类装饰器（Python 3.7特性）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用新的Super方法调用"><span class="post-toc-number">5.</span> <span class="post-toc-text">使用新的Super方法调用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用-init-py文件"><span class="post-toc-number">6.</span> <span class="post-toc-text">使用__init__.py文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在必要的时候使用assert"><span class="post-toc-number">7.</span> <span class="post-toc-text">在必要的时候使用assert</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#持续更新中"><span class="post-toc-number">8.</span> <span class="post-toc-text">持续更新中</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-python-init"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">PyTorch工程中，提升代码体验的几点想法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-11-15 17:20:34" datetime="2018-11-15T09:20:34.192Z"  itemprop="datePublished">2018-11-15</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/软件工程/">软件工程</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。</p>
+<a id="more"></a>
+<h2 id="保持工程的模块化"><a href="#保持工程的模块化" class="headerlink" title="保持工程的模块化"></a>保持工程的模块化</h2><p>一个我认为整洁的项目应该遵循这样的结构，现在我以一个Encoder-Decoder框架为例进行描述。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''The structure of my project.</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">+--data</span><br><span class="line">|--+log</span><br><span class="line">|--+dataset</span><br><span class="line">|  |  +--train.txt</span><br><span class="line">|  |  +--test.txt</span><br><span class="line">+--model</span><br><span class="line">|  +--__init__.py</span><br><span class="line">|  +--encoder.py</span><br><span class="line">|  +--decoder.py</span><br><span class="line">|  +--(model_name).py</span><br><span class="line">|  +--highway.py</span><br><span class="line">|  ...</span><br><span class="line">+--utils</span><br><span class="line">|  +--__init__.py</span><br><span class="line">|  +--batch_loader.py</span><br><span class="line">|  +--parameters.py</span><br><span class="line">|  +--functional.py</span><br><span class="line">|  ...</span><br><span class="line">+--README.md</span><br><span class="line">+--LICENSE</span><br><span class="line">+--test.py</span><br><span class="line">+--train.py</span><br></pre></td></tr></table></figure>
+<p>在data文件夹里，放置数据集和模型，以及log输出；<br>在model文件夹里，将模型尽可能模块化，并用一个顶层模块将子模块组合起来。这个顶层模块要实现训练与测试的类方法。<br>在utils里放置参数列表文件，小工具，以及对数据预处理的文件。（我曾见过有用Jupyter Notebook进行可视化的数据清理的做法）<br>如果要开源，请加入README.md和LICENSE，一般我会选择GPL v3的License。<br>在test.py和train.py里实例化模型，进行训练和测试。</p>
+<p>一个可以参照的GitHub开源项目可以点这里：<a href="https://github.com/kefirski/pytorch_RVAE" target="_blank" rel="noopener">https://github.com/kefirski/pytorch_RVAE</a></p>
+<h2 id="写一个好的注释"><a href="#写一个好的注释" class="headerlink" title="写一个好的注释"></a>写一个好的注释</h2><p>Google曾经发布过一个<a href="https://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/contents/" target="_blank" rel="noopener">代码风格指南</a>，里面详细地介绍了Python代码应当遵循的有用的规范。在里面的函数一节里，就提及了注释的规范。</p>
+<p>对于文档注释，文档字符串是包, 模块, 类或函数里的第一个语句。这些字符串可以通过对象的<strong>doc</strong>成员被自动提取, 并且被pydoc所用。根据<a href="https://www.python.org/dev/peps/pep-0257/" target="_blank" rel="noopener">PEP-257</a>(这也是一个非常有名的指南)，文档字符串使用的注释风格应当是成对的三个双引号。</p>
+<p>格式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Add</span><span class="params">(arg_1, arg_2)</span>:</span></span><br><span class="line">    <span class="string">"""Add two numbers.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    There should be some details if needed.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        arg_1: The first number to be added.</span></span><br><span class="line"><span class="string">        arg_2: The second number to be added.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        A number. </span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Raises:</span></span><br><span class="line"><span class="string">        ...</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>如果是书写一个类，那么在类声明的下一行应该对其<strong>所有的类成员Attributes</strong>做出解释。</p>
+<h2 id="在容易混淆的函数声明中使用类型约束"><a href="#在容易混淆的函数声明中使用类型约束" class="headerlink" title="在容易混淆的函数声明中使用类型约束"></a>在容易混淆的函数声明中使用类型约束</h2><p>这是一点个人的看法。<a href="https://www.python.org/dev/peps/pep-0484/" target="_blank" rel="noopener">PEP-484</a>文档对类型约束提出了规范。在必要的时候使用类型约束能让我在运行之前就能发现一些问题。</p>
+<p>不加类型约束：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">greetings</span><span class="params">(name_list)</span>:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure></p>
+<p>加入类型约束：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">greetings</span><span class="params">(name_list: List<span class="params">(str)</span>)</span> -&gt; str:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用数据类装饰器（Python-3-7特性）"><a href="#使用数据类装饰器（Python-3-7特性）" class="headerlink" title="使用数据类装饰器（Python 3.7特性）"></a>使用数据类装饰器（Python 3.7特性）</h2><p>在使用数据类的时候（比如我的parameters.py中的Parameters类）（根据我的个人习惯，我会将文件名全部小写，但是类会大写首字母），遵循这一条会让可读性有一定提升。<a href="https://www.python.org/dev/peps/pep-0557/" target="_blank" rel="noopener">PEP-557</a>规定了相关规则。</p>
+<p>顺带一提，建议工程中所有的类都<strong>显式继承object类</strong>或者<strong>nn.Module类</strong>。</p>
+<p>原版代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, a, b)</span>:</span></span><br><span class="line">        self.a = a</span><br><span class="line">        self.b = b</span><br></pre></td></tr></table></figure></p>
+<p>使用类装饰器：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span><span class="params">(object)</span>:</span></span><br><span class="line">    a: str</span><br><span class="line">    b: str</span><br></pre></td></tr></table></figure></p>
+<p>这个类越是数据类，好处越明显。而且这个装饰器还会自动地帮助你实现一些魔术方法。</p>
+<h2 id="使用新的Super方法调用"><a href="#使用新的Super方法调用" class="headerlink" title="使用新的Super方法调用"></a>使用新的Super方法调用</h2><p>在我们初始化一个神经网络模块的时候，这样的代码在开源代码中十分常见：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Model</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Model, self).__init__()</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>但是这个超类方法可以被下列写法完全替代：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Model</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure></p>
+<p>推荐使用。</p>
+<h2 id="使用-init-py文件"><a href="#使用-init-py文件" class="headerlink" title="使用__init__.py文件"></a>使用__init__.py文件</h2><p>这个文件的作用是将文件夹变为一个Python模块。Python 中的每个模块的包中，都有__init__.py 文件。</p>
+<p>通常__init__.py 文件为空，但是我们还可以为它增加其他的功能。我们在导入一个包时，实际上是导入了它的__init__.py文件。这样我们可以在__init__.py文件中批量导入我们所需要的模块，而不再需要一个一个的导入。</p>
+<p>这样做在写代码时有个额外的好处：在Visual Studio Code等编辑器中，编辑器能够进行<strong>智能提示和自动补全</strong>。</p>
+<h2 id="在必要的时候使用assert"><a href="#在必要的时候使用assert" class="headerlink" title="在必要的时候使用assert"></a>在必要的时候使用assert</h2><p>assert是一个不怎么被提起的功能，然而我在实际使用中感受到assert可以帮助我们进行debug。一般来说，我进行debug最常用的方法是进行单步调试，在<strong>关键的地方打断点，观察变量列表</strong>；然而断点的机制决定了它并不是持久化的debug策略，我们在与其他人协作写代码的时候，也无法提醒其重点关注和检查哪些问题。</p>
+<p>用于持久化进行测试的常见方法一般是将需要观察的变量进行print输出，然后<strong>观察output控制台</strong>。然而print函数在debug过程中可是要去掉的。所以assert函数可以<strong>在关键的地方对变量进行检查</strong>。通过这种检查，函数的功能得以保证，且无需添加if，避免了过深的隐蔽bug；此外，assert语句可以提醒其他的阅读这段代码的人：这个地方的变量应当满足什么要求，是怎么样的一个变量。</p>
+<h2 id="持续更新中"><a href="#持续更新中" class="headerlink" title="持续更新中"></a>持续更新中</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-11-16T05:36:17.636Z" itemprop="dateUpdated">2018-11-16 13:36:17</time>
+</span><br>
+
+
+        
+        原文地址：<a href="/2018/11/15/python-init/" target="_blank" rel="external">http://ldzhangyx.github.io/2018/11/15/python-init/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://ldzhangyx.github.io">
+            <img src="/img/avatar.jpg" alt="张逸霄">
+            张逸霄
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PyTorch/">PyTorch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/软件工程/">软件工程</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/11/15/python-init/&title=《PyTorch工程中，提升代码体验的几点想法》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/11/15/python-init/&title=《PyTorch工程中，提升代码体验的几点想法》 — 张逸霄的技术小站&source=提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/11/15/python-init/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PyTorch工程中，提升代码体验的几点想法》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/11/15/python-init/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/11/15/python-init/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/11/16/focal-loss/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Focal Loss以及其在NLP领域运用的思考</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/10/14/self-attention/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">self-attention与attention简要梳理</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "vjXNi1yCMdQOFUwuQ8kmMcBC-gzGzoHsz",
+            appKey: "FntMqfzRaFO2Jm4fjUC9Mz4S",
+            avatar: "mm",
+            placeholder: "随便写点什么吧",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        非常感谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>张逸霄 &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/11/15/python-init/&title=《PyTorch工程中，提升代码体验的几点想法》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/11/15/python-init/&title=《PyTorch工程中，提升代码体验的几点想法》 — 张逸霄的技术小站&source=提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/11/15/python-init/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PyTorch工程中，提升代码体验的几点想法》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/11/15/python-init/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/11/15/python-init/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNklEQVR42u3aS46DMBBF0ex/02TSg44izH1VEMn2ZdRKjJuTQVEfv174Ov5d35+T9Wf3fq852/OGS4YMGdMyjuFF1owxZzuMV/JnkyFDxj4M8hDj0MlXdsL06ecyZMiQUQuCjbRShgwZMvrbpQllWtzKkCFDRu2BSAAlYJ5QPlKLy5AhY0IG77r//u9H5hsyZMiYinGE1zg5q6WPnef520eGDBlLM3iA6/DGO6AClbTwZMiQsSiDFITkW3I4g+xcPCgmQ4aMpRlp4Zq24dJP+i0/GTJkrMfgIY+37DvlKw/WH3fJkCFjAwZv0KeJYLqyOBCVIUPGZgwefDsTxvSI2EXwlSFDxtKMex+O18o8EQxagTJkyFiakY4N0nEC/5ke7BrKkCFjcgYJdryhlh6Y4N9epIkyZMhYmsGTNpK6xW398Ae94YCFDBkyJmTUgmbtEBgfjvIBqgwZMnZg8HRwHCg7w4ZaqRy/N2TIkDEho3P0gaxPH52kgxdVuAwZMpZjpOVoGsXTPdORpwwZMvZh1Lar3ds6qDoO9DJkyNiM8VwcS8vaIDTLkCFjA0anvOTHNeJjE7i3JkOGjFUZR3ilpSkP5QSJkkIZMmQsx6iFuc7IszYQrb0YZMiQsRIjDbJPDCxrjTYZMmTsxiCDw7Q9V0v7aqFfhgwZMtJDY+mBCV4qByc7ZMiQsTGDp3RpwG0NR2XIkLEBg/97EiL5wDIdP8iQIWNPBi8d+82ydLTZfw3IkCFjcsYbycgi4GMm0e4AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Yixiao Zhang's Website';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Yixiao Zhang's Website';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

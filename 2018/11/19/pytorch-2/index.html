@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-126536496-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>PyTorch代码编写的日常(11.19) | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="PyTorch">
+    <meta name="description" content="这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。">
+<meta name="keywords" content="PyTorch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyTorch代码编写的日常(11.19)">
+<meta property="og:url" content="http://ldzhangyx.github.io/2018/11/19/pytorch-2/index.html">
+<meta property="og:site_name" content="张逸霄的技术小站">
+<meta property="og:description" content="这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-20T04:48:59.869Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PyTorch代码编写的日常(11.19)">
+<meta name="twitter:description" content="这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。">
+    
+        <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">张逸霄</h5>
+          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ldzhangyx" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">PyTorch代码编写的日常(11.19)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">PyTorch代码编写的日常(11.19)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-19T07:23:51.000Z" itemprop="datePublished" class="page-time">
+  2018-11-19
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/PyTorch/">PyTorch</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#k折交叉验证"><span class="post-toc-number">1.</span> <span class="post-toc-text">k折交叉验证</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#loss的设计"><span class="post-toc-number">2.</span> <span class="post-toc-text">loss的设计</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#loss与optim的联动关系"><span class="post-toc-number">3.</span> <span class="post-toc-text">loss与optim的联动关系</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#model-train-与model-eval"><span class="post-toc-number">4.</span> <span class="post-toc-text">model.train()与model.eval()</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#requires-grad的默认值"><span class="post-toc-number">5.</span> <span class="post-toc-text">requires_grad的默认值</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#trainer的编写范式"><span class="post-toc-number">6.</span> <span class="post-toc-text">trainer的编写范式</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-pytorch-2"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">PyTorch代码编写的日常(11.19)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-11-19 15:23:51" datetime="2018-11-19T07:23:51.000Z"  itemprop="datePublished">2018-11-19</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/PyTorch/">PyTorch</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。</p>
+<a id="more"></a>
+<h1 id="k折交叉验证"><a href="#k折交叉验证" class="headerlink" title="k折交叉验证"></a>k折交叉验证</h1><p>我找了一圈，发现PyTorch在对数据集的处理上，并没有设置方便进行交叉验证的API。在编程实践中可以这么完成k折交叉验证：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyDataset</span><span class="params">(data.Dataset)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    数据集类继承PyTorch的Dataset类，进行处理。</span></span><br><span class="line"><span class="string">    数据集以csv读取为例。</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, root, state = <span class="string">'Train'</span>, k = <span class="number">0</span>)</span>:</span></span><br><span class="line">        <span class="string">'''初始化对象。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            root: 存放数据的目录。</span></span><br><span class="line"><span class="string">            state: 控制要读取训练集、验证集、测试集。</span></span><br><span class="line"><span class="string">            k: 用于控制k折交叉验证。</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        self.root = root </span><br><span class="line">        self.state = state</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.state == <span class="string">'Train'</span>:</span><br><span class="line">            path = root + <span class="string">'train.csv'</span></span><br><span class="line">            self.train_data = pd.read_csv(path)</span><br><span class="line">            self.data = pd.concat(</span><br><span class="line">                [self.train_data[:int((k % <span class="number">10</span>) * len(self.train_data) / <span class="number">10</span>)], </span><br><span class="line">                 self.train_data[int((k % <span class="number">10</span> + <span class="number">1</span>) * len(self.train_data) / <span class="number">10</span>):]])</span><br><span class="line">            self.data = self.data.reset_index(drop = <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.state == <span class="string">'Valid'</span>:</span><br><span class="line">            path = root + <span class="string">'train.csv'</span></span><br><span class="line">            self.train_data = pd.read_csv(path)</span><br><span class="line">            self.data = self.train_data[int((k % <span class="number">10</span>) * len(self.train_data) /<span class="number">10</span>):</span><br><span class="line">                                        int((k % <span class="number">10</span> + <span class="number">1</span>) * len(self.train_data) /<span class="number">10</span>)]</span><br><span class="line">            self.data = self.data.reset_index(drop = <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.state == <span class="string">'test'</span>:</span><br><span class="line">            path = root + <span class="string">'test.csv'</span></span><br><span class="line">            self.data = pd.read_csv(path)</span><br></pre></td></tr></table></figure>
+<p>这样通过切片的方式，将训练集和验证集分成了k份，训练集拥有k-1份数据。</p>
+<h1 id="loss的设计"><a href="#loss的设计" class="headerlink" title="loss的设计"></a>loss的设计</h1><p>回归问题一般来说使用MSE，但是PyTorch也提供了Huber Loss，在API里命名为SmoothL1Loss。</p>
+<p>使用loss时遵循这样的方法使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">loss = nn.SmoothL1Loss()</span><br><span class="line">logits = ...</span><br><span class="line">labels = ...</span><br><span class="line">output = loss(logits, labels)</span><br></pre></td></tr></table></figure>
+<h1 id="loss与optim的联动关系"><a href="#loss与optim的联动关系" class="headerlink" title="loss与optim的联动关系"></a>loss与optim的联动关系</h1><p>在optimizer定义的时候，需要将网络参数输入。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">optimizer = t.optim.Adam(model.learnable_parameters(), </span><br><span class="line">                        parameters.learning_rate,</span><br><span class="line">                        weight_decay=<span class="number">0.01</span>)</span><br></pre></td></tr></table></figure>
+<p>learnable_parameters()是我手动定义的一个类方法，根据requires_grad标志获取所有需要学习的参数。</p>
+<p>此时optimizer已经存储了所有参数的储存地址（也就是指针）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">loss = nn.MSELoss()</span><br><span class="line">output = loss(logits, label)</span><br><span class="line">optimizer.zero_grad()</span><br><span class="line">output.backward()</span><br><span class="line">optimizer.step()</span><br></pre></td></tr></table></figure>
+<p>optimizer.zero_grad()将梯度清零，防止梯度错误累加。<br>output.backward()将所有参数的更新梯度一次性求出来。<br>optimizer.step()根据求得的梯度自动进行更新，这个函数无需传参，因为loss与optim被设计为能很好联动的机制。</p>
+<h1 id="model-train-与model-eval"><a href="#model-train-与model-eval" class="headerlink" title="model.train()与model.eval()"></a>model.train()与model.eval()</h1><p>这个机制用来控制dropout和Batch Normalize层。BN层的主要用途是进行批量正规化，减少不当初始化对学习效果的负面影响。</p>
+<p>在训练代码前加入model.train()，在验证和测试代码前加入model.eval()，model为模型对象。</p>
+<h1 id="requires-grad的默认值"><a href="#requires-grad的默认值" class="headerlink" title="requires_grad的默认值"></a>requires_grad的默认值</h1><p>PyTorch 0.4版本取消了Tensor的参数Volatile，现在requires_grad用于控制参数是否能被学习，默认为False。</p>
+<p>但是重要的是，在模型的<strong>init</strong>方法中被定义的层，<strong>这个参数默认为True</strong>，不需要再改一遍了。</p>
+<h1 id="trainer的编写范式"><a href="#trainer的编写范式" class="headerlink" title="trainer的编写范式"></a>trainer的编写范式</h1><p>trainer作为网络模型的类方法出现，其定义和调用方法如下。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">trainer</span><span class="params">(self, optimizer)</span>:</span> <span class="comment"># 如果自己定义了batch_loader也可以在这里用。这里主要定义一些不会变的参数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(iteration, batch_size, use_cuda, input, label)</span>:</span></span><br><span class="line">        logits = self(input) <span class="comment"># 这里调用的是forward类方法，保持参数一致即可</span></span><br><span class="line">        logits = logits.view(<span class="number">-1</span>,<span class="number">1</span>) <span class="comment"># 可能需要做一次转置</span></span><br><span class="line">        loss = nn.MSELoss()</span><br><span class="line">        mse = loss(logits, label)</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">return</span> mse</span><br><span class="line">    <span class="keyword">return</span> train <span class="comment"># 返回一个函数对象</span></span><br></pre></td></tr></table></figure>
+<p>调用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> iteration, [input, label] <span class="keyword">in</span> enumerate(data_loader): <span class="comment"># data_loader是自己写好的，是DataLoader类</span></span><br><span class="line">    train_step = model.trainer(optimizer)</span><br><span class="line"></span><br><span class="line">    output = step(iteration, batch_size, cuda, input, label) <span class="comment"># 这是目的</span></span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-11-20T04:48:59.869Z" itemprop="dateUpdated">2018-11-20 12:48:59</time>
+</span><br>
+
+
+        
+        原文地址：<a href="/2018/11/19/pytorch-2/" target="_blank" rel="external">http://ldzhangyx.github.io/2018/11/19/pytorch-2/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://ldzhangyx.github.io">
+            <img src="/img/avatar.jpg" alt="张逸霄">
+            张逸霄
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PyTorch/">PyTorch</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&title=《PyTorch代码编写的日常(11.19)》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&title=《PyTorch代码编写的日常(11.19)》 — 张逸霄的技术小站&source=这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/11/19/pytorch-2/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PyTorch代码编写的日常(11.19)》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/11/20/vae/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">几类VAE的简要整理</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/11/19/pytorch-1119/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">PyTorch模型加载与保存的最佳实践</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "vjXNi1yCMdQOFUwuQ8kmMcBC-gzGzoHsz",
+            appKey: "FntMqfzRaFO2Jm4fjUC9Mz4S",
+            avatar: "mm",
+            placeholder: "随便写点什么吧",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        非常感谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>张逸霄 &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&title=《PyTorch代码编写的日常(11.19)》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&title=《PyTorch代码编写的日常(11.19)》 — 张逸霄的技术小站&source=这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/11/19/pytorch-2/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PyTorch代码编写的日常(11.19)》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/11/19/pytorch-2/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACH0lEQVR42u3aO3LDMAwFQN//0k6bFKIfADkzIleVx5YlLgsMPny94uv967r6dX1/fs/VW264MDAwHst4L6/knoSXPDn51+UbMTAwDmAki0h+7QXZPExffo+BgYExvich9d6LgYGBMVnuJBHEwMDA6BWxeZG5fn6vxL2tFsfAwHggI++6///nr8w3MDAwHsV4F6/qgHP+tGhVGBgYWzPyAJcvKClx89SzsHEYGBibMnqHKiZFae8w2QcYBgbGkYx58ldd1mSbMDAwzmRMWva98rUarP/8CwMD4xjGuhytjjN7qWcvxGNgYJzAyIeX+cHT6mGL5F2Xq8XAwDiMce8rq4lgdaMvAy4GBsZ2jF6ZWm3uT055FdptGBgY2zHuavGXh47BAYtRmoiBgbERo9dES/Ymx0zKYwwMjBMY1RJ0svRqyO5tLgYGxn6MpNSsJovV42U3hGwMDIwDGL0h5TcWmj8fAwPjHMY6KaxeeRMtH5TekNtiYGBsx8jb9L07q8c7CtuEgYFxAGNC6g0+129PElMMDIzTGOvGVu9QxXqJ8zEnBgbGCYx7y9TqQr+S22JgYGzHmIS56gCg1/ovnxnBwMDYlFENsr1hZ75zecDFwMA4jVENfHlSWG3A9c6AYWBgYOQJX69hNxmjYmBgYFTHnEm7rRp2kydgYGCcwMhTul5DvzceaB62wMDA2I6Rl455SlduliVl6nyQiYGB8TzGDwMjBVJxJTmqAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Yixiao Zhang's Website';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Yixiao Zhang's Website';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
