@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2018-12-11T06:57:07.118Z</updated>
+  <updated>2018-12-18T06:57:53.470Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,50 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我将UESTC加入到了CSRankings的列表里</title>
+    <link href="http://ldzhangyx.github.io/2018/12/18/csrankings-uestc/"/>
+    <id>http://ldzhangyx.github.io/2018/12/18/csrankings-uestc/</id>
+    <published>2018-12-18T05:54:38.000Z</published>
+    <updated>2018-12-18T06:57:53.470Z</updated>
+    
+    <content type="html"><![CDATA[<p>如同字面意思，我之前添加UESTC到CSRankings的Pull Request已经被Merge到主分支了。<a href="http://csrankings.org" target="_blank" rel="noopener">http://csrankings.org</a></p><a id="more"></a><h1 id="我为什么要这么做"><a href="#我为什么要这么做" class="headerlink" title="我为什么要这么做"></a>我为什么要这么做</h1><p>CSRankings本身就是一个非常流行的科研排名。我很高兴能在这样一个排名里做出贡献，帮助国内和国外的同行对这个行业的科研水准有更准确的认识。这包括，对中国科研整体水准的认识；对我的母校电子科大的科研水准有更高的估计。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>虽然现在CSRankings的评价基准是各大顶会的论文数量，固然因为人海因素导致院校之间的平均水准得不到有效的评估；但另一方面，这个排名又非常纯粹，并且详细到了每一个教授。这样的排名是客观的、不掺杂主观因素的清流榜单。</p><p>这个排名上，我国的很多高校都没有出现，如果想和我一样补完这个榜单的话，可以看下一节。</p><h1 id="我做了什么"><a href="#我做了什么" class="headerlink" title="我做了什么"></a>我做了什么</h1><p>首先，我找到了他们的<a href="https://github.com/emeryberger/CSrankings" target="_blank" rel="noopener">GitHub页面</a>。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>然后我提交了一个pull resuest，将UESTC加入了机构名单；同时将计算机学院的大部分博导加入了名单。根据要求，这个排名里只能收录博导。</p><p>最后等待大约一周，即可被merge。这期间会有修改要求，只要按照建议修改即可。</p><h1 id="我之后会怎么做"><a href="#我之后会怎么做" class="headerlink" title="我之后会怎么做"></a>我之后会怎么做</h1><p>我写了这篇文章，希望能被更多人看到，然后意识到CSRankings的价值，以及增添PR上自己学校的动力。我之后会持续增加、补全计算机学院的教授们。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;如同字面意思，我之前添加UESTC到CSRankings的Pull Request已经被Merge到主分支了。&lt;a href=&quot;http://csrankings.org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://csrankings.org&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="其他" scheme="http://ldzhangyx.github.io/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>使用statsmodels库做线性回归的指南</title>
+    <link href="http://ldzhangyx.github.io/2018/12/18/ols/"/>
+    <id>http://ldzhangyx.github.io/2018/12/18/ols/</id>
+    <published>2018-12-18T03:16:59.000Z</published>
+    <updated>2018-12-19T02:48:08.464Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文是一个简化的实践指南。阅读完这篇文章之后，你将可以快速使用statsmodels库进行最小二乘回归。</p><a id="more"></a><h1 id="线性回归模型"><a href="#线性回归模型" class="headerlink" title="线性回归模型"></a>线性回归模型</h1><p>对于一元线性回归，其回归模型是：</p><script type="math/tex; mode=display">Y = \beta_0 + \beta_1X_1</script><p>其回归系数应为：</p><p>$\beta_0, \beta_1$</p><p>对于多元线性回归，其回归模型是：</p><script type="math/tex; mode=display">Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + ... + \beta_nX_n</script><p>其回归系数应为：</p><p>$\beta_0, \beta_1, \beta_2, …, \beta_n$</p><p>其中$\beta_0$为常数项。</p><h1 id="代码实现和解释"><a href="#代码实现和解释" class="headerlink" title="代码实现和解释"></a>代码实现和解释</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">statsmodels</span>.<span class="title">regression</span>.<span class="title">linear_model</span>.<span class="title">OLS</span><span class="params">(endog, exog=None, missing=<span class="string">'none'</span>, hasconst=None, **kwargs)</span></span></span><br></pre></td></tr></table></figure><p>我们使用statsmodels的OLS类进行初始化，其重要参数是前两个。</p><p>endog —— 因变量<br>exog —— 自变量</p><p>注意如果要实现多元线性回归的话，那么其输入应该是一个这样的矩阵：</p><script type="math/tex; mode=display">  \begin{matrix}   1 & x_{11} & x_{m1} \\   ... & ... & ... \\   1 & x_{1n} & x_{mn}  \end{matrix}</script><p>这里要注意两点：</p><ol><li>OLS类默认不提供常数项，所以需要手动添加一列常数项。statsmodels提供了方便地添加常数项的方法。</li><li>每一列都是一个自变量。所以可以使用这样的方法进行拼接：</li></ol><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 假设数据以list的方法输入</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> statsmodels.api <span class="keyword">as</span> sm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自变量</span></span><br><span class="line">x1 = list()</span><br><span class="line">x2 = list()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 因变量</span></span><br><span class="line">y = list()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将列表转为横向量，转置成纵向量，然后拼接（concatenate）起来</span></span><br><span class="line">X = np.concatenate(np.array(x1).reshape(<span class="number">-1</span>,<span class="number">1</span>), </span><br><span class="line">                np.array(x1).reshape(<span class="number">-1</span>,<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在自变量矩阵X的最左侧一列添加一列常数1</span></span><br><span class="line">X = sm.add_constant(X)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实例化OLS类，得到一个model对象。</span></span><br><span class="line">model = sm.OLS(y, X)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用类方法，使model对象进行拟合，然后返回结果。</span></span><br><span class="line">results = model.fit()</span><br><span class="line"></span><br><span class="line">print(results.params)</span><br><span class="line"><span class="comment"># 返回值将会是这样的形式</span></span><br><span class="line"><span class="comment"># [1.04510666, 9.97239799 2.23455534]</span></span><br><span class="line"><span class="comment"># 按照顺序分别是常数项系数、x1系数，x2系数，etc.</span></span><br><span class="line"></span><br><span class="line">print(results.summary())</span><br><span class="line"><span class="comment"># 如果调用这个方法，则会返回一个详尽的表格，其中coef就是回归系数。</span></span><br></pre></td></tr></table></figure><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol><li><a href="https://zhuanlan.zhihu.com/p/22692029" target="_blank" rel="noopener">Python Statsmodels 统计包之 OLS 回归</a></li><li><a href="http://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLS.html#statsmodels.regression.linear_model.OLS" target="_blank" rel="noopener">statsmodels.regression.linear_model.OLS</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文是一个简化的实践指南。阅读完这篇文章之后，你将可以快速使用statsmodels库进行最小二乘回归。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="http://ldzhangyx.github.io/tags/Python/"/>
+    
+      <category term="统计" scheme="http://ldzhangyx.github.io/tags/%E7%BB%9F%E8%AE%A1/"/>
+    
+      <category term="statsmodels" scheme="http://ldzhangyx.github.io/tags/statsmodels/"/>
+    
+  </entry>
   
   <entry>
     <title>用Python做统计的轻量化库：statistics</title>
@@ -36,9 +80,9 @@
     
       <category term="Python" scheme="http://ldzhangyx.github.io/tags/Python/"/>
     
-      <category term="数据挖掘" scheme="http://ldzhangyx.github.io/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
-    
       <category term="统计" scheme="http://ldzhangyx.github.io/tags/%E7%BB%9F%E8%AE%A1/"/>
+    
+      <category term="数据挖掘" scheme="http://ldzhangyx.github.io/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
     
       <category term="时序分析" scheme="http://ldzhangyx.github.io/tags/%E6%97%B6%E5%BA%8F%E5%88%86%E6%9E%90/"/>
     
@@ -204,11 +248,11 @@
       <category term="软件工程" scheme="http://ldzhangyx.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
     
     
+      <category term="Python" scheme="http://ldzhangyx.github.io/tags/Python/"/>
+    
       <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
     
       <category term="软件工程" scheme="http://ldzhangyx.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
-    
-      <category term="Python" scheme="http://ldzhangyx.github.io/tags/Python/"/>
     
   </entry>
   
