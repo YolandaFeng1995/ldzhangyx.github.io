@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-126536496-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>音乐生成的武器库——集中介绍 | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Python,音乐生成">
+    <meta name="description" content="这篇文章是之后系列文章的汇总集中目录。">
+<meta name="keywords" content="Python,音乐生成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="音乐生成的武器库——集中介绍">
+<meta property="og:url" content="http://ldzhangyx.github.io/2018/12/29/music-toolkits/index.html">
+<meta property="og:site_name" content="张逸霄的技术小站">
+<meta property="og:description" content="这篇文章是之后系列文章的汇总集中目录。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-29T06:52:03.539Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="音乐生成的武器库——集中介绍">
+<meta name="twitter:description" content="这篇文章是之后系列文章的汇总集中目录。">
+    
+        <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">张逸霄</h5>
+          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ldzhangyx" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">音乐生成的武器库——集中介绍</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">音乐生成的武器库——集中介绍</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-12-29T03:08:44.000Z" itemprop="datePublished" class="page-time">
+  2018-12-29
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#基础组件"><span class="post-toc-number">1.</span> <span class="post-toc-text">基础组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Python-MIDI"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Python-MIDI</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#乐谱生成"><span class="post-toc-number">2.</span> <span class="post-toc-text">乐谱生成</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LilyPond"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">LilyPond</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MuseScore"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">MuseScore</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#音乐的符号化表示"><span class="post-toc-number">3.</span> <span class="post-toc-text">音乐的符号化表示</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#music21"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">music21</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ABC格式"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">ABC格式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Pretty-MIDI表示的Piano-Roll"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">Pretty_MIDI表示的Piano Roll</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mingus"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">mingus</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#音乐合成"><span class="post-toc-number">4.</span> <span class="post-toc-text">音乐合成</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#PySynth"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">PySynth</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pyfluidsynth3"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">pyfluidsynth3</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据集"><span class="post-toc-number">5.</span> <span class="post-toc-text">数据集</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nottingham-Dataset"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">Nottingham Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Lakh-Dataset"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">Lakh Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Lakh-Pianoroll"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">Lakh Pianoroll</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Million-Songs"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">Million Songs</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-music-toolkits"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">音乐生成的武器库——集中介绍</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-12-29 11:08:44" datetime="2018-12-29T03:08:44.000Z"  itemprop="datePublished">2018-12-29</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>这篇文章是之后系列文章的汇总集中目录。</p>
+ <a id="more"></a>
+<p> 首先做个小宣传。因为很多想做这一块的同行本科生们不是很清楚国内外的院校列表。有一位前辈在GitHub上整理了大部分的院校列表出来，我也对这个列表做了一点贡献。<a href="https://github.com/beiciliang/intro2musictech/blob/master/INFO-ResearchGroups.md" target="_blank" rel="noopener">点击查看</a></p>
+<p> Python官网整理的Python库有这些：<a href="https://wiki.python.org/moin/PythonInMusic" target="_blank" rel="noopener">链接</a></p>
+<h1 id="基础组件"><a href="#基础组件" class="headerlink" title="基础组件"></a>基础组件</h1><h2 id="Python-MIDI"><a href="#Python-MIDI" class="headerlink" title="Python-MIDI"></a>Python-MIDI</h2><ul>
+<li>项目官网：<a href="https://github.com/vishnubob/python-midi/tree/feature/python3" target="_blank" rel="noopener">https://github.com/vishnubob/python-midi/tree/feature/python3</a></li>
+</ul>
+<p>很多库的前置库，安装时记得选择其Python 3的branch。</p>
+<h1 id="乐谱生成"><a href="#乐谱生成" class="headerlink" title="乐谱生成"></a>乐谱生成</h1><p> 相关的知乎问题：<a href="https://www.zhihu.com/question/23003386" target="_blank" rel="noopener">链接</a></p>
+<h2 id="LilyPond"><a href="#LilyPond" class="headerlink" title="LilyPond"></a>LilyPond</h2><ul>
+<li>项目官网：<a href="http://lilypond.org/index.html" target="_blank" rel="noopener">http://lilypond.org/index.html</a></li>
+</ul>
+<p>LilyPond是GNU Project的一部分，是免费的乐谱生成软件。生成的乐谱质量很高，支持从xml/mxl以及从midi转化成lilypond格式源代码（.ly），并且可以使用类LaTeX语言编写。</p>
+<p>可以用两个方法通过Python代码调用LilyPond库：</p>
+<ol>
+<li>Python-ly库，其GitHub地址在<a href="https://github.com/wbsoft/python-ly" target="_blank" rel="noopener">这里</a></li>
+<li>mingus的lilypond模块，GitHub地址在<a href="https://github.com/bspaans/python-mingus" target="_blank" rel="noopener">这里</a></li>
+</ol>
+<h2 id="MuseScore"><a href="#MuseScore" class="headerlink" title="MuseScore"></a>MuseScore</h2><ul>
+<li>项目官网：<a href="https://musescore.org" target="_blank" rel="noopener">https://musescore.org</a></li>
+<li>社区和乐谱集：<a href="https://musescore.org" target="_blank" rel="noopener">https://musescore.org</a></li>
+</ul>
+<p>MuseScore的特点在于其有充分活跃的社区。这个软件和LilyPond都可以通过XML和MIDI进行数据传送，所以在接口方面很灵活。</p>
+<h1 id="音乐的符号化表示"><a href="#音乐的符号化表示" class="headerlink" title="音乐的符号化表示"></a>音乐的符号化表示</h1><h2 id="music21"><a href="#music21" class="headerlink" title="music21"></a>music21</h2><ul>
+<li>项目官网：<a href="http://web.mit.edu/music21/" target="_blank" rel="noopener">http://web.mit.edu/music21/</a></li>
+</ul>
+<p>对Python3的支持很好，也是目前为止最完善的一个Python库、武器库。包括音乐的乐谱显示、音乐合成、矩阵分析、语料库、符号表达等。</p>
+<h2 id="ABC格式"><a href="#ABC格式" class="headerlink" title="ABC格式"></a>ABC格式</h2><ul>
+<li>项目官网：<a href="http://abcnotation.com/" target="_blank" rel="noopener">http://abcnotation.com/</a></li>
+</ul>
+<p>ABC格式是一种复杂而古早的模式，很多早期的数据集使用了这种标注。ABC格式可以转化为music21，或者被其他方法解析。</p>
+<h2 id="Pretty-MIDI表示的Piano-Roll"><a href="#Pretty-MIDI表示的Piano-Roll" class="headerlink" title="Pretty_MIDI表示的Piano Roll"></a>Pretty_MIDI表示的Piano Roll</h2><ul>
+<li>项目官网：<a href="https://github.com/craffel/pretty-midi" target="_blank" rel="noopener">https://github.com/craffel/pretty-midi</a></li>
+<li>我以前写的文章：<a href="https://www.cnblogs.com/ldzhangyx/p/7789939.html" target="_blank" rel="noopener">https://www.cnblogs.com/ldzhangyx/p/7789939.html</a></li>
+</ul>
+<p>一个方便将MIDI文件转化为Piano Roll的库。这个库被用在Google Magenta里，我自己的项目也要使用它。master分支现在已经支持了Python3。</p>
+<h2 id="mingus"><a href="#mingus" class="headerlink" title="mingus"></a>mingus</h2><ul>
+<li>项目官网：<a href="https://bspaans.github.io/python-mingus/" target="_blank" rel="noopener">https://bspaans.github.io/python-mingus/</a></li>
+<li>Python 3版本：<a href="https://github.com/edudobay/python-mingus" target="_blank" rel="noopener">https://github.com/edudobay/python-mingus</a></li>
+</ul>
+<p>作者很久没有维护过了，但是从快速上手来看是一个不错的Python库。Python 3版本已经给出。</p>
+<h1 id="音乐合成"><a href="#音乐合成" class="headerlink" title="音乐合成"></a>音乐合成</h1><h2 id="PySynth"><a href="#PySynth" class="headerlink" title="PySynth"></a>PySynth</h2><ul>
+<li>项目官网：<a href="https://mdoege.github.io/PySynth/" target="_blank" rel="noopener">https://mdoege.github.io/PySynth/</a></li>
+</ul>
+<p>主要用处就是将midi或ABC格式的文件转化为wav文件，有多种合成方法可选，十分方便好用。</p>
+<h2 id="pyfluidsynth3"><a href="#pyfluidsynth3" class="headerlink" title="pyfluidsynth3"></a>pyfluidsynth3</h2><ul>
+<li>项目官网：<a href="https://github.com/tea2code/pyfluidsynth3" target="_blank" rel="noopener">https://github.com/tea2code/pyfluidsynth3</a></li>
+</ul>
+<p>Pretty-MIDI的前置库，用于合成音乐。这里推荐的是Python 3的重写版本。</p>
+<ul>
+<li>项目官网</li>
+</ul>
+<h1 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h1><h2 id="Nottingham-Dataset"><a href="#Nottingham-Dataset" class="headerlink" title="Nottingham Dataset"></a>Nottingham Dataset</h2><ul>
+<li>地址：<a href="https://github.com/jukedeck/nottingham-dataset" target="_blank" rel="noopener">https://github.com/jukedeck/nottingham-dataset</a></li>
+</ul>
+<p>特别有名的数据集，音乐界的MNIST。ABC格式可以被上面一些库直接解析，MIDI格式也可以转换。数据预处理的办法一般是shift到12个大调或者小调，速度调整至120bpm。</p>
+<h2 id="Lakh-Dataset"><a href="#Lakh-Dataset" class="headerlink" title="Lakh Dataset"></a>Lakh Dataset</h2><ul>
+<li>地址：<a href="https://colinraffel.com/projects/lmd/" target="_blank" rel="noopener">https://colinraffel.com/projects/lmd/</a></li>
+</ul>
+<p>Lakh MIDI数据集是176,581个独特MIDI文件的集合，其中45,129个已匹配并与Million Song Dataset中的条目对齐。</p>
+<h2 id="Lakh-Pianoroll"><a href="#Lakh-Pianoroll" class="headerlink" title="Lakh Pianoroll"></a>Lakh Pianoroll</h2><ul>
+<li>地址：<a href="https://salu133445.github.io/lakh-pianoroll-dataset/" target="_blank" rel="noopener">https://salu133445.github.io/lakh-pianoroll-dataset/</a></li>
+</ul>
+<p>上面数据集的转化版本，但是表示使用了Pianoroll。</p>
+<h2 id="Million-Songs"><a href="#Million-Songs" class="headerlink" title="Million Songs"></a>Million Songs</h2><ul>
+<li>地址：<a href="https://labrosa.ee.columbia.edu/millionsong/" target="_blank" rel="noopener">https://labrosa.ee.columbia.edu/millionsong/</a></li>
+</ul>
+<p>不是midi文件而是波形文件，特点在于数据量极大。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-12-29T06:52:03.539Z" itemprop="dateUpdated">2018-12-29 14:52:03</time>
+</span><br>
+
+
+        
+        原文地址：<a href="/2018/12/29/music-toolkits/" target="_blank" rel="external">http://ldzhangyx.github.io/2018/12/29/music-toolkits/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://ldzhangyx.github.io">
+            <img src="/img/avatar.jpg" alt="张逸霄">
+            张逸霄
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/音乐生成/">音乐生成</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/&title=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/&title=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&source=这篇文章是之后系列文章的汇总集中目录。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/12/29/music-toolkits/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/12/26/structure-encoding-music/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">《The Effect of Explicit Structure Encoding of Deep Neural Networks for Symbolic Music Generation》论文笔记</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "vjXNi1yCMdQOFUwuQ8kmMcBC-gzGzoHsz",
+            appKey: "FntMqfzRaFO2Jm4fjUC9Mz4S",
+            avatar: "mm",
+            placeholder: "随便写点什么吧",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        非常感谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>张逸霄 &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/&title=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/&title=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&source=这篇文章是之后系列文章的汇总集中目录。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/12/29/music-toolkits/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNElEQVR42u3aQY4CMQwFUe5/6R5pVkijNPXtgAansmLRNHlBsuzYjwde1+96/vy87p9cfevvG1bv3LZkyJDxtYz0B+63vtpQCuZ7kyFDxjkMHmT5Ru+jYkp6sWcZMmTIAKHzPrEjYVSGDBkydjF4Mld7UoYMGTI6RWwtyHbe9pZaXIYMGV/IqDUGPvP57f0NGTJk/HvGFS7ezkwL2tauZMiQMZqRJnC8bYDKzkboRxmuDBkyRjDSYHrfgEyL1V2tCBkyZJzA4AGUD4rVmpckvC4zXBkyZAxl1DKrtHwlwboW7mXIkHECIx2MIKVpbYQiTQpRVJYhQ8YIBikv+QBEOjzRPwj0z8iQIWMEg1+r8RJ311AXv56TIUPGOYw0aPY3VBv1QNdtMmTIGMGohVTeMOCDF7yQXl63yZAhYzSjVqZ2SlY+bIEOVIYMGQcw0oZi57qfv6GVGsqQIWMQgzQF0bwGeL7WNA1CvwwZMoYyailgenHfKXHRJaAMGTJGM9Kv1a7MeODmjYFlC1OGDBnjGDzh25VEdlqey4OTIUPGMQzeHugEVp5K8kJXhgwZsxlpSE0HLNJnOuNlMmTImMq4wpWmj7wxwJuXQWooQ4aMEYw0zAWROyxEefLH2xgyZMiYxOBBdtflPj8mGTJkyCADXsULr7B67hTPMmTIkFErLEm4rIXyF5duMmTIkIGHLcgbivW0DBkyDmbwIrbfktx1HDJkyDiH8ZnRilo7gSSXMmTIGM34Ad1V60F76+mEAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Yixiao Zhang's Website';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Yixiao Zhang's Website';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
