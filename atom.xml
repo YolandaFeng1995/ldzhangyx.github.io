@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2018-12-29T06:52:03.539Z</updated>
+  <updated>2019-01-02T07:15:02.605Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>arima</title>
+    <link href="http://ldzhangyx.github.io/2019/01/02/arima/"/>
+    <id>http://ldzhangyx.github.io/2019/01/02/arima/</id>
+    <published>2019-01-02T07:15:02.000Z</published>
+    <updated>2019-01-02T07:15:02.605Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>音乐生成的武器库——集中介绍</title>
@@ -318,9 +332,9 @@
       <category term="软件工程" scheme="http://ldzhangyx.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
     
     
-      <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
-    
       <category term="Python" scheme="http://ldzhangyx.github.io/tags/Python/"/>
+    
+      <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
     
       <category term="软件工程" scheme="http://ldzhangyx.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
     
@@ -480,33 +494,6 @@
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>克苏鲁神话 中文合集</title>
-    <link href="http://ldzhangyx.github.io/2017/10/10/cthulhu-book-share/"/>
-    <id>http://ldzhangyx.github.io/2017/10/10/cthulhu-book-share/</id>
-    <published>2017-10-10T08:41:45.000Z</published>
-    <updated>2018-11-15T11:23:18.475Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>自己加入TRPG的团体已经有大半年了，然而一直对克苏鲁神话体系大背景不是特别了解。成为守秘人带团的时候，我的参照是规则书和剧本，却不能灵活地演绎一些新的剧情。</p><p>于是我Google了克苏鲁神话体系，终于在GitHub上找到了一个还算满意的开源项目。很多文章都是竹子翻译的，我个人认为翻译质量尚可，放在我的网站上，权当补档吧。</p><h1 id="版权"><a href="#版权" class="headerlink" title="版权"></a>版权</h1><p>本电子书的版权归作者和译者所有。</p><p>GitHub地址<a href="https://github.com/jokester/coc-zh" target="_blank" rel="noopener">点这里</a>。</p><h1 id="文档下载"><a href="#文档下载" class="headerlink" title="文档下载"></a>文档下载</h1><p>点击这里可以直接下载。</p><p><a href="coc-zh.pdf">点击下载</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;自己加入TRPG的团体已经有大半年了，然而一直对克苏鲁神话体系大背景不是特别了解。成为守秘人带团的时候，我的参照是规则书和剧本，却不能灵活地
-      
-    
-    </summary>
-    
-      <category term="TRPG" scheme="http://ldzhangyx.github.io/categories/TRPG/"/>
-    
-    
-      <category term="TRPG" scheme="http://ldzhangyx.github.io/tags/TRPG/"/>
-    
-      <category term="克苏鲁神话" scheme="http://ldzhangyx.github.io/tags/%E5%85%8B%E8%8B%8F%E9%B2%81%E7%A5%9E%E8%AF%9D/"/>
     
   </entry>
   
