@@ -51,7 +51,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/01/22/tree-music/10.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/01/22/tree-music/9.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/01/22/tree-music/11.png">
-<meta property="og:updated_time" content="2019-01-24T11:26:34.189Z">
+<meta property="og:updated_time" content="2019-01-24T11:28:43.421Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Interactive Arrangement of Chords and Melodies Based on a Tree-Structured Generative Model》论文笔记">
 <meta name="twitter:description" content="京都大学这篇论文很有意思，是ISMIR 2017年同款论文《Function- and Rhythm-Aware Melody Harmonization Based on Tree-Structured Parsing and Split-Merge Sampling of Chord Sequences》的交互版本。基本理论都是一致的，建立了一个PCFG的统计模型。这篇文章我会两个都提到。">
@@ -218,8 +218,6 @@ ga('send', 'pageview');
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>京都大学这篇论文很有意思，是ISMIR 2017年同款论文《Function- and Rhythm-Aware Melody Harmonization Based on Tree-Structured Parsing and Split-Merge Sampling of Chord Sequences》的交互版本。基本理论都是一致的，建立了一个PCFG的统计模型。这篇文章我会两个都提到。</p>
 <a id="more"></a>
-<p>这段时间比较忙，没有顾着更新。然后各个方面发展有些停滞不前，研究院这边的联系、申请的事情，这些都是需要操心的事。更加迷的是，最近看了那篇《Counterpoint by Convolution》，里面叙述的一个无序模型十分令人费解；还有夏老师前段时间的《A Framework for Automated Pop-song Melody Generation with Piano Accompaniment Arrangement》，也是蛮复杂的，不过后面这篇主要是叙事节奏太快，几页纸讲完了一个编曲系统，令人有些迷糊。</p>
-<p>最近也有些新启发。前段时间入手的《完全音乐理论教程》，Laitz的那本。仔细研读这本书（当然还没读完），我对对位法写作和调性音乐有了更加深度的认识。目前我觉得，乐理肯定是复调音乐写作的钥匙。我就这个问题问过Prof. Pasquier，关于乐理在实际音乐生成中的位置，他回应说一些关键的点依旧是人工定义的。类比罗塞塔石碑，不同的语言在同一块石板上，音乐生成任务也可以借鉴乐理知识作为一个重要依据。那么音乐生成就极有意思了。目前的音乐生成实际上是分为了流行音乐和复调音乐两大块，其融合的一个点可能就是夏老师上面那篇论文，用统一的方式生成主旋律、伴奏、分解和弦。流行音乐中，如何生成和弦走向、如何确定鲜明的旋律，如何保证旋律连贯性，都是需要保证的；而复调音乐中需要考虑的也有很多，包括音程关系，对位法规则等等。这些都是值得探索的。</p>
 <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>本文提出了一个harmonization方法。给定一个旋律（音符序列），输出一系列和弦符号。典型的方式使用了HMM，但不能明确表现节奏、和弦结构、和弦功能。所以本文提出了一个分层生成模型，包括：</p>
 <ol>
 <li>PCFG生成和弦</li>
@@ -445,6 +443,9 @@ p(x_n|z_n) = p(x_{n1}|z_n)p(x_{n2}|x_{n1}z_n)...p(x_{nI_n}|x_{n,I_{n}-1}z_n)</sc
 <p>那么这篇论文最硬核和晦涩的点在于对这个层次关系树的训练。如果用替代的方法构建这棵树（比如只捕捉相邻关系），结果将会好做很多。</p>
 <p>而且这篇论文的可读性是真的很差了……</p>
 <p>另外这个计算和谐程度的方法很有意思，有一点VAE的影子，从高维到低维，再还原。这样的低维流形可以用图网络去学习吗？我觉得是一个非常有趣的点。</p>
+<p>另外，</p>
+<p>这段时间比较忙，没有顾着更新。然后各个方面发展有些停滞不前，研究院这边的联系、申请的事情，这些都是需要操心的事。更加迷的是，最近看了那篇《Counterpoint by Convolution》，里面叙述的一个无序模型十分令人费解；还有夏老师前段时间的《A Framework for Automated Pop-song Melody Generation with Piano Accompaniment Arrangement》，也是蛮复杂的，不过后面这篇主要是叙事节奏太快，几页纸讲完了一个编曲系统，令人有些迷糊。</p>
+<p>最近也有些新启发。前段时间入手的《完全音乐理论教程》，Laitz的那本。仔细研读这本书（当然还没读完），我对对位法写作和调性音乐有了更加深度的认识。目前我觉得，乐理肯定是复调音乐写作的钥匙。我就这个问题问过Prof. Pasquier，关于乐理在实际音乐生成中的位置，他回应说一些关键的点依旧是人工定义的。类比罗塞塔石碑，不同的语言在同一块石板上，音乐生成任务也可以借鉴乐理知识作为一个重要依据。那么音乐生成就极有意思了。目前的音乐生成实际上是分为了流行音乐和复调音乐两大块，其融合的一个点可能就是夏老师上面那篇论文，用统一的方式生成主旋律、伴奏、分解和弦。流行音乐中，如何生成和弦走向、如何确定鲜明的旋律，如何保证旋律连贯性，都是需要保证的；而复调音乐中需要考虑的也有很多，包括音程关系，对位法规则等等。这些都是值得探索的。</p>
 
         </div>
 
@@ -453,7 +454,7 @@ p(x_n|z_n) = p(x_{n1}|z_n)p(x_{n2}|x_{n1}z_n)...p(x_{nI_n}|x_{n,I_{n}-1}z_n)</sc
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-01-24T11:26:34.189Z" itemprop="dateUpdated">2019-01-24 19:26:34</time>
+    最后更新时间：<time datetime="2019-01-24T11:28:43.421Z" itemprop="dateUpdated">2019-01-24 19:28:43</time>
 </span><br>
 
 
