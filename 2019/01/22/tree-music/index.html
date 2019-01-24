@@ -51,7 +51,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/01/22/tree-music/10.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/01/22/tree-music/9.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/01/22/tree-music/11.png">
-<meta property="og:updated_time" content="2019-01-24T11:28:43.421Z">
+<meta property="og:updated_time" content="2019-01-24T11:30:59.249Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Interactive Arrangement of Chords and Melodies Based on a Tree-Structured Generative Model》论文笔记">
 <meta name="twitter:description" content="京都大学这篇论文很有意思，是ISMIR 2017年同款论文《Function- and Rhythm-Aware Melody Harmonization Based on Tree-Structured Parsing and Split-Merge Sampling of Chord Sequences》的交互版本。基本理论都是一致的，建立了一个PCFG的统计模型。这篇文章我会两个都提到。">
@@ -225,6 +225,13 @@ ga('send', 'pageview');
 <li>在和弦条件下的马尔可夫旋律生成</li>
 </ol>
 <p>为了估计给定旋律的可变长度和弦序列，作者使用了具有分裂、合并操作的Metropolis-Hastings采样器迭代地细化潜在树结构和和弦符号和节奏。实验结果表明，该方法在预测能力方面优于基于HMM的方法。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>和弦序列的创建在音乐构成和排列中起关键作用，因为和声影响音乐的情绪并且表征某种音乐风格的印象。我们的目标是自动旋律协调，或为给定旋律（一系列音符）自动生成一系列和弦符号。在本文中，我们将注意力集中在流行音乐风格的协调问题上。我们采用统计方法自动学习音乐语料库中的模型架构和参数，并根据数据的风格进行协调，而不是手动描述爵士乐和古典音乐等风格的音乐理论。我们制定了一个概率模型，表示和弦序列的生成可能性和另一个代表在和弦序列上有条件地产生旋律的可能性的模型。</p>
 <p>和弦序列通常由马尔可夫模型描述。常用的方法是，使用一个有潜在马尔可夫链的HMM模型，假定旋律在这个和弦上生成。但是这个方法的缺点在于忽略了和弦的句法角色和层次结构。在传统的和声理论中，这种句法角色通常被称为调和函数，包括三类（例如，主音（tonic，第一音级），属音（dominant，第五音级）和下属音（subdominant，第四音级）），它们类似于语言学理论中的词性。</p>
 <p>举个例子，一个和弦序列(C, Dm, G, Am, C, F, G, C)，可以被解释成：(((T, SD),(D, T)), ((T, SD), (D, T)))。因此，当我们计算地帮助人们创造新音乐时，期望考虑这种和弦序列的分层树结构。</p>
@@ -239,13 +246,6 @@ ga('send', 'pageview');
 <li>其中一个和弦的开始时间来回移动。</li>
 </ol>
 <p>这种随机的全局或局部更新可以被解释为寻找最佳和弦序列的重复试错过程。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="1.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
 <h1 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h1><h2 id="Harmonization（协调）"><a href="#Harmonization（协调）" class="headerlink" title="Harmonization（协调）"></a>Harmonization（协调）</h2><p>Harmonization的研究有两个方向：生成和弦，或者直接生成若干个音（比如说组成和弦的四个音）。</p>
 <p>第一个方向有这些研究：</p>
 <ol>
@@ -271,7 +271,7 @@ ga('send', 'pageview');
 <h2 id="模型形式化"><a href="#模型形式化" class="headerlink" title="模型形式化"></a>模型形式化</h2><p>约定下面符号：</p>
 <p>和弦总体用$z$表示.假设共有N个和弦符号，那么第n个和弦符号记为$z_n$。</p>
 <p>和弦开始的时间总体用$\phi$表示（16分音符为单位时间）。N个值与N个和弦一一对应，所以第n个开始时间记为$\phi_n$。</p>
-<p>将$x$记为旋律总体。在第n个和弦范围里，旋律序列可以用$x<em>n$表示。由于一个和弦可以有多个音符序列，所以其中第i个音符使用$x\</em>{ni}$表示。</p>
+<p>将$x$记为旋律总体。在第n个和弦范围里，旋律序列可以用$x_n$表示。由于一个和弦可以有多个音符序列，所以其中第i个音符使用$x_{ni}$表示。</p>
 <p>音符也需要控制其长度（确定开始时间）。将开始时间的总体记为$\psi$。所以第n个和弦范围内的开始时间序列也记为$\psi_n$。其中第i个音符的开始时间记为$\psi_{ni}$。</p>
 <p>（说实话原文表示得比这个难懂多了……剩下的表示也非常勉强）</p>
 <p>如果每小节（measure/bar）长度为L，那么$\phi$和$\psi$的取值范围为$[0, 16L-1]$（以16分音符为单位长度）。</p>
@@ -454,7 +454,7 @@ p(x_n|z_n) = p(x_{n1}|z_n)p(x_{n2}|x_{n1}z_n)...p(x_{nI_n}|x_{n,I_{n}-1}z_n)</sc
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-01-24T11:28:43.421Z" itemprop="dateUpdated">2019-01-24 19:28:43</time>
+    最后更新时间：<time datetime="2019-01-24T11:30:59.249Z" itemprop="dateUpdated">2019-01-24 19:30:59</time>
 </span><br>
 
 
