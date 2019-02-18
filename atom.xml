@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2019-01-24T11:30:59.249Z</updated>
+  <updated>2019-02-18T06:40:21.119Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>个人向RSS订阅列表，以及极简RSS配置指南</title>
+    <link href="http://ldzhangyx.github.io/2019/02/18/rss-recommend/"/>
+    <id>http://ldzhangyx.github.io/2019/02/18/rss-recommend/</id>
+    <published>2019-02-18T05:10:02.000Z</published>
+    <updated>2019-02-18T06:40:21.119Z</updated>
+    
+    <content type="html"><![CDATA[<p>这份订阅列表是微软学生俱乐部一个不完全个人网站清单。</p><a id="more"></a><h1 id="订阅列表"><a href="#订阅列表" class="headerlink" title="订阅列表"></a>订阅列表</h1><ul><li>张逸霄的技术小站<ul><li>ldzhangyx.github.io</li><li>主题：音乐生成，自然语言处理</li><li>也就是我的个人网站，不定期更新有趣的论文笔记和想法。</li></ul></li><li>LeoJhon.Song’s Blog<ul><li>leojhonsong.github.io/zh-CN </li><li>主题：技巧和个人心得</li><li>宋铸恒的博客，本身水平不错，博客质量也比较高。</li></ul></li><li>…</li></ul><h1 id="RSS配置指南"><a href="#RSS配置指南" class="headerlink" title="RSS配置指南"></a>RSS配置指南</h1><h2 id="订阅他人的RSS"><a href="#订阅他人的RSS" class="headerlink" title="订阅他人的RSS"></a>订阅他人的RSS</h2><ol><li>检查此博客支不支持RSS订阅</li></ol><p>最简单的检查方式是，访问atom.xml子页面。比如说我的网站，可以访问ldzhangyx.github.io/atom.xml页面来查看。如果没有这个网页，那就是没有RSS订阅。</p><ol><li>安装chrome插件</li></ol><p>我自己用的是<a href="https://feeder.co/reader" target="_blank" rel="noopener">Feeder</a>，很好用。</p><ol><li>添加网址到插件订阅列表里</li></ol><h2 id="配置RSS"><a href="#配置RSS" class="headerlink" title="配置RSS"></a>配置RSS</h2><ol><li>npm安装hexo-generator-feed</li></ol><p>网址在这里：<a href="https://github.com/hexojs/hexo-generator-feed" target="_blank" rel="noopener">https://github.com/hexojs/hexo-generator-feed</a></p><ol><li><p>按照上面网页的指引，在根目录的_config.yml添加RSS项。</p></li><li><p>在当前主题的_config.yml添加RSS列，用于显示RSS图标。</p></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rss: &quot;/atom.xml&quot;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这份订阅列表是微软学生俱乐部一个不完全个人网站清单。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="RSS" scheme="http://ldzhangyx.github.io/tags/RSS/"/>
+    
+  </entry>
   
   <entry>
     <title>《Interactive Arrangement of Chords and Melodies Based on a Tree-Structured Generative Model》论文笔记</title>
@@ -481,29 +501,6 @@
     
     
       <category term="TensorFlow" scheme="http://ldzhangyx.github.io/tags/TensorFlow/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【Python音乐生成】可能有用的一些Python库</title>
-    <link href="http://ldzhangyx.github.io/2017/11/05/%E3%80%90Python%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90%E3%80%91%E5%8F%AF%E8%83%BD%E6%9C%89%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9BPython%E5%BA%93/"/>
-    <id>http://ldzhangyx.github.io/2017/11/05/【Python音乐生成】可能有用的一些Python库/</id>
-    <published>2017-11-05T14:01:00.000Z</published>
-    <updated>2018-11-15T12:36:40.089Z</updated>
-    
-    <content type="html"><![CDATA[<p>1，Python-MIDI，很多操作库的前置库。作者提供了一个python3的branch。git clone下来之后注意切换到这个branch之后再运行setup.py。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105215112310-1907169873.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>实际使用的时候，使用</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> midi</span><br></pre></td></tr></table></figure><p>进行使用。</p><p>&nbsp;</p><p>2，pretty-midi，非常有用的一个库，将midi进行了二次转换，变成piano-roll。这个库被用在Google Magenta里，我自己的项目也要使用它。master分支现在已经支持了Python3.</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105215531295-1873892334.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>&nbsp;</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105215442873-553231678.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>&nbsp;</p><p>3，<span class="col-11 text-gray-dark mr-2">fluidsynth3，原作者感觉像是跑路了，有大神写出了其Python3版本，真的非常感谢。这个库是上面pretty-midi的前置库。</span></p><p><span class="col-11 text-gray-dark mr-2"><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105215705091-1523489110.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure></span></p><p>&nbsp;</p><p>以上就是最常见的几个专门处理音乐的库了。</p><p>当然一些自己用过的库感觉也是可以的。</p><p>4，mingus，第三方推出了其Python3版本。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="http://images2017.cnblogs.com/blog/1037202/201711/1037202-20171105220027341-70214963.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>&nbsp;</p><p>最后默默祝福自己顺利写出论文来&hellip;&hellip;</p><p>&nbsp;</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;1，Python-MIDI，很多操作库的前置库。作者提供了一个python3的branch。git clone下来之后注意切换到这个branch之后再运行setup.py。&lt;/p&gt;
-&lt;figure class=&quot;image-bubble&quot;&gt;
-                
-      
-    
-    </summary>
-    
     
   </entry>
   
