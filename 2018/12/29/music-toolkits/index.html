@@ -31,16 +31,16 @@ ga('send', 'pageview');
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="Python,音乐生成">
+    <meta name="keywords" content="音乐生成,Python">
     <meta name="description" content="这篇文章是之后系列文章的汇总集中目录。">
-<meta name="keywords" content="Python,音乐生成">
+<meta name="keywords" content="音乐生成,Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="音乐生成的武器库——集中介绍">
 <meta property="og:url" content="http://ldzhangyx.github.io/2018/12/29/music-toolkits/index.html">
 <meta property="og:site_name" content="张逸霄的技术小站">
 <meta property="og:description" content="这篇文章是之后系列文章的汇总集中目录。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-29T06:52:03.539Z">
+<meta property="og:updated_time" content="2019-02-19T13:20:17.585Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="音乐生成的武器库——集中介绍">
 <meta name="twitter:description" content="这篇文章是之后系列文章的汇总集中目录。">
@@ -176,7 +176,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#基础组件"><span class="post-toc-number">1.</span> <span class="post-toc-text">基础组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Python-MIDI"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Python-MIDI</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#乐谱生成"><span class="post-toc-number">2.</span> <span class="post-toc-text">乐谱生成</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LilyPond"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">LilyPond</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MuseScore"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">MuseScore</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#音乐的符号化表示"><span class="post-toc-number">3.</span> <span class="post-toc-text">音乐的符号化表示</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#music21"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">music21</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ABC格式"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">ABC格式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Pretty-MIDI表示的Piano-Roll"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">Pretty_MIDI表示的Piano Roll</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mingus"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">mingus</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#音乐合成"><span class="post-toc-number">4.</span> <span class="post-toc-text">音乐合成</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#PySynth"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">PySynth</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pyfluidsynth3"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">pyfluidsynth3</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据集"><span class="post-toc-number">5.</span> <span class="post-toc-text">数据集</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nottingham-Dataset"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">Nottingham Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Lakh-Dataset"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">Lakh Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Lakh-Pianoroll"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">Lakh Pianoroll</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Million-Songs"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">Million Songs</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#基础组件"><span class="post-toc-number">1.</span> <span class="post-toc-text">基础组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Python-MIDI"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Python-MIDI</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#乐谱生成"><span class="post-toc-number">2.</span> <span class="post-toc-text">乐谱生成</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LilyPond"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">LilyPond</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MuseScore"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">MuseScore</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#音乐的符号化表示"><span class="post-toc-number">3.</span> <span class="post-toc-text">音乐的符号化表示</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#music21"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">music21</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ABC格式"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">ABC格式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Pretty-MIDI表示的Piano-Roll"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">Pretty_MIDI表示的Piano Roll</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mingus"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">mingus</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#音乐合成"><span class="post-toc-number">4.</span> <span class="post-toc-text">音乐合成</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#PySynth"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">PySynth</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pyfluidsynth3"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">pyfluidsynth3</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据集"><span class="post-toc-number">5.</span> <span class="post-toc-text">数据集</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nottingham-Dataset"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">Nottingham Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Lakh-Dataset"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">Lakh Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Lakh-Pianoroll"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">Lakh Pianoroll</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Million-Songs"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">Million Songs</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SALAMI-Dataset"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">SALAMI Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MAESTRO-Piano-Dataset"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">MAESTRO Piano Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IMSLP-Music-Library"><span class="post-toc-number">5.7.</span> <span class="post-toc-text">IMSLP Music Library</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -268,6 +268,18 @@ ga('send', 'pageview');
 <li>地址：<a href="https://labrosa.ee.columbia.edu/millionsong/" target="_blank" rel="noopener">https://labrosa.ee.columbia.edu/millionsong/</a></li>
 </ul>
 <p>不是midi文件而是波形文件，特点在于数据量极大。</p>
+<h2 id="SALAMI-Dataset"><a href="#SALAMI-Dataset" class="headerlink" title="SALAMI Dataset"></a>SALAMI Dataset</h2><ul>
+<li>地址：<a href="https://github.com/DDMAL/salami-data-public" target="_blank" rel="noopener">https://github.com/DDMAL/salami-data-public</a></li>
+</ul>
+<p>非常完整的标注数据集，值得一提的是可以从中提取和弦标注进行学习。</p>
+<h2 id="MAESTRO-Piano-Dataset"><a href="#MAESTRO-Piano-Dataset" class="headerlink" title="MAESTRO Piano Dataset"></a>MAESTRO Piano Dataset</h2><ul>
+<li>地址：<a href="https://magenta.tensorflow.org/datasets/maestro" target="_blank" rel="noopener">https://magenta.tensorflow.org/datasets/maestro</a></li>
+</ul>
+<p>Google Magenta一直在用的钢琴演奏数据集。有文字标注版和音乐原版，数据量极为庞大。</p>
+<h2 id="IMSLP-Music-Library"><a href="#IMSLP-Music-Library" class="headerlink" title="IMSLP Music Library"></a>IMSLP Music Library</h2><ul>
+<li>地址：<a href="https://imslp.org/" target="_blank" rel="noopener">https://imslp.org/</a></li>
+</ul>
+<p>国际上最大的乐谱典藏数据库。其亮点在于乐谱非常全，也许可以用于图像识别领域。</p>
 
         </div>
 
@@ -276,7 +288,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-12-29T06:52:03.539Z" itemprop="dateUpdated">2018-12-29 14:52:03</time>
+    最后更新时间：<time datetime="2019-02-19T13:20:17.585Z" itemprop="dateUpdated">2019-02-19 21:20:17</time>
 </span><br>
 
 
