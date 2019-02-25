@@ -36,11 +36,11 @@ ga('send', 'pageview');
 <meta name="keywords" content="音乐生成,Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="音乐生成的武器库——集中介绍">
-<meta property="og:url" content="http://ldzhangyx.github.io/2018/12/29/music-toolkits/index.html">
+<meta property="og:url" content="http://ldzhangyx.github.io/2019/02/25/music-toolkits/index.html">
 <meta property="og:site_name" content="张逸霄的技术小站">
 <meta property="og:description" content="这篇文章是之后系列文章的汇总集中目录。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-19T13:20:17.585Z">
+<meta property="og:updated_time" content="2019-02-25T10:08:40.478Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="音乐生成的武器库——集中介绍">
 <meta name="twitter:description" content="这篇文章是之后系列文章的汇总集中目录。">
@@ -156,8 +156,8 @@ ga('send', 'pageview');
         <h1 class="title">音乐生成的武器库——集中介绍</h1>
         <h5 class="subtitle">
             
-                <time datetime="2018-12-29T03:08:44.000Z" itemprop="datePublished" class="page-time">
-  2018-12-29
+                <time datetime="2019-02-25T03:08:44.000Z" itemprop="datePublished" class="page-time">
+  2019-02-25
 </time>
 
 
@@ -176,7 +176,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#基础组件"><span class="post-toc-number">1.</span> <span class="post-toc-text">基础组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Python-MIDI"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Python-MIDI</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#乐谱生成"><span class="post-toc-number">2.</span> <span class="post-toc-text">乐谱生成</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LilyPond"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">LilyPond</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MuseScore"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">MuseScore</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#音乐的符号化表示"><span class="post-toc-number">3.</span> <span class="post-toc-text">音乐的符号化表示</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#music21"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">music21</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ABC格式"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">ABC格式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Pretty-MIDI表示的Piano-Roll"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">Pretty_MIDI表示的Piano Roll</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mingus"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">mingus</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#音乐合成"><span class="post-toc-number">4.</span> <span class="post-toc-text">音乐合成</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#PySynth"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">PySynth</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pyfluidsynth3"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">pyfluidsynth3</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据集"><span class="post-toc-number">5.</span> <span class="post-toc-text">数据集</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nottingham-Dataset"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">Nottingham Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Lakh-Dataset"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">Lakh Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Lakh-Pianoroll"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">Lakh Pianoroll</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Million-Songs"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">Million Songs</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SALAMI-Dataset"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">SALAMI Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MAESTRO-Piano-Dataset"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">MAESTRO Piano Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IMSLP-Music-Library"><span class="post-toc-number">5.7.</span> <span class="post-toc-text">IMSLP Music Library</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#基础组件"><span class="post-toc-number">1.</span> <span class="post-toc-text">基础组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Python-MIDI"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Python-MIDI</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#乐谱生成"><span class="post-toc-number">2.</span> <span class="post-toc-text">乐谱生成</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LilyPond"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">LilyPond</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MuseScore"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">MuseScore</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#音乐的符号化表示"><span class="post-toc-number">3.</span> <span class="post-toc-text">音乐的符号化表示</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#music21"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">music21</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ABC格式"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">ABC格式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Pretty-MIDI表示的Piano-Roll"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">Pretty_MIDI表示的Piano Roll</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mingus"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">mingus</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#音乐合成"><span class="post-toc-number">4.</span> <span class="post-toc-text">音乐合成</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#PySynth"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">PySynth</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pyfluidsynth3"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">pyfluidsynth3</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据集"><span class="post-toc-number">5.</span> <span class="post-toc-text">数据集</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nottingham-Dataset"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">Nottingham Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Lakh-Dataset"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">Lakh Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Lakh-Pianoroll"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">Lakh Pianoroll</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Million-Songs"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">Million Songs</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SALAMI-Dataset"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">SALAMI Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MAESTRO-Piano-Dataset"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">MAESTRO Piano Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IMSLP-Music-Library"><span class="post-toc-number">5.7.</span> <span class="post-toc-text">IMSLP Music Library</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#the-Classical-piano-MIDI-database"><span class="post-toc-number">5.8.</span> <span class="post-toc-text">the Classical piano MIDI database</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#The-Largest-MIDI-Dataset"><span class="post-toc-number">5.9.</span> <span class="post-toc-text">The Largest MIDI Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MuseData"><span class="post-toc-number">5.10.</span> <span class="post-toc-text">MuseData</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#JSB-Chorales"><span class="post-toc-number">5.11.</span> <span class="post-toc-text">JSB Chorales</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#FMA-Dataset"><span class="post-toc-number">5.12.</span> <span class="post-toc-text">FMA Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Midi-Archive"><span class="post-toc-number">5.13.</span> <span class="post-toc-text">Midi Archive</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#The-Session"><span class="post-toc-number">5.14.</span> <span class="post-toc-text">The Session</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MusicNet"><span class="post-toc-number">5.15.</span> <span class="post-toc-text">MusicNet</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#the-Symbolic-Music-dataset-by-Walder"><span class="post-toc-number">5.16.</span> <span class="post-toc-text">the Symbolic Music dataset by Walder</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TheoryTab"><span class="post-toc-number">5.17.</span> <span class="post-toc-text">TheoryTab</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#J-S-Bach-Series"><span class="post-toc-number">5.18.</span> <span class="post-toc-text">J.S. Bach Series</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#The-Josquin-Research-Project"><span class="post-toc-number">5.19.</span> <span class="post-toc-text">The Josquin Research Project</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Drum-Dataset"><span class="post-toc-number">5.20.</span> <span class="post-toc-text">Drum Dataset</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Video-Game-Datasets"><span class="post-toc-number">5.21.</span> <span class="post-toc-text">Video Game Datasets</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -187,7 +187,7 @@ ga('send', 'pageview');
     <div class="post-card">
         <h1 class="post-card-title">音乐生成的武器库——集中介绍</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-12-29 11:08:44" datetime="2018-12-29T03:08:44.000Z"  itemprop="datePublished">2018-12-29</time>
+            <time class="post-time" title="2019-02-25 11:08:44" datetime="2019-02-25T03:08:44.000Z"  itemprop="datePublished">2019-02-25</time>
 
             
 
@@ -258,6 +258,7 @@ ga('send', 'pageview');
 <p>特别有名的数据集，音乐界的MNIST。ABC格式可以被上面一些库直接解析，MIDI格式也可以转换。数据预处理的办法一般是shift到12个大调或者小调，速度调整至120bpm。</p>
 <h2 id="Lakh-Dataset"><a href="#Lakh-Dataset" class="headerlink" title="Lakh Dataset"></a>Lakh Dataset</h2><ul>
 <li>地址：<a href="https://colinraffel.com/projects/lmd/" target="_blank" rel="noopener">https://colinraffel.com/projects/lmd/</a></li>
+<li>GitHub：<a href="https://github.com/craffel/midi-dataset" target="_blank" rel="noopener">https://github.com/craffel/midi-dataset</a></li>
 </ul>
 <p>Lakh MIDI数据集是176,581个独特MIDI文件的集合，其中45,129个已匹配并与Million Song Dataset中的条目对齐。</p>
 <h2 id="Lakh-Pianoroll"><a href="#Lakh-Pianoroll" class="headerlink" title="Lakh Pianoroll"></a>Lakh Pianoroll</h2><ul>
@@ -279,7 +280,64 @@ ga('send', 'pageview');
 <h2 id="IMSLP-Music-Library"><a href="#IMSLP-Music-Library" class="headerlink" title="IMSLP Music Library"></a>IMSLP Music Library</h2><ul>
 <li>地址：<a href="https://imslp.org/" target="_blank" rel="noopener">https://imslp.org/</a></li>
 </ul>
-<p>国际上最大的乐谱典藏数据库。其亮点在于乐谱非常全，也许可以用于图像识别领域。</p>
+<p>国际上最大的乐谱典藏数据库。其亮点在于录音和乐谱非常全，也许可以用于图像识别领域。有些乐谱似乎是收费的。</p>
+<h2 id="the-Classical-piano-MIDI-database"><a href="#the-Classical-piano-MIDI-database" class="headerlink" title="the Classical piano MIDI database"></a>the Classical piano MIDI database</h2><ul>
+<li>地址：<a href="http://www.piano-midi.de/" target="_blank" rel="noopener">http://www.piano-midi.de/</a></li>
+</ul>
+<p>需要自己爬下来整理，钢琴MIDI数据集。</p>
+<h2 id="The-Largest-MIDI-Dataset"><a href="#The-Largest-MIDI-Dataset" class="headerlink" title="The Largest MIDI Dataset"></a>The Largest MIDI Dataset</h2><ul>
+<li>地址：<a href="https://www.reddit.com/r/WeAreTheMusicMakers/comments/3ajwe4/the_largest_midi_collection_on_the_internet/" target="_blank" rel="noopener">https://www.reddit.com/r/WeAreTheMusicMakers/comments/3ajwe4/the_largest_midi_collection_on_the_internet/</a></li>
+</ul>
+<p>可以说是很神奇了，在Reddit上贡献了出来。是我看到的最大的MIDI数据集（3.65Gb），没有之一。</p>
+<h2 id="MuseData"><a href="#MuseData" class="headerlink" title="MuseData"></a>MuseData</h2><ul>
+<li>地址：<a href="http://musedata.stanford.edu/" target="_blank" rel="noopener">http://musedata.stanford.edu/</a></li>
+</ul>
+<p>也是需要自己爬，但是这里的数据是根据流派做好划分的，非常一目了然。</p>
+<h2 id="JSB-Chorales"><a href="#JSB-Chorales" class="headerlink" title="JSB Chorales"></a>JSB Chorales</h2><ul>
+<li>地址：<a href="https://github.com/czhuang/JSB-Chorales-dataset" target="_blank" rel="noopener">https://github.com/czhuang/JSB-Chorales-dataset</a></li>
+</ul>
+<p>四声部众赞歌数据集。源地址挂掉了，这个GitHub提供了pickle包，很好用。</p>
+<h2 id="FMA-Dataset"><a href="#FMA-Dataset" class="headerlink" title="FMA Dataset"></a>FMA Dataset</h2><ul>
+<li>地址：<a href="https://github.com/mdeff/fma" target="_blank" rel="noopener">https://github.com/mdeff/fma</a></li>
+</ul>
+<p>这是一个音乐分析用的数据集，其亮点在于对流派、ID等数据的详尽标注。具体可以阅读readme。</p>
+<h2 id="Midi-Archive"><a href="#Midi-Archive" class="headerlink" title="Midi Archive"></a>Midi Archive</h2><ul>
+<li>地址：<a href="http://archive.cs.uu.nl/pub/MIDI/" target="_blank" rel="noopener">http://archive.cs.uu.nl/pub/MIDI/</a></li>
+</ul>
+<p>罗切斯特大学维护的一个数据集。</p>
+<h2 id="The-Session"><a href="#The-Session" class="headerlink" title="The Session"></a>The Session</h2><ul>
+<li>地址：<a href="https://thesession.org/tunes" target="_blank" rel="noopener">https://thesession.org/tunes</a></li>
+</ul>
+<p>非常非常完备的一个ABC格式的数据集，虽然需要自己爬，但是非常齐全。数据仍在不断增加中。</p>
+<h2 id="MusicNet"><a href="#MusicNet" class="headerlink" title="MusicNet"></a>MusicNet</h2><ul>
+<li>地址：<a href="https://homes.cs.washington.edu/~thickstn/start.html" target="_blank" rel="noopener">https://homes.cs.washington.edu/~thickstn/start.html</a></li>
+</ul>
+<p>这个数据集是raw的音频格式，大约10GB，提供了丰富的形式，标注详尽全面，甚至还做了PyTorch接口。</p>
+<h2 id="the-Symbolic-Music-dataset-by-Walder"><a href="#the-Symbolic-Music-dataset-by-Walder" class="headerlink" title="the Symbolic Music dataset by Walder"></a>the Symbolic Music dataset by Walder</h2><ul>
+<li>地址：<a href="http://users.cecs.anu.edu.au/~u1018264/data.html" target="_blank" rel="noopener">http://users.cecs.anu.edu.au/~u1018264/data.html</a></li>
+</ul>
+<p>清洗过的MIDI文件，作者目前还活跃在音乐研究一线。</p>
+<h2 id="TheoryTab"><a href="#TheoryTab" class="headerlink" title="TheoryTab"></a>TheoryTab</h2><ul>
+<li>地址：<a href="https://www.hooktheory.com/theorytab" target="_blank" rel="noopener">https://www.hooktheory.com/theorytab</a></li>
+</ul>
+<p>严格来说这不算是一个数据集，但是很多人在论文中用过它（比如MidiNet）。最出彩的地方在于其和弦标注。我觉得应该是网络上和弦标注最为全面的一个数据集了。这个网站现代化、可交互，非常值得看一看。</p>
+<h2 id="J-S-Bach-Series"><a href="#J-S-Bach-Series" class="headerlink" title="J.S. Bach Series"></a>J.S. Bach Series</h2><ul>
+<li>地址：<a href="http://www.jsbach.net/midi/" target="_blank" rel="noopener">http://www.jsbach.net/midi/</a></li>
+<li>地址：<a href="http://bachcentral.com/" target="_blank" rel="noopener">http://bachcentral.com/</a></li>
+</ul>
+<p>emm，他们真的很喜欢巴赫。</p>
+<h2 id="The-Josquin-Research-Project"><a href="#The-Josquin-Research-Project" class="headerlink" title="The Josquin Research Project"></a>The Josquin Research Project</h2><ul>
+<li>地址：<a href="http://josquin.stanford.edu/" target="_blank" rel="noopener">http://josquin.stanford.edu/</a></li>
+</ul>
+<p>斯坦福的一个网站，好像也不能直接下载，但是数据整理得非常漂亮，提供了MIDI、XML等多种格式，收录了1420-1520年的复调音乐，并且支持在线搜索和试听。</p>
+<h2 id="Drum-Dataset"><a href="#Drum-Dataset" class="headerlink" title="Drum Dataset"></a>Drum Dataset</h2><ul>
+<li>地址：<a href="https://www.reddit.com/r/WeAreTheMusicMakers/comments/3anwu8/the_drum_percussion_midi_archive_800k/" target="_blank" rel="noopener">https://www.reddit.com/r/WeAreTheMusicMakers/comments/3anwu8/the_drum_percussion_midi_archive_800k/</a></li>
+</ul>
+<p>虽然数据很小只有800k，但是这是我见过的第一个专用于鼓点的数据集。</p>
+<h2 id="Video-Game-Datasets"><a href="#Video-Game-Datasets" class="headerlink" title="Video Game Datasets"></a>Video Game Datasets</h2><ul>
+<li>地址：<a href="https://www.vgmusic.com/" target="_blank" rel="noopener">https://www.vgmusic.com/</a></li>
+</ul>
+<p>收录了游戏的背景音乐，而且真的非常非常齐全。</p>
 
         </div>
 
@@ -288,12 +346,12 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-02-19T13:20:17.585Z" itemprop="dateUpdated">2019-02-19 21:20:17</time>
+    最后更新时间：<time datetime="2019-02-25T10:08:40.478Z" itemprop="dateUpdated">2019-02-25 18:08:40</time>
 </span><br>
 
 
         
-        原文地址：<a href="/2018/12/29/music-toolkits/" target="_blank" rel="external">http://ldzhangyx.github.io/2018/12/29/music-toolkits/</a>
+        原文地址：<a href="/2019/02/25/music-toolkits/" target="_blank" rel="external">http://ldzhangyx.github.io/2019/02/25/music-toolkits/</a>
         
     </div>
     
@@ -324,7 +382,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/&title=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/02/25/music-toolkits/&title=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -334,22 +392,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/&title=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&source=这篇文章是之后系列文章的汇总集中目录。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/02/25/music-toolkits/&title=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&source=这篇文章是之后系列文章的汇总集中目录。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/12/29/music-toolkits/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/02/25/music-toolkits/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/02/25/music-toolkits/&via=http://ldzhangyx.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/02/25/music-toolkits/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -369,21 +427,14 @@ ga('send', 'pageview');
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2019/01/22/tree-music/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">《Interactive Arrangement of Chords and Melodies Based on a Tree-Structured Generative Model》论文笔记</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2018/12/26/structure-encoding-music/" id="post-next" class="post-nav-link">
+      <a href="/2019/02/18/rss-recommend/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">《The Effect of Explicit Structure Encoding of Deep Neural Networks for Symbolic Music Generation》论文笔记</h4>
+        <h4 class="title">个人向RSS订阅列表，以及极简RSS配置指南</h4>
       </a>
     </div>
   
@@ -504,7 +555,7 @@ ga('send', 'pageview');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/&title=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/02/25/music-toolkits/&title=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -514,22 +565,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/&title=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&source=这篇文章是之后系列文章的汇总集中目录。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/02/25/music-toolkits/&title=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&source=这篇文章是之后系列文章的汇总集中目录。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2018/12/29/music-toolkits/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/02/25/music-toolkits/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《音乐生成的武器库——集中介绍》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/02/25/music-toolkits/&via=http://ldzhangyx.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2018/12/29/music-toolkits/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/02/25/music-toolkits/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -540,7 +591,7 @@ ga('send', 'pageview');
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNElEQVR42u3aQY4CMQwFUe5/6R5pVkijNPXtgAansmLRNHlBsuzYjwde1+96/vy87p9cfevvG1bv3LZkyJDxtYz0B+63vtpQCuZ7kyFDxjkMHmT5Ru+jYkp6sWcZMmTIAKHzPrEjYVSGDBkydjF4Mld7UoYMGTI6RWwtyHbe9pZaXIYMGV/IqDUGPvP57f0NGTJk/HvGFS7ezkwL2tauZMiQMZqRJnC8bYDKzkboRxmuDBkyRjDSYHrfgEyL1V2tCBkyZJzA4AGUD4rVmpckvC4zXBkyZAxl1DKrtHwlwboW7mXIkHECIx2MIKVpbYQiTQpRVJYhQ8YIBikv+QBEOjzRPwj0z8iQIWMEg1+r8RJ311AXv56TIUPGOYw0aPY3VBv1QNdtMmTIGMGohVTeMOCDF7yQXl63yZAhYzSjVqZ2SlY+bIEOVIYMGQcw0oZi57qfv6GVGsqQIWMQgzQF0bwGeL7WNA1CvwwZMoYyailgenHfKXHRJaAMGTJGM9Kv1a7MeODmjYFlC1OGDBnjGDzh25VEdlqey4OTIUPGMQzeHugEVp5K8kJXhgwZsxlpSE0HLNJnOuNlMmTImMq4wpWmj7wxwJuXQWooQ4aMEYw0zAWROyxEefLH2xgyZMiYxOBBdtflPj8mGTJkyCADXsULr7B67hTPMmTIkFErLEm4rIXyF5duMmTIkIGHLcgbivW0DBkyDmbwIrbfktx1HDJkyDiH8ZnRilo7gSSXMmTIGM34Ad1V60F76+mEAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACM0lEQVR42u3awW7EIAxF0fz/TzNSV7MY4D2bVMK+rKo2TTgsLNv4eeQ1/pb+5PfzY7Jm/6V/y14wYMC4ljGWa8ZQ/hp7g3IEP6gwYMBowFgHWZfhkmJPwoABA8Ys8MWCppJ0woABA8apgKuUqfnaEwYMGDBiRazSJtPTvtgBHajFYcCAcSHDvRj4z59fvN+AAQPGJYwRWnoAXSeOemDd7AcGDBilGesNuQ0yvRyNpZKbHcKAAaMoI19SxhK7DO/He2DAgNGMoYTg9ceUcByLk9MYCwMGjDaMt4vYzEY3X4cBA0YDhtsyO3WFkG/YPbEThQEDxlUMt5UWa5YpoVNptOnBGgYMGJUYesss1hSTSlDzyKY3sTBgwCjN0LfihmO3AeeGYCNvhQEDRiGG0Y4/dFXwmEsKuDBgwCjEeG8ILLOtzBgHDBgw6jHcRpgylqG8IRag7ZOGAQNGCUZseMsoL+WL0vzxwYABowND/7CeLOoNOzeITydHYMCA0YChB9zYmIX+TgU5DbgwYMAozThbvmbCsX7lCQMGjD4Md2wiVo4qG9JbbJtaHAYMGIUYboKoD4flk0V7zAIGDBjlGMNcevmqN/KUFt4mhYUBA0ZpxtnhsNjFZOZqEwYMGH0Y+SDrnpZexBrpIwwYMBow3C267Xt7W+5XYMCAAePlVpr+5mMBFwYMGEUZsRGx2FyE+04YMGB0YChFbOb3+jOx9BQGDBi1GW7SlgnK7tYPpIwwYMC4m/EBWvX6CH+ylIIAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
