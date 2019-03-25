@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2019-03-25T15:05:53.119Z</updated>
+  <updated>2019-03-25T15:14:11.113Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://ldzhangyx.github.io/2019/03/25/music21/"/>
     <id>http://ldzhangyx.github.io/2019/03/25/music21/</id>
     <published>2019-03-25T14:44:04.000Z</published>
-    <updated>2019-03-25T15:05:53.119Z</updated>
+    <updated>2019-03-25T15:14:11.113Z</updated>
     
-    <content type="html"><![CDATA[<p>一篇讲述music21使用时可能会出现的问题的解决方案。</p><a id="more"></a><p>环境：</p><ul><li>Windows 10</li><li>Python 3.6</li><li>Anaconda</li></ul><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>安装不用细说，如果安装不上的话可以考虑开发环境问题，另外配一个开发环境问题可能得解。亲测Anaconda + Python 3.6环境是没有问题的。</p><h1 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h1><p>请先安装MuseScore 3，然后这样在代码中加上这几行。</p><p>‘’’<br>us = music21.environment.UserSettings()<br>us[‘musescoreDirectPNGPath’] = r”C:\Program Files\MuseScore 3\bin\MuseScore3.exe”<br>us[‘musicxmlPath’] = r”C:\Program Files\MuseScore 3\bin\MuseScore3.exe”<br>‘’’</p><h1 id="播放midi文件"><a href="#播放midi文件" class="headerlink" title="播放midi文件"></a>播放midi文件</h1><p>‘’’python<br>file = music21.converter.parse(“music.mid”)<br>midi.realtime.StreamPlayer(file).play()<br>‘’’</p><h1 id="展示乐谱"><a href="#展示乐谱" class="headerlink" title="展示乐谱"></a>展示乐谱</h1><p>配置好环境变量之后，你可能会遇到这个问题：</p><p>‘’’<br>SubConverterFileIOException: png file of xml not found. Or file &gt;999 pages?<br>‘’’</p><p>请将你的代码改写成这个样子：</p><p>‘’’python<br>file.show(‘musicxml’)<br>‘’’</p><p>当参数设置为musicxml，且环境变量正确，则乐谱可以正常显示。</p>]]></content>
+    <content type="html"><![CDATA[<p>一篇讲述music21使用时可能会出现的问题的解决方案。</p><a id="more"></a><p>环境：</p><ul><li>Windows 10</li><li>Python 3.6</li><li>Anaconda</li></ul><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>安装不用细说，如果安装不上的话可以考虑开发环境问题，另外配一个开发环境问题可能得解。亲测Anaconda + Python 3.6环境是没有问题的。</p><h1 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h1><p>请先安装MuseScore 3，然后这样在代码中加上这几行。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">us = music21.environment.UserSettings()</span><br><span class="line">us[&apos;musescoreDirectPNGPath&apos;] = r&quot;C:\Program Files\MuseScore 3\bin\MuseScore3.exe&quot;</span><br><span class="line">us[&apos;musicxmlPath&apos;] = r&quot;C:\Program Files\MuseScore 3\bin\MuseScore3.exe&quot;</span><br></pre></td></tr></table></figure><h1 id="播放midi文件"><a href="#播放midi文件" class="headerlink" title="播放midi文件"></a>播放midi文件</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file = music21.converter.parse(<span class="string">"music.mid"</span>)</span><br><span class="line">midi.realtime.StreamPlayer(file).play()</span><br></pre></td></tr></table></figure><h1 id="展示乐谱"><a href="#展示乐谱" class="headerlink" title="展示乐谱"></a>展示乐谱</h1><p>配置好环境变量之后，你可能会遇到这个问题：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SubConverterFileIOException: png file of xml not found. Or file &gt;999 pages?</span><br></pre></td></tr></table></figure><p>请将你的代码改写成这个样子：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file.show(<span class="string">'musicxml'</span>)</span><br></pre></td></tr></table></figure><p>当参数设置为musicxml，且环境变量正确，则乐谱可以正常显示。</p>]]></content>
     
     <summary type="html">
     
