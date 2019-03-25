@@ -25,24 +25,25 @@ ga('send', 'pageview');
     
     
     
-    <title>关于我 | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
+    <title>music21配置与使用 | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="">
-    <meta name="description" content="个人简介@card{ 我是张逸霄，电子科技大学2015级本科生。我的研究兴趣集中在自然语言处理的特定领域和音乐生成。你可以在这里看到我的英文简历。我现在在寻找计算机音乐的相关实验室，以获得Research Assistant的机会。 } 科研经历@card{ @timeline{ 2018@item{ 11月加入微软亚洲研究院机器学习组，进行为期六个月的科研实习，方向为金融相关的数据挖掘。 } @">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于我">
-<meta property="og:url" content="http://ldzhangyx.github.io/about/index.html">
+    <meta name="keywords" content="音乐生成,python">
+    <meta name="description" content="一篇讲述music21使用时可能会出现的问题的解决方案。">
+<meta name="keywords" content="音乐生成,python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="music21配置与使用">
+<meta property="og:url" content="http://ldzhangyx.github.io/2019/03/25/music21/index.html">
 <meta property="og:site_name" content="张逸霄的技术小站">
-<meta property="og:description" content="个人简介@card{ 我是张逸霄，电子科技大学2015级本科生。我的研究兴趣集中在自然语言处理的特定领域和音乐生成。你可以在这里看到我的英文简历。我现在在寻找计算机音乐的相关实验室，以获得Research Assistant的机会。 } 科研经历@card{ @timeline{ 2018@item{ 11月加入微软亚洲研究院机器学习组，进行为期六个月的科研实习，方向为金融相关的数据挖掘。 } @">
+<meta property="og:description" content="一篇讲述music21使用时可能会出现的问题的解决方案。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-04T09:02:02.327Z">
+<meta property="og:updated_time" content="2019-03-25T15:05:53.119Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于我">
-<meta name="twitter:description" content="个人简介@card{ 我是张逸霄，电子科技大学2015级本科生。我的研究兴趣集中在自然语言处理的特定领域和音乐生成。你可以在这里看到我的英文简历。我现在在寻找计算机音乐的相关实验室，以获得Research Assistant的机会。 } 科研经历@card{ @timeline{ 2018@item{ 11月加入微软亚洲研究院机器学习组，进行为期六个月的科研实习，方向为金融相关的数据挖掘。 } @">
+<meta name="twitter:title" content="music21配置与使用">
+<meta name="twitter:description" content="一篇讲述music21使用时可能会出现的问题的解决方案。">
     
         <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
     
@@ -105,7 +106,7 @@ ga('send', 'pageview');
               </a>
             </li>
         
-            <li class="waves-block waves-effect active">
+            <li class="waves-block waves-effect">
               <a href="/about"  >
                 <i class="icon icon-lg icon-link"></i>
                 关于我
@@ -130,7 +131,7 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">关于我</div>
+        <div class="flex-col header-title ellipsis">music21配置与使用</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -149,11 +150,17 @@ ga('send', 'pageview');
         
     </div>
 </header>
-<header class="content-header page-header">
+<header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">关于我</h1>
+        <h1 class="title">music21配置与使用</h1>
         <h5 class="subtitle">
+            
+                <time datetime="2019-03-25T14:44:04.000Z" itemprop="datePublished" class="page-time">
+  2019-03-25
+</time>
+
+
             
         </h5>
     </div>
@@ -165,58 +172,75 @@ ga('send', 'pageview');
 
 
 <div class="container body-wrap">
-    <article class="page-article fade" itemprop="blogPage">
-        <div class="post-content page-content" id="page-content" itemprop="pageContent">
-            <h1 id="个人简介"><a href="#个人简介" class="headerlink" title="个人简介"></a>个人简介</h1><div class="card">
-<p>我是张逸霄，电子科技大学2015级本科生。我的研究兴趣集中在自然语言处理的特定领域和音乐生成。你可以在<a href="resume-yixiaozhang.pdf">这里</a>看到我的英文简历。<br>我现在在寻找计算机音乐的相关实验室，以获得Research Assistant的机会。</p>
-</div>
-<h1 id="科研经历"><a href="#科研经历" class="headerlink" title="科研经历"></a>科研经历</h1><div class="card">
-<div class="timeline">
-<h5 id="2018"><a href="#2018" class="headerlink" title="2018"></a>2018</h5><div class="item">
-<h6 id="11月"><a href="#11月" class="headerlink" title="11月"></a>11月</h6><p>加入<a href="https://www.msra.cn/" target="_blank" rel="noopener">微软亚洲研究院</a>机器学习组，进行为期六个月的科研实习，方向为金融相关的数据挖掘。</p>
-</div>
-<div class="item">
-<h6 id="7月-10月"><a href="#7月-10月" class="headerlink" title="7月-10月"></a>7月-10月</h6><p>加入<a href="http://www.mitacs.ca/en" target="_blank" rel="noopener">Mitacs Globalink Program</a>，赴加拿大<a href="http://www.uleth.ca/" target="_blank" rel="noopener">University of Lethbridge</a>进行文本摘要相关领域的暑期研究。</p>
-</div>
-<h5 id="2016"><a href="#2016" class="headerlink" title="2016"></a>2016</h5><div class="item">
-<h6 id="6月"><a href="#6月" class="headerlink" title="6月"></a>6月</h6><p>加入电子科大智能学习科学与应用研究所，进行自然语言处理相关方向的学习。</p>
-</div>
-</div>
-</div>
-<h1 id="个人爱好"><a href="#个人爱好" class="headerlink" title="个人爱好"></a>个人爱好</h1><div class="column-3">
-<div class="card">
-<p>我热爱古典音乐，网易云音乐的歌单里收藏了J.S.巴赫，柴可夫斯基，德沃夏克等音乐家的几乎所有作品。我系统学习过乐理知识，并且熟悉多门乐器。<br>我也是轻度民谣控，偏爱赵雷、陈鸿宇等很安静的民谣音乐家。此外我还会听杨千嬅的粤语歌。</p>
-</div>
-<div class="card">
-<p>我是steam玩家<a href="https://steamcommunity.com/id/ldzhangyx" target="_blank" rel="noopener">@ldzhangyx</a>，也是Nintendo Switch玩家。我偏爱需要充分思考和决策的单机游戏：《文明》系列、P社四萌；或者是可以充分探索世界的游戏：《巫师3》，《上古卷轴5》，《塞尔达传说：荒野之息》。</p>
-</div>
-<div class="card">
-<p>我掌握了一些烹饪技巧，能熟练使用烤箱烘焙出自己想吃的大部分甜品。<br>同时，我能复刻出一些经典的中式菜肴。</p>
-</div>
-</div>
-<div class="column-3">
-<div class="card">
-<p>我是桌游和TRPG跑团爱好者。我对神秘学和克苏鲁体系有一定了解，有在CoC TRPG担任守秘人的经验，但不擅长DND规则。<br>我曾是《三国杀》玩家和爱好者，偏爱国战规则，但并不是狂热的玩家。</p>
-</div>
-<div class="card">
-<p>我是一名软粉。我会关注微软的公司动向和产品发布，并且第一时间进行体验、开展交流。我是一名<a href="https://studentpartners.microsoft.com/en-US" target="_blank" rel="noopener">MSP</a>，同时也是电子科大<a href="https://studentclub.msra.cn" target="_blank" rel="noopener">微软学生俱乐部</a>的前主席。</p>
-</div>
-<div class="card">
-<p>我热爱日本动漫。我的入坑作是《魔法禁书目录》，最喜欢的制作公司是京都动画。虽然我很喜欢《Fate》系列的氛围，但我也很喜欢《冰菓》这类作品的慢热节奏。<br>值得一提的是，我对《哆啦A梦》系列有深入了解。我清楚原作设定中绝大部分道具、设定，能厘清每一部剧场版、特别篇的节奏和剧情，同时做出人物分析。</p>
-</div>
-</div>
-<div class="column-3">
-<div class="card">
-<p>我会萨克斯和尤克里里两门乐器，也了解一部分小提琴演奏。我曾系统学习过乐理知识，这也引起了我对音乐生成领域的强烈兴趣。我现在是MSRA Band的成员。</p>
-</div>
-</div>
-<h1 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h1><div class="card">
-<p>个人邮箱：<a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#x6c;&#x64;&#122;&#104;&#x61;&#110;&#x67;&#121;&#120;&#x40;&#111;&#117;&#116;&#x6c;&#x6f;&#111;&#107;&#x2e;&#99;&#111;&#x6d;">&#x6c;&#x64;&#122;&#104;&#x61;&#110;&#x67;&#121;&#120;&#x40;&#111;&#117;&#116;&#x6c;&#x6f;&#111;&#107;&#x2e;&#99;&#111;&#x6d;</a><br>联系电话：(+86)171-3808-6414</p>
-</div>
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#环境变量配置"><span class="post-toc-number">2.</span> <span class="post-toc-text">环境变量配置</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#播放midi文件"><span class="post-toc-number">3.</span> <span class="post-toc-text">播放midi文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#展示乐谱"><span class="post-toc-number">4.</span> <span class="post-toc-text">展示乐谱</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-music21"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">music21配置与使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-03-25 22:44:04" datetime="2019-03-25T14:44:04.000Z"  itemprop="datePublished">2019-03-25</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>一篇讲述music21使用时可能会出现的问题的解决方案。</p>
+<a id="more"></a>
+<p>环境：</p>
+<ul>
+<li>Windows 10</li>
+<li>Python 3.6</li>
+<li>Anaconda</li>
+</ul>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>安装不用细说，如果安装不上的话可以考虑开发环境问题，另外配一个开发环境问题可能得解。亲测Anaconda + Python 3.6环境是没有问题的。</p>
+<h1 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h1><p>请先安装MuseScore 3，然后这样在代码中加上这几行。</p>
+<p>‘’’<br>us = music21.environment.UserSettings()<br>us[‘musescoreDirectPNGPath’] = r”C:\Program Files\MuseScore 3\bin\MuseScore3.exe”<br>us[‘musicxmlPath’] = r”C:\Program Files\MuseScore 3\bin\MuseScore3.exe”<br>‘’’</p>
+<h1 id="播放midi文件"><a href="#播放midi文件" class="headerlink" title="播放midi文件"></a>播放midi文件</h1><p>‘’’python<br>file = music21.converter.parse(“music.mid”)<br>midi.realtime.StreamPlayer(file).play()<br>‘’’</p>
+<h1 id="展示乐谱"><a href="#展示乐谱" class="headerlink" title="展示乐谱"></a>展示乐谱</h1><p>配置好环境变量之后，你可能会遇到这个问题：</p>
+<p>‘’’<br>SubConverterFileIOException: png file of xml not found. Or file &gt;999 pages?<br>‘’’</p>
+<p>请将你的代码改写成这个样子：</p>
+<p>‘’’python<br>file.show(‘musicxml’)<br>‘’’</p>
+<p>当参数设置为musicxml，且环境变量正确，则乐谱可以正常显示。</p>
 
         </div>
 
+        <blockquote class="post-copyright">
+    
+    <div class="content">
         
+<span class="post-time">
+    最后更新时间：<time datetime="2019-03-25T15:05:53.119Z" itemprop="dateUpdated">2019-03-25 23:05:53</time>
+</span><br>
+
+
+        
+        原文地址：<a href="/2019/03/25/music21/" target="_blank" rel="external">http://ldzhangyx.github.io/2019/03/25/music21/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://ldzhangyx.github.io">
+            <img src="/img/avatar.jpg" alt="张逸霄">
+            张逸霄
+        </a>
+    </footer>
+</blockquote>
 
         
 <div class="page-reward">
@@ -225,7 +249,79 @@ ga('send', 'pageview');
 
 
 
-        
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/音乐生成/">音乐生成</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/03/25/music21/&title=《music21配置与使用》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/03/25/music21/&title=《music21配置与使用》 — 张逸霄的技术小站&source=一篇讲述music21使用时可能会出现的问题的解决方案。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/03/25/music21/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《music21配置与使用》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/03/25/music21/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/03/25/music21/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/02/25/music-toolkits/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">音乐生成的武器库——集中介绍</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
 
 
 
@@ -267,8 +363,8 @@ ga('send', 'pageview');
 
 
 
-    </article>
-    
+</article>
+
 <div id="reward" class="page-modal reward-lay">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <h3 class="reward-title">
@@ -294,6 +390,7 @@ ga('send', 'pageview');
         
     </div>
 </div>
+
 
 
 </div>
@@ -337,7 +434,7 @@ ga('send', 'pageview');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/about/&title=《关于我》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/03/25/music21/&title=《music21配置与使用》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -347,22 +444,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/about/&title=《关于我》 — 张逸霄的技术小站&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/03/25/music21/&title=《music21配置与使用》 — 张逸霄的技术小站&source=一篇讲述music21使用时可能会出现的问题的解决方案。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/about/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/03/25/music21/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《关于我》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/about/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《music21配置与使用》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/03/25/music21/&via=http://ldzhangyx.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/about/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/03/25/music21/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -373,7 +470,7 @@ ga('send', 'pageview');
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByElEQVR42u3aS27DMAwFwNz/0u62QGDnkbTktBitgsaRxl0Q4uf1itfxtn7//f2Z99+e7flasXBxccfc43JdP5PvcPZ61R1wcXF3cq8DTTVgTT5/sOHi4n4xtxyAcHFx/zV3dNh8B1xc3I3cJL05+9WkmrEwV8PFxR1w88PWfV5S38XFxW1xj+LqvVgesD6cjouLu4WbB5Trg6sJUv4vwMXFfYqbB53m1jeNeuDi4u7h5ri72ip5u+X0RoaLi7uFm6cr1QJolfjh8oSLi7uRmxQ4eleiXonk9BRcXNyHuHlIqg5YzNs2uLi4e7jXV5DeuNUk8EWlVVxc3MXcavszKY/2hq6iVAoXF3cLd14MzUsb1QmrqCeMi4u7jNvsysbHT1Kj6DqFi4u7gHsdku4qmuShrTxHhouLu4ybN1MLxc1WmzZKfnBxcbdw82SjWkAppDHJ1QcXF3cx9yiueYCrDmzh4uLu5/ZapNUDkmbtPPzh4uLeyy2nH3GhpJr8RN/i4uJu5FYDTV5mnSc/uLi4f4WbF1Z6rZclNyZcXNxl3OT5eVIUtVJwcXEXc/PRyerQVe9VcXFxn+VWg06vnJEXXKpNX1xc3Fu5P6xXCwnAdIuQAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3a0WrDMAwF0P3/T3evG2PevXJWiHP8VEqa6KQgJMsfH/F6fVk/v0+uX1+5fsplCwMD47aM13IlD2hDXN95/atfI8HAwHgAIwkiAax/lbyO2XMxMDAwknDz4NZBY2BgYOwz2iKvDRQDAwNjp4lNrl8n1vU939SLY2Bg3JCR77q///O/zDcwMDBuxXiVq90am6XLOioMDIyjGXmCa3n5HWYJFwMD4zmMnbYz3+Jvx5/1QTEMDIyjGVcFPRsMJOEm23AYGBhnM9oWdCfc/eT7R2mIgYFxKGM2AGhb050UnFeAGBgYZzNm2/RtszprUIsDFhgYGIcy8g36qxrd/M7rkvHbZwwMjKMZO2XfLOPNTnkVu4YYGBiHMtqSsR18JvfPU20BwMDAOI4xK87aYxyzYUD97jEwMI5mJKl2v+DLE25dGmJgYBzKSIqwNhW2jXF72KLO3xgYGLdl5Ols1nAO32v7gjAwMI5mtGPCtjXNU3lbkv7xn2BgYBzNyAvBvMibjRPyQSYGBsZzGPutbL5lln9TpGYMDIwHMPIDDfsl3fD0R97EYmBgHMR4lattR/Om97KiEAMD4zjG/lGJZCNsf6hw1bABAwPjvoxh0/hvby6PAQMD42mMnWFk3gznaTpP/RgYGBh50zhrVvMtvGIwgIGB8XhGO+ycjTbrYSoGBsYDGPlGf5suLwjx2u02DAyMGzLaIw55CXjxdGJ/kImBgXE/xideQmqY68ZHOwAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 

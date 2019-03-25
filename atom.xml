@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2019-02-25T10:08:40.478Z</updated>
+  <updated>2019-03-25T15:05:53.119Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>music21配置与使用</title>
+    <link href="http://ldzhangyx.github.io/2019/03/25/music21/"/>
+    <id>http://ldzhangyx.github.io/2019/03/25/music21/</id>
+    <published>2019-03-25T14:44:04.000Z</published>
+    <updated>2019-03-25T15:05:53.119Z</updated>
+    
+    <content type="html"><![CDATA[<p>一篇讲述music21使用时可能会出现的问题的解决方案。</p><a id="more"></a><p>环境：</p><ul><li>Windows 10</li><li>Python 3.6</li><li>Anaconda</li></ul><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>安装不用细说，如果安装不上的话可以考虑开发环境问题，另外配一个开发环境问题可能得解。亲测Anaconda + Python 3.6环境是没有问题的。</p><h1 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h1><p>请先安装MuseScore 3，然后这样在代码中加上这几行。</p><p>‘’’<br>us = music21.environment.UserSettings()<br>us[‘musescoreDirectPNGPath’] = r”C:\Program Files\MuseScore 3\bin\MuseScore3.exe”<br>us[‘musicxmlPath’] = r”C:\Program Files\MuseScore 3\bin\MuseScore3.exe”<br>‘’’</p><h1 id="播放midi文件"><a href="#播放midi文件" class="headerlink" title="播放midi文件"></a>播放midi文件</h1><p>‘’’python<br>file = music21.converter.parse(“music.mid”)<br>midi.realtime.StreamPlayer(file).play()<br>‘’’</p><h1 id="展示乐谱"><a href="#展示乐谱" class="headerlink" title="展示乐谱"></a>展示乐谱</h1><p>配置好环境变量之后，你可能会遇到这个问题：</p><p>‘’’<br>SubConverterFileIOException: png file of xml not found. Or file &gt;999 pages?<br>‘’’</p><p>请将你的代码改写成这个样子：</p><p>‘’’python<br>file.show(‘musicxml’)<br>‘’’</p><p>当参数设置为musicxml，且环境变量正确，则乐谱可以正常显示。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一篇讲述music21使用时可能会出现的问题的解决方案。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
+    
+      <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>音乐生成的武器库——集中介绍</title>
@@ -474,33 +496,6 @@
       <category term="多模态" scheme="http://ldzhangyx.github.io/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/"/>
     
       <category term="生成式摘要" scheme="http://ldzhangyx.github.io/tags/%E7%94%9F%E6%88%90%E5%BC%8F%E6%91%98%E8%A6%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题</title>
-    <link href="http://ldzhangyx.github.io/2017/12/21/%E3%80%90TensorFlow%E9%9A%8F%E7%AC%94%E3%80%91%E5%85%B3%E4%BA%8E%E4%B8%80%E4%B8%AA%E7%9F%A9%E9%98%B5%E4%B8%8E%E5%A4%9A%E4%B8%AA%E7%9F%A9%E9%98%B5%E7%9B%B8%E4%B9%98%E7%9A%84%E9%97%AE%E9%A2%98/"/>
-    <id>http://ldzhangyx.github.io/2017/12/21/【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题/</id>
-    <published>2017-12-20T17:00:00.000Z</published>
-    <updated>2018-11-15T12:39:52.823Z</updated>
-    
-    <content type="html"><![CDATA[<p>问题描述：</p><p>Specifically, I want to do matmul(A,B) where</p><p>&nbsp;’A’ has shape (m,n)</p><p>&nbsp;’B’ has shape (k,n,p)</p><p>and the result should have shape (k,m,p)</p><hr><p>参考网站：</p><p><a href="https://groups.google.com/a/tensorflow.org/forum/#!topic/discuss/4tgsOSxwtkY" target="_blank" rel="noopener">https://groups.google.com/a/tensorflow.org/forum/#!topic/discuss/4tgsOSxwtkY</a></p><p><a href="https://stackoverflow.com/questions/38235555/tensorflow-matmul-of-input-matrix-with-batch-data" target="_blank" rel="noopener">https://stackoverflow.com/questions/38235555/tensorflow-matmul-of-input-matrix-with-batch-data</a></p><hr><p>解决办法：</p><p>1，我们知道TensorFlow的matmul已经支持了batch，即：</p><pre><code>A = tf.Variable(tf.random_normal(shape=(a, b, n, m)))B = tf.Variable(tf.random_normal(shape=(a, b, m, k)))tf.matmul(A, B)</code></pre><p>会返回(a,b,n,k)，前面的N个维度会被保留。但是适用情景与题目不符。</p><p>2，所以我们自然想到reshape。</p><p><span class="comment-copy">You can conflate the two dimensions not used in the multiplication using reshape, multiply the two matrices, and then call reshape again to get the desired shape. This is equivalent to doing batch multiplication.</span></p><p><span class="comment-copy">简而言之呢，就是，你可以将乘法中用不到的维度reshape到后面去，比如</span></p><p><span class="comment-copy">(k, m, p) =&gt; (m, p * k)</span></p><p>进行矩阵乘法得到：(n, p * k)</p><p>之后reshape成：(k, n, p)。</p><p>虽然有些麻烦，但这是唯一的解决办法了。</p><p>适用情景：A矩阵只有一个，但是B矩阵有batch_num个，需要逐个进行矩阵乘法的场合。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;问题描述：&lt;/p&gt;
-&lt;p&gt;Specifically, I want to do matmul(A,B) where&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;’A’ has shape (m,n)&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;’B’ has shape (k,n,p)&lt;/p&gt;
-&lt;p&gt;and 
-      
-    
-    </summary>
-    
-    
-      <category term="TensorFlow" scheme="http://ldzhangyx.github.io/tags/TensorFlow/"/>
     
   </entry>
   
