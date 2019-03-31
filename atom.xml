@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2019-03-25T15:14:11.113Z</updated>
+  <updated>2019-03-31T12:02:44.751Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>之后几年里想做的研究（非正式Research Proposal）</title>
+    <link href="http://ldzhangyx.github.io/2019/03/31/research-proposal/"/>
+    <id>http://ldzhangyx.github.io/2019/03/31/research-proposal/</id>
+    <published>2019-03-31T12:01:10.000Z</published>
+    <updated>2019-03-31T12:02:44.751Z</updated>
+    
+    <content type="html"><![CDATA[<p>The area I am passionate about is computational creativity[1]. It includes story generation, message generation, and even music generation. I want to endow machines with creative behaviors, and, I am doing good at music generation, indeed.</p><p>About generation model, there are several questions.</p><ul><li>Is that useful? My answer is yes. We have lots of ideas, but it is difficult to transform ideas to artworks. Most of us only have the abilities to finish a draft. If it can be controlled, then models can be used to assist people do creative task like writing and composition.</li><li>How can we control the model? Some approaches can be applied.</li></ul><ol><li>The first is to control input.[2] FAIR developed a model to generate stories from tags and topic words[3]. Hierarchical attention mechanism is used in this model. By controlling the input, they can create different kinds of stories.</li><li>The second way is to control structure. Skeleton model is used to keep generated narrative consistent[4]. They set a structure via reinforcement learning and generate stories progressively, to keep articles fluent and can be read.</li></ol><ul><li>What is the main difficulty?</li></ul><ol><li>We lack data. However, we can solve the problem by designing training methods. CocoNet is used to generate J.S. Bach’s chorales[5]. In the beginning, they have only 306 pieces of artworks. But they tried to erase different parts and let the model recover them, and then erase again. During this period, the model can gradually learn composition skills</li><li>We lack benchmarks. Now most generative models are evaluated manually. In my opinion, traditional seq2seq model uses cross-entropy loss, which limits probabilities. My idea is that, we can analyze features, like consistency and local circulation, to train a discriminative model, like GAN.</li><li>Structure design is difficult. Skeleton model applied reinforcement learning, but I have a better idea – use meta-learning techniques. Learning to teach models[6] is my current research topic at Microsoft. Meta-learning can help us decide hypothesis space[7]. Maybe we can use this method to control the structure of artworks.</li></ol><ul><li>Your ideas?</li></ul><ol><li>Generate models hierarchically, but use meta-learning techniques as assistance, to make generated results controllable.</li><li>Graph Convolutional Network should be applied to used to make the text logical. Knowledge graph include prior knowledge in the network structure, and graph embedding allows embedding results to contain information about the knowledge graph[8].</li></ol><p>References<br>[1] Colton, S., Charnley, J. W., &amp; Pease, A. (2011, April). Computational Creativity Theory: The FACE and IDEA Descriptive Models. In ICCC (pp. 90-95).<br>[2] Briot, J. P., &amp; Pachet, F. (2017). Music generation by deep learning-challenges and directions. arXiv preprint arXiv:1712.04371.<br>[3] Fan, A., Lewis, M., &amp; Dauphin, Y. (2018). Hierarchical neural story generation. arXiv preprint arXiv:1805.04833.<br>[4] Xu, J., Zhang, Y., Zeng, Q., Ren, X., Cai, X., &amp; Sun, X. (2018). A skeleton-based model for promoting coherence among sentences in narrative story generation. arXiv preprint arXiv:1808.06945.<br>[5] Huang, C. Z. A., Cooijmans, T., Roberts, A., Courville, A., &amp; Eck, D. (2019). Counterpoint by convolution. arXiv preprint arXiv:1903.07227.<br>[6] Fan, Y., Tian, F., Qin, T., Li, X. Y., &amp; Liu, T. Y. (2018). Learning to teach. arXiv preprint arXiv:1805.03643.<br>[7] Han, B., Yao, Q., Yu, X., Niu, G., Xu, M., Hu, W., … &amp; Sugiyama, M. (2018). Co-teaching: Robust training of deep neural networks with extremely noisy labels. In Advances in Neural Information Processing Systems (pp. 8536-8546).<br>[8] Liu, W., Wang, Z., Liu, X., Zeng, N., Liu, Y., &amp; Alsaadi, F. E. (2017). A survey of deep neural network architectures and their applications. Neurocomputing, 234, 11-26.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;The area I am passionate about is computational creativity[1]. It includes story generation, message generation, and even music generatio
+      
+    
+    </summary>
+    
+    
+      <category term="个人想法" scheme="http://ldzhangyx.github.io/tags/%E4%B8%AA%E4%BA%BA%E6%83%B3%E6%B3%95/"/>
+    
+      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
+    
+      <category term="NLG" scheme="http://ldzhangyx.github.io/tags/NLG/"/>
+    
+      <category term="machine learning" scheme="http://ldzhangyx.github.io/tags/machine-learning/"/>
+    
+      <category term="Master" scheme="http://ldzhangyx.github.io/tags/Master/"/>
+    
+  </entry>
   
   <entry>
     <title>music21配置与使用</title>
@@ -468,34 +499,6 @@
       <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
     
       <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《Multi-modal Sentence Summarization with Modality Attention and Image Filtering》论文笔记</title>
-    <link href="http://ldzhangyx.github.io/2018/09/25/Multi-modal%20Sentence%20Summarization%20with%20Modality%20Attention%20and%20Image%20Filtering/"/>
-    <id>http://ldzhangyx.github.io/2018/09/25/Multi-modal Sentence Summarization with Modality Attention and Image Filtering/</id>
-    <published>2018-09-25T06:07:31.000Z</published>
-    <updated>2018-09-26T07:07:45.350Z</updated>
-    
-    <content type="html"><![CDATA[<p>宗成庆老师的这篇文章发表于<a href="https://acl2018.org/programme/papers/" target="_blank" rel="noopener">ACL’18</a>，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。<br>原文：www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf</p><a id="more"></a><h1 id="论文笔记"><a href="#论文笔记" class="headerlink" title="论文笔记"></a>论文笔记</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>本文介绍了一种多模态句子摘要任务，输入为一张图片和一对句子，输出为摘要。作者称其为MMSS任务。任务的难点在于怎么将视觉信息输入到框架里，以及怎么减小噪音。针对这两个问题，作者分别提出了两个方法：同时施加不同的注意力到文本和图片上；使用图像过滤Image Filter来降噪。</p><p>介绍主要是讲了文本摘要的历史，以及多模态方法最早应用在翻译领域，表现特别好，但是作者认为在摘要上表现得应该更好。</p><p>在解决MMSS任务的时候，作者准备使用分层注意力机制，底层分别关注图片和文本的内部，而上层对两个模态进行平衡。因为图片不能表现很多抽象内容，所以图片特征需要过滤去噪；为了解决生成句子结巴的问题，使用了coverage方法。</p><p>顺便他们做了一个数据集，真是让人肝疼的工作量。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>图片展示了多模态模型的实际效果要好于文本模型。</p><h2 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h2><p>模型可见由句子编码器，图片编码器，摘要解码器和图片过滤器四个部分组成。</p><h3 id="模型图"><a href="#模型图" class="headerlink" title="模型图"></a>模型图</h3><p>模型简图如下：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><h3 id="句子Encoder"><a href="#句子Encoder" class="headerlink" title="句子Encoder"></a>句子Encoder</h3><p>模型的句子Encoder使用了Bi-GRU。</p><script type="math/tex; mode=display">\overrightarrow{h}_i =  GRU(E[x_i], \overrightarrow{h}_{i-1})</script><script type="math/tex; mode=display">\overleftarrow{h}_i =  GRU(E[x_i], \overleftarrow{h}_{i-1})</script><h3 id="图片Encoder"><a href="#图片Encoder" class="headerlink" title="图片Encoder"></a>图片Encoder</h3><p>图片Encoder使用了VGG19，抽取了两种特征：7x7x512的局部特征（flatten之后成为了49x512），和4096维的全局特征。其中局部特征表示为：</p><script type="math/tex; mode=display">A = (a_1, ..., a_L), L=49 \\a_l \in \mathbb{R}^{512}</script><h3 id="摘要Decoder"><a href="#摘要Decoder" class="headerlink" title="摘要Decoder"></a>摘要Decoder</h3><p>Decoder使用了单向GRU：</p><script type="math/tex; mode=display">s_t = GRU(s_{t-1}, y_{t-1}, c_t)</script><p>其中，初始状态$s_0$，作者提出了几种初始化策略：</p><script type="math/tex; mode=display">s_0 = \tanh(\mathbf{W}_{h2}[\overrightarrow{h}_{n};\overleftarrow{h}_{1}]+ \mathbf{W}_{q}q)</script><p>利用了全局特征；</p><script type="math/tex; mode=display">s_0 = \tanh(\mathbf{W}_{h3}[\overrightarrow{h}_{n};\overleftarrow{h}_{1}]+ \mathbf{W}_{v}\frac{1}{L}\sum_{i=1}^{L}a_i)</script><p>与</p><script type="math/tex; mode=display">s_0 = \tanh(\mathbf{W}_{h3}[\overrightarrow{h}_{n};\overleftarrow{h}_{1}]+ \mathbf{W}_{v}\frac{1}{L}\sum_{i=1}^{L}a_ia_i)</script><p>利用了局部特征；</p><p>其中，$q$为全局特征，$a$为各个局部特征，如上文所说。</p><h3 id="Hierarchical-Attention"><a href="#Hierarchical-Attention" class="headerlink" title="Hierarchical Attention"></a>Hierarchical Attention</h3><p>在Decoder使用的context向量$c_t$，使用一个顶层的Attention，对图片context和文本context进行平衡统一：</p><script type="math/tex; mode=display">c_t = \beta_t^{txt}\mathbf{V}_Tc_{txt} + \beta_t^{img}\mathbf{V}_Ic_{img}</script><p>其中，</p><script type="math/tex; mode=display">\beta_t^{txt} = \sigma(\mathbf{U}_as_{t-1}+\mathbf{W}_ac_{txt})</script><script type="math/tex; mode=display">\beta_t^{img} = \sigma(\mathbf{U}_bs_{t-1}+\mathbf{W}_bc_{img})</script><p>对于文字的attention，使用普通的attention：</p><script type="math/tex; mode=display">c_{txt} = \sum_{i=1}^N\alpha_{t,i}^{txt}h_i</script><p>其中$N$为输入的文字序列长度，也就是embedding过后的向量总数量，$h_{i}$是Encoder的第$i$个Hidden State，这个公式将其加权求和。其中$\alpha_{t,i}^{txt}$与Decoder上一个时态的状态$s_{t-1}$与第$i$个Encoder的Hidden State，$h_{i}$有关。</p><script type="math/tex; mode=display">\alpha_{t,i}^{txt} = \frac{exp(e_{t,i}^{txt})}{\sum_{j=1}^Nexp(e_{t,j}^{txt})}</script><script type="math/tex; mode=display">e_{t,i}^{txt} = f(s_{t-1}, h_i) = v_a^T\tanh(\mathbf{U}_cs_{t-1} + \mathbf{W}_ch_i)</script><p>而对于图片attention，作者将每个feature map作为输入，进行attention处理：</p><script type="math/tex; mode=display">c_{img} = \sum_{i=1}^L\alpha_{t,i}^{img}a_l</script><p>其中L为feature map数量，$a_l$为局部特征。</p><script type="math/tex; mode=display">\alpha_{t,i}^{img} = \frac{exp(e_{t,i}^{img})}{\sum_{j=1}^Nexp(e_{t,j}^{img})}</script><script type="math/tex; mode=display">e_{t,i}^{img} = f(s_{t-1}, h_i) = v_b^T\tanh(\mathbf{U}_ds_{t-1} + \mathbf{W}_da_l)</script><h3 id="Coverage-Model-覆盖率模型"><a href="#Coverage-Model-覆盖率模型" class="headerlink" title="Coverage Model(覆盖率模型)"></a>Coverage Model(覆盖率模型)</h3><p>覆盖率模型可以参考《Get to the point》一文的论文笔记。</p><h3 id="Image-Filter"><a href="#Image-Filter" class="headerlink" title="Image Filter"></a>Image Filter</h3><p>作者设计了两个filter：Image Attention Filter和Image Context Filter。</p><h4 id="Image-Attention-Filter"><a href="#Image-Attention-Filter" class="headerlink" title="Image Attention Filter"></a>Image Attention Filter</h4><p>Image Attention Filter的目的在于“directly applied to change the attention scale between image and text”，即根据图片与文本的相关性进行数值控制。</p><script type="math/tex; mode=display">I_a = \sigma(v_s^Ts_0 + c_q^Tq + v_r^Ts_{t-1})</script><p>然后用这个系数更新：</p><script type="math/tex; mode=display">\beta_t^{img} = I_a \cdot \beta_t^{img}</script><p>其中$s_{0}$是decoder的初始状态，$q$是图片全局特征，这两个参数用来表示图片相关性；$s_{t−1}$是decoder上一个time step的状态，用来表示与下一个单词的联系。</p><h4 id="Image-Context-Filter"><a href="#Image-Context-Filter" class="headerlink" title="Image Context Filter"></a>Image Context Filter</h4><p>对于Image Context Vector，作者解释是脱胎于以前的思路（“Image context filter is partially inspired by gating mechanism which has gained great popularity in neural network models”），但是应用在多模态方法上仍属创新。</p><script type="math/tex; mode=display">I_a = \sigma(\mathbf{W}_ss_0 + \mathbf{W}_qq + \mathbf{W}_rs_{t-1})</script><p>这里的矩阵相乘可以使用Dense Layer实现，但是$I_c$与$I_a$最大的不同在于，$I_c$是一个向量，其元素用于控制特征的选择。</p><script type="math/tex; mode=display">c_{img} = I_{c} \odot c_{img}</script><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>本文贡献了一个MMSS任务使用的数据集。数据集首先从Gigaword Corpus里作为基础，对每个Headline，使用Yahoo!搜索图片，并取出top 5图片。之后删除无关图片（人物，缩略图，广告），雇佣10个研究生选择最匹配的图片（无图片标0），最后得到66,000条可用数据。随机将62,000作为训练集，2,000作为测试集，2,000作为开发集。</p><h2 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h2><p>作者做了广泛的对比：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="3.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>Q：对Decoder状态进行的初始化有效吗？<br>A：有效。</p><p>Q：图片有助于提升摘要质量吗？<br>A：是的，可能是因为图片提供了更多信息。</p><p>Q：哪种图片更有效？<br>A：要求3个研究生标注300条数据中图片的匹配程度（匹配从1到3），发现更加匹配的图片所在的那条数据，模型能获得更高的ROUGE分数。</p><p>Q：多模态coverage的有效性？<br>A：通过计算重复词，textual与visual coverage确实能减少重复词的出现。</p><h1 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h1><h2 id="亮点"><a href="#亮点" class="headerlink" title="亮点"></a>亮点</h2><p>这篇文章的思路与一般的额外信息有一些区别，同是用额外信息干涉指导文本生成，这个模型同时使用了两个attention，并提出了一种加权机制将两个attention组合起来。在我读过的另一篇文章《Diversity driven Attention Model for Query-based Abstractive Summarization》中，作者试图用query的context干涉document的context，而不直接显性参与decoder的过程。</p><p>文中计算权值的时候，充分考虑了各种可能性；在Image Attention Filter那一块，将数个特征非线性组合起来，虽然显得参数有点多，好在不无道理。</p><p>贡献了一个全新的数据集（动用了10个研究生，真有钱），脱胎于Gigawords，对这个领域做出了基础性贡献。</p><h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>首先，对于数据集，我认为可以选择替代的数据集，可能是我之前做过中文摘要，我很自然地就想到了LCSTS，可以用同样的方法构建数据集，但是这个很费时间精力，而且并不是什么突出的想法贡献。</p><p>其次，为什么用VGG提取特征？在这个框架里，VGG提取特征取到的效果我持保留态度。即使有了图片特征又能怎么样呢？到底是一个怎样的机制让VGG的图片特征与关键字对上的？我认为这样的attention拼凑框架思路时非常棒的，但是图片特征与文字的多模态映射我始终不明白how it works. 作为替代方法，我很自然地想到了CV里的目标检测，使用选择性搜索，SVM判断图像中的实体，再作为特征送进模型，我认为这是一个更接近直觉的做法。</p><p>再次，Image Filtering这个做法我认为需要改进为更加reasonable的做法。我们完全可以做一个key-word版本的Filter。Filter有两个版本，Image Attention Filter的系数$I_a$是根据图像与文本的相关性来控制图像干预的程度；而Image Context Filter的系数$T_c$是用来突出图像特征的。这个想法理应可以迁移到word的使用上。</p><p>最后，文中用到的小trick，textual coverage mechanism，为了解决结巴问题，我们可以考虑其他的机制，比如将context vector做软正交化处理。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;宗成庆老师的这篇文章发表于&lt;a href=&quot;https://acl2018.org/programme/papers/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;ACL’18&lt;/a&gt;，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。&lt;br&gt;原文：www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
-      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-      <category term="多模态" scheme="http://ldzhangyx.github.io/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/"/>
-    
-      <category term="生成式摘要" scheme="http://ldzhangyx.github.io/tags/%E7%94%9F%E6%88%90%E5%BC%8F%E6%91%98%E8%A6%81/"/>
     
   </entry>
   
