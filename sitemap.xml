@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ldzhangyx.github.io/about/index.html</loc>
+    
+    <lastmod>2019-05-08T07:31:28.273Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ldzhangyx.github.io/2019/03/31/research-proposal/</loc>
     
-    <lastmod>2019-03-31T12:02:44.751Z</lastmod>
+    <lastmod>2019-04-01T04:34:47.677Z</lastmod>
     
   </url>
   
@@ -33,13 +40,6 @@
     <loc>http://ldzhangyx.github.io/2019/01/22/tree-music/</loc>
     
     <lastmod>2019-01-24T11:30:59.249Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/about/index.html</loc>
-    
-    <lastmod>2019-01-04T09:02:02.327Z</lastmod>
     
   </url>
   
