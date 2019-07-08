@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://ldzhangyx.github.io/2019/07/03/on-lstm/</loc>
+    <loc>http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/</loc>
     
-    <lastmod>2019-07-04T06:20:44.809Z</lastmod>
+    <lastmod>2019-07-08T11:09:24.579Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/about/index.html</loc>
     
-    <lastmod>2019-05-08T07:31:30.000Z</lastmod>
+    <lastmod>2019-07-08T04:34:24.626Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/2019/07/03/on-lstm/</loc>
+    
+    <lastmod>2019-07-04T06:20:44.809Z</lastmod>
     
   </url>
   

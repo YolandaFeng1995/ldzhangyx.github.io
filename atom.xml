@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2019-07-04T06:20:44.809Z</updated>
+  <updated>2019-07-08T11:09:24.579Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SLURM快速上手使用指南</title>
+    <link href="http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/"/>
+    <id>http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/</id>
+    <published>2019-07-08T07:53:23.000Z</published>
+    <updated>2019-07-08T11:09:24.579Z</updated>
+    
+    <content type="html"><![CDATA[<p>学校的HPC计算资源通过SLURM进行管理。为了方便我进行配置，我决定整理一个快速上手指南。</p><h1 id="连接服务器"><a href="#连接服务器" class="headerlink" title="连接服务器"></a>连接服务器</h1><p>推荐使用MobaXTerm进行连接。MobaXTerm不仅可以进行连接，对目录还做了可视化处理，因此可以对文件进行方便的操作。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh &lt;YourID&gt;@hpc.xxxxx.edu</span><br></pre></td></tr></table></figure><p>输入密码后成功连接服务器。</p><h1 id="几个常用命令"><a href="#几个常用命令" class="headerlink" title="几个常用命令"></a>几个常用命令</h1><h2 id="module"><a href="#module" class="headerlink" title="module"></a>module</h2><p>SLURM上一般有一些预先配置好的库可以使用。</p><ul><li><figure class="highlight plain"><figcaption><span>list```: 查看目前存在的模块</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- ```module avail```: 查看可以安装的模块</span><br><span class="line">- ```module purge```: 移除当前所有模块</span><br><span class="line">- ```module load XXX```: 加载XXX模块</span><br><span class="line"></span><br><span class="line">模块的加载工作一般直接写在下文提到的脚本里。我自己常用的模块一般就是anaconda/5.2.0和各个版本的cuda，cudnn对环境进行配置。</span><br><span class="line"></span><br><span class="line">## sbatch</span><br><span class="line"></span><br><span class="line">sbatch有两种用法。你可以在sbatch命令后直接显式指定你的job要求，比如索取1个CPU，使用4小时，也可以将配置写在脚本文件里（推荐）。格式直接就是：</span><br></pre></td></tr></table></figure></li></ul><p>sbatch xxx.sh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">之后会收到服务器返回的job id。</span><br><span class="line"></span><br><span class="line">## scontrol</span><br><span class="line"></span><br><span class="line">可以使用scontrol查看job情况。</span><br></pre></td></tr></table></figure></p><p>scontrol show <job id=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">会返回这个job的所有状态。</span><br><span class="line"></span><br><span class="line">## sview</span><br><span class="line"></span><br><span class="line">输入这个命令可以打开一个新窗口，监控集群结点上所有任务的情况。</span><br><span class="line"></span><br><span class="line"># 配置重点</span><br><span class="line"></span><br><span class="line">运行和提交一个新任务，只需要做两件事：</span><br><span class="line">1. 准备并上传代码文件</span><br><span class="line">2. 编写并运行sh脚本</span><br><span class="line"></span><br><span class="line">下面分两种情况进行讨论。</span><br><span class="line"></span><br><span class="line">## 运行任务（py文件）</span><br><span class="line"></span><br><span class="line">这种情况意味着你只想得到结果，观察输出。</span><br><span class="line"></span><br><span class="line">1. 上传代码文件。</span><br><span class="line">2. 编写sh脚本。sh脚本的基本格式如下：</span><br></pre></td></tr></table></figure></job></p><h1 id="bin-bash"><a href="#bin-bash" class="headerlink" title="!/bin/bash"></a>!/bin/bash</h1><h1 id="SBATCH-—mail-user"><a href="#SBATCH-—mail-user" class="headerlink" title="SBATCH —mail-user="></a>SBATCH —mail-user=</h1><h1 id="SBATCH-—mail-type-ALL"><a href="#SBATCH-—mail-type-ALL" class="headerlink" title="SBATCH —mail-type=ALL"></a>SBATCH —mail-type=ALL</h1><h1 id="SBATCH-—nodes-1"><a href="#SBATCH-—nodes-1" class="headerlink" title="SBATCH —nodes=1"></a>SBATCH —nodes=1</h1><h1 id="SBATCH-—ntasks-per-node-1"><a href="#SBATCH-—ntasks-per-node-1" class="headerlink" title="SBATCH —ntasks-per-node=1"></a>SBATCH —ntasks-per-node=1</h1><h1 id="SBATCH-—time-1-01-10-00"><a href="#SBATCH-—time-1-01-10-00" class="headerlink" title="SBATCH —time=1-01:10:00"></a>SBATCH —time=1-01:10:00</h1><h1 id="SBATCH-—mem-200G"><a href="#SBATCH-—mem-200G" class="headerlink" title="SBATCH —mem=200G"></a>SBATCH —mem=200G</h1><h1 id="SBATCH-—output-Job-j-out"><a href="#SBATCH-—output-Job-j-out" class="headerlink" title="SBATCH —output=Job.%j.out"></a>SBATCH —output=Job.%j.out</h1><h1 id="SBATCH-—error-Job-j-err"><a href="#SBATCH-—error-Job-j-err" class="headerlink" title="SBATCH —error=Job.%j.err"></a>SBATCH —error=Job.%j.err</h1><h1 id="SBATCH-—account-testuser"><a href="#SBATCH-—account-testuser" class="headerlink" title="SBATCH —account=testuser"></a>SBATCH —account=testuser</h1><h1 id="SBATCH-—partition-debug"><a href="#SBATCH-—partition-debug" class="headerlink" title="SBATCH —partition=debug"></a>SBATCH —partition=debug</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">文件中的配置部分。--mail-type=&lt;type&gt;代表指定状态发生时，发送邮件通知，有效种类为（NONE, BEGIN, END, FAIL, REQUEUE, ALL）；--mail-user=&lt;user&gt;代表发送给对应邮箱。更多的参数我没有仔细研究，读者可以因地制宜进行控制。</span><br></pre></td></tr></table></figure><p>module purge<br>module load anaconda3/5.2.0<br>python &lt; xxx.py<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">加载模块，运行脚本。</span><br><span class="line"></span><br><span class="line">## 运行任务（Jupyter Notebook）</span><br><span class="line"></span><br><span class="line">这种情况比较复杂，因为你需要保持一个状态，进行操作。</span><br><span class="line"></span><br><span class="line">1. 上传代码文件（或者不传，之后新建notebook）。</span><br><span class="line">2. 编写sh脚本。sh脚本的格式如下：</span><br></pre></td></tr></table></figure></p><h1 id="bin-bash-1"><a href="#bin-bash-1" class="headerlink" title="!/bin/bash"></a>!/bin/bash</h1><h1 id="SBATCH-p-serial"><a href="#SBATCH-p-serial" class="headerlink" title="SBATCH -p serial"></a>SBATCH -p serial</h1><h1 id="SBATCH-n1"><a href="#SBATCH-n1" class="headerlink" title="SBATCH -n1"></a>SBATCH -n1</h1><h1 id="SBATCH-N1"><a href="#SBATCH-N1" class="headerlink" title="SBATCH -N1"></a>SBATCH -N1</h1><h1 id="SBATCH-t-01-00-00"><a href="#SBATCH-t-01-00-00" class="headerlink" title="SBATCH -t 01:00:00"></a>SBATCH -t 01:00:00</h1><h1 id="SBATCH-—mem-4GB"><a href="#SBATCH-—mem-4GB" class="headerlink" title="SBATCH —mem=4GB"></a>SBATCH —mem=4GB</h1><h1 id="SBATCH-—job-name-jupyter"><a href="#SBATCH-—job-name-jupyter" class="headerlink" title="SBATCH —job-name jupyter"></a>SBATCH —job-name jupyter</h1><h1 id="SBATCH-—output-jupyter-log-J-txt"><a href="#SBATCH-—output-jupyter-log-J-txt" class="headerlink" title="SBATCH —output jupyter-log-%J.txt"></a>SBATCH —output jupyter-log-%J.txt</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">上面对各个资源进行了配置。n代表任务数量。#SBATCH指令的意义可以查看参考链接5，以及官方文档。</span><br></pre></td></tr></table></figure><p>module purge<br>module load anaconda3/5.2.0<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">对必要的模块进行加载。</span><br></pre></td></tr></table></figure></p><p>XDG_RUNTIME_DIR=””<br>ipnport=$(shuf -i8000-9999 -n1)<br>ipnip=$(hostname -i)</p><p>echo -e “\n”<br>echo    “  Paste ssh command in a terminal on local host (i.e., laptop)”<br>echo    “  ——————————————————————————————“<br>echo -e “  ssh -N -L $ipnport:$ipnip:$ipnport $USER@hpc.shanghai.nyu.edu\n”<br>echo    “  Open this address in a browser on local host; see token below”<br>echo    “  ——————————————————————————————“<br>echo -e “  localhost:$ipnport<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">输出提示信息，方便之后进行通道搭建。</span><br></pre></td></tr></table></figure></p><p>jupyter-notebook —no-browser —port=$ipnport —ip=$ipnip<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">运行jupyter notebook。</span><br><span class="line"></span><br><span class="line">3. 运行之后，新开一个local terminal，输入以下命令，为本地localhost与服务器之间建立一个隧道。</span><br><span class="line"></span><br><span class="line">我们假设第二步的输出提示是：</span><br></pre></td></tr></table></figure></p><h2 id="Paste-ssh-command-in-a-terminal-on-local-host-i-e-laptop"><a href="#Paste-ssh-command-in-a-terminal-on-local-host-i-e-laptop" class="headerlink" title="  Paste ssh command in a terminal on local host (i.e., laptop)"></a>  Paste ssh command in a terminal on local host (i.e., laptop)</h2><p>  ssh -N -L 8896:xx.xxx.xx.xx:8896 &lt;yourID&gt;@hpc.xxx.edu</p><h2 id="Open-this-address-in-a-browser-on-local-host-see-token-below"><a href="#Open-this-address-in-a-browser-on-local-host-see-token-below" class="headerlink" title="  Open this address in a browser on local host; see token below"></a>  Open this address in a browser on local host; see token below</h2><p>  localhost:8896<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">那么直接运行指令，建立隧道：</span><br></pre></td></tr></table></figure></p><p>ssh -N -L 8896:xx.xxx.xx.xx:8896 &lt;yourID&gt;@hpc.xxx.edu<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">4. 在本地浏览器上进入下面网址，输入token，开始工作。</span><br></pre></td></tr></table></figure></p><p>localhost:8896<br>```</p><h1 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h1><ol><li><a href="https://github.com/PDC-support/jupyter-notebook/blob/master/0-setup.ipynb" target="_blank" rel="noopener">https://github.com/PDC-support/jupyter-notebook/blob/master/0-setup.ipynb</a></li><li><a href="https://www.youtube.com/watch?v=U42qlYkzP9k&amp;feature=player_embedded" target="_blank" rel="noopener">https://www.youtube.com/watch?v=U42qlYkzP9k&amp;feature=player_embedded</a></li><li><a href="https://github.com/michael-qi/nyush_hpc" target="_blank" rel="noopener">https://github.com/michael-qi/nyush_hpc</a></li><li><a href="https://wikis.nyu.edu/pages/viewpage.action?spaceKey=NYUShanghaiITS&amp;title=NYU+Shanghai+HPC+cluster+Environment" target="_blank" rel="noopener">https://wikis.nyu.edu/pages/viewpage.action?spaceKey=NYUShanghaiITS&amp;title=NYU+Shanghai+HPC+cluster+Environment</a></li><li><a href="http://hpc.pku.edu.cn/guide_sbatch.html" target="_blank" rel="noopener">http://hpc.pku.edu.cn/guide_sbatch.html</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;学校的HPC计算资源通过SLURM进行管理。为了方便我进行配置，我决定整理一个快速上手指南。&lt;/p&gt;
+&lt;h1 id=&quot;连接服务器&quot;&gt;&lt;a href=&quot;#连接服务器&quot; class=&quot;headerlink&quot; title=&quot;连接服务器&quot;&gt;&lt;/a&gt;连接服务器&lt;/h1&gt;&lt;p&gt;推荐使用
+      
+    
+    </summary>
+    
+      <category term="开发笔记" scheme="http://ldzhangyx.github.io/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="SLURM" scheme="http://ldzhangyx.github.io/tags/SLURM/"/>
+    
+      <category term="HPC" scheme="http://ldzhangyx.github.io/tags/HPC/"/>
+    
+  </entry>
   
   <entry>
     <title>《Ordered Neurons： Integrating Tree Structures into Recurrent Neural Networks》阅读笔记</title>
@@ -38,13 +66,13 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
-    
       <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
     
       <category term="NLG" scheme="http://ldzhangyx.github.io/tags/NLG/"/>
     
       <category term="NLP" scheme="http://ldzhangyx.github.io/tags/NLP/"/>
+    
+      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
     
   </entry>
   
@@ -66,9 +94,9 @@
       <category term="软件工程" scheme="http://ldzhangyx.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
     
     
-      <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
-    
       <category term="Python" scheme="http://ldzhangyx.github.io/tags/Python/"/>
+    
+      <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
     
       <category term="软件工程" scheme="http://ldzhangyx.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
     
@@ -93,9 +121,9 @@
     </summary>
     
     
-      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
-    
       <category term="NLG" scheme="http://ldzhangyx.github.io/tags/NLG/"/>
+    
+      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
     
       <category term="个人想法" scheme="http://ldzhangyx.github.io/tags/%E4%B8%AA%E4%BA%BA%E6%83%B3%E6%B3%95/"/>
     
@@ -143,9 +171,9 @@
     </summary>
     
     
-      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
-    
       <category term="Python" scheme="http://ldzhangyx.github.io/tags/Python/"/>
+    
+      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
     
   </entry>
   
@@ -331,9 +359,9 @@
       <category term="PyTorch" scheme="http://ldzhangyx.github.io/categories/PyTorch/"/>
     
     
-      <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
-    
       <category term="NLP" scheme="http://ldzhangyx.github.io/tags/NLP/"/>
+    
+      <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
     
   </entry>
   
@@ -421,9 +449,9 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
       <category term="Word Embedding" scheme="http://ldzhangyx.github.io/tags/Word-Embedding/"/>
+    
+      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
     
       <category term="中文NLP" scheme="http://ldzhangyx.github.io/tags/%E4%B8%AD%E6%96%87NLP/"/>
     
@@ -447,9 +475,9 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
       <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+      <category term="论文笔记" scheme="http://ldzhangyx.github.io/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
       <category term="focal loss" scheme="http://ldzhangyx.github.io/tags/focal-loss/"/>
     
@@ -477,34 +505,6 @@
     
     
       <category term="attention" scheme="http://ldzhangyx.github.io/tags/attention/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《A Deep Generative Framework for Paraphrase Generation》论文笔记</title>
-    <link href="http://ldzhangyx.github.io/2018/09/26/deep-para-generation/"/>
-    <id>http://ldzhangyx.github.io/2018/09/26/deep-para-generation/</id>
-    <published>2018-09-26T08:44:14.000Z</published>
-    <updated>2018-09-28T21:10:14.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>这篇文章发表在2018年的AAAI上，继承了VAE在自然语言处理上的应用，将其应用于句子复述上，用于生成相似的句子；同时因为RNN可以作为语言模型使用，语句的语法正确性也有一定提升。<br>论文地址：<a href="https://arxiv.org/pdf/1709.05074.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1709.05074.pdf</a></p><a id="more"></a><h1 id="背景材料"><a href="#背景材料" class="headerlink" title="背景材料"></a>背景材料</h1><p>关于变分自编码器在NLP领域的相关介绍，可以看<a href="http://rsarxiv.github.io/2017/03/02/PaperWeekly%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%83%E6%9C%9F/" target="_blank" rel="noopener">这篇讨论</a>。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.jpg" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>关于文本生成的背景研究，可以看<a href="https://www.msra.cn/zh-cn/news/features/ruihua-song-20161226" target="_blank" rel="noopener">这篇文章</a>。</p><p>关于VAE的原理（流形学习）和工程实现，可以看<a href="https://blog.csdn.net/JackyTintin/article/details/53641885" target="_blank" rel="noopener">这篇博文</a>。这篇博文详细介绍了VAE的训练过程，Encoder部分（识别模型）和Decoder部分（生成模型）的结构和各个参数的含义。这篇文章同时也提及了reparemetriazation trick的原理。</p><p>对于VAE结构的理解和讨论，可以看<a href="https://zhuanlan.zhihu.com/p/34998569" target="_blank" rel="noopener">这篇文章</a>。</p><h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>Keras实现<a href="https://github.com/paulx3/keras_generative_pg" target="_blank" rel="noopener">在这里</a>。</p><p>PyTorch实现<a href="https://github.com/ale3otik/paraphrases-generator" target="_blank" rel="noopener">在这里</a>。</p><h1 id="论文笔记"><a href="#论文笔记" class="headerlink" title="论文笔记"></a>论文笔记</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>复述生成是NLP一个重要的课题，本文的模型将VAE和LSTM结合起来生成复述。传统的VAE结合RNN时，生成的句子不符合复述的要求，所以我们将模型的Encoder和Decoder都将原始的句子作为condition进行干涉，这样就达到了复述的效果。这个模型简单、模块化，可以生成不同的多种复述。在量化评测里，本模型明显优于state-of-the-art模型；分析发现模型语法良好；在新数据集上进行了测试，提供了一个baseline。</p><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>Introduction这部分，作者介绍了Paraphrase在QA等方面的应用，以及之前的paraphrase方法，认为其多制约于规则，而深度学习的生成模型更加是数据驱动。<br>区别于VAE的在句子生成上的其他应用，本文的复述模型需要捕获原本句子的特征，所以unconditional的句子生成模型并不适用于此任务。conndition的机制在过去曾被应用到CV领域，然而CV的应用仅仅是用有限的class label作为condition，以及不需要任何的intermediate representation。本文的方法在Encoder和Decoder方面都进行了condition，并且通过LSTM得到intermediate representation。</p><p>本文的生成框架对比seq2seq模型，尽管后者可以使用beam search，但不能同时产生多个效果很好的结果，因为beam search的后面结果总是比最顶部的差。在Quora数据集上，本文的模型表现很好。</p><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="VAE结构"><a href="#VAE结构" class="headerlink" title="VAE结构"></a>VAE结构</h3><p>VAE是一个深度生成式隐变量模型，可以从高维输入学习到丰富、非线性的表示。<br>编码器方面，相比AE使用了一个确切的编码器函数$q_{\Phi}$，VAE使用了后验分布$q_{\Phi}(\mathbf{z}|\mathbf{x})$（或者说识别模型）。这个后验分布通常被假设为高斯分部，所以参数$\Phi$只有均值和方差。VAE使后验分布$q_{\Phi}(\mathbf{z}|\mathbf{x})$尽可能地接近先验分布$p(\mathbf{z})$，通常也被视为高斯分布。<br>VAE的解码器模型，使用了另一个分布$p_{\theta}(\mathbf{x}|\mathbf{z})$，也就是输入隐变量$\mathbf(z)$，还原出$\mathbf{x}$。其参数$\theta$使用另一个前馈神经网络的输出值。<br>将观测数据$x^{(i)}$的对数似然可以写作：</p><script type="math/tex; mode=display">\log p_\theta(x^{(i)} = KL(q_\varPhi(z|x^{(i)})||p_\theta(z|x^{(i)})) + L(\theta, \varPhi; x^{(i)}))</script><p>将$ELBO$记为$L$，然后通过优化$L$，来间接优化似然。<br>$L$可以写作：</p><script type="math/tex; mode=display">L(\theta, \varPhi; x^{(i)})) = -KL(q_\varPhi(z|x^{(i)})||p_\theta(z)) + E_{q_\varPhi(z|x)}[\log p_\theta(x^{(i)}|z)]</script><p>优化目标变为后面两项。</p><p>具体的推导可以参考<a href="https://arxiv.org/pdf/1606.05908.pdf" target="_blank" rel="noopener">这个教程</a>。</p><p>更多地，在建模文字数据的时候，也可以使用KL-term annealing以及dropout of inputs of the decoder等训练技巧，避免一些问题。</p><h3 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h3><p>我们的训练集使用了N对句子，表示为${\mathbf{s}_n^{(o), \mathbf{s}_n^{(p)}}^N_{n=1}$，其中原始句子用$o$标注，复述句子用$p$标注。句子的向量表示标记为$x^{(o)}$与$x^{(p)}$，</p><p>去掉LSTM后，本文的宏观模型如图所示：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="3.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>区别于传统的VAE，本文构建的模型将$x^{o}$作为了condition加在了Encoder和Decoder之上。</p><p>更加细节的结构如图所示：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="4.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>实际上，本文的模型包括了三个LSTM encoder和一个LSTM decoder，总共有4个LSTM，如上图所示。</p><p>在VAE的Encoder方面，两个LSTM encoder被使用，第一个转换原始句子$s^{(o)}$到其向量表示$x^{o}$，与复述句子$s^{(p)}$送入第二个LSTM。将两个句子都编码进了LSTM之后，使用一个前馈网络输出$\Phi$，也就是向量表示的均值和方差，送入VAE。</p><p>在VAE的Decoder方面，VAE输出隐变量$z$，第三个LSTM编码原始句子，然后将原始句子的向量表示$x^{(o)}$与$z$一同送入第四个LSTM，产生复述的句子。</p><p>将LSTM抽象化，可以得到一个这样的模型：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>这个模型的variational lower-bound，也就是$ELBO$如下。最小化KL散度的过程等同于最大化$ELBO$的过程。</p><script type="math/tex; mode=display">L(\theta, \Phi; x^{(p)}, x^{(o)})) = E_{q_\Phi(z|x^{(p)}, x^{(o)})}[\log p_\theta(x^{(p)}|z, x^{(o)})] -KL(q_\Phi(z|x^{(p)}, x^{(o)})||p(z))</script><p>模型的训练方法与<a href="https://aclweb.org/anthology/K/K16/K16-1002.pdf" target="_blank" rel="noopener">《Generating sentences from a continuous space》</a>中的相同。这篇论文深深地影响了后续论文的思路。</p><h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><p>本文使用了两个数据集进行评测。</p><h4 id="MSCOCO数据集"><a href="#MSCOCO数据集" class="headerlink" title="MSCOCO数据集"></a>MSCOCO数据集</h4><p>这个数据集，也曾用于评测句子复述的方法，对120K张图片分别有人工标注的五句描述。构建数据集的时候，本文随机忽略一个描述，然后将剩下的描述两两配对组成数据集，同时限制长度在15个单词以内，以减少模型复杂度。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="5.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><h3 id="Quora数据集"><a href="#Quora数据集" class="headerlink" title="Quora数据集"></a>Quora数据集</h3><p>Quora在2017年发布了一个数据集，包含400K行潜在的重复问题对。借助这个数据集，本文将重复的问题看作是复述的句子进行训练。重复的问题对大约有155K对，使用50K，100K，150K对进行训练，4K对作为测试。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="6.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><h3 id="实验设置"><a href="#实验设置" class="headerlink" title="实验设置"></a>实验设置</h3><p>实验的主要参数设置参考了《Generating sentences from a continuous space》的<a href="https://github.com/kefirski/pytorch_RVAE" target="_blank" rel="noopener">实现代码</a>，未对任何数据集做fine-tuning。本文模型中，作者没有使用预先embedding好的词向量，而是自己进行了训练。embedding dimension设置为300，encoder和decoder的dimension是600，隐变量dimension是1100。Encoder只有一层而Decoder有两层。模型使用SGD进行训练，学习率固定为$5*10^{-5}$，dropout为0.3，batch size为32。</p><h2 id="评测"><a href="#评测" class="headerlink" title="评测"></a>评测</h2><p>本文使用了BLEU，METEOR和TER进行评测。因为这个过程类似翻译任务，所以借用翻译的指标效果会比较好。评测结果显示优于其他模型。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="7.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>评测包含了对实验结果的分析，可以直接阅读原文。</p><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>本文提出了一个深度生成框架，基于VAE，增加了seq2seq模型，用于生成释义。与传统的VAE和无条件句子生成模型不同，这个模型在输入句子上调节VAE的encoder和decoder侧，因此可以为给定句子生成多个释义。在一般复述生成数据集上评估所提出的方法，并且表明它在很大程度上优于现有技术，没有任何超参数调整。本文还评估了对最近发布的问题复述数据集的方法，并展示了其卓越的性能。生成的释义不仅在语义上与原始输入句子相似，而且还能够捕获与原始句子相关的新概念。</p><h1 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h1><p><strong>这篇文章是我阅读的第一篇关于VAE文本生成的论文</strong>，我将在本周使用PyTorch完成这个模型的复现工作。在学习VAE背后深层原理的过程中，我遇到了一些麻烦，只能说是初步理解。然而工程上VAE是一个相比GAN更加自然地适用于NLP的模型，其噪声与重建的对抗思路让我对文本生成有了全新的认识。</p><p><strong>对于VAE结构，我自己还需要做更多的推导、学习，反复阅读笔记最前面的几篇文章，加深理解。如果不能完整理解VAE的构建过程，就无从提起改进。</strong></p><h2 id="文章亮点"><a href="#文章亮点" class="headerlink" title="文章亮点"></a>文章亮点</h2><p>文章提出了一个基于VAE的模型，但这个模型并不是单纯的文本生成，而是使用了condition，那么这个condition对VAE公式要做一些改动，这个思维的推理过程结合了一定理论成分。<br>在句子复述的领域中，这个模型生成的句子在可读性（METEOR，人类评估）上有着一定优势，能不能用于语法改错？虽然语法改错上我猜测基于规则的模型会更加精确全面，但一定程度上自动改善语法问题，应该有一定帮助。</p><h2 id="想法-1"><a href="#想法-1" class="headerlink" title="想法"></a>想法</h2><p>这篇文章使用VAE来做句子复述，那么是否可以将condition的概念拓展到另外的领域？</p><p>在2016年的那篇VAE做NLP的开创性论文中，提及了这样一个问题，在实际的训练过程中，KL散度可能会出现collapse，导致后验等于先验。由于 RNN-based 的 decoder 有着非常强的 modeling power，直接导致即使依赖很少的 history 信息也可以让 reconstruction errors 降得很低，换句话说，decoder 不依赖 encoder 提供的 z 了，VAE-LSTM模型因此退化成RNN-LM语言模型。</p><p>在那篇论文里，使用的缓解办法就是KL cost annealing 和 Word dropout。目前对VAE结构的改进研究也很多，我认为改变VAE结构，进行微调，其效果有可能陷入GAN的一堆改进结构的泥淖里。</p><p>如果将VAE引入其他模型会怎么样呢？哈佛NLP组提出过<a href="https://zhuanlan.zhihu.com/p/40621695" target="_blank" rel="noopener">注意力模型的解决方案</a>。我觉得这方面的思考非常有吸引力。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这篇文章发表在2018年的AAAI上，继承了VAE在自然语言处理上的应用，将其应用于句子复述上，用于生成相似的句子；同时因为RNN可以作为语言模型使用，语句的语法正确性也有一定提升。&lt;br&gt;论文地址：&lt;a href=&quot;https://arxiv.org/pdf/1709.05074.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://arxiv.org/pdf/1709.05074.pdf&lt;/a&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="循环神经网络" scheme="http://ldzhangyx.github.io/tags/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
-    
-      <category term="变分自编码器" scheme="http://ldzhangyx.github.io/tags/%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8/"/>
-    
-      <category term="自动问答" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E5%8A%A8%E9%97%AE%E7%AD%94/"/>
-    
-      <category term="句子复述" scheme="http://ldzhangyx.github.io/tags/%E5%8F%A5%E5%AD%90%E5%A4%8D%E8%BF%B0/"/>
     
   </entry>
   

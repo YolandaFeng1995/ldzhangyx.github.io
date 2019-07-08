@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-126536496-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>SLURM快速上手使用指南 | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="SLURM,HPC">
+    <meta name="description" content="学校的HPC计算资源通过SLURM进行管理。为了方便我进行配置，我决定整理一个快速上手指南。 连接服务器推荐使用MobaXTerm进行连接。MobaXTerm不仅可以进行连接，对目录还做了可视化处理，因此可以对文件进行方便的操作。 1ssh &amp;lt;YourID&amp;gt;@hpc.xxxxx.edu 输入密码后成功连接服务器。 几个常用命令moduleSLURM上一般有一些预先配置好的库可以使用。">
+<meta name="keywords" content="SLURM,HPC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SLURM快速上手使用指南">
+<meta property="og:url" content="http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/index.html">
+<meta property="og:site_name" content="张逸霄的技术小站">
+<meta property="og:description" content="学校的HPC计算资源通过SLURM进行管理。为了方便我进行配置，我决定整理一个快速上手指南。 连接服务器推荐使用MobaXTerm进行连接。MobaXTerm不仅可以进行连接，对目录还做了可视化处理，因此可以对文件进行方便的操作。 1ssh &amp;lt;YourID&amp;gt;@hpc.xxxxx.edu 输入密码后成功连接服务器。 几个常用命令moduleSLURM上一般有一些预先配置好的库可以使用。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-08T11:09:24.579Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SLURM快速上手使用指南">
+<meta name="twitter:description" content="学校的HPC计算资源通过SLURM进行管理。为了方便我进行配置，我决定整理一个快速上手指南。 连接服务器推荐使用MobaXTerm进行连接。MobaXTerm不仅可以进行连接，对目录还做了可视化处理，因此可以对文件进行方便的操作。 1ssh &amp;lt;YourID&amp;gt;@hpc.xxxxx.edu 输入密码后成功连接服务器。 几个常用命令moduleSLURM上一般有一些预先配置好的库可以使用。">
+    
+        <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">张逸霄</h5>
+          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ldzhangyx" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">SLURM快速上手使用指南</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">SLURM快速上手使用指南</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-08T07:53:23.000Z" itemprop="datePublished" class="page-time">
+  2019-07-08
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/开发笔记/">开发笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#连接服务器"><span class="post-toc-number">1.</span> <span class="post-toc-text">连接服务器</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#几个常用命令"><span class="post-toc-number">2.</span> <span class="post-toc-text">几个常用命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#module"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">module</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#bin-bash"><span class="post-toc-number">3.</span> <span class="post-toc-text">!/bin/bash</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-—mail-user"><span class="post-toc-number">4.</span> <span class="post-toc-text">SBATCH —mail-user=</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-—mail-type-ALL"><span class="post-toc-number">5.</span> <span class="post-toc-text">SBATCH —mail-type=ALL</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-—nodes-1"><span class="post-toc-number">6.</span> <span class="post-toc-text">SBATCH —nodes=1</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-—ntasks-per-node-1"><span class="post-toc-number">7.</span> <span class="post-toc-text">SBATCH —ntasks-per-node=1</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-—time-1-01-10-00"><span class="post-toc-number">8.</span> <span class="post-toc-text">SBATCH —time=1-01:10:00</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-—mem-200G"><span class="post-toc-number">9.</span> <span class="post-toc-text">SBATCH —mem=200G</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-—output-Job-j-out"><span class="post-toc-number">10.</span> <span class="post-toc-text">SBATCH —output=Job.%j.out</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-—error-Job-j-err"><span class="post-toc-number">11.</span> <span class="post-toc-text">SBATCH —error=Job.%j.err</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-—account-testuser"><span class="post-toc-number">12.</span> <span class="post-toc-text">SBATCH —account=testuser</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-—partition-debug"><span class="post-toc-number">13.</span> <span class="post-toc-text">SBATCH —partition=debug</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#bin-bash-1"><span class="post-toc-number">14.</span> <span class="post-toc-text">!/bin/bash</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-p-serial"><span class="post-toc-number">15.</span> <span class="post-toc-text">SBATCH -p serial</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-n1"><span class="post-toc-number">16.</span> <span class="post-toc-text">SBATCH -n1</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-N1"><span class="post-toc-number">17.</span> <span class="post-toc-text">SBATCH -N1</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-t-01-00-00"><span class="post-toc-number">18.</span> <span class="post-toc-text">SBATCH -t 01:00:00</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-—mem-4GB"><span class="post-toc-number">19.</span> <span class="post-toc-text">SBATCH —mem=4GB</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-—job-name-jupyter"><span class="post-toc-number">20.</span> <span class="post-toc-text">SBATCH —job-name jupyter</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SBATCH-—output-jupyter-log-J-txt"><span class="post-toc-number">21.</span> <span class="post-toc-text">SBATCH —output jupyter-log-%J.txt</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Paste-ssh-command-in-a-terminal-on-local-host-i-e-laptop"><span class="post-toc-number">21.1.</span> <span class="post-toc-text">  Paste ssh command in a terminal on local host (i.e., laptop)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Open-this-address-in-a-browser-on-local-host-see-token-below"><span class="post-toc-number">21.2.</span> <span class="post-toc-text">  Open this address in a browser on local host; see token below</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#相关资料"><span class="post-toc-number">22.</span> <span class="post-toc-text">相关资料</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-slurm-quickstart"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">SLURM快速上手使用指南</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-08 15:53:23" datetime="2019-07-08T07:53:23.000Z"  itemprop="datePublished">2019-07-08</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/开发笔记/">开发笔记</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>学校的HPC计算资源通过SLURM进行管理。为了方便我进行配置，我决定整理一个快速上手指南。</p>
+<h1 id="连接服务器"><a href="#连接服务器" class="headerlink" title="连接服务器"></a>连接服务器</h1><p>推荐使用MobaXTerm进行连接。MobaXTerm不仅可以进行连接，对目录还做了可视化处理，因此可以对文件进行方便的操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh &lt;YourID&gt;@hpc.xxxxx.edu</span><br></pre></td></tr></table></figure>
+<p>输入密码后成功连接服务器。</p>
+<h1 id="几个常用命令"><a href="#几个常用命令" class="headerlink" title="几个常用命令"></a>几个常用命令</h1><h2 id="module"><a href="#module" class="headerlink" title="module"></a>module</h2><p>SLURM上一般有一些预先配置好的库可以使用。</p>
+<ul>
+<li><figure class="highlight plain"><figcaption><span>list```: 查看目前存在的模块</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- ```module avail```: 查看可以安装的模块</span><br><span class="line">- ```module purge```: 移除当前所有模块</span><br><span class="line">- ```module load XXX```: 加载XXX模块</span><br><span class="line"></span><br><span class="line">模块的加载工作一般直接写在下文提到的脚本里。我自己常用的模块一般就是anaconda/5.2.0和各个版本的cuda，cudnn对环境进行配置。</span><br><span class="line"></span><br><span class="line">## sbatch</span><br><span class="line"></span><br><span class="line">sbatch有两种用法。你可以在sbatch命令后直接显式指定你的job要求，比如索取1个CPU，使用4小时，也可以将配置写在脚本文件里（推荐）。格式直接就是：</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>sbatch xxx.sh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">之后会收到服务器返回的job id。</span><br><span class="line"></span><br><span class="line">## scontrol</span><br><span class="line"></span><br><span class="line">可以使用scontrol查看job情况。</span><br></pre></td></tr></table></figure></p>
+<p>scontrol show <job id=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">会返回这个job的所有状态。</span><br><span class="line"></span><br><span class="line">## sview</span><br><span class="line"></span><br><span class="line">输入这个命令可以打开一个新窗口，监控集群结点上所有任务的情况。</span><br><span class="line"></span><br><span class="line"># 配置重点</span><br><span class="line"></span><br><span class="line">运行和提交一个新任务，只需要做两件事：</span><br><span class="line">1. 准备并上传代码文件</span><br><span class="line">2. 编写并运行sh脚本</span><br><span class="line"></span><br><span class="line">下面分两种情况进行讨论。</span><br><span class="line"></span><br><span class="line">## 运行任务（py文件）</span><br><span class="line"></span><br><span class="line">这种情况意味着你只想得到结果，观察输出。</span><br><span class="line"></span><br><span class="line">1. 上传代码文件。</span><br><span class="line">2. 编写sh脚本。sh脚本的基本格式如下：</span><br></pre></td></tr></table></figure></job></p>
+<h1 id="bin-bash"><a href="#bin-bash" class="headerlink" title="!/bin/bash"></a>!/bin/bash</h1><h1 id="SBATCH-—mail-user"><a href="#SBATCH-—mail-user" class="headerlink" title="SBATCH —mail-user="></a>SBATCH —mail-user=</h1><h1 id="SBATCH-—mail-type-ALL"><a href="#SBATCH-—mail-type-ALL" class="headerlink" title="SBATCH —mail-type=ALL"></a>SBATCH —mail-type=ALL</h1><h1 id="SBATCH-—nodes-1"><a href="#SBATCH-—nodes-1" class="headerlink" title="SBATCH —nodes=1"></a>SBATCH —nodes=1</h1><h1 id="SBATCH-—ntasks-per-node-1"><a href="#SBATCH-—ntasks-per-node-1" class="headerlink" title="SBATCH —ntasks-per-node=1"></a>SBATCH —ntasks-per-node=1</h1><h1 id="SBATCH-—time-1-01-10-00"><a href="#SBATCH-—time-1-01-10-00" class="headerlink" title="SBATCH —time=1-01:10:00"></a>SBATCH —time=1-01:10:00</h1><h1 id="SBATCH-—mem-200G"><a href="#SBATCH-—mem-200G" class="headerlink" title="SBATCH —mem=200G"></a>SBATCH —mem=200G</h1><h1 id="SBATCH-—output-Job-j-out"><a href="#SBATCH-—output-Job-j-out" class="headerlink" title="SBATCH —output=Job.%j.out"></a>SBATCH —output=Job.%j.out</h1><h1 id="SBATCH-—error-Job-j-err"><a href="#SBATCH-—error-Job-j-err" class="headerlink" title="SBATCH —error=Job.%j.err"></a>SBATCH —error=Job.%j.err</h1><h1 id="SBATCH-—account-testuser"><a href="#SBATCH-—account-testuser" class="headerlink" title="SBATCH —account=testuser"></a>SBATCH —account=testuser</h1><h1 id="SBATCH-—partition-debug"><a href="#SBATCH-—partition-debug" class="headerlink" title="SBATCH —partition=debug"></a>SBATCH —partition=debug</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">文件中的配置部分。--mail-type=&lt;type&gt;代表指定状态发生时，发送邮件通知，有效种类为（NONE, BEGIN, END, FAIL, REQUEUE, ALL）；--mail-user=&lt;user&gt;代表发送给对应邮箱。更多的参数我没有仔细研究，读者可以因地制宜进行控制。</span><br></pre></td></tr></table></figure>
+<p>module purge<br>module load anaconda3/5.2.0<br>python &lt; xxx.py<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">加载模块，运行脚本。</span><br><span class="line"></span><br><span class="line">## 运行任务（Jupyter Notebook）</span><br><span class="line"></span><br><span class="line">这种情况比较复杂，因为你需要保持一个状态，进行操作。</span><br><span class="line"></span><br><span class="line">1. 上传代码文件（或者不传，之后新建notebook）。</span><br><span class="line">2. 编写sh脚本。sh脚本的格式如下：</span><br></pre></td></tr></table></figure></p>
+<h1 id="bin-bash-1"><a href="#bin-bash-1" class="headerlink" title="!/bin/bash"></a>!/bin/bash</h1><h1 id="SBATCH-p-serial"><a href="#SBATCH-p-serial" class="headerlink" title="SBATCH -p serial"></a>SBATCH -p serial</h1><h1 id="SBATCH-n1"><a href="#SBATCH-n1" class="headerlink" title="SBATCH -n1"></a>SBATCH -n1</h1><h1 id="SBATCH-N1"><a href="#SBATCH-N1" class="headerlink" title="SBATCH -N1"></a>SBATCH -N1</h1><h1 id="SBATCH-t-01-00-00"><a href="#SBATCH-t-01-00-00" class="headerlink" title="SBATCH -t 01:00:00"></a>SBATCH -t 01:00:00</h1><h1 id="SBATCH-—mem-4GB"><a href="#SBATCH-—mem-4GB" class="headerlink" title="SBATCH —mem=4GB"></a>SBATCH —mem=4GB</h1><h1 id="SBATCH-—job-name-jupyter"><a href="#SBATCH-—job-name-jupyter" class="headerlink" title="SBATCH —job-name jupyter"></a>SBATCH —job-name jupyter</h1><h1 id="SBATCH-—output-jupyter-log-J-txt"><a href="#SBATCH-—output-jupyter-log-J-txt" class="headerlink" title="SBATCH —output jupyter-log-%J.txt"></a>SBATCH —output jupyter-log-%J.txt</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">上面对各个资源进行了配置。n代表任务数量。#SBATCH指令的意义可以查看参考链接5，以及官方文档。</span><br></pre></td></tr></table></figure>
+<p>module purge<br>module load anaconda3/5.2.0<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">对必要的模块进行加载。</span><br></pre></td></tr></table></figure></p>
+<p>XDG_RUNTIME_DIR=””<br>ipnport=$(shuf -i8000-9999 -n1)<br>ipnip=$(hostname -i)</p>
+<p>echo -e “\n”<br>echo    “  Paste ssh command in a terminal on local host (i.e., laptop)”<br>echo    “  ——————————————————————————————“<br>echo -e “  ssh -N -L $ipnport:$ipnip:$ipnport $USER@hpc.shanghai.nyu.edu\n”<br>echo    “  Open this address in a browser on local host; see token below”<br>echo    “  ——————————————————————————————“<br>echo -e “  localhost:$ipnport<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">输出提示信息，方便之后进行通道搭建。</span><br></pre></td></tr></table></figure></p>
+<p>jupyter-notebook —no-browser —port=$ipnport —ip=$ipnip<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">运行jupyter notebook。</span><br><span class="line"></span><br><span class="line">3. 运行之后，新开一个local terminal，输入以下命令，为本地localhost与服务器之间建立一个隧道。</span><br><span class="line"></span><br><span class="line">我们假设第二步的输出提示是：</span><br></pre></td></tr></table></figure></p>
+<h2 id="Paste-ssh-command-in-a-terminal-on-local-host-i-e-laptop"><a href="#Paste-ssh-command-in-a-terminal-on-local-host-i-e-laptop" class="headerlink" title="  Paste ssh command in a terminal on local host (i.e., laptop)"></a>  Paste ssh command in a terminal on local host (i.e., laptop)</h2><p>  ssh -N -L 8896:xx.xxx.xx.xx:8896 &lt;yourID&gt;@hpc.xxx.edu</p>
+<h2 id="Open-this-address-in-a-browser-on-local-host-see-token-below"><a href="#Open-this-address-in-a-browser-on-local-host-see-token-below" class="headerlink" title="  Open this address in a browser on local host; see token below"></a>  Open this address in a browser on local host; see token below</h2><p>  localhost:8896<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">那么直接运行指令，建立隧道：</span><br></pre></td></tr></table></figure></p>
+<p>ssh -N -L 8896:xx.xxx.xx.xx:8896 &lt;yourID&gt;@hpc.xxx.edu<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">4. 在本地浏览器上进入下面网址，输入token，开始工作。</span><br></pre></td></tr></table></figure></p>
+<p>localhost:8896<br>```</p>
+<h1 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h1><ol>
+<li><a href="https://github.com/PDC-support/jupyter-notebook/blob/master/0-setup.ipynb" target="_blank" rel="noopener">https://github.com/PDC-support/jupyter-notebook/blob/master/0-setup.ipynb</a></li>
+<li><a href="https://www.youtube.com/watch?v=U42qlYkzP9k&amp;feature=player_embedded" target="_blank" rel="noopener">https://www.youtube.com/watch?v=U42qlYkzP9k&amp;feature=player_embedded</a></li>
+<li><a href="https://github.com/michael-qi/nyush_hpc" target="_blank" rel="noopener">https://github.com/michael-qi/nyush_hpc</a></li>
+<li><a href="https://wikis.nyu.edu/pages/viewpage.action?spaceKey=NYUShanghaiITS&amp;title=NYU+Shanghai+HPC+cluster+Environment" target="_blank" rel="noopener">https://wikis.nyu.edu/pages/viewpage.action?spaceKey=NYUShanghaiITS&amp;title=NYU+Shanghai+HPC+cluster+Environment</a></li>
+<li><a href="http://hpc.pku.edu.cn/guide_sbatch.html" target="_blank" rel="noopener">http://hpc.pku.edu.cn/guide_sbatch.html</a></li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-07-08T11:09:24.579Z" itemprop="dateUpdated">2019-07-08 19:09:24</time>
+</span><br>
+
+
+        
+        原文地址：<a href="/2019/07/08/slurm-quickstart/" target="_blank" rel="external">http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://ldzhangyx.github.io">
+            <img src="/img/avatar.jpg" alt="张逸霄">
+            张逸霄
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HPC/">HPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SLURM/">SLURM</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/&title=《SLURM快速上手使用指南》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/&title=《SLURM快速上手使用指南》 — 张逸霄的技术小站&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SLURM快速上手使用指南》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/07/03/on-lstm/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">《Ordered Neurons： Integrating Tree Structures into Recurrent Neural Networks》阅读笔记</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "vjXNi1yCMdQOFUwuQ8kmMcBC-gzGzoHsz",
+            appKey: "FntMqfzRaFO2Jm4fjUC9Mz4S",
+            avatar: "mm",
+            placeholder: "随便写点什么吧",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        非常感谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>张逸霄 &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/&title=《SLURM快速上手使用指南》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/&title=《SLURM快速上手使用指南》 — 张逸霄的技术小站&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SLURM快速上手使用指南》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3aQW7DMAxE0dz/0i7QbRPrD6kWNfW9CtLG1vOCkDh8vfB1fV+fPt9/8/P79K/bLhkyZDyWcd1efOmf7smfe/+sBVWGDBkHMPpFlhTrXXeWIUOGDFL4yIL40mXIkCFjb8El28r0buQ1yZAhQwY5xNYabaQNR+657SwuQ4aMBzL6wcDvff7TfEOGDBn/knGVLg6uldp4PTJkyBjN4HEjX2gtmCRbycUKZciQMZSRRgL9wJI01+LiLkOGjMMYaSlMQ00+KBYEAzJkyDiAsXdZvBynhfXjb2XIkDGaUStz6fjXrlBzwZYhQ8YBjPQW6eM7mz8UNsiQIeNgBjnE8sd3GnCLp8uQIWM0oxZYdsbI0pGOOJWVIUPGIEbq4wW0tmXkr/VN11CGDBlDGXHzvdTo57EljyV6GYIMGTKex+DHQj6W2imvQRggQ4aMAxid8a80kqw15tCzZMiQcQCDVy1erPuDZcGvZMiQMZqRttJI8eX/0zkSL9ptMmTIGMcgDbJOWUzHy4rHbBkyZBzA4KMPtfCy/wrirqEMGTIGMUgLrNbc70SbnQBDhgwZkxhXeHVGJcgT0+DzTb4hQ4aMcYzaXiudc0gXwcfCZMiQcQ4jbYrxrV4tPCg25mTIkHEAo3+grW0KO4fYRYQpQ4aMgxl8GCLdh6aDHa2CK0OGjKGMWnONbw23xZYyZMgYyuDN+nRQg9+THJ5lyJBxJqOzaeOFkoej6dCYDBkyRjO+AGGSk2Ht4pwrAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Yixiao Zhang's Website';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Yixiao Zhang's Website';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
