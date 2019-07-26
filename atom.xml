@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>张逸霄的技术小站</title>
   
-  <subtitle>当然也可能有一些非技术内容</subtitle>
+  <subtitle>欢迎RSS订阅我的个人主页！</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2019-07-21T16:15:10.050Z</updated>
+  <updated>2019-07-26T08:11:01.948Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我们来聊聊EsAC和Essen Folk Song Database</title>
+    <link href="http://ldzhangyx.github.io/2019/07/26/esac/"/>
+    <id>http://ldzhangyx.github.io/2019/07/26/esac/</id>
+    <published>2019-07-26T07:01:14.000Z</published>
+    <updated>2019-07-26T08:11:01.948Z</updated>
+    
+    <content type="html"><![CDATA[<p>古董级民歌数据集，对数据格式做了一些整理，在本文进行解释和说明。</p><a id="more"></a><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><h2 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h2><p>EsAC全称是Essen Associative Code，可能是现存最长的音乐编码系统。EsAC的概念可以追溯到200年前，于1982年正式形成。因为其年代过于久远，现在很多音乐文档，尤其是欧洲音乐文档都在使用这种编码格式。</p><p>1980年-1994年，项目在Helmut Schaffrath在Essen领导推动这个项目。1994年Schaffrach意外去世后，他生前所在的实验室继续着他的工作。</p><h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>EsAC项目搜集了世界各地（尤其是欧洲）的民歌和历史上的音乐，编码后用于方便地进行搜索、分析和表示研究。</p><h1 id="格式说明"><a href="#格式说明" class="headerlink" title="格式说明"></a>格式说明</h1><p>EsAC被编码为Database record，在esac-data.org能下载到其txt版本。在这里，一条record对应一首曲调。</p><p>一条常见的记录如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ALTDEU</span><br><span class="line">CUT[Landsknecht als Schlemmer]</span><br><span class="line">REG[Europa, Mitteleuropa, Deutschland]</span><br><span class="line">KEY[A0359  08  G 4/4]</span><br><span class="line">MEL[1_  3b_3b_4_4_  5_5_5_7b_  ^_656_6_  5__0_</span><br><span class="line">    3b_  2_3b_2_2_  1__.+1_  +1_7b_6_6_  5__0_</span><br><span class="line">    5_  +1__+1__  7b__5__  7b__6b__  5__0_</span><br><span class="line">    7b_  5_5_5_3b_  5_5_5_1_  4_3b_2_2_  1__0_</span><br><span class="line">    1_  3b_3b_4_4_  5_5_5_7b_  ^_656_6_  5__0_</span><br><span class="line">    3b_  2_3b_2_2_  1__.+1_  +1_7b_6_6_  5__0_</span><br><span class="line">    5_  +1__+1__  7b__5__  7b__6b__  5__0_</span><br><span class="line">    7b_  5_5_5_3b_  5_5_5_1_  4_3b_2_2_  1__0__</span><br><span class="line">    +1__+1_+1_  7b__6b__  5_5_5__  4_4_4__  3b__3b__</span><br><span class="line">    7b_7b_7b__  5__5_5_  4_4_4__</span><br><span class="line">    3b_3b_3b_3b_  4_3b_2_2_  1__3b__</span><br><span class="line">    4_.41_2_  3b_.45_.6b  7b__.6b_  5_4_3b_2_  1__. //] &gt;&gt;</span><br><span class="line">FCT[Romanze, Ballade, Lied]</span><br><span class="line">CMT[Forster II. 1540 No. 17.]</span><br></pre></td></tr></table></figure><p>其中音乐旋律信息为单音旋律，由简谱格式构成。是的，当时他们采用了简谱格式。旋律包含在MEL字段里。</p><ul><li>CUT：标题</li><li>REG：区域</li><li>TRD：曲调来源，如书籍、录音带</li><li>KEY：签名行</li><li>MEL：旋律线</li><li>FKT：歌曲功能，如舞曲</li><li>BEM：标记</li><li>TXT：歌词</li></ul><h2 id="KEY"><a href="#KEY" class="headerlink" title="KEY"></a>KEY</h2><p>签名行包含了正确解释旋律所需要的信息：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">KEY[A0359  08  G 4/4]</span><br></pre></td></tr></table></figure><p>这一行包含了：签名、最小节奏单位、调性、拍子，四个信息。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><h2 id="EsAC-syntax"><a href="#EsAC-syntax" class="headerlink" title="EsAC syntax"></a>EsAC syntax</h2><p>EsAC的语法基本与简谱一致，但在细微之处做了很多的补充。<br>MEL中的数字代表首调音高，而2、3等数字代表相对音高。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>节奏以下划线和点作为标记。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="3.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>我自己在看数据的时候遇到了”^”的标记，我推测应该是波音的意思（上波音/下波音）。空格代表小节线，而换行代表断句。</p><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol><li><a href="http://wiki.ccarh.org/wiki/EsAC" target="_blank" rel="noopener">http://wiki.ccarh.org/wiki/EsAC</a></li><li><a href="http://www.cs.uu.nl/events/dech1999/dahlig/tsld001.htm" target="_blank" rel="noopener">http://www.cs.uu.nl/events/dech1999/dahlig/tsld001.htm</a></li><li><a href="http://www.esac-data.org/" target="_blank" rel="noopener">http://www.esac-data.org/</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;古董级民歌数据集，对数据格式做了一些整理，在本文进行解释和说明。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
+    
+      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
+    
+      <category term="dataset" scheme="http://ldzhangyx.github.io/tags/dataset/"/>
+    
+      <category term="music information retrival" scheme="http://ldzhangyx.github.io/tags/music-information-retrival/"/>
+    
+      <category term="MIR" scheme="http://ldzhangyx.github.io/tags/MIR/"/>
+    
+      <category term="音乐结构分析" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
   
   <entry>
     <title>《Graph Neural Network for Music Score Data and Modeling Expressive Piano Performance》论文笔记</title>
@@ -148,9 +178,9 @@
     <link href="http://ldzhangyx.github.io/2019/07/03/on-lstm/"/>
     <id>http://ldzhangyx.github.io/2019/07/03/on-lstm/</id>
     <published>2019-07-03T06:38:11.000Z</published>
-    <updated>2019-07-04T06:20:44.809Z</updated>
+    <updated>2019-07-23T02:34:54.422Z</updated>
     
-    <content type="html"><![CDATA[<p>Ordered Neurons是ICLR 2019的The best paper之一。知乎上对这篇论文也有诸多讨论。本文主要探讨ON-LSTM在结构上的构建和分析，为我之后要做的音乐结构分析做一些准备。</p><h1 id="ON-LSTM"><a href="#ON-LSTM" class="headerlink" title="ON-LSTM"></a>ON-LSTM</h1><p>用一句话来概括这篇论文的核心思想，那就是：<strong>重新设计了LSTM中，历史信息的融合更新策略，使其能够显式地分层融合历史信息和当前信息。为了分层地融合信息，本文也设计了一个方法估计信息的层级，之后也利用层级，推导出了序列信息的树状结构</strong>。</p><h2 id="普通的LSTM"><a href="#普通的LSTM" class="headerlink" title="普通的LSTM"></a>普通的LSTM</h2><p>首先回忆一个普通的LSTM：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="LSTM Cell结构" title="">                </div>                <div class="image-caption">LSTM Cell结构</div>            </figure><p>从结构图从左往右依次有三个sigmoid模块：<br>第一个sigmoid是遗忘门，输出一个值，决定$c_{t-1}$应该被遗忘的比例：</p><script type="math/tex; mode=display">f_{t}  = \sigma( W_{f} x_{t} + U_{f} h_{t - 1} + b_{f}）</script><p>第二个sigmoid是输入门，输出一个值，决定输入$x_t$应该多大程度影响到$h_{t-1}$：</p><script type="math/tex; mode=display">o_{t}  = \sigma( W_{o} x_{t} + U_{o} h_{t - 1} + b_{o})</script><script type="math/tex; mode=display">\hat{c}_t  = \tanh ( W_{c} x_{t} + U_{c} h_{t - 1} + b_{c})</script><p>接下来是融合的过程。遗忘门决定了$c_{t-1}$的遗忘程度，输入门处理了输入，用点加的方式将两个向量进行融合：</p><script type="math/tex; mode=display">c_{t}  = f_{t} \circ c_{t - 1} + i_{t} \circ \hat{c}_t</script><p>第三个sigmoid是输出门，将$h_{t-1}$的结果与更新后的$c_t$进行综合考虑，进行输出。这里得到的$h_t$同时也就直接是这个时刻的output，也就是$y_t$：</p><script type="math/tex; mode=display">o_{t}  = \sigma ( W_{o} x_{t} + U_{o} h_{t - 1} + b_{o})</script><script type="math/tex; mode=display">h_{t}  = o_{t} \circ \tanh ( c_{t} )</script><h2 id="ON-LSTM-1"><a href="#ON-LSTM-1" class="headerlink" title="ON-LSTM"></a>ON-LSTM</h2><p>我们注意到，在融合的过程中（也就是点加的过程中），过去的信息、输入的信息、融合的信息，这些向量都是无序排列的。ON-LSTM的总体思想，是将$c_t$，也就是LSTM Cell的状态，赋予了三个层次。向量中，层次比较低的位置，更新比较频繁；层次比较高的位置，更新比较不频繁，这样可以更多地保留一些高层、远程的信息。</p><p>ON-LSTM具体是怎么做的呢？</p><p>假设我们有两个函数，可以在更新$c_t$前，预测出历史信息的层级$d_f$和当前输入的层级$d_i$：</p><script type="math/tex; mode=display">d_f = F_1(x_t, h_{t-1})</script><script type="math/tex; mode=display">f_i = F_2(x_t, h_{t-1})</script><p>新建一个空白的$c_t$，大致分为三个层级进行填充，三个层级的两个分界线，由$d_f$和$d_i$决定。现在分为两个情况：</p><ol><li>当前输入$x_t$的层级高于历史记录$h_{t-1}$的层级，那么$c_t$中，层次高于$d_i$的部分，保持$c_{t-1}$不变，层次低于$d_f$的部分，被当前输入的$\hat{c}_t$直接覆盖，而两个分界线中间的部分，使用点加的方式正常融合：</li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><ol><li>当前输入$x_t$的层级低于历史记录$h_{t-1}$的层级，那么高层仍然保留，底层仍然用$\hat{c}_t$直接覆盖，而分界线中层的位置直接置0：</li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="3.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>这就是ON—LSTM做出的重要更改。高层信息就可能保留相当长的距离（因为高层直接复制历史信息，导致历史信息可能不断被复制而不改变），而低层信息在每一步输入时都可能被更新（因为低层直接复制输入，而输入是不断改变的），所以就通过信息分级来嵌入了层级结构。更通俗地说就是分组更新，更高的组信息传得更远（跨度更大），更低的组跨度更小，这些不同的跨度就形成了输入序列的层级结构。</p><h2 id="无监督树结构的生成"><a href="#无监督树结构的生成" class="headerlink" title="无监督树结构的生成"></a>无监督树结构的生成</h2><p>给定一个预训练好的ON-LSTM模型，输入一个序列${x_t}$，可以得到每一个LSTM Cell在融合时计算出来的历史信息结构的层级序列${d_f}$。找到层级最大值的下标，以它为分界线，将左右两个子序列分开，然后递归地重复这个步骤。</p><p>具体的论文细节在这里不详细描述了。</p><h1 id="见解和感想"><a href="#见解和感想" class="headerlink" title="见解和感想"></a>见解和感想</h1><p>树状结构在各个topic都是有用的。将树状结构引入神经网络语言模型可能会带来一些这样的好处：</p><ol><li>可以得到语言的分层表示；</li><li>可以建模语言的组分效应（compositional effects）；</li><li>可以提供反向求导的捷径，帮助解决长期依赖的问题；</li><li>一个更好的归纳偏置，从而降低训练数据的要求，提高泛化能力。</li></ol><p>在音乐领域，得到一个音乐片段的结构也是非常有用的。</p><p>知乎上面相关的讨论，我比较感兴趣的是一个现象。这样训练的Language Model同时对语法和语义进行了建模，所以对于语义不行而完全符合语法的句子，LSTM的得分也会较低。那么这样得出来的无监督树结构到底是语法的树表达，还是语义的树表达呢？</p><p>这里有一个猜测，ON-LSTM用于树结构生成时，使用了三层ON-LSTM中第二层的历史层级序列，可能暗含一个现象：模型的第一层LSTM偏句法，第二层偏语义。这个问题被ELMo (Peters et al., 2018)和Liu et al. (2019)从不同的角度得出过一些可以参考的见解。</p><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol><li>苏剑林. (2019, May 28). 《ON-LSTM：用有序神经元表达层次结构 》[Blog post]. Retrieved from <a href="https://kexue.fm/archives/6621" target="_blank" rel="noopener">https://kexue.fm/archives/6621</a></li><li>知乎. 如何评价ICLR 2019 best paper: Ordered Neurons? <a href="https://www.zhihu.com/question/323190069" target="_blank" rel="noopener">https://www.zhihu.com/question/323190069</a></li><li><a href="https://arxiv.org/abs/1810.09536" target="_blank" rel="noopener">https://arxiv.org/abs/1810.09536</a></li></ol>]]></content>
+    <content type="html"><![CDATA[<p>Ordered Neurons是ICLR 2019的The best paper之一。知乎上对这篇论文也有诸多讨论。本文主要探讨ON-LSTM在结构上的构建和分析，为我之后要做的音乐结构分析做一些准备。</p><h1 id="ON-LSTM"><a href="#ON-LSTM" class="headerlink" title="ON-LSTM"></a>ON-LSTM</h1><p>用一句话来概括这篇论文的核心思想，那就是：<strong>重新设计了LSTM中，历史信息的融合更新策略，使其能够显式地分层融合历史信息和当前信息。为了分层地融合信息，本文也设计了一个方法估计信息的层级，之后也利用层级，推导出了序列信息的树状结构</strong>。</p><h2 id="普通的LSTM"><a href="#普通的LSTM" class="headerlink" title="普通的LSTM"></a>普通的LSTM</h2><p>首先回忆一个普通的LSTM：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="LSTM Cell结构" title="">                </div>                <div class="image-caption">LSTM Cell结构</div>            </figure><p>从结构图从左往右依次有三个sigmoid模块：<br>第一个sigmoid是遗忘门，输出一个值，决定$c_{t-1}$应该被遗忘的比例：</p><script type="math/tex; mode=display">f_{t}  = \sigma( W_{f} x_{t} + U_{f} h_{t - 1} + b_{f}）</script><p>第二个sigmoid是输入门，输出一个值，决定输入$x_t$应该多大程度影响到$h_{t-1}$：</p><script type="math/tex; mode=display">o_{t}  = \sigma( W_{o} x_{t} + U_{o} h_{t - 1} + b_{o})</script><script type="math/tex; mode=display">\hat{c}_t  = \tanh ( W_{c} x_{t} + U_{c} h_{t - 1} + b_{c})</script><p>接下来是融合的过程。遗忘门决定了$c_{t-1}$的遗忘程度，输入门处理了输入，用点加的方式将两个向量进行融合：</p><script type="math/tex; mode=display">c_{t}  = f_{t} \circ c_{t - 1} + i_{t} \circ \hat{c}_t</script><p>第三个sigmoid是输出门，将$h_{t-1}$的结果与更新后的$c_t$进行综合考虑，进行输出。这里得到的$h_t$同时也就直接是这个时刻的output，也就是$y_t$：</p><script type="math/tex; mode=display">o_{t}  = \sigma ( W_{o} x_{t} + U_{o} h_{t - 1} + b_{o})</script><script type="math/tex; mode=display">h_{t}  = o_{t} \circ \tanh ( c_{t} )</script><h2 id="ON-LSTM-1"><a href="#ON-LSTM-1" class="headerlink" title="ON-LSTM"></a>ON-LSTM</h2><p>我们注意到，在融合的过程中（也就是点加的过程中），过去的信息、输入的信息、融合的信息，这些向量都是无序排列的。ON-LSTM的总体思想，是将$c_t$，也就是LSTM Cell的状态，赋予了三个层次。向量中，层次比较低的位置，更新比较频繁；层次比较高的位置，更新比较不频繁，这样可以更多地保留一些高层、远程的信息。</p><p>ON-LSTM具体是怎么做的呢？</p><p>假设我们有两个函数，可以在更新$c_t$前，预测出历史信息的层级$d_f$和当前输入的层级$d_i$：</p><script type="math/tex; mode=display">d_f = F_1(x_t, h_{t-1})</script><script type="math/tex; mode=display">f_i = F_2(x_t, h_{t-1})</script><p>新建一个空白的$c_t$，大致分为三个层级进行填充，三个层级的两个分界线，由$d_f$和$d_i$决定。现在分为两个情况：</p><ol><li>当前输入$x_t$的层级高于历史记录$h_{t-1}$的层级，那么$c_t$中，层次高于$d_i$的部分，保持$c_{t-1}$不变，层次低于$d_f$的部分，被当前输入的$\hat{c}_t$直接覆盖，而两个分界线中间的部分，使用点加的方式正常融合：</li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><ol><li>当前输入$x_t$的层级低于历史记录$h_{t-1}$的层级，那么高层仍然保留，底层仍然用$\hat{c}_t$直接覆盖，而分界线中层的位置直接置0：</li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="3.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>这就是ON—LSTM做出的重要更改。高层信息就可能保留相当长的距离（因为高层直接复制历史信息，导致历史信息可能不断被复制而不改变），而低层信息在每一步输入时都可能被更新（因为低层直接复制输入，而输入是不断改变的），所以就通过信息分级来嵌入了层级结构。更通俗地说就是分组更新，更高的组信息传得更远（跨度更大），更低的组跨度更小，这些不同的跨度就形成了输入序列的层级结构。</p><p>这里隐含了一个规律。因为我们总是遗忘$d_f$以下的所有内容，记住$d_i$以上的所有内容，所以，每当我们想更新或者擦除高层次的内容时，我们必定擦除或更新了更低层次的内容。这个结论是非常容易推理出来的。</p><h2 id="无监督树结构的生成"><a href="#无监督树结构的生成" class="headerlink" title="无监督树结构的生成"></a>无监督树结构的生成</h2><p>给定一个预训练好的ON-LSTM模型，输入一个序列${x_t}$，可以得到每一个LSTM Cell在融合时计算出来的历史信息结构的层级序列${d_f}$。找到层级最大值的下标，以它为分界线，将左右两个子序列分开，然后递归地重复这个步骤。</p><p>具体的论文细节在这里不详细描述了。</p><h1 id="见解和感想"><a href="#见解和感想" class="headerlink" title="见解和感想"></a>见解和感想</h1><p>树状结构在各个topic都是有用的。将树状结构引入神经网络语言模型可能会带来一些这样的好处：</p><ol><li>可以得到语言的分层表示；</li><li>可以建模语言的组分效应（compositional effects）；</li><li>可以提供反向求导的捷径，帮助解决长期依赖的问题；</li><li>一个更好的归纳偏置，从而降低训练数据的要求，提高泛化能力。</li></ol><p>在音乐领域，得到一个音乐片段的结构也是非常有用的。</p><p>知乎上面相关的讨论，我比较感兴趣的是一个现象。这样训练的Language Model同时对语法和语义进行了建模，所以对于语义不行而完全符合语法的句子，LSTM的得分也会较低。那么这样得出来的无监督树结构到底是语法的树表达，还是语义的树表达呢？</p><p>这里有一个猜测，ON-LSTM用于树结构生成时，使用了三层ON-LSTM中第二层的历史层级序列，可能暗含一个现象：模型的第一层LSTM偏句法，第二层偏语义。这个问题被ELMo (Peters et al., 2018)和Liu et al. (2019)从不同的角度得出过一些可以参考的见解。</p><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol><li>苏剑林. (2019, May 28). 《ON-LSTM：用有序神经元表达层次结构 》[Blog post]. Retrieved from <a href="https://kexue.fm/archives/6621" target="_blank" rel="noopener">https://kexue.fm/archives/6621</a></li><li>知乎. 如何评价ICLR 2019 best paper: Ordered Neurons? <a href="https://www.zhihu.com/question/323190069" target="_blank" rel="noopener">https://www.zhihu.com/question/323190069</a></li><li><a href="https://arxiv.org/abs/1810.09536" target="_blank" rel="noopener">https://arxiv.org/abs/1810.09536</a></li></ol>]]></content>
     
     <summary type="html">
     
@@ -458,9 +488,9 @@
     </summary>
     
     
-      <category term="VAE" scheme="http://ldzhangyx.github.io/tags/VAE/"/>
-    
       <category term="变分自编码器" scheme="http://ldzhangyx.github.io/tags/%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8/"/>
+    
+      <category term="VAE" scheme="http://ldzhangyx.github.io/tags/VAE/"/>
     
       <category term="GAN" scheme="http://ldzhangyx.github.io/tags/GAN/"/>
     
@@ -482,26 +512,6 @@
     </summary>
     
       <category term="PyTorch" scheme="http://ldzhangyx.github.io/categories/PyTorch/"/>
-    
-    
-      <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PyTorch模型加载与保存的最佳实践</title>
-    <link href="http://ldzhangyx.github.io/2018/11/19/pytorch-1119/"/>
-    <id>http://ldzhangyx.github.io/2018/11/19/pytorch-1119/</id>
-    <published>2018-11-18T16:57:03.000Z</published>
-    <updated>2018-11-19T05:38:12.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>一般来说PyTorch有两种保存和读取模型参数的方法。但这篇文章我记录了一种最佳实践，可以在加载模型时避免掉一些问题。</p><a id="more"></a><h1 id="传统方案："><a href="#传统方案：" class="headerlink" title="传统方案："></a>传统方案：</h1><p>第一种方案是保存整个模型：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.save(model_object, <span class="string">'model.pth'</span>)</span><br></pre></td></tr></table></figure><p>第二种方法是保存模型网络参数：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.save(model_object.state_dict(), <span class="string">'params.pth'</span>)</span><br></pre></td></tr></table></figure><p>加载的时候分别这样加载：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = torch.load(<span class="string">'model.pth'</span>)</span><br></pre></td></tr></table></figure><p>以及：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model_object.load_state_dict(torch.load(<span class="string">'params.pth'</span>))</span><br></pre></td></tr></table></figure><h1 id="改进的方案"><a href="#改进的方案" class="headerlink" title="改进的方案"></a>改进的方案</h1><p>注意到这个方案是因为模型在加载之后，loss会飙升之后再慢慢降回来。查阅有关分析之后，判定是优化器optimizer的问题。</p><p>如果模型的保存是<strong>为了恢复训练状态</strong>，那么可以考虑同时保存优化器optimizer的参数：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">state = &#123;</span><br><span class="line">    <span class="string">'epoch'</span>: epoch,</span><br><span class="line">    <span class="string">'net'</span>: model.state_dict(),</span><br><span class="line">    <span class="string">'optimizer'</span>: optimizer.state_dict(),</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">torch.save(state, filepath)</span><br></pre></td></tr></table></figure><p>然后这样加载：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">checkpoint = torch.load(model_path)</span><br><span class="line">model.load_state_dict(checkpoint[<span class="string">'net'</span>])</span><br><span class="line">optimizer.load_state_dict(checkpoint[<span class="string">'optimizer'</span>])</span><br><span class="line">start_epoch =  checkpoint[<span class="string">'epoch'</span>] + <span class="number">1</span></span><br></pre></td></tr></table></figure><p>如果模型的保存是为了<strong>方便以后进行validation和test</strong>，可以在加载完之后制定model.eval()固定dropout和BN层。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;一般来说PyTorch有两种保存和读取模型参数的方法。但这篇文章我记录了一种最佳实践，可以在加载模型时避免掉一些问题。&lt;/p&gt;
-    
-    </summary>
     
     
       <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
