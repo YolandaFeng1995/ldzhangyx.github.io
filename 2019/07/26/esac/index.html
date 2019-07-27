@@ -43,7 +43,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/07/26/esac/1.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/07/26/esac/2.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/07/26/esac/3.png">
-<meta property="og:updated_time" content="2019-07-26T08:53:53.048Z">
+<meta property="og:updated_time" content="2019-07-27T08:39:22.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我们来聊聊EsAC和Essen Folk Song Database">
 <meta name="twitter:description" content="古董级民歌数据集，对数据格式做了一些整理，在本文进行解释和说明。">
@@ -249,7 +249,26 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<p>我自己在看数据的时候遇到了”^”的标记，这个意味着跨小节延音。两个空格代表小节线，而换行代表断句。</p>
+<ul>
+<li>我自己在看数据的时候遇到了”^”的标记，这个意味着跨小节延音。</li>
+<li>两个空格代表小节线</li>
+<li>换行代表断句。</li>
+<li>注意，这里的附点一般出现在延音符后，会将延音后总时长*150%。</li>
+<li>注意，延音符连着出现，时长成倍增长。</li>
+</ul>
+<p>i.e. <code>5__</code>的时长是4倍，<code>5__.</code>的时长是6倍，<code>5___</code>的时长是8倍。</p>
+<ul>
+<li>标注中会出现括号，意味着出现了三连音等连音。</li>
+</ul>
+<p>i.e. <code>(-3-71)  3_2_(-5-72)  4_3_</code></p>
+<p>即使经过这样的处理之后，还是会有这等肮脏的例子，可以说是非常恶心了……</p>
+<p>i.e. <code>33  2__(^_1#_2_)(2_3_4_)  5__(^_4#_5_)(5_3_1_)</code></p>
+<p>甚至还有打拍子……：</p>
+<p>i.e. <code>xxxx  xxxx  1_2-5  1_ //] &gt;&gt;</code></p>
+<p>甚至还有神奇的调子（居然还是德国标注法，将B调标为H调是什么鬼辣！）：</p>
+<p>i.e. <code>KEY[U0002  16  H 6/8]</code></p>
+<p>甚至还有不在旋律结束处加//标记的：</p>
+<p>i.e. <code>1_+2+31_+3+51_+5_+5__  1_+5+61_+6++11_++1_++1__] &gt;&gt;</code></p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
 <li><a href="http://wiki.ccarh.org/wiki/EsAC" target="_blank" rel="noopener">http://wiki.ccarh.org/wiki/EsAC</a></li>
 <li><a href="http://www.cs.uu.nl/events/dech1999/dahlig/tsld001.htm" target="_blank" rel="noopener">http://www.cs.uu.nl/events/dech1999/dahlig/tsld001.htm</a></li>
@@ -263,7 +282,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-07-26T08:53:53.048Z" itemprop="dateUpdated">2019-07-26 16:53:53</time>
+    最后更新时间：<time datetime="2019-07-27T08:39:22.296Z" itemprop="dateUpdated">2019-07-27 16:39:22</time>
 </span><br>
 
 
