@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2019-07-27T08:39:22.296Z</updated>
+  <updated>2019-07-30T07:49:14.937Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,118 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>简洁明快的命令行解析器argparse简明指南</title>
+    <link href="http://ldzhangyx.github.io/2019/07/30/argparse/"/>
+    <id>http://ldzhangyx.github.io/2019/07/30/argparse/</id>
+    <published>2019-07-30T04:22:23.000Z</published>
+    <updated>2019-07-30T07:49:14.937Z</updated>
+    
+    <content type="html"><![CDATA[<p>为了避免Python代码在需要设置的情况下进行hard code，我们有很多种方式将参数指定在一个地方，便于集中、解耦地修改参数。可以使用的解决办法很多，如设立config类，全局变量指明，以及使用argparse。</p><p>本文是argparse的简明指南，指明了argparse模块的快速上手方法。</p><h1 id="指南"><a href="#指南" class="headerlink" title="指南"></a>指南</h1><h2 id="argparse应该放在文件的什么地方？"><a href="#argparse应该放在文件的什么地方？" class="headerlink" title="argparse应该放在文件的什么地方？"></a>argparse应该放在文件的什么地方？</h2><p>argparse可以放在main.py文件的最上方，仅在import语句块下。</p><h2 id="argparse分为几个步骤？"><a href="#argparse分为几个步骤？" class="headerlink" title="argparse分为几个步骤？"></a>argparse分为几个步骤？</h2><p>四个步骤。</p><p>第一步，import argparse。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import argparse</span><br></pre></td></tr></table></figure><p>第二步，定义parser。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parser = argparse.ArgumentParser(description=&apos;Process some integers.&apos;)</span><br></pre></td></tr></table></figure><p>第三步，增加参数。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">parser.add_argument(&apos;integers&apos;, metavar=&apos;N&apos;, type=int, nargs=&apos;+&apos;,</span><br><span class="line">                    help=&apos;an integer for the accumulator&apos;)</span><br><span class="line">parser.add_argument(&apos;--sum&apos;, dest=&apos;accumulate&apos;, action=&apos;store_const&apos;,</span><br><span class="line">                    const=sum, default=max,</span><br><span class="line">                    help=&apos;sum the integers (default: find the max)&apos;)</span><br></pre></td></tr></table></figure><p>第四步，解析参数并实例化。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args = parser.parse_args()</span><br></pre></td></tr></table></figure><p>在调用main.py时，在后面增添命令行参数，或以default值的方式指定参数。后面的参数值可以以args变量的各个attribute直接使用，如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args.sum</span><br></pre></td></tr></table></figure><h2 id="add-augment接收几种参数？"><a href="#add-augment接收几种参数？" class="headerlink" title="add_augment接收几种参数？"></a>add_augment接收几种参数？</h2><blockquote><p>name or flags - 一个命名或者一个选项字符串的列表，例如 foo 或 -f, —foo。<br>action - 当参数在命令行中出现时使用的动作基本类型。<br>nargs - 命令行参数应当消耗的数目。<br>const - 被一些 action 和 nargs 选择所需求的常数。<br>default - 当参数未在命令行中出现时使用的值。<br>type - 命令行参数应当被转换成的类型。<br>choices - 可用的参数的容器。<br>required - 此命令行选项是否可省略 （仅选项可用）。<br>help - 一个此选项作用的简单描述。<br>metavar - 在使用方法消息中使用的参数值示例。<br>dest - 被添加到 parse_args() 所返回对象上的属性名。</p></blockquote><ul><li><p>name or flags<br>这几乎是必须的。<code>add_augment</code>后需要为参数命名。一般来说，使用<code>--name</code>字段即可。这样调用时写<code>--name=xxx</code>进行参数指定。</p></li><li><p>action<br>默认action是<code>store</code>，代表存储参数的值。</p></li><li><p>nargs<br>关联剁个参数到一个arguments里。<code>N</code>代表之后N个参数会形成一个列表。<code>+</code>代表片段内所有参数被聚集到列表（直到下一个参数）。</p></li><li><p>default<br>指定默认值。最常用。</p></li><li><p>type<br>指定参数类型，指定为<code>str</code>或<code>int</code>最常用。</p></li><li><p>help<br>填写参数的提示。</p></li></ul><p>参数实例如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">parser.add_argument(&apos;--model&apos;, type=str, default=&apos;LSTM&apos;,</span><br><span class="line">                    help=&apos;type of recurrent net (LSTM, QRNN, GRU)&apos;)</span><br><span class="line">parser.add_argument(&apos;--emsize&apos;, type=int, default=100,</span><br><span class="line">                    help=&apos;size of word embeddings&apos;)</span><br><span class="line">parser.add_argument(&apos;--when&apos;, nargs=&quot;+&quot;, type=int, default=[-1],</span><br><span class="line">                    help=&apos;When (which epochs) to divide the learning rate by 10 - accepts multiple&apos;)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;为了避免Python代码在需要设置的情况下进行hard code，我们有很多种方式将参数指定在一个地方，便于集中、解耦地修改参数。可以使用的解决办法很多，如设立config类，全局变量指明，以及使用argparse。&lt;/p&gt;
+&lt;p&gt;本文是argparse的简明指南，指明了a
+      
+    
+    </summary>
+    
+      <category term="简明指南" scheme="http://ldzhangyx.github.io/categories/%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/"/>
+    
+    
+      <category term="argparse" scheme="http://ldzhangyx.github.io/tags/argparse/"/>
+    
+      <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
+    
+      <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MobaXTerm简明指南</title>
+    <link href="http://ldzhangyx.github.io/2019/07/29/mobaxterm-tutorial/"/>
+    <id>http://ldzhangyx.github.io/2019/07/29/mobaxterm-tutorial/</id>
+    <published>2019-07-29T09:24:38.000Z</published>
+    <updated>2019-07-29T10:10:12.163Z</updated>
+    
+    <content type="html"><![CDATA[<p>这个简明指南旨在介绍MobaXTerm，Windows下的一个现代SSH客户端。</p><a id="more"></a><ol><li><p>首先下载MobaXTerm的对应版本。网址如下：<a href="https://mobaxterm.mobatek.net/download.html" target="_blank" rel="noopener">https://mobaxterm.mobatek.net/download.html</a></p></li><li><p>左上角点击Session，新建一个SSH连接。</p></li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><ol><li>配置完成。</li></ol><p>这篇文章主要想说明MobaXTerm一些优点：</p><ol><li><p>可以检测服务器运行情况。Remote Monitoring开启后，服务器的运行情况可以被实时地监控。</p></li><li><p>自带一个SFTP协议的可视化文件树，并且支持拖动上传下载文件。</p></li><li><p>附带了一个文本编辑器，是vi的良好替代。</p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这个简明指南旨在介绍MobaXTerm，Windows下的一个现代SSH客户端。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="简明指南" scheme="http://ldzhangyx.github.io/categories/%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/"/>
+    
+    
+      <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
+    
+      <category term="software" scheme="http://ldzhangyx.github.io/tags/software/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Coding on Server! PyCharm远程调试、文件同步、GitHub版本控制简明指南</title>
+    <link href="http://ldzhangyx.github.io/2019/07/29/ssh-for-pycharm/"/>
+    <id>http://ldzhangyx.github.io/2019/07/29/ssh-for-pycharm/</id>
+    <published>2019-07-29T09:22:55.000Z</published>
+    <updated>2019-07-29T10:10:17.026Z</updated>
+    
+    <content type="html"><![CDATA[<p>这个指南适用于想在PyCharm上debug，同时使用远程服务器上的解释器运行代码的人。</p><a id="more"></a><p>使用PyCharm本地编辑代码，调用远程服务器的Python解释器。这个方案支持PyCharm单步调试等操作。</p><ol><li><p>新建或打开你想运行的项目。</p></li><li><p>Tools -&gt; Deployment -&gt; Configuration，打开界面。</p></li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><ol><li>在界面中配置对服务器的连接。</li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><ol><li>在Mappings里面设置文件映射，映射到服务器的对应目录。</li></ol><p>注意，对应的目录是步骤3的root path + Mappings的Deployment path。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="3.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><ol><li><p>点击左边侧栏的√，使得服务器名字变为粗体。这代表你启用了这个Deployment。</p></li><li><p>Tools -&gt; Deployment -&gt; Settings，将文件同步设置，更改为仅在ctrl+S时保存。至此，所有的本地代码文件都会被同步到服务器上。</p></li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="5.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><ol><li>File -&gt; Settings -&gt; Project -&gt; Project Interpreter，打开界面，右上角选择小齿轮， Add，选择服务器上的python.exe应用程序，链接到远程解释器。</li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="4.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><ol><li><p>此时不需要特意设置path mappings，因为会沿用Deployment的mapping。</p></li><li><p>我们开始版本控制。VCS -&gt; Import into Version Control -&gt; Share project on GitHub。</p></li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="6.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>此时你的每一次保存会被视为一次commit。</p><p>配置完毕。</p><p>以下是你可能遇到的问题：</p><ol><li><p>File Transfer失败。可以检查一下mapping地址是否正确。</p></li><li><p>Error:Python helpers are not copied yet to the remote host. Please wait until remote interpreter initialization finishes. 如果你的服务器名称是字符串，推荐改用IP地址；如果无效，请删除服务器上的.pycharm_helper文件夹，等待重新建立index。</p></li></ol><p>以下是一些附带的常用操作。</p><ol><li>PyCharm在debug的时候，可以在右下角的Console Tab点击Python图标，进入交互式Python，你可以在断点debug时运行各种表达式。</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这个指南适用于想在PyCharm上debug，同时使用远程服务器上的解释器运行代码的人。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="简明指南" scheme="http://ldzhangyx.github.io/categories/%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/"/>
+    
+    
+      <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
+    
+      <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
+    
+      <category term="software" scheme="http://ldzhangyx.github.io/tags/software/"/>
+    
+      <category term="PyCharm" scheme="http://ldzhangyx.github.io/tags/PyCharm/"/>
+    
+      <category term="SSH" scheme="http://ldzhangyx.github.io/tags/SSH/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《Deep Music Analogy via Latent Representation Distanglement》论文笔记</title>
+    <link href="http://ldzhangyx.github.io/2019/07/29/ec2vae/"/>
+    <id>http://ldzhangyx.github.io/2019/07/29/ec2vae/</id>
+    <published>2019-07-29T06:30:57.000Z</published>
+    <updated>2019-07-31T09:03:39.766Z</updated>
+    
+    <content type="html"><![CDATA[<p>组里大佬们的工作。</p><a id="more"></a><h1 id="论文笔记"><a href="#论文笔记" class="headerlink" title="论文笔记"></a>论文笔记</h1><h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>类比制作（Analogy-making）是使用计算机算法生成自然而有创造力的音乐作品的关键方法。通常来说，将音乐的抽象形式（如，高层表示及这些表示之间的关系）做部分地转移，可以达成类比的目的。</p><p>这个过程要求对音乐表示做解耦（如，保留风格，创作内容不一样的曲子）。对于人类音乐家来说，是轻而易举的事情，但是这对计算机来说却是一个难题。要完成这个目标，我们有三个步骤：</p><ol><li>从观察（observation）中提取潜在的表示（latent representations）；</li><li>对表示进行解耦，使得解耦后每一部分有唯一的的语义解释；</li><li>将潜在表示映射回实际的音乐。</li></ol><p>这篇论文提出了一个具有明确约束（explicitly-constrained）的VAE模型（简称$EC^2-VAE$），作为所有三个子问题的统一解决方案。</p><p>更确切地说，本文专注于对8-beat音乐片段，以和弦（chord）作为condition，解耦音高（pitch）和节奏（rhythm）的表示。这个模型借用了其他音乐片段的表示，帮助我们实现了假设情景：一个片段如果使用别的音高、节奏、和弦将会怎么样？</p><p>最后，本文用客观的测量方法验证了模型的解耦方法，并通过一个主观的研究，评估了类比的实际例子。</p><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>类比是一个生成高质量艺术作品的有效方法。一般来说，如果两个系统有共同的抽象表示、共同的表示间关系，那么这两个系统就是相似的。举个例子，“氢原子就像太阳系”，形式化表示为$A:B::C:D$的形式：“原子核:氢原子::太阳::太阳系”。两个系统共享的抽象就是“更大的部分是一个系统的中心”。对于生成算法来说，解决一个“what if”问题，即已知ABC，D是什么的问题，是生成算法的一个捷径。</p><p><code>A:B::C:D</code></p><p>对于音乐生成来说，如果A是B的抽象，A与B的关系是，A是音乐B的节奏pattern（一个例子）。那么，如果我们有另一个节奏pattern C，那么B搭配上C的pattern，得到的D将会是什么样子呢？</p><p>类比生成的一大优势是能够产生自然、有创意的结果。之所以自然，是因为模型复用了人类作品实例的表示（如image style等），以及这些概念之间的内在关系；之所以有创意，是因为这些表示使用了新颖的方式进行重新组合，进行了不同的表达。</p><p>我们清楚地意识到，类比的实质是对抽象表征的迁移，而不是浅层observation的组合和复读。要进行有意义的类比，需要对高层表征进行解耦，而这对计算机来说是一个难题。</p><p>EC2-VAE模型，就是一个学习解耦的有效工具。具体来说，Encoder从Observation中获取latent representation，语义约束（semantic constraints）解耦表征，使得每个部分具有唯一的解释，然后Decoder将解耦表示映射回实际的音乐，同时保持表示之间的内在关系。</p><p>作为生成模型，我们希望EC2-VAE有三个特性。</p><ol><li>对表示的解耦是明确的。即我们可以指定哪些维度表示哪些语义因素。</li><li>解耦不能对重建造成大量牺牲。</li><li>训练阶段不需要任何类似的例子，但该模型能够在推理阶段进行类比。</li></ol><p>为了评估，我们提出了一个新的指标（metric）进行调查。</p><h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><h3 id="类比生成"><a href="#类比生成" class="headerlink" title="类比生成"></a>类比生成</h3><p>两种类比算法：</p><ol><li>监督学习。需要大量标注，表示学习的需求较少。</li><li>严格的类比算法，不仅需要学习表示，还需要解耦表示，允许模型通过操纵任何解耦的表示来进行domain-free的类比。</li></ol><h3 id="表示学习-amp-解耦"><a href="#表示学习-amp-解耦" class="headerlink" title="表示学习 &amp; 解耦"></a>表示学习 &amp; 解耦</h3><p>（相关研究略）</p><p>本文模型并不直接约束z，而是将loss应用于与latent factor有关的中间输出。间接而显式的约束使得模型能够进一步将表示分解为音调、节奏等语义因素。</p><h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><p>目标是解开时长为8拍的旋律的节奏和音高两个方面。数据均来源于Nottingham数据集。分辨率为1/4拍。</p><h3 id="数据表示"><a href="#数据表示" class="headerlink" title="数据表示"></a>数据表示</h3><p>每个8拍旋律都可以用一个32x130的矩阵表示。32为时间维，130为音高、保持和休止符维。</p><p>额外设计了一个节奏pattern约束网络的中间输出。8拍节奏模式表示为32x3的矩阵，3为one-hot向量，代表：(onset, holding, rest)。</p><p>chord作为条件，表示成32x12的矩阵（色度图），如12维的multi-hot向量。</p><h3 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h3><p>模型基本结构与Vanilla sequence VAE一致。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>模型的创新点在于，为Decoder的一部分（橙色）设计了一个子任务，通过明确地鼓励$z_r$的中间输出，匹配节点的节奏特征，从而将潜在（latent）节奏表示$z_r$从整体的表示z中解开。</p><p>因此z的另一部分是节奏以外的一切，被解释为音高表示$z_p$。这样明确编码的解耦技术非常灵活，因为可以设计多个子部分，解开z的多个语义可解释的因子。只要可以定义相应潜在因子的中间输出。</p><p>新模型将chord作为condition，优点是使z免于存储和弦信息。</p><h3 id="具有解耦功能的ELBO目标的理论正当性"><a href="#具有解耦功能的ELBO目标的理论正当性" class="headerlink" title="具有解耦功能的ELBO目标的理论正当性"></a>具有解耦功能的ELBO目标的理论正当性</h3><script type="math/tex; mode=display">\begin{aligned} \operatorname{ELBO}(\phi, \theta)=& \mathbb{E}_{Q}\left[\log P_{\phi}(x | z, c)\right] \\ &-\mathbb{K} \mathbb{L}\left[Q_{\theta}(z | x, c)| | P_{\phi}(z | c)\right] \leq \log P_{\phi}(x | c) \end{aligned}</script><h1 id="想法与见解"><a href="#想法与见解" class="headerlink" title="想法与见解"></a>想法与见解</h1>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;组里大佬们的工作。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
+    
+      <category term="VAE" scheme="http://ldzhangyx.github.io/tags/VAE/"/>
+    
+      <category term="represent learning" scheme="http://ldzhangyx.github.io/tags/represent-learning/"/>
+    
+      <category term="analogy" scheme="http://ldzhangyx.github.io/tags/analogy/"/>
+    
+  </entry>
   
   <entry>
     <title>我们来聊聊EsAC和Essen Folk Song Database</title>
@@ -68,9 +180,9 @@
     
       <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
     
-      <category term="structure" scheme="http://ldzhangyx.github.io/tags/structure/"/>
-    
       <category term="VAE" scheme="http://ldzhangyx.github.io/tags/VAE/"/>
+    
+      <category term="structure" scheme="http://ldzhangyx.github.io/tags/structure/"/>
     
       <category term="图网络" scheme="http://ldzhangyx.github.io/tags/%E5%9B%BE%E7%BD%91%E7%BB%9C/"/>
     
@@ -417,104 +529,6 @@
       <category term="统计" scheme="http://ldzhangyx.github.io/tags/%E7%BB%9F%E8%AE%A1/"/>
     
       <category term="statsmodels" scheme="http://ldzhangyx.github.io/tags/statsmodels/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>用Python做统计的轻量化库：statistics</title>
-    <link href="http://ldzhangyx.github.io/2018/12/11/stats/"/>
-    <id>http://ldzhangyx.github.io/2018/12/11/stats/</id>
-    <published>2018-12-11T06:08:13.000Z</published>
-    <updated>2018-12-11T06:57:08.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Python用于统计计算的时候，有一个标准库：statistics，可以做一下基本的统计计算。</p><a id="more"></a><p>从使用的角度来看，之所以称其为轻量库，是因为其没有引入额外的数据结构，并且使用简单方便。对于样本来说，需要提供的只是序列或者迭代器，譬如可以<strong>使用一个list</strong>作为函数输入。</p><h1 id="中心位置的计算"><a href="#中心位置的计算" class="headerlink" title="中心位置的计算"></a>中心位置的计算</h1><h2 id="平均值"><a href="#平均值" class="headerlink" title="平均值"></a>平均值</h2><p>mean(), 算术平均值。<br>harmonic_mean(), 谐波平均值。</p><h2 id="中位数"><a href="#中位数" class="headerlink" title="中位数"></a>中位数</h2><p>median(), 中位数。若数据量为偶数时，会取一个平均值作为插值中位数。<br>median_low(), 中位数，但数据为偶数时，会取较小的那个。<br>median_high(), 取较大的那个。<br>median_grouped( , interval = 1), 这个功能比较迷，将输入视为连续数据，并通过优先使用提供的间隔宽度找到中值范围，然后使用落在该范围内的数据集中的实际值的位置在该范围内插值来计算 50％ 百分位中值。interval取不同值是结果会改变。</p><h2 id="众数"><a href="#众数" class="headerlink" title="众数"></a>众数</h2><p>mode(), 要是数据不存在众数会报错，嗯……</p><h1 id="偏离值计算"><a href="#偏离值计算" class="headerlink" title="偏离值计算"></a>偏离值计算</h1><p>pstdev( , mu = None), 计算<strong>总体(population)</strong>标准差。<br>pvariance( , mu = None), 计算<strong>总体</strong>方差，当然就是标准差的平方。第二个参数mu可选，你可以先验地给一个总体平均值，也可以让算法自己算样本平均值。<br>对于这个函数，当其对整体调用的时候，自然可以计算出总体方差$\sigma$，但输入是样本的话，其返回应该是$S^2$，即有偏的样本方差（有N个自由度）。此时样本方差与总体方差可能不一致。所以当我们知道总体平均值mu时可以提供给函数，如果数据点有代表性，结果应该是无偏估计。</p><p>stdev(, xbar = None), 计算样本标准差。<br>variance( , xbar = None), 计算样本方差。<br>这个函数的样本方差使用了贝塞尔矫正（只有N-1个自由度）。结果应该是真实总体方差的无偏估计。</p><p>贝塞尔矫正：</p><p><script type="math/tex">s=\sqrt{\frac{^{\Sigma (x-\bar{x})^2}}{n-1}}</script> 表示样本方差。</p><p>因为高斯分布的边沿抽取的数据很少，那么预测方差一定小于大数据集的方差。通过分母减一，手动提高方差的数值。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Python用于统计计算的时候，有一个标准库：statistics，可以做一下基本的统计计算。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数据挖掘" scheme="http://ldzhangyx.github.io/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
-    
-    
-      <category term="Python" scheme="http://ldzhangyx.github.io/tags/Python/"/>
-    
-      <category term="统计" scheme="http://ldzhangyx.github.io/tags/%E7%BB%9F%E8%AE%A1/"/>
-    
-      <category term="数据挖掘" scheme="http://ldzhangyx.github.io/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
-    
-      <category term="时序分析" scheme="http://ldzhangyx.github.io/tags/%E6%97%B6%E5%BA%8F%E5%88%86%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PyTorch第三方库：PyTorch-NLP</title>
-    <link href="http://ldzhangyx.github.io/2018/11/22/pytorch-nlp/"/>
-    <id>http://ldzhangyx.github.io/2018/11/22/pytorch-nlp/</id>
-    <published>2018-11-22T11:41:40.000Z</published>
-    <updated>2018-11-22T15:12:06.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>PyTorch-NLP在功能上与torchtext很像，但是其仍然有颇具特色的地方。</p><a id="more"></a><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>选择pip安装。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pytorch-nlp</span><br></pre></td></tr></table></figure><p>安装过程中你可能会遇到如下的坑：</p><blockquote><p>fatal error C1083: Cannot open include file: ‘io.h’: No such file or directory</p></blockquote><p>解决办法是安装Visual Studio一些相关的工具(<a href="https://stackoverflow.com/questions/40018405/cython-cannot-open-include-file-io-h-no-such-file-or-directory/40810172)。" target="_blank" rel="noopener">https://stackoverflow.com/questions/40018405/cython-cannot-open-include-file-io-h-no-such-file-or-directory/40810172)。</a></p><h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>基本的使用方法在<a href="https://pytorchnlp.readthedocs.io/en/latest/" target="_blank" rel="noopener">官方文档</a>里说得比较清楚，主要分为这几个用处。</p><h2 id="加载数据集"><a href="#加载数据集" class="headerlink" title="加载数据集"></a>加载数据集</h2><p>PyTorch-NLP实现了自己的Dataset的子类，直接调用即可。这些类已经好好地实现了<strong>len</strong>()和<strong>getitem</strong>()功能，我们只需要在自己的程序里写一个DataLoader用就好了。以WMT数据集举例：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> torchnlp.datasets <span class="keyword">import</span> wmt_dataset</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>train = wmt_dataset(train=<span class="keyword">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>train[:<span class="number">2</span>]</span><br><span class="line">[&#123;</span><br><span class="line">  <span class="string">'en'</span>: <span class="string">'Res@@ um@@ ption of the session'</span>,</span><br><span class="line">  <span class="string">'de'</span>: <span class="string">'Wiederaufnahme der Sitzungsperiode'</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">  <span class="string">'en'</span>: <span class="string">'I declare resumed the session of the European Parliament ad@@ jour@@ ned on...'</span></span><br><span class="line">  <span class="string">'de'</span>: <span class="string">'Ich erklär@@ e die am Freitag , dem 17. Dezember unterbro@@ ch@@ ene...'</span></span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure><h2 id="使用预训练好的词向量"><a href="#使用预训练好的词向量" class="headerlink" title="使用预训练好的词向量"></a>使用预训练好的词向量</h2><p>在BERT出来之前最好的词向量应该是FastText+ELMo的组合。如果想偷懒先快速实现模型的话，这个API可以帮你免去写词表、写Embedding层的过程，直接返回词向量。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> torchnlp.word_to_vector <span class="keyword">import</span> FastText</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>vectors = FastText()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>vectors[<span class="string">'hello'</span>]</span><br><span class="line"><span class="number">-1.7494</span></span><br><span class="line"><span class="number">0.6242</span></span><br><span class="line">...</span><br><span class="line"><span class="number">-0.6202</span></span><br><span class="line"><span class="number">2.0928</span></span><br><span class="line">[torch.FloatTensor of size <span class="number">100</span>]</span><br></pre></td></tr></table></figure><h2 id="使用丰富的神经网络层"><a href="#使用丰富的神经网络层" class="headerlink" title="使用丰富的神经网络层"></a>使用丰富的神经网络层</h2><p>我觉得比较有名的大概是SRU层和Attention层。SRU层号称将RNN训练得和CNN一样快，而Attention的实现使用了IBM的类似方法。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>attention = Attention(<span class="number">256</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>query = torch.randn(<span class="number">5</span>, <span class="number">1</span>, <span class="number">256</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>context = torch.randn(<span class="number">5</span>, <span class="number">5</span>, <span class="number">256</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>output, weights = attention(query, context)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>output.size()</span><br><span class="line">torch.Size([<span class="number">5</span>, <span class="number">1</span>, <span class="number">256</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>weights.size()</span><br><span class="line">torch.Size([<span class="number">5</span>, <span class="number">1</span>, <span class="number">5</span>])</span><br></pre></td></tr></table></figure><p>在这里关于attention的使用，可以看<a href="https://ibm.github.io/pytorch-seq2seq/public/models.html#module-seq2seq.models.attention" target="_blank" rel="noopener">IBM的文档</a>。简单解释一下呢，就是context是encoder的hidden states，其与output做了相似度计算，softmax之后参与decode过程，能理解self-attention的对这个肯定能理解。</p><h2 id="Text-Encoder"><a href="#Text-Encoder" class="headerlink" title="Text Encoder"></a>Text Encoder</h2><p>是Tensor2Tensor一部分功能的迁移实现，TextEncoder主要功能就是构建词汇表、实现符号到id的映射。Tensor2Tensor的GitHub可以点<a href="https://github.com/tensorflow/tensor2tensor/blob/master/README.md" target="_blank" rel="noopener">这里</a>。</p><p>实话说，Google这个项目做得挺漂亮的，外行人可以用一用。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchnlp.text_encoders <span class="keyword">import</span> WhitespaceEncoder</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a `WhitespaceEncoder` with a corpus of text</span></span><br><span class="line">encoder = WhitespaceEncoder([<span class="string">"now this ain't funny"</span>, <span class="string">"so don't you dare laugh"</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Encode and decode phrases</span></span><br><span class="line">encoder.encode(<span class="string">"this ain't funny."</span>) <span class="comment"># RETURNS: torch.LongTensor([6, 7, 1])</span></span><br><span class="line">encoder.decode(encoder.encode(<span class="string">"This ain't funny."</span>)) <span class="comment"># RETURNS: "this ain't funny."</span></span><br></pre></td></tr></table></figure><h2 id="数据采样"><a href="#数据采样" class="headerlink" title="数据采样"></a>数据采样</h2><p>sampler可以从数据集中进行采样，只需提供数据集对象，制定顺序即可。</p><p>我目前没有用到过这个API，但是它应该是一个很好用的采样工具，可以用于做验证。</p><h2 id="进行评测"><a href="#进行评测" class="headerlink" title="进行评测"></a>进行评测</h2><p>令人遗憾的是这里只实现了两个评测：精确度和BLEU。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> torch</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> torchnlp.metrics <span class="keyword">import</span> get_accuracy</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>targets = torch.LongTensor([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>outputs = torch.LongTensor([<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>accuracy, n_correct, n_total = get_accuracy(targets, outputs, ignore_index=<span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>accuracy</span><br><span class="line"><span class="number">0.8</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>n_correct</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>n_total</span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure><p>其中ignore_index表示忽略的index。</p><p>至于BLEU就更简单了。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>hypotheses = [</span><br><span class="line">    <span class="string">"The brown fox jumps over the dog 笑"</span>,</span><br><span class="line">    <span class="string">"The brown fox jumps over the dog 2 笑"</span></span><br><span class="line">]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>references = [</span><br><span class="line">    <span class="string">"The quick brown fox jumps over the lazy dog 笑"</span>,</span><br><span class="line">    <span class="string">"The quick brown fox jumps over the lazy dog 笑"</span></span><br><span class="line">]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>get_moses_multi_bleu(hypotheses, references, lowercase=<span class="keyword">True</span>)</span><br><span class="line"><span class="number">46.51</span></span><br></pre></td></tr></table></figure><p>两个list传进去，自动给出结果。还是挺方便的。</p><h2 id="工具包"><a href="#工具包" class="headerlink" title="工具包"></a>工具包</h2><p>有一些很有意思的工具可以用：</p><ul><li>对一个batch做padding</li><li>对一个tensor做padding</li><li>分割数据集</li><li>shuffle</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;PyTorch-NLP在功能上与torchtext很像，但是其仍然有颇具特色的地方。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="PyTorch" scheme="http://ldzhangyx.github.io/categories/PyTorch/"/>
-    
-    
-      <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
-    
-      <category term="NLP" scheme="http://ldzhangyx.github.io/tags/NLP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>几类VAE的简要整理</title>
-    <link href="http://ldzhangyx.github.io/2018/11/20/vae/"/>
-    <id>http://ldzhangyx.github.io/2018/11/20/vae/</id>
-    <published>2018-11-20T05:25:32.000Z</published>
-    <updated>2018-11-20T11:12:18.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>VAE在我心里，是NLP领域生成模型的一把好手。在很多Task上，VAE的表现其实不如RNN，但是其出色的地方在于足够灵活，能生成出很多不一样的符合条件的结果。这么几年下来，VAE也有着各种各样的变体，也会顺便提一下。</p><a id="more"></a><h2 id="VAE-amp-Conditional-VAE"><a href="#VAE-amp-Conditional-VAE" class="headerlink" title="VAE &amp; Conditional VAE"></a>VAE &amp; Conditional VAE</h2><h3 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h3><p>首先来看VAE，其比较详细的解释可以看<a href="https://zhuanlan.zhihu.com/p/34998569" target="_blank" rel="noopener">这里</a>。VAE的模型结构如下：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>其Encoder提取输入的特征，并将其map到一个正态分布上。用神经网络输出其均值和方差，得到一个正态分布。这个正态分布体现了输入的特征。编码器不能自由地使用整个潜在空间，而是必须限制产生的z，使其可能服从先验分布。</p><p>对正态分布进行采样，采样数据通过Decoder进行输出。采样可以通过重参数技巧进行代换，保证了整个过程可导，绕开了采样这个不可导的动作。</p><p>为了保证模型具有一定的生成能力，输出的方差需要进行控制，所以要求这个正态分布向标准正态分布看齐。</p><p>使用KL散度衡量这个分布与标准正态分布的距离，其Loss可以推导为下列式子：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="3.jpg" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>LOSS = KL散度 + 生成图片与原图片的交叉熵</p><p>之后ELBO的提出都是为了方便计算。VAE 的变分下界，是直接基于 KL 散度就得到的。所以直接承认了 KL 散度的话，就没有变分的什么事了<a href="https://zhuanlan.zhihu.com/p/34998569" target="_blank" rel="noopener">参考</a>。，大体模型就是这个样子。</p><h3 id="CVAE"><a href="#CVAE" class="headerlink" title="CVAE"></a>CVAE</h3><p>CVAE是一类模型，通过在Encoder与Decoder中添加标签来控制生成结果的类别。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="2.jpg" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>其实现方法是，每一类label，其正态分布存在均值，于是Encoder编码形成的正态分布，不仅方差要接近标准正态分布，而且均值要接近label的均值，可以通过修改KL散度实现：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="4.jpg" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><h2 id="AAE"><a href="#AAE" class="headerlink" title="AAE"></a>AAE</h2><p>AAE，对抗自编码器，在2015年于《Adversial Autoencoders》提出来。其详细介绍在<a href="http://kissg.me/2017/12/17/papernotes03/" target="_blank" rel="noopener">这里</a>可以查看。</p><p>其与VAE最显著的特征是将KL散度惩罚替换成了对抗学习的过程。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="5.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;VAE在我心里，是NLP领域生成模型的一把好手。在很多Task上，VAE的表现其实不如RNN，但是其出色的地方在于足够灵活，能生成出很多不一样的符合条件的结果。这么几年下来，VAE也有着各种各样的变体，也会顺便提一下。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="VAE" scheme="http://ldzhangyx.github.io/tags/VAE/"/>
-    
-      <category term="变分自编码器" scheme="http://ldzhangyx.github.io/tags/%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8/"/>
-    
-      <category term="GAN" scheme="http://ldzhangyx.github.io/tags/GAN/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PyTorch代码编写的日常(11.19)</title>
-    <link href="http://ldzhangyx.github.io/2018/11/19/pytorch-2/"/>
-    <id>http://ldzhangyx.github.io/2018/11/19/pytorch-2/</id>
-    <published>2018-11-19T07:23:51.000Z</published>
-    <updated>2018-11-20T04:49:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。</p><a id="more"></a><h1 id="k折交叉验证"><a href="#k折交叉验证" class="headerlink" title="k折交叉验证"></a>k折交叉验证</h1><p>我找了一圈，发现PyTorch在对数据集的处理上，并没有设置方便进行交叉验证的API。在编程实践中可以这么完成k折交叉验证：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyDataset</span><span class="params">(data.Dataset)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    数据集类继承PyTorch的Dataset类，进行处理。</span></span><br><span class="line"><span class="string">    数据集以csv读取为例。</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, root, state = <span class="string">'Train'</span>, k = <span class="number">0</span>)</span>:</span></span><br><span class="line">        <span class="string">'''初始化对象。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            root: 存放数据的目录。</span></span><br><span class="line"><span class="string">            state: 控制要读取训练集、验证集、测试集。</span></span><br><span class="line"><span class="string">            k: 用于控制k折交叉验证。</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        self.root = root </span><br><span class="line">        self.state = state</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.state == <span class="string">'Train'</span>:</span><br><span class="line">            path = root + <span class="string">'train.csv'</span></span><br><span class="line">            self.train_data = pd.read_csv(path)</span><br><span class="line">            self.data = pd.concat(</span><br><span class="line">                [self.train_data[:int((k % <span class="number">10</span>) * len(self.train_data) / <span class="number">10</span>)], </span><br><span class="line">                 self.train_data[int((k % <span class="number">10</span> + <span class="number">1</span>) * len(self.train_data) / <span class="number">10</span>):]])</span><br><span class="line">            self.data = self.data.reset_index(drop = <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.state == <span class="string">'Valid'</span>:</span><br><span class="line">            path = root + <span class="string">'train.csv'</span></span><br><span class="line">            self.train_data = pd.read_csv(path)</span><br><span class="line">            self.data = self.train_data[int((k % <span class="number">10</span>) * len(self.train_data) /<span class="number">10</span>):</span><br><span class="line">                                        int((k % <span class="number">10</span> + <span class="number">1</span>) * len(self.train_data) /<span class="number">10</span>)]</span><br><span class="line">            self.data = self.data.reset_index(drop = <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.state == <span class="string">'test'</span>:</span><br><span class="line">            path = root + <span class="string">'test.csv'</span></span><br><span class="line">            self.data = pd.read_csv(path)</span><br></pre></td></tr></table></figure><p>这样通过切片的方式，将训练集和验证集分成了k份，训练集拥有k-1份数据。</p><h1 id="loss的设计"><a href="#loss的设计" class="headerlink" title="loss的设计"></a>loss的设计</h1><p>回归问题一般来说使用MSE，但是PyTorch也提供了Huber Loss，在API里命名为SmoothL1Loss。</p><p>使用loss时遵循这样的方法使用：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">loss = nn.SmoothL1Loss()</span><br><span class="line">logits = ...</span><br><span class="line">labels = ...</span><br><span class="line">output = loss(logits, labels)</span><br></pre></td></tr></table></figure><h1 id="loss与optim的联动关系"><a href="#loss与optim的联动关系" class="headerlink" title="loss与optim的联动关系"></a>loss与optim的联动关系</h1><p>在optimizer定义的时候，需要将网络参数输入。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">optimizer = t.optim.Adam(model.learnable_parameters(), </span><br><span class="line">                        parameters.learning_rate,</span><br><span class="line">                        weight_decay=<span class="number">0.01</span>)</span><br></pre></td></tr></table></figure><p>learnable_parameters()是我手动定义的一个类方法，根据requires_grad标志获取所有需要学习的参数。</p><p>此时optimizer已经存储了所有参数的储存地址（也就是指针）。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">loss = nn.MSELoss()</span><br><span class="line">output = loss(logits, label)</span><br><span class="line">optimizer.zero_grad()</span><br><span class="line">output.backward()</span><br><span class="line">optimizer.step()</span><br></pre></td></tr></table></figure><p>optimizer.zero_grad()将梯度清零，防止梯度错误累加。<br>output.backward()将所有参数的更新梯度一次性求出来。<br>optimizer.step()根据求得的梯度自动进行更新，这个函数无需传参，因为loss与optim被设计为能很好联动的机制。</p><h1 id="model-train-与model-eval"><a href="#model-train-与model-eval" class="headerlink" title="model.train()与model.eval()"></a>model.train()与model.eval()</h1><p>这个机制用来控制dropout和Batch Normalize层。BN层的主要用途是进行批量正规化，减少不当初始化对学习效果的负面影响。</p><p>在训练代码前加入model.train()，在验证和测试代码前加入model.eval()，model为模型对象。</p><h1 id="requires-grad的默认值"><a href="#requires-grad的默认值" class="headerlink" title="requires_grad的默认值"></a>requires_grad的默认值</h1><p>PyTorch 0.4版本取消了Tensor的参数Volatile，现在requires_grad用于控制参数是否能被学习，默认为False。</p><p>但是重要的是，在模型的<strong>init</strong>方法中被定义的层，<strong>这个参数默认为True</strong>，不需要再改一遍了。</p><h1 id="trainer的编写范式"><a href="#trainer的编写范式" class="headerlink" title="trainer的编写范式"></a>trainer的编写范式</h1><p>trainer作为网络模型的类方法出现，其定义和调用方法如下。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">trainer</span><span class="params">(self, optimizer)</span>:</span> <span class="comment"># 如果自己定义了batch_loader也可以在这里用。这里主要定义一些不会变的参数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(iteration, batch_size, use_cuda, input, label)</span>:</span></span><br><span class="line">        logits = self(input) <span class="comment"># 这里调用的是forward类方法，保持参数一致即可</span></span><br><span class="line">        logits = logits.view(<span class="number">-1</span>,<span class="number">1</span>) <span class="comment"># 可能需要做一次转置</span></span><br><span class="line">        loss = nn.MSELoss()</span><br><span class="line">        mse = loss(logits, label)</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">return</span> mse</span><br><span class="line">    <span class="keyword">return</span> train <span class="comment"># 返回一个函数对象</span></span><br></pre></td></tr></table></figure><p>调用：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> iteration, [input, label] <span class="keyword">in</span> enumerate(data_loader): <span class="comment"># data_loader是自己写好的，是DataLoader类</span></span><br><span class="line">    train_step = model.trainer(optimizer)</span><br><span class="line"></span><br><span class="line">    output = step(iteration, batch_size, cuda, input, label) <span class="comment"># 这是目的</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这个系列主要讨论使用PyTorch我个人探寻到的零散知识点，包括API和编写范式。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="PyTorch" scheme="http://ldzhangyx.github.io/categories/PyTorch/"/>
-    
-    
-      <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
     
   </entry>
   
