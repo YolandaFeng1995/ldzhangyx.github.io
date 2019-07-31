@@ -31,9 +31,9 @@ ga('send', 'pageview');
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="music generation,VAE,represent learning,analogy">
+    <meta name="keywords" content="music generation,VAE,representation learning,analogy">
     <meta name="description" content="组里大佬们的工作。">
-<meta name="keywords" content="music generation,VAE,represent learning,analogy">
+<meta name="keywords" content="music generation,VAE,representation learning,analogy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《Deep Music Analogy via Latent Representation Distanglement》论文笔记">
 <meta property="og:url" content="http://ldzhangyx.github.io/2019/07/29/ec2vae/index.html">
@@ -41,7 +41,10 @@ ga('send', 'pageview');
 <meta property="og:description" content="组里大佬们的工作。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/07/29/ec2vae/1.png">
-<meta property="og:updated_time" content="2019-07-31T09:03:39.766Z">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/07/29/ec2vae/2.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/07/29/ec2vae/3.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/07/29/ec2vae/4.png">
+<meta property="og:updated_time" content="2019-07-31T13:28:26.633Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Deep Music Analogy via Latent Representation Distanglement》论文笔记">
 <meta name="twitter:description" content="组里大佬们的工作。">
@@ -180,7 +183,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Abstract"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Abstract</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Introduction</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Related-Work"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Related Work</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类比生成"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">类比生成</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#表示学习-amp-解耦"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">表示学习 &amp; 解耦</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Method"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Method</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数据表示"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">数据表示</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模型结构"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">模型结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#具有解耦功能的ELBO目标的理论正当性"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">具有解耦功能的ELBO目标的理论正当性</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#想法与见解"><span class="post-toc-number">2.</span> <span class="post-toc-text">想法与见解</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Abstract"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Abstract</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Introduction</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Related-Work"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Related Work</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类比生成"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">类比生成</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#表示学习-amp-解耦"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">表示学习 &amp; 解耦</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Method"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Method</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数据表示"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">数据表示</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模型结构"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">模型结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#具有解耦功能的ELBO目标的理论正当性"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">具有解耦功能的ELBO目标的理论正当性</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实验"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">实验</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#客观指标"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">客观指标</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#音高转换的Δz可视化"><span class="post-toc-number">1.5.1.1.</span> <span class="post-toc-text">音高转换的Δz可视化</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#F-score"><span class="post-toc-number">1.5.1.2.</span> <span class="post-toc-text">F-score</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#想法与见解"><span class="post-toc-number">2.</span> <span class="post-toc-text">想法与见解</span></a></li></ol>
         </nav>
     </aside>
 
@@ -253,8 +256,57 @@ ga('send', 'pageview');
 <p>模型的创新点在于，为Decoder的一部分（橙色）设计了一个子任务，通过明确地鼓励$z_r$的中间输出，匹配节点的节奏特征，从而将潜在（latent）节奏表示$z_r$从整体的表示z中解开。</p>
 <p>因此z的另一部分是节奏以外的一切，被解释为音高表示$z_p$。这样明确编码的解耦技术非常灵活，因为可以设计多个子部分，解开z的多个语义可解释的因子。只要可以定义相应潜在因子的中间输出。</p>
 <p>新模型将chord作为condition，优点是使z免于存储和弦信息。</p>
-<h3 id="具有解耦功能的ELBO目标的理论正当性"><a href="#具有解耦功能的ELBO目标的理论正当性" class="headerlink" title="具有解耦功能的ELBO目标的理论正当性"></a>具有解耦功能的ELBO目标的理论正当性</h3><script type="math/tex; mode=display">
-\begin{aligned} \operatorname{ELBO}(\phi, \theta)=& \mathbb{E}_{Q}\left[\log P_{\phi}(x | z, c)\right] \\ &-\mathbb{K} \mathbb{L}\left[Q_{\theta}(z | x, c)| | P_{\phi}(z | c)\right] \leq \log P_{\phi}(x | c) \end{aligned}</script><h1 id="想法与见解"><a href="#想法与见解" class="headerlink" title="想法与见解"></a>想法与见解</h1>
+<p>Decoder中，为了解耦，本文将z分割成了两半：$z_p$和$z_r$，让两边的向量各有128个维度。</p>
+<h3 id="具有解耦功能的ELBO目标的理论正当性"><a href="#具有解耦功能的ELBO目标的理论正当性" class="headerlink" title="具有解耦功能的ELBO目标的理论正当性"></a>具有解耦功能的ELBO目标的理论正当性</h3><p>表征解耦有时会牺牲重建能力。本节主要证明了模型没有遭受大量的解耦-重构悖论，并且模型的likelihood bound接近原始条件的VAE，在一些情况下甚至可能相等。</p>
+<p>ELBO目标函数：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \operatorname{ELBO}(\phi, \theta)=& \mathbb{E}_{Q}\left[\log P_{\phi}(x | z, c)\right] \\ &-\mathbb{K} \mathbb{L}\left[Q_{\theta}(z | x, c)| | P_{\phi}(z | c)\right] \leq \log P_{\phi}(x | c) \end{aligned}</script><p>下面用$\mathcal{D}$代替$&amp;-\mathbb{K} \mathbb{L}\left[Q_{\theta}(z | x, c)| | P_{\phi}(z | c)\right]$。如果我们将图1(b)的中间节奏输出看作网络的hidden variable，模型的ELBO只会增加基于原始节奏的节奏重建loss，达到原始ELBO的下限。</p>
+<script type="math/tex; mode=display">
+\begin{aligned} & \mathrm{ELBO}^{\mathrm{new}}(\phi, \theta) \\=& \mathbb{E}_{Q}\left[\log P_{\phi}(x | z, c)\right]-\mathcal{D}+\mathbb{E}_{Q}\left[\log P_{\phi_{r}}\left(r(x) | z_{r}\right)\right] \\=& \operatorname{ELBO}(\phi, \theta)+\mathbb{E}_{Q}\left[\log P_{\phi_{r}}\left(r(x) | z_{r}\right)\right] \end{aligned}</script><p>其中$\phi_r$代表节奏decoder的参数。新ELBO是原始ELBO的一个下界，因为$\mathbb{E}_{Q}\left[\log P_{\phi_{r}}\left(r(x) | z_{r}\right)\right] \leq 0$。</p>
+<p>此外，如果将global decoder的其余部分采用原始节奏而不是节奏decoder的中间输出作为输入，则目标可以重写为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} & \operatorname{ELBO}^{\mathrm{new}}(\phi, \theta) \\=& \mathbb{E}_{Q}\left[\underbrace{\log P_{\phi}\left(x | r(x), z_{p}, c\right)+\log P_{\phi}\left(r(x) | z_{r}, c\right)}_{x \underline{ \|} z_{r} | r(x),c;r(x)\underline{ \|}z_p}\right] -\mathcal{D}\\=& \mathbb{E}_{Q}\left[\log P_{\phi}(x, r(x) | z, c)\right]-\mathcal{D} \\=& \mathbb{E}_{Q}\left[P_{\phi}(x | z, c)+\log P_{\phi}(r(x) | x, z, c)\right]-\mathcal{D} \\=& \operatorname{ELBO}(\phi, \theta) \end{aligned}</script><p>第二个等号表示一个完美的解耦，最后一个等号成立，因为$r(x)$由$x$决定。换而言之，我们展示了在某些假设下，两个ELBO相同。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><h3 id="客观指标"><a href="#客观指标" class="headerlink" title="客观指标"></a>客观指标</h3><p>一旦成功解耦，音高的任何变化都不应影响潜在的节奏表示。为此设计了两个指标：</p>
+<ol>
+<li>换位后的Δz；</li>
+<li>一个augmantation-based序列的F-score。</li>
+</ol>
+<h4 id="音高转换的Δz可视化"><a href="#音高转换的Δz可视化" class="headerlink" title="音高转换的Δz可视化"></a>音高转换的Δz可视化</h4><p>将$F_i$定义为一个操作，将所有音符转$i$个半音。使用L1范数测量z的变化。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>增加音高时，音高的潜在表示的变化$z_p$远高于节奏的潜在表示变化$z_r$。这充分证明了解耦的成功。</p>
+<h4 id="F-score"><a href="#F-score" class="headerlink" title="F-score"></a>F-score</h4><p>从IR角度，可以实现新的评估方法。我们将模型结构定义中的pitch-rhythm split作为ground truth，将factor-wise数据增强（保持一个，改变另一个，vice versa），作为query。将因此出现了最大variance的实际上latent dimensions，成为结果集（result set）。用这种方法，可以量化评估模型的P、R和F分数。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这是第一个为明确编码的解耦模型定制的测量方法，因此将random作为baseline。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>后面的case study略。</p>
+<h1 id="想法与见解"><a href="#想法与见解" class="headerlink" title="想法与见解"></a>想法与见解</h1><p>一路看下来感觉很流畅，从音乐的结果来看也是一个非常好的模型，起解耦能力值得肯定。</p>
+<p>值得挑一些刺的地方我认为有两点。</p>
+<ol>
+<li><p>在模型描述上，模型的图画得并不是很清楚。比如说在对z的分割上，原文中提到对z对半分割，而图中的描述并不能体现这一点。</p>
+</li>
+<li><p>F-score的evaluation做得并不是很清晰。这个measurement从实现上来说是衡量解耦效果的，但是与random对比并不是好的选择。我猜测，使用“没有明确解耦”的普通VAE比较，也许是一个更好的选择。这就像是ON-LSTM的论文，也有人质疑，普通的LSTM会不会也有一定的order性呢？</p>
+</li>
+</ol>
+<p>模型可以发展的地方相比缺点来说要多得多。首先是解耦设计的灵活性，几乎可以无成本地在之后进行扩展；其次，解耦类比生成的这个topic本身，也应该是正确的方向。</p>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -262,7 +314,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-07-31T09:03:39.766Z" itemprop="dateUpdated">2019-07-31 17:03:39</time>
+    最后更新时间：<time datetime="2019-07-31T13:28:26.633Z" itemprop="dateUpdated">2019-07-31 21:28:26</time>
 </span><br>
 
 
@@ -288,7 +340,7 @@ ga('send', 'pageview');
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VAE/">VAE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/analogy/">analogy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/music-generation/">music generation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/represent-learning/">represent learning</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VAE/">VAE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/analogy/">analogy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/music-generation/">music generation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/representation-learning/">representation learning</a></li></ul>
 
 
             
