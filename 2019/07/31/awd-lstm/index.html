@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-126536496-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>《Regularizing and Optimizing LSTM Language Models》论文笔记 | 张逸霄的技术小站 | 欢迎RSS订阅我的个人主页！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="AWD-LSTM,language model">
+    <meta name="description" content="人称“语言建模的王者”，AWD-LSTM模型。">
+<meta name="keywords" content="AWD-LSTM,language model">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Regularizing and Optimizing LSTM Language Models》论文笔记">
+<meta property="og:url" content="http://ldzhangyx.github.io/2019/07/31/awd-lstm/index.html">
+<meta property="og:site_name" content="张逸霄的技术小站">
+<meta property="og:description" content="人称“语言建模的王者”，AWD-LSTM模型。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/07/31/awd-lstm/1.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/07/31/awd-lstm/2.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/07/31/awd-lstm/3.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/07/31/awd-lstm/4.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/07/31/awd-lstm/5.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/07/31/awd-lstm/6.png">
+<meta property="og:updated_time" content="2019-08-01T05:16:43.264Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Regularizing and Optimizing LSTM Language Models》论文笔记">
+<meta name="twitter:description" content="人称“语言建模的王者”，AWD-LSTM模型。">
+<meta name="twitter:image" content="http://ldzhangyx.github.io/2019/07/31/awd-lstm/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">张逸霄</h5>
+          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ldzhangyx" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">《Regularizing and Optimizing LSTM Language Models》论文笔记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">《Regularizing and Optimizing LSTM Language Models》论文笔记</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-31T13:43:44.000Z" itemprop="datePublished" class="page-time">
+  2019-07-31
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/论文笔记/">论文笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文亮点"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文亮点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Weight-Dropped-LSTM"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Weight-Dropped LSTM</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NT-ASGD"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">NT-ASGD</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#其他正则化策略"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">其他正则化策略</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#变长BPTT"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">变长BPTT</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#变分Dropout"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">变分Dropout</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#嵌入Dropout"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">嵌入Dropout</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#权重绑定"><span class="post-toc-number">1.4.4.</span> <span class="post-toc-text">权重绑定</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#独立embedding-size和hidden-size"><span class="post-toc-number">1.4.5.</span> <span class="post-toc-text">独立embedding size和hidden size</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#激活正则化和时域激活正则化"><span class="post-toc-number">1.4.6.</span> <span class="post-toc-text">激活正则化和时域激活正则化</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实验细节"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">实验细节</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#指针模型"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">指针模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AWD-QRNN"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">AWD-QRNN</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模型消融分析"><span class="post-toc-number">1.5.3.</span> <span class="post-toc-text">模型消融分析</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#想法和见解"><span class="post-toc-number">2.</span> <span class="post-toc-text">想法和见解</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-awd-lstm"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">《Regularizing and Optimizing LSTM Language Models》论文笔记</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-31 21:43:44" datetime="2019-07-31T13:43:44.000Z"  itemprop="datePublished">2019-07-31</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/论文笔记/">论文笔记</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>人称“语言建模的王者”，AWD-LSTM模型。</p>
+<a id="more"></a>
+<p>原文地址：<a href="https://openreview.net/references/pdf?id=rJI9awpBf" target="_blank" rel="noopener">https://openreview.net/references/pdf?id=rJI9awpBf</a></p>
+<h1 id="论文亮点"><a href="#论文亮点" class="headerlink" title="论文亮点"></a>论文亮点</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>本文为了解决词级别的语言建模问题，研究了正则化、优化LSTM类模型的策略。本文提出了weighted-dropped LSTM，在hidden to hidden weights上使用了DropConnect，作为循环正则化的形式；此外引入了NT-AvSGD，是平均随机梯度方法的非单调触发变体，使用NT条件自动确定平均触发。</p>
+<p>使用这些和其他正则化策略，AWD-LSTM在PTB和WikiTest-2上达到了最优ppl。模型可用于Q-RNN（Quasi-RNN，和SRU目的一致，都是对RNN进行了并行化改进）。</p>
+<h2 id="Weight-Dropped-LSTM"><a href="#Weight-Dropped-LSTM" class="headerlink" title="Weight-Dropped LSTM"></a>Weight-Dropped LSTM</h2><p>首先给出LSTM的公式：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} i_{t} &=\sigma\left(W^{i} x_{t}+U^{i} h_{t-1}\right) \\ f_{t} &=\sigma\left(W^{f} x_{t}+U^{f} h_{t-1}\right) \\ o_{t} &=\sigma\left(W^{o} x_{t}+U^{o} h_{t-1}\right) \\ \tilde{c}_{t} &=\tanh \left(W^{c} x_{t}+U^{c} h_{t-1}\right) \\ c_{t} &=i_{t} \odot \tilde{c}_{t}+f_{t} \odot+\tilde{c}_{t-1} \\ h_{t} &=o_{t} \odot \tanh \left(c_{t}\right) \end{aligned}</script><p>正则化技术用于防止RNN过度拟合。之前的递归正则化对$h_{t-1}$或$c_{t}$起作用，阻止了黑盒RNN的实现。</p>
+<p>建议使用DropConnect。DropConnect应用于隐藏状态之间的权重矩阵(Ui, Uf, Uo, Uc)，而不是隐藏状态或记忆状态。这一丢弃操作只在前向和反向传播前进行一次，从而最小化对训练速度的影响，并且适用于任何标准的黑盒RNN优化实现。通过丢弃隐藏状态之间的权重矩阵的部分信息，可以防止LSTM循环连接的过拟合。</p>
+<h2 id="NT-ASGD"><a href="#NT-ASGD" class="headerlink" title="NT-ASGD"></a>NT-ASGD</h2><p>在语言建模过程中，不带动量的SGD的表现比其他优化方法更好。 我们调查AvSGD进一步改善训练过程。AvSGD展示了许多惊讶的结果，比如说而渐近二阶收敛。普通SGD更新公式如下：</p>
+<script type="math/tex; mode=display">
+w_{k+1}=w_{k}-\gamma_{k} \hat{\nabla} f\left(w_{k}\right)</script><p>但AvSGD不使用最后一步的迭代作为解，而是使用</p>
+<script type="math/tex; mode=display">
+\frac{1}{(K-T+1)} \sum_{i=T}^{K} w_{i}</script><p>其中K是迭代总数，T是用户指定的平均计算触发器。</p>
+<p>ASGD的缺点在于，学习率$\ita_k$和T的调参没有明确的方法论。</p>
+<p>理想情况下，SGD收敛到稳态分布时，需要触发平均。语言建模使用的一种常见策略是指标停滞时降低学习率，而触发也可以参照这种方法。</p>
+<p>NT-ASGD的作法是，</p>
+<ul>
+<li>仅当验证测度在多次循环后没有改善的情况下才触发平均。所以，当验证测度在n次循环（n称为非单调间隔超参数）后没有改善时，算法换用ASGD。论文作者发现n=5这一设置效果良好。</li>
+<li>使用恒定学习率，因此无需进一步调整。</li>
+</ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="其他正则化策略"><a href="#其他正则化策略" class="headerlink" title="其他正则化策略"></a>其他正则化策略</h2><h3 id="变长BPTT"><a href="#变长BPTT" class="headerlink" title="变长BPTT"></a>变长BPTT</h3><p>论文作者指出了固定长度BPTT的低效。假设我们在100个元素上进行长度为10的固定窗口的BPTT。在这一情形下，任何可以被10整除的元素将没有任何元素可以反向传播。固定长度BPTT阻止了1/10的数据以循环的方式改善自身，还有8/10的数据仅仅使用部分BPTT窗口。</p>
+<p>变长BPTT首先选择一个基本序列长度。人工制定一个BPTT，然后基本BPTT长度有p的概率选择BPTT，也有1-p的概率选择BPTT/2。</p>
+<p>然后通过基本BPTT长度计算得到sequence length：</p>
+<script type="math/tex; mode=display">
+\text{sequence length} = \max(5, l \in N(bptt, \sigma))</script><p>l从正态分布中取样得到结果。这一步是必要的，因为取样任意序列长度的情况下， 使用固定学习率将倾向于短序列。</p>
+<h3 id="变分Dropout"><a href="#变分Dropout" class="headerlink" title="变分Dropout"></a>变分Dropout</h3><p>在标准dropout中，每次调用dropout时取样一个新的dropout掩码。而在变分dropout中，dropout掩码只在第一次调用时取样，接着锁定的dropout掩码重复应用于前向和反向过程中的所有连接。</p>
+<p>尽管RNN的隐藏到隐藏转换中使用了DropConnect，但其他所有dropout操作中使用了变分dropout，特别是在给定的前向和反向传播中，LSTM的所有输入和输出使用同样的dropout掩码。mini-batch内的每个样本使用不同的dropout掩码，而不是在所有样本上使用同一个掩码，以确保元素丢弃的多样性。</p>
+<h3 id="嵌入Dropout"><a href="#嵌入Dropout" class="headerlink" title="嵌入Dropout"></a>嵌入Dropout</h3><p>实际上就是在Embedding Matrix上使用dropout，使得该字在完整的前向、反向传播上都消失了。该技术最早由A Theoretically Grounded Application of Dropout in Recurrent Neural Networks这篇论文提出。</p>
+<h3 id="权重绑定"><a href="#权重绑定" class="headerlink" title="权重绑定"></a>权重绑定</h3><p>权重绑定在embedding和softmax layer上共享了权重，减少了模型中的总参数。该技术具有理论动机（Inan等，2016），并防止模型必须学习输入和输出之间的一对一对应，从而对标准LSTM语言模型进行实质性改进。</p>
+<h3 id="独立embedding-size和hidden-size"><a href="#独立embedding-size和hidden-size" class="headerlink" title="独立embedding size和hidden size"></a>独立embedding size和hidden size</h3><p>在大多数自然语言处理任务中，预训练和训练的单词矢量都具有相对较低的维度 - 通常在100到400维之间。大多数先前的LSTM语言模型将单词向量的维度与LSTM的隐藏状态的维度联系起来。即使减少单词嵌入大小对防止过度拟合也没有好处，语言模型的总参数的最简单减少是减少单词向量大小。</p>
+<p>为了实现这一点，修改第一个和最后一个LSTM层，使得它们的输入和输出维度分别等于减小的嵌入大小。</p>
+<h3 id="激活正则化和时域激活正则化"><a href="#激活正则化和时域激活正则化" class="headerlink" title="激活正则化和时域激活正则化"></a>激活正则化和时域激活正则化</h3><p>L2正则化除用于网络参数上，还可以用在独立单元的激活上，和不同时间步里，RNN的输出上。</p>
+<p>激活正则化惩罚显著过大的激活：</p>
+<script type="math/tex; mode=display">
+\alpha L_{2}\left(m \odot h_{t}\right)</script><p>时域激活正则化，惩罚过大的hidden state波动：</p>
+<script type="math/tex; mode=display">
+\beta L_{2}\left(h_{t}-h_{t+1}\right)</script><h2 id="实验细节"><a href="#实验细节" class="headerlink" title="实验细节"></a>实验细节</h2><p>在PTB和WikiText-2上实验。PTB的词汇量约1W单词，导致大量词汇OOV。WT2的词汇量超过3W。</p>
+<p>LSTM隐单元为三层，1150神经元，Embedding size为400.loss被examples和timesteps平均。embedding被均匀初始化在[-0.1, 0.1]之间，其他权重在$[-\frac{1}{\sqrt{H}}, \frac{1}{\sqrt{H}}]$之间，H为hidden size。</p>
+<p>NT-AvSGD算法训练750 epoches，L相当于1 epoch，n=5. batch size为80（WT2）和40（PTB）。经验表明batch size较大时表现更好。完成后，运行AvSGD，T=0，热启动w0作为finetuning step以进一步改进解。对于这个finetuning步骤，使用算法1的相同的标准终止执行。</p>
+<p>最大范数为0.25的梯度裁剪，初始学习率为30，随机BPTT长度设置为N(70, 5)，p=0.95和N(35, 5)，p=0.05. 用于word vector的dropout、LSTM层间输出，LSTM最上层输出，embedding dropout分别为(0.4, 0.3, 0.4, 0.1)。对WD-LSTM，dropour=0.5用在rurrent weight matrices，而WT2上值增加到0.65，考虑到增加到词汇量。</p>
+<p>对于所以实验，分别使用2和1的AR和TAR值，并将embedding和softmax权重联系起来。所有超参数通过反复实验选择。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="指针模型"><a href="#指针模型" class="headerlink" title="指针模型"></a>指针模型</h3><p>在过去的工作中，已经证明基于指针的注意力模型在改进语言建模方面非常有效（Merity等，2016; Grave等，2016）。鉴于对基础神经语言模型的这种实质性改进，关于指针增强的有效性仍然是一个悬而未决的问题，特别是当重量绑定等改进可能以相互排斥的方式起作用时。</p>
+<p>可以以可忽略的成本在预训练的语言模型之上添加神经缓存模型（Grave等，2016）。神经缓存将先前隐藏状态存储在存储器单元中，然后使用由缓存建议的概率分布和用于预测的语言模型的简单凸组合。缓存模型有三个超参数：缓存的内存大小（窗口），组合的系数（确定两个分布如何混合），以及缓存分布的平坦度。一旦获得训练有素的语言模型，所有这些都在验证集上进行调整，并且不需要自己进行培训，使得使用起来非常便宜。这些超参数的调整值分别为PTB（2000,0.1,1.0）和WT2（3785,0.1279,0.662）。</p>
+<p>在表1和表2中，我们表明该模型进一步改善了语言模型的困惑，PTB的6个困惑点和WT2的11个点。<br>虽然这比Grave等报道的增益要小。<br>（2016），使用LSTM没有重量绑定，这仍然是一个实质性的下降。<br>鉴于神经缓存模型的简单性以及缺乏任何受过训练的组件，这些结果表明现有的神经语言模型基本上缺乏，无法捕获长期依赖关系或有效记住最近看到的单词。<br>为了理解指针对模型的影响，特别是验证集的困惑，我们详细说明了每个单词对表3中缓存模型的整体困惑的贡献。<br>我们计算WikiText-2数据集的验证部分中的目标字的LSTM和LSTM与缓存模型之间的损失函数值（即，对数困扰）的总差异的总和。<br>我们提出差异总和的结果而不是均值，因为后者不合适地过分强调了不经常出现的单词，其中高速缓存有助于显着地忽略频繁出现的单词，其中高速缓存提供适度的改进，累积地做出强有力的贡献。<br>最大累积增益在提高的<unk>令牌的处理，虽然这是超过11540个的情况。<br>第二个最好的改进，大约五分之一由<unk>令牌给定的增益，为经，然而，这仅字发生161次。<br>这表明缓存对于相对罕见的单词仍然有显着帮助，丘吉尔，布莱斯或索尼克进一步证明了这一点。<br>当处理频繁的单词类别（例如标点符号或停用单词）时，缓存不是有益的，语言模型很可能适合这些单词类别。<br>这些观察结果激发了缓存框架的设计，该框架更加了解两个模型的相对优势。</unk></unk></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="AWD-QRNN"><a href="#AWD-QRNN" class="headerlink" title="AWD-QRNN"></a>AWD-QRNN</h3><p>概括一下就是模型也适合Q-RNN。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="模型消融分析"><a href="#模型消融分析" class="headerlink" title="模型消融分析"></a>模型消融分析</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>详见原论文。 最明显的困惑度提升来自LSTM hidden to hidden的lSTM正则化，也就是DropConnect。</p>
+<h1 id="想法和见解"><a href="#想法和见解" class="headerlink" title="想法和见解"></a>想法和见解</h1><p>还能说什么呢，一年被引用200+次，只能说大佬牛逼，工作量和模型质量都是一流的。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-08-01T05:16:43.264Z" itemprop="dateUpdated">2019-08-01 13:16:43</time>
+</span><br>
+
+
+        
+        原文地址：<a href="/2019/07/31/awd-lstm/" target="_blank" rel="external">http://ldzhangyx.github.io/2019/07/31/awd-lstm/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://ldzhangyx.github.io">
+            <img src="/img/avatar.jpg" alt="张逸霄">
+            张逸霄
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWD-LSTM/">AWD-LSTM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/language-model/">language model</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/07/31/awd-lstm/&title=《《Regularizing and Optimizing LSTM Language Models》论文笔记》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/07/31/awd-lstm/&title=《《Regularizing and Optimizing LSTM Language Models》论文笔记》 — 张逸霄的技术小站&source=人称“语言建模的王者”，AWD-LSTM模型。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/07/31/awd-lstm/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《《Regularizing and Optimizing LSTM Language Models》论文笔记》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/07/31/awd-lstm/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/07/31/awd-lstm/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/07/30/argparse/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">简洁明快的命令行解析器argparse简明指南</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "vjXNi1yCMdQOFUwuQ8kmMcBC-gzGzoHsz",
+            appKey: "FntMqfzRaFO2Jm4fjUC9Mz4S",
+            avatar: "mm",
+            placeholder: "随便写点什么吧",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        非常感谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>张逸霄 &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/07/31/awd-lstm/&title=《《Regularizing and Optimizing LSTM Language Models》论文笔记》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/07/31/awd-lstm/&title=《《Regularizing and Optimizing LSTM Language Models》论文笔记》 — 张逸霄的技术小站&source=人称“语言建模的王者”，AWD-LSTM模型。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/07/31/awd-lstm/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《《Regularizing and Optimizing LSTM Language Models》论文笔记》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/07/31/awd-lstm/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/07/31/awd-lstm/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLElEQVR42u3ay47CMAwFUP7/pztbJES5dsKgJKcrVFHGpwtP/Hg84ut6up7vvH7n9fuvzyZPPb5xYWBgLMu4bq8krOT+faDvXlASGwYGxjmMJBUmQfdeUJ7W397HwMDAKIabpNfkPgYGBkaPUS0+7490P0u4GBgYCzLyA1z+bK+4/XotjoGBsSAj77r//+evzDcwMDCWYvTSZXKMGxlMlqPCwMDYmpEnuKQErQ4pRxIuBgbGmYzej1Zb/9VXUEjWGBgYWzNGwsoDzQ+avbUMDAyMvRm9pvz4wLJ3xMTAwDiNkY8S86ZYDps1NMXAwNibkQ8pq+sR+VLFfejlIhYDA2NTxvjhr5qmq0fA5HVjYGDsyqiuShQq42Kjf6jdhoGBcQCjNzLMy84o6xdTc7RmgYGBsREjSbK9hv7Is/mgFAMDY29Gtbk2Hm7yOV9W+5B2MTAwtmD0AL0xw6wljGmpFgMDYxFGbzEiDzQJugpojjMxMDAWZ+Rtr5GknL+ahP1hIQwDA+MARn4g6618zV07w8DAOIfRC2jWqDL5i9GUAwMD4xhGkoiri2LVVbN8CQMDA2NvxlW8essWI6298qEQAwNjO0ZvJtj70fyIWS19MTAwTmDkZWSvcdarOvPVNAwMjHMYvcRXLXfH17/Kk1gMDIyDGXmZWu2M5a8GAwMDYyTJzq2to5eIgYFxACNfd8hDmfXLk9ttGBgYCzKqKw694rbazuv9G8DAwNiO8Qc8uRkG9EeR9wAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Yixiao Zhang's Website';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Yixiao Zhang's Website';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

@@ -31,9 +31,9 @@ ga('send', 'pageview');
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="music generation,自然语言处理,NLG,NLP">
+    <meta name="keywords" content="自然语言处理,music generation,NLG,NLP">
     <meta name="description" content="Ordered Neurons是ICLR 2019的The best paper之一。知乎上对这篇论文也有诸多讨论。本文主要探讨ON-LSTM在结构上的构建和分析，为我之后要做的音乐结构分析做一些准备。 ON-LSTM用一句话来概括这篇论文的核心思想，那就是：重新设计了LSTM中，历史信息的融合更新策略，使其能够显式地分层融合历史信息和当前信息。为了分层地融合信息，本文也设计了一个方法估计信息的层">
-<meta name="keywords" content="music generation,自然语言处理,NLG,NLP">
+<meta name="keywords" content="自然语言处理,music generation,NLG,NLP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《Ordered Neurons： Integrating Tree Structures into Recurrent Neural Networks》阅读笔记">
 <meta property="og:url" content="http://ldzhangyx.github.io/2019/07/03/on-lstm/index.html">
@@ -43,7 +43,8 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/07/03/on-lstm/1.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/07/03/on-lstm/2.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/07/03/on-lstm/3.png">
-<meta property="og:updated_time" content="2019-07-23T02:34:54.422Z">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/07/03/on-lstm/4.png">
+<meta property="og:updated_time" content="2019-07-31T13:41:24.636Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Ordered Neurons： Integrating Tree Structures into Recurrent Neural Networks》阅读笔记">
 <meta name="twitter:description" content="Ordered Neurons是ICLR 2019的The best paper之一。知乎上对这篇论文也有诸多讨论。本文主要探讨ON-LSTM在结构上的构建和分析，为我之后要做的音乐结构分析做一些准备。 ON-LSTM用一句话来概括这篇论文的核心思想，那就是：重新设计了LSTM中，历史信息的融合更新策略，使其能够显式地分层融合历史信息和当前信息。为了分层地融合信息，本文也设计了一个方法估计信息的层">
@@ -182,7 +183,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ON-LSTM"><span class="post-toc-number">1.</span> <span class="post-toc-text">ON-LSTM</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#普通的LSTM"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">普通的LSTM</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ON-LSTM-1"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">ON-LSTM</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#无监督树结构的生成"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">无监督树结构的生成</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#见解和感想"><span class="post-toc-number">2.</span> <span class="post-toc-text">见解和感想</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考文献"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考文献</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ON-LSTM"><span class="post-toc-number">1.</span> <span class="post-toc-text">ON-LSTM</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#普通的LSTM"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">普通的LSTM</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ON-LSTM-1"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">ON-LSTM</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#无监督树结构的生成"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">无监督树结构的生成</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实验"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">实验</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Language-Modeling"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">Language Modeling</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#见解和感想"><span class="post-toc-number">2.</span> <span class="post-toc-text">见解和感想</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考文献"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考文献</span></a></li></ol>
         </nav>
     </aside>
 
@@ -250,6 +251,17 @@ ga('send', 'pageview');
 <p>这里隐含了一个规律。因为我们总是遗忘$d_f$以下的所有内容，记住$d_i$以上的所有内容，所以，每当我们想更新或者擦除高层次的内容时，我们必定擦除或更新了更低层次的内容。这个结论是非常容易推理出来的。</p>
 <h2 id="无监督树结构的生成"><a href="#无监督树结构的生成" class="headerlink" title="无监督树结构的生成"></a>无监督树结构的生成</h2><p>给定一个预训练好的ON-LSTM模型，输入一个序列${x_t}$，可以得到每一个LSTM Cell在融合时计算出来的历史信息结构的层级序列${d_f}$。找到层级最大值的下标，以它为分界线，将左右两个子序列分开，然后递归地重复这个步骤。</p>
 <p>具体的论文细节在这里不详细描述了。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>实验分为四个task：语言建模，无监督依赖解析，针对性的句法评估，逻辑推理。笔记只关注语言建模部分。因为只有这个task在音乐界才有公认的数据集。</p>
+<h3 id="Language-Modeling"><a href="#Language-Modeling" class="headerlink" title="Language Modeling"></a>Language Modeling</h3><p>Language Modeling通过测量PTB的困惑度（ppl）评估我们的模型。</p>
+<p>模型使用三层ON-LSTM，hidden unit有1150个，embedding size为400。对于master gates，缩小因子C=10. Embedding dropout为(0.5, 0.3, 0.45, 0.1)。current matrics使用了0.45的weight dropout。</p>
+<p>同等状态下ON-LSTM表现优于普通LSTM，值得注意的是，不需要增加skip connection或者是大量增加参数。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h1 id="见解和感想"><a href="#见解和感想" class="headerlink" title="见解和感想"></a>见解和感想</h1><p>树状结构在各个topic都是有用的。将树状结构引入神经网络语言模型可能会带来一些这样的好处：</p>
 <ol>
 <li>可以得到语言的分层表示；</li>
@@ -273,7 +285,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-07-23T02:34:54.422Z" itemprop="dateUpdated">2019-07-23 10:34:54</time>
+    最后更新时间：<time datetime="2019-07-31T13:41:24.636Z" itemprop="dateUpdated">2019-07-31 21:41:24</time>
 </span><br>
 
 
