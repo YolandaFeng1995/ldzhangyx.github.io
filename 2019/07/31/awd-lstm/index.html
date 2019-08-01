@@ -46,7 +46,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/07/31/awd-lstm/4.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/07/31/awd-lstm/5.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/07/31/awd-lstm/6.png">
-<meta property="og:updated_time" content="2019-08-01T05:16:43.264Z">
+<meta property="og:updated_time" content="2019-08-01T07:53:53.966Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Regularizing and Optimizing LSTM Language Models》论文笔记">
 <meta name="twitter:description" content="人称“语言建模的王者”，AWD-LSTM模型。">
@@ -185,7 +185,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文亮点"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文亮点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Weight-Dropped-LSTM"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Weight-Dropped LSTM</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NT-ASGD"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">NT-ASGD</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#其他正则化策略"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">其他正则化策略</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#变长BPTT"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">变长BPTT</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#变分Dropout"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">变分Dropout</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#嵌入Dropout"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">嵌入Dropout</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#权重绑定"><span class="post-toc-number">1.4.4.</span> <span class="post-toc-text">权重绑定</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#独立embedding-size和hidden-size"><span class="post-toc-number">1.4.5.</span> <span class="post-toc-text">独立embedding size和hidden size</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#激活正则化和时域激活正则化"><span class="post-toc-number">1.4.6.</span> <span class="post-toc-text">激活正则化和时域激活正则化</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实验细节"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">实验细节</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#指针模型"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">指针模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AWD-QRNN"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">AWD-QRNN</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模型消融分析"><span class="post-toc-number">1.5.3.</span> <span class="post-toc-text">模型消融分析</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#想法和见解"><span class="post-toc-number">2.</span> <span class="post-toc-text">想法和见解</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文亮点"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文亮点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Weight-Dropped-LSTM"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Weight-Dropped LSTM</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NT-ASGD"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">NT-ASGD</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#其他正则化策略"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">其他正则化策略</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#变长BPTT"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">变长BPTT</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#变分Dropout"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">变分Dropout</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#嵌入Dropout"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">嵌入Dropout</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#权重绑定"><span class="post-toc-number">1.4.4.</span> <span class="post-toc-text">权重绑定</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#独立embedding-size和hidden-size"><span class="post-toc-number">1.4.5.</span> <span class="post-toc-text">独立embedding size和hidden size</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#激活正则化和时域激活正则化"><span class="post-toc-number">1.4.6.</span> <span class="post-toc-text">激活正则化和时域激活正则化</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实验细节"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">实验细节</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#指针模型"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">指针模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AWD-QRNN"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">AWD-QRNN</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模型消融分析"><span class="post-toc-number">1.5.3.</span> <span class="post-toc-text">模型消融分析</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码与训练速度"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">代码与训练速度</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#想法和见解"><span class="post-toc-number">2.</span> <span class="post-toc-text">想法和见解</span></a></li></ol>
         </nav>
     </aside>
 
@@ -300,6 +300,17 @@ w_{k+1}=w_{k}-\gamma_{k} \hat{\nabla} f\left(w_{k}\right)</script><p>但AvSGD不
                 <div class="image-caption"></div>
             </figure>
 <p>详见原论文。 最明显的困惑度提升来自LSTM hidden to hidden的lSTM正则化，也就是DropConnect。</p>
+<h2 id="代码与训练速度"><a href="#代码与训练速度" class="headerlink" title="代码与训练速度"></a>代码与训练速度</h2><p><a href="https://github.com/salesforce/awd-lstm-lm" target="_blank" rel="noopener">https://github.com/salesforce/awd-lstm-lm</a></p>
+<p>代码在上述网址开源，记载了更加详细的实验结果。readme里特意提及了速度的问题。NVIDIA Quadro GP100的速度在PTB上大约是65秒一个epoch。考虑到我们将会使用的HookTheory，这个速度相比WT2的速度更具有参考价值。作者体积K80的速度大约是1/3，而我做实验可以用到一块1080Ti(for each task)。根据NVIDIA提供的compute Capability数值来看：</p>
+<ul>
+<li>Tesla K80：3.7</li>
+<li>Tesla V100：7.0</li>
+<li>Tesla P100：6.0</li>
+<li>Quadro GP100：6.0</li>
+<li>GTX 1080Ti：6.1</li>
+<li>Jetson Nano：5.3</li>
+</ul>
+<p>猜想在词级语言建模任务上，我达到45秒每epoch的速度是正常的。另外这个计算力表其实和我的认知差别有点大。K80这么弱的吗？<br>值得一提的是Jetson Nano，达到5.3的分数意味着可以一用了。过段时间我会调研一下树莓派4和Jetson Nano。</p>
 <h1 id="想法和见解"><a href="#想法和见解" class="headerlink" title="想法和见解"></a>想法和见解</h1><p>还能说什么呢，一年被引用200+次，只能说大佬牛逼，工作量和模型质量都是一流的。</p>
 
         </div>
@@ -309,7 +320,7 @@ w_{k+1}=w_{k}-\gamma_{k} \hat{\nabla} f\left(w_{k}\right)</script><p>但AvSGD不
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-08-01T05:16:43.264Z" itemprop="dateUpdated">2019-08-01 13:16:43</time>
+    最后更新时间：<time datetime="2019-08-01T07:53:53.966Z" itemprop="dateUpdated">2019-08-01 15:53:53</time>
 </span><br>
 
 
