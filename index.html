@@ -32,13 +32,16 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="">
-    <meta property="og:type" content="website">
+    <meta name="description" content="自然语言处理、音乐生成、音乐结构分析等领域的经验分享，也有PyTorch等代码的实践归纳。">
+<meta property="og:type" content="website">
 <meta property="og:title" content="张逸霄的技术小站">
 <meta property="og:url" content="http://ldzhangyx.github.io/index.html">
 <meta property="og:site_name" content="张逸霄的技术小站">
+<meta property="og:description" content="自然语言处理、音乐生成、音乐结构分析等领域的经验分享，也有PyTorch等代码的实践归纳。">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="张逸霄的技术小站">
+<meta name="twitter:description" content="自然语言处理、音乐生成、音乐结构分析等领域的经验分享，也有PyTorch等代码的实践归纳。">
     
         <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
     
@@ -164,6 +167,146 @@ ga('send', 'pageview');
 <div class="container body-wrap">
 
     <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-jiuge"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-08-10 15:22:58" datetime="2019-08-10T07:22:58.000Z"  itemprop="datePublished">2019-08-10</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/论文笔记/">论文笔记</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/08/10/jiuge/">诗歌生成模型“九歌”：《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》论文笔记</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        清华孙茂松老师组的工作，从效果来看，“九歌”的效果相当不错。适逢最近这个模型开源，我希望能梳理一下和这个模型有关的论文，尤其是《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》的工作（发表在EMNLP 2018）。
+    
+
+        <a href="/2019/08/10/jiuge/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/distanglement/">distanglement</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/generation/">generation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem-generation/">poem generation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/诗歌生成/">诗歌生成</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-tree-evaluation"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-08-07 17:03:45" datetime="2019-08-07T09:03:45.000Z"  itemprop="datePublished">2019-08-07</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/08/07/tree-evaluation/">如何评估树结构的相似性？也许可以了解一下Tree Editing Distance</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        这是一篇关于树编辑距离相关算法和相关包的介绍。
+    
+
+        <a href="/2019/08/07/tree-evaluation/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/structure/">structure</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-pytorch-0801"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-08-05 16:23:48" datetime="2019-08-05T08:23:48.000Z"  itemprop="datePublished">2019-08-05</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/08/05/pytorch-0801/">PyTorch使用的日常（2019.8.5）</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        nn.Embedding我一直对nn.Embedding层感到困惑。它在训练中有没有改变过呢？
+查询StackOverflow，我得到了一个答案：
+
+我可以随机初始化一个词向量，也可以导入一个预训练的词向量；
+我可以选择是否让它参与训练（默认参与了训练）。
+
+如果要固定某几层不进行训练，需要做两件事：
+
+层数的requires_grad参数设为False；
+传给optimizer的param...
+    
+
+        <a href="/2019/08/05/pytorch-0801/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
     
         <li class="post-list-item fade">
             <article id="post-awd-lstm"
@@ -494,144 +637,6 @@ ga('send', 'pageview');
 
         </li>
     
-        <li class="post-list-item fade">
-            <article id="post-music-toolkits"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-07-21 11:08:44" datetime="2019-07-21T03:08:44.000Z"  itemprop="datePublished">2019-07-21</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/07/21/music-toolkits/">音乐生成的兵器库：必要的包和数据集</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-         
- 首先做个小宣传。因为很多想做这一块的同行本科生们不是很清楚国内外的院校列表。有一位前辈在GitHub上整理了大部分的院校列表出来，我也对这个列表做了一点贡献。点击查看
- Python官网整理的Python库有这些：链接
-基础组件Python-MIDI
-项目官网：https://github.com/vishnubob/python-midi/tree/feature/python3
-
-...
-    
-
-        <a href="/2019/07/21/music-toolkits/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/音乐生成/">音乐生成</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-abc-midi"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-07-14 17:38:09" datetime="2019-07-14T09:38:09.000Z"  itemprop="datePublished">2019-07-14</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/07/14/abc-midi/">abc-midi</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        
-    
-
-        <a href="/2019/07/14/abc-midi/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-salami-dataset"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-07-12 13:10:47" datetime="2019-07-12T05:10:47.000Z"  itemprop="datePublished">2019-07-12</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据集/">数据集</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/07/12/salami-dataset/">SALAMI数据集介绍和使用指南</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        SALAMI数据集，最早被我注意到是在2018年的ISMIR上的《INTERACTIVE ARRANGEMENT OF CHORDS AND MELODIES BASED ON A TREE-STRUCTURED GENERATIVE MODEL》，里面使用了来自McGill University的SALAMI数据集。
-这个数据集的特点是，人工标注了音乐的层次结构。从规模上来说，涵盖了一千余...
-    
-
-        <a href="/2019/07/12/salami-dataset/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/data/">data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dataset/">dataset</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/music-generation/">music generation</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
     </ul>
 
     
@@ -693,7 +698,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/&title=张逸霄的技术小站&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/&title=张逸霄的技术小站&source=自然语言处理、音乐生成、音乐结构分析等领域的经验分享，也有PyTorch等代码的实践归纳。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-126536496-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>诗歌生成模型“九歌”：《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》论文笔记 | 张逸霄的技术小站 | 欢迎RSS订阅我的个人主页！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="诗歌生成,generation,poem generation,distanglement">
+    <meta name="description" content="清华孙茂松老师组的工作，从效果来看，“九歌”的效果相当不错。适逢最近这个模型开源，我希望能梳理一下和这个模型有关的论文，尤其是《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》的工作（发表在EMNLP 2018）。">
+<meta name="keywords" content="诗歌生成,generation,poem generation,distanglement">
+<meta property="og:type" content="article">
+<meta property="og:title" content="诗歌生成模型“九歌”：《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》论文笔记">
+<meta property="og:url" content="http://ldzhangyx.github.io/2019/08/10/jiuge/index.html">
+<meta property="og:site_name" content="张逸霄的技术小站">
+<meta property="og:description" content="清华孙茂松老师组的工作，从效果来看，“九歌”的效果相当不错。适逢最近这个模型开源，我希望能梳理一下和这个模型有关的论文，尤其是《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》的工作（发表在EMNLP 2018）。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/08/10/jiuge/1.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/08/10/jiuge/2.ong">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/08/10/jiuge/3.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/08/10/jiuge/4.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/08/10/jiuge/5.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/08/10/jiuge/6.png">
+<meta property="og:updated_time" content="2019-08-10T07:22:58.911Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="诗歌生成模型“九歌”：《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》论文笔记">
+<meta name="twitter:description" content="清华孙茂松老师组的工作，从效果来看，“九歌”的效果相当不错。适逢最近这个模型开源，我希望能梳理一下和这个模型有关的论文，尤其是《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》的工作（发表在EMNLP 2018）。">
+<meta name="twitter:image" content="http://ldzhangyx.github.io/2019/08/10/jiuge/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">张逸霄</h5>
+          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ldzhangyx" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">诗歌生成模型“九歌”：《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》论文笔记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">诗歌生成模型“九歌”：《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》论文笔记</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-08-10T07:22:58.000Z" itemprop="datePublished" class="page-time">
+  2019-08-10
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/论文笔记/">论文笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关于模型开源的相关信息"><span class="post-toc-number">1.</span> <span class="post-toc-text">关于模型开源的相关信息</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#相关论文梳理"><span class="post-toc-number">2.</span> <span class="post-toc-text">相关论文梳理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论文"><span class="post-toc-number">3.</span> <span class="post-toc-text">论文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">Introduction</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Method"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">Method</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#互信息-Mutual-Information"><span class="post-toc-number">3.2.1.</span> <span class="post-toc-text">互信息(Mutual Information)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#风格解耦的Decoder模型"><span class="post-toc-number">3.2.2.</span> <span class="post-toc-text">风格解耦的Decoder模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#后验分布估计"><span class="post-toc-number">3.2.3.</span> <span class="post-toc-text">后验分布估计</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#期望的词向量embedding"><span class="post-toc-number">3.2.4.</span> <span class="post-toc-text">期望的词向量embedding</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Experiment"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">Experiment</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数据集与模型细节"><span class="post-toc-number">3.3.1.</span> <span class="post-toc-text">数据集与模型细节</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Baselines"><span class="post-toc-number">3.3.1.1.</span> <span class="post-toc-text">Baselines</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#评估"><span class="post-toc-number">3.3.2.</span> <span class="post-toc-text">评估</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实验结果"><span class="post-toc-number">3.3.3.</span> <span class="post-toc-text">实验结果</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#习得风格的可解释性"><span class="post-toc-number">3.3.4.</span> <span class="post-toc-text">习得风格的可解释性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实例"><span class="post-toc-number">3.3.5.</span> <span class="post-toc-text">实例</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-jiuge"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">诗歌生成模型“九歌”：《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》论文笔记</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-08-10 15:22:58" datetime="2019-08-10T07:22:58.000Z"  itemprop="datePublished">2019-08-10</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/论文笔记/">论文笔记</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>清华孙茂松老师组的工作，从效果来看，“九歌”的效果相当不错。适逢最近这个模型开源，我希望能梳理一下和这个模型有关的论文，尤其是《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》的工作（发表在EMNLP 2018）。</p>
+<a id="more"></a>
+<h1 id="关于模型开源的相关信息"><a href="#关于模型开源的相关信息" class="headerlink" title="关于模型开源的相关信息"></a>关于模型开源的相关信息</h1><p>今年7月，九歌模型开源。其诗歌生成的模型在这个链接里：<a href="https://github.com/THUNLP-AIPoet/StylisticPoetry" target="_blank" rel="noopener">https://github.com/THUNLP-AIPoet/StylisticPoetry</a></p>
+<p>同时，他们组也放出了相关领域的论文列表：<a href="https://github.com/THUNLP-AIPoet/PaperList" target="_blank" rel="noopener">https://github.com/THUNLP-AIPoet/PaperList</a></p>
+<p>以及诗歌生成的相关数据集：<a href="https://github.com/THUNLP-AIPoet/Datasets" target="_blank" rel="noopener">https://github.com/THUNLP-AIPoet/Datasets</a></p>
+<p>有兴趣的话可以深入了解。</p>
+<h1 id="相关论文梳理"><a href="#相关论文梳理" class="headerlink" title="相关论文梳理"></a>相关论文梳理</h1><p>《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》这篇论文在发表之后，被相关的后续论文引用。</p>
+<ul>
+<li><p>Sentiment-Controllable Chinese Poetry Generation</p>
+</li>
+<li><p>Rhetorically Controlled Encoder-Decoder for Modern Chinese Poetry Generation</p>
+</li>
+<li><p>Jiuge: A Human-Machine Collaborative Chinese Classical Poetry Generation System</p>
+</li>
+<li><p>GPT-based Generation for Classical Chinese Poetry（华为诺亚方舟实验室）</p>
+</li>
+</ul>
+<h1 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>论文的目标在于无监督生成风格诗歌。之前的诗歌生成更注重于一致性、连续性。本文更关注于同一输入下生成不同风格的诗歌。</p>
+<p>同一意象下，人们可以以不同的风格写出不同的诗歌：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ul>
+<li>诗歌并没有明确的风格label。本文使用了无监督的方法生成不同风格的诗词。</li>
+<li>论文中，我们提出了一个模型，可以从诗歌中解耦出不同的风格，并在给定人工风格输入后生成特定风格的诗歌。模型总体是seq2seq的，同时通过最大化衡量两个随机变量之间依赖的互信息，以强化人工风格输入和生成的特定风格输出的关系。</li>
+<li>实验结果表明模型可以生成不同风格的诗歌而不丢失一致性和连贯性。</li>
+</ul>
+<h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><p>模型输入：$s_\text{input}$和风格id，$k \in K$，K为风格总数。</p>
+<h3 id="互信息-Mutual-Information"><a href="#互信息-Mutual-Information" class="headerlink" title="互信息(Mutual Information)"></a>互信息(Mutual Information)</h3><p>互信息常被用于无监督生成模型。当我们遇到存在潜在的类别差别而没有标签数据，我们就需要一类能够无监督地辨别出这类潜在标签的数据。互信息在生成模型中被人们注意，最早应该是InfoGAN的提出。</p>
+<p>给定两个随机变量$X$，$Y$，可以将两个随机变量的互信息记为$I(X, Y)$。互信息表示在一个随机变量中包含另一个随机变量的信息的数量。也可以理解为两个变量的相关性。</p>
+<p>互信息可以表示为联合概率$P(X,Y)$与边缘概率的$P(X)P(Y)$的相关性：</p>
+<script type="math/tex; mode=display">
+I(X, Y)=\int_{Y} \int_{X} p(X, Y) \log \frac{p(X, Y)}{p(X) p(Y)} d X d Y</script><h3 id="风格解耦的Decoder模型"><a href="#风格解耦的Decoder模型" class="headerlink" title="风格解耦的Decoder模型"></a>风格解耦的Decoder模型</h3><p>定义输入句子$X$，输出句子$Y$，字典为$V$，时间步为$T$。</p>
+<p>模型如图：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.ong" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>将Encoder最后一步的hidden state与风格的one-hot向量concatenate起来，送Decoder。</p>
+<p>我们无法从理论上证明，Decoder的output能与风格K正确地对应起来。output很可能会忽略掉风格输入，使得输出不受风格影响。因此我们显式添加一个约束，强制风格K与output有强烈的依赖关系。</p>
+<p>假定K的id分布k是一个均匀分布的随机向量，就是这样：</p>
+<script type="math/tex; mode=display">
+P_r(\text{sty} = k) = \frac{1}{k}, \text{for }k= 1,2,...,K</script><p>目标转化为：<strong>最大化风格分布$P_r(\text{sty})$与输出分布$P_r(Y;X)$之间的互信息。</strong></p>
+<p>互信息这么计算：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} & I(\operatorname{Pr}(\text {Sty}), \operatorname{Pr}(Y ; X)) \\=& \sum_{k=1}^{K} \operatorname{Pr}(\text {Sty}=k) \int_{Y | k ; X} \log \frac{\operatorname{Pr}(Y, S t y=k ; X)}{\operatorname{Pr}(\text {Sty}=k) \operatorname{Pr}(Y ; X)} d Y \\=& \sum_{k=1}^{K} \operatorname{Pr}(\text {Sty}=k) \int_{Y | k ; X} \log \frac{\operatorname{Pr}(Y, S t y=k ; X)}{\operatorname{Pr}(Y ; X)} d Y \\ &-\sum_{k=1}^{K} \operatorname{Pr}(\text {Sty}=k) \log \operatorname{Pr}(\text {Sty}=k)\\
+=& \sum_{k=1}^{K} \operatorname{Pr}(\text {Sty}=k) \int_{Y | k ; X} \log \operatorname{Pr}(\text {Sty}=k | Y) d Y+\log K \\ =&\int_{Y ; X} \sum_{k=1}^{K} \operatorname{Pr}(\text {Sty}=k | Y) \log P(\text {Sty}=k | Y) d Y+\log K\end{aligned}</script><p>因为输入变量$\text{sty}$与$X$相互独立，所以</p>
+<script type="math/tex; mode=display">
+\operatorname{Pr}(S t y=k | Y ; X)=\operatorname{Pr}(S t y=k | Y)</script><p>由于后验分布$\operatorname{Pr}(S t y=k | Y)$是未知的，我们无法对它计算积分。于是我们使用变分推理最大化的方式，训练一个参数化的函数$Q(\text{Sty}=k|Y)$，这个函数估计了后验分布，最大化方程互信息的下界：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} & I(\operatorname{Pr}(S t y), \operatorname{Pr}(Y ; X))-\log K \\=& \int_{Y ; X} \sum_{k=1}^{K} \operatorname{Pr}(S t y=k | Y) \log \operatorname{Pr}(S t y=k | Y) d Y \\=& \int_{Y ; X} \sum_{k=1}^{K} \operatorname{Pr}(S t y=k | Y) \log Q(S t y=k | Y) d Y \\ &+\int_{Y ; X} \sum_{k=1}^{K} \operatorname{Pr}(S t y=k | Y) \log \frac{\operatorname{Pr}(S t y=k | Y)}{Q(S t y=k | Y)} d Y \\
+=& \int_{Y ; X} \sum_{k=1}^{K} \operatorname{Pr}(S t y=k | Y) \log Q(S t y=k | Y) d Y \\ &+\int_{Y ; X} K L(\operatorname{Pr}(S t y | Y), Q(\operatorname{Sty} | Y)) d Y \\ \geq & \int_{Y ; X} \sum_{k=1}^{K} \operatorname{Pr}(S t y=k | Y) \log Q(S t y=k | Y) d Y \\=& \sum_{k=1}^{K} \operatorname{Pr}(S t y=k) \int_{Y | k ; X} \log Q(S t y=k | Y) d Y \end{aligned}</script><p>我们知道KL散度一定是非负的，故上式的不等式一定成立。</p>
+<p>因此我们只需要设计一个参数化的函数Q，使得Q被模型最大化，那么目的就达到了。</p>
+<h3 id="后验分布估计"><a href="#后验分布估计" class="headerlink" title="后验分布估计"></a>后验分布估计</h3><p>给定输出序列$Y$，函数$Q$估计序列$Y$的风格的概率分布。直接计算序列$Y$的平均embedding，用矩阵$W$映射为一个值：</p>
+<script type="math/tex; mode=display">
+Q(S t y | Y)=\operatorname{softmax}\left(W \cdot \frac{1}{T} \sum_{i=1}^{T} e\left(y_{i}\right)\right)</script><p>最后要做的是计算$Q$在$Y|k;X$上的积分，然而序列$Y$的搜索空间是字典长度的指数，因此采用枚举的方式计算积分。如果我们采样部分Y，这个结果是不可微的。这里我们使用embedding的期望进行积分的近似。</p>
+<h3 id="期望的词向量embedding"><a href="#期望的词向量embedding" class="headerlink" title="期望的词向量embedding"></a>期望的词向量embedding</h3><p>之前的相关工作是《Semantic parsing with semi-supervised sequential autoencoders》。即，只生成一个期望embedding序列，$Y|k;X$，拥有100%的生成概率。下式表达第i词的分布：</p>
+<script type="math/tex; mode=display">
+p\left(y_{i} | y_{1}, y_{2}, \ldots y_{i-1}, X\right)=g\left(y_{i}, s_{i}\right)</script><p>所以第i词的期望就是：</p>
+<script type="math/tex; mode=display">
+\operatorname{expect}(i ; k, X)=\sum_{c \in V} g\left(c | s_{i}\right) e(c)</script><p>之后将其喂给下一步的输出：</p>
+<script type="math/tex; mode=display">
+s_{i+1}=L S T M_{d e c o d e r}\left(s_{i},\left[e x p e c t(i ; k, X), a_{i+1}\right]\right)</script><p>然后使用这些期望向量近似$Y|k;X$的概率分布。</p>
+<p>所以，上面推导出来的</p>
+<script type="math/tex; mode=display">
+Q(S t y | Y)=\operatorname{softmax}\left(W \cdot \frac{1}{T} \sum_{i=1}^{T} e\left(y_{i}\right)\right)</script><p>可以被重写为：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{r e g}=\frac{1}{K} \sum_{k=1}^{K} \log \left\{\operatorname{softmax}\left(W * \frac{1}{T} \sum_{i=1}^{T} \operatorname{expect}(i ; k, X)\right)[k]\right\}</script><p>k代表第k个风格。所以上面一直推导的的积分公式就可以表达为上式。</p>
+<p>于是上面那个公式就可以作为正则项加入训练过程，作为一个额外的loss：</p>
+<script type="math/tex; mode=display">
+\operatorname{Train}(X, Y)=\sum_{i=1}^{T} \log p\left(y_{i} | y_{1} y_{2} \ldots y_{i-1}, X\right)+\lambda \mathcal{L}_{\text { reg }}</script><p>loss的前半部分与风格没有什么关系，保证生成的效果，公式中的X置零；而后半部分保证了结果的风格相关。</p>
+<h2 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h2><p>主要通过人工评估。</p>
+<h3 id="数据集与模型细节"><a href="#数据集与模型细节" class="headerlink" title="数据集与模型细节"></a>数据集与模型细节</h3><p>16.8W首古诗，一半五言，一半七言。8:1:1划分。将连续的两个句子作为训练对$(X,Y)$。</p>
+<p>embedding和Encoder的hidden size为512，风格K=10，所以Decoder的hidden state维度为1034维。</p>
+<p>batch size=50，前5W个batch中$\lambda=0$，之后设为1.</p>
+<h4 id="Baselines"><a href="#Baselines" class="headerlink" title="Baselines"></a>Baselines</h4><ul>
+<li>Seq2seq，主要用于对比风格模块的提升。</li>
+<li>Polish(Yan, 2016)，特点是多次修改生成的句子。</li>
+<li>Memory(Zhang et al., 2017)，将memory融入到诗歌生成，可以被视为一个正则化行为。</li>
+</ul>
+<p>不考虑rule-based或模板模型。</p>
+<h3 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h3><p>将第一句话作为评估，依次生成后续三个句子。由于模型需要指定风格，于是我们使用上文的函数Q来估计第一句的风格，在后面三句中套用同样的风格。</p>
+<ul>
+<li>流畅性</li>
+<li>一致性</li>
+<li>意义性</li>
+<li>诗歌性</li>
+</ul>
+<p>上述四个指标被纳入考虑。</p>
+<p>分别生成了20首五言和20首七言，作为评估。邀请了10个中国文学专家，做了两组实验。第一组对比seq2seq，第二组对比别的先进模型。</p>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>seq2seq生成的是混合风格的模型，更可能产生无意义的诗歌。风格作为统一信息，为一致性提供了帮助，并且缩小了空间，因此在风格内部能学习得更加准确、紧凑。</p>
+<h3 id="习得风格的可解释性"><a href="#习得风格的可解释性" class="headerlink" title="习得风格的可解释性"></a>习得风格的可解释性</h3><p>10种风格的关键词如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>首先输入每种风格各生成5首诗，再由人类专家进行分类。由于是无监督生成的，故模型很可能不会严格对齐人类的风格标注。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看见，人类可以以更高的概率成功识别出很多风格。观察结果表明，模型的学习风格只有两三个关键词有意义、可识别。除此之外，生成的诗歌需要是多样的，否则他们不能被区分开。</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-08-10T07:22:58.911Z" itemprop="dateUpdated">2019-08-10 15:22:58</time>
+</span><br>
+
+
+        
+        原文地址：<a href="/2019/08/10/jiuge/" target="_blank" rel="external">http://ldzhangyx.github.io/2019/08/10/jiuge/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://ldzhangyx.github.io">
+            <img src="/img/avatar.jpg" alt="张逸霄">
+            张逸霄
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/distanglement/">distanglement</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/generation/">generation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem-generation/">poem generation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/诗歌生成/">诗歌生成</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/08/10/jiuge/&title=《诗歌生成模型“九歌”：《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》论文笔记》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/08/10/jiuge/&title=《诗歌生成模型“九歌”：《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》论文笔记》 — 张逸霄的技术小站&source=清华孙茂松老师组的工作，从效果来看，“九歌”的效果相当不错。适逢最近这个模型开源，我希望能梳理一下和这个模型有关的论文，尤其是《Stylistic Chi..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/08/10/jiuge/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《诗歌生成模型“九歌”：《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》论文笔记》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/08/10/jiuge/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/08/10/jiuge/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/08/07/tree-evaluation/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">如何评估树结构的相似性？也许可以了解一下Tree Editing Distance</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "vjXNi1yCMdQOFUwuQ8kmMcBC-gzGzoHsz",
+            appKey: "FntMqfzRaFO2Jm4fjUC9Mz4S",
+            avatar: "mm",
+            placeholder: "随便写点什么吧",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        非常感谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>张逸霄 &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/08/10/jiuge/&title=《诗歌生成模型“九歌”：《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》论文笔记》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/08/10/jiuge/&title=《诗歌生成模型“九歌”：《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》论文笔记》 — 张逸霄的技术小站&source=清华孙茂松老师组的工作，从效果来看，“九歌”的效果相当不错。适逢最近这个模型开源，我希望能梳理一下和这个模型有关的论文，尤其是《Stylistic Chi..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/08/10/jiuge/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《诗歌生成模型“九歌”：《Stylistic Chinese Poetry Generation via Unsupervised Style Disentanglement》论文笔记》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/08/10/jiuge/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/08/10/jiuge/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIElEQVR42u3aQZYCIQwFQO9/6Z4DOOr/oV0Ixco3tkD1IhNIHo94XE/j+dtXz7fPPD9528DAwPhZxvV2zBjPf0/mz3/1z4oYGBgHMJJNvH8m+VX+stp1MTAwMIZTjxI+DAwMjLsC7uxQ2gZZDAwMjPYQmyd8ybfJIfkrZ3EMDIwfZKyka9/+/JX6BgYGxk8xrnLM0sd2tnpXGBgYWzPyAJdvqN1ifm334QoPAwNjU8bsOiwvXs5KAnWjGAYGxtaMZBN5g8V6YWDWLoaBgXECY6UM0G7u3sYODAyMExhtVF4pQK6nni/XwsDA2JqRTNRuPV84D77RWhgYGFszZtvKk8J2o22JFAMDY29Ge1jNE8EksLYl0pevDwMDY2vG+hTrDRP5/4QP62JgYGzKyA+f7XVbm2LOrt4wMDDOYbTJXL3M6KUUzRYYGBhbM9oWitkW2zS0XR0DA2NvRvvjNjVcea/F8RgDA2NrRn7RnydnebFhvf0CAwPjZMZKy0WSFLZ3ZclnDAyMcxhtWGyTwllxNEo3MTAwDmDMErK8YeIKxsrhFgMDY1fGVY68kNmmmHnYrXNbDAyMH2esFDjzqfOgfEOzBQYGxqaMJMjmrWDrJczhHjAwMA5gzAJl3v71DeTwLI6BgXEAI7/oTwJxPs+HVTAwMDDKJonkqi4Pu1G4x8DAOICRt02sfHvXkRUDA+M0xqzFISfNNjH7N4CBgbEd4w913GC+1qaSFwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Yixiao Zhang's Website';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Yixiao Zhang's Website';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
