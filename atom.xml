@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2019-09-11T10:20:56.885Z</updated>
+  <updated>2019-10-16T07:17:32.718Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使音乐模型更好地训练的一些技巧（2019.10.16）</title>
+    <link href="http://ldzhangyx.github.io/2019/10/16/practice-1016/"/>
+    <id>http://ldzhangyx.github.io/2019/10/16/practice-1016/</id>
+    <published>2019-10-16T07:17:32.000Z</published>
+    <updated>2019-10-16T07:17:32.718Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="PyTorch与TensorBoard的交互"><a href="#PyTorch与TensorBoard的交互" class="headerlink" title="PyTorch与TensorBoard的交互"></a>PyTorch与TensorBoard的交互</h1><p>PyTorch最近一直在改进TensorBoard的支持，包括在最新v1.3中，也在一直改进。</p><p>最基本的使用方法是，新建一个<code>SummaryWriter</code>对象，之后在合适的位置进行<code>add_scalar()</code>记录，最后<code>close()</code>即可。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"></span><br><span class="line">writer = SummaryWriter()</span><br><span class="line">writer.add_scalar(<span class="string">"valid loss"</span>, loss, n_iter) <span class="comment"># 三个参数代表变量，数值，横坐标</span></span><br><span class="line"></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure><p>文件会保存在代码的<code>.run/</code>目录里，访问<code>localhost:6006</code>即可进行观察。</p><h1 id="音乐数据集的移调数据扩增"><a href="#音乐数据集的移调数据扩增" class="headerlink" title="音乐数据集的移调数据扩增"></a>音乐数据集的移调数据扩增</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">train_X_augment = []</span><br><span class="line">train_Y_augment = []</span><br><span class="line"><span class="keyword">for</span> i, target <span class="keyword">in</span> enumerate(train_Y):</span><br><span class="line">    train_X_augment.append(pad(train_X[i], pad_size))</span><br><span class="line">    train_Y_augment.append(pad(train_Y[i], pad_size))</span><br><span class="line">    <span class="keyword">if</span> augment_data:</span><br><span class="line">        <span class="keyword">for</span> direction <span class="keyword">in</span> [<span class="number">-1</span>, <span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">for</span> shift <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">12</span>):</span><br><span class="line">                train_X_temp = (train_X[i]).clone()</span><br><span class="line">                train_X_temp[:] += direction * shift</span><br><span class="line">                train_X_augment.append(pad(train_X_temp, pad_size))</span><br><span class="line">                train_Y_augment.append(pad(train_Y[i], pad_size))</span><br><span class="line">train_X = torch.stack(train_X_augment)</span><br><span class="line">train_Y= torch.stack(train_Y_augment)</span><br><span class="line">···</span><br><span class="line"></span><br><span class="line"><span class="comment"># 统计模型总参数量</span></span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">params = list(model.parameters())</span><br><span class="line">total_params = sum(x.size()[<span class="number">0</span>] * x.size()[<span class="number">1</span>] <span class="keyword">if</span> len(x.size()) &gt; <span class="number">1</span> <span class="keyword">else</span> x.size()[<span class="number">0</span>] <span class="keyword">for</span> x <span class="keyword">in</span> params <span class="keyword">if</span> x.size())</span><br><span class="line">print(<span class="string">'Args:'</span>, args)</span><br><span class="line">print(<span class="string">'Model total parameters:'</span>, total_params)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;PyTorch与TensorBoard的交互&quot;&gt;&lt;a href=&quot;#PyTorch与TensorBoard的交互&quot; class=&quot;headerlink&quot; title=&quot;PyTorch与TensorBoard的交互&quot;&gt;&lt;/a&gt;PyTorch与TensorBoard的
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>音乐相关会议的deadline一览</title>
+    <link href="http://ldzhangyx.github.io/2019/09/12/music-conference-deadline/"/>
+    <id>http://ldzhangyx.github.io/2019/09/12/music-conference-deadline/</id>
+    <published>2019-09-12T15:05:35.000Z</published>
+    <updated>2019-09-12T15:13:14.997Z</updated>
+    
+    <content type="html"><![CDATA[<p>网站运营的简要介绍。</p><a id="more"></a><p>之前看到aideadlin.es对AI各个领域会议做了一个汇总。音乐领域没有专门的网站做汇集，于是我fork过来重新整理发布了一个网站，挂载在我特意注册的小号上。</p><p>网址是：yixiao-music.github.io，直接点这个网页的侧栏tab也可以直接进去。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>网页更新采用ISMIR社区的回复更新：<a href="https://groups.google.com/a/ismir.net/forum/#!topic/community/8CnJfljcx0E" target="_blank" rel="noopener">https://groups.google.com/a/ismir.net/forum/#!topic/community/8CnJfljcx0E</a></p><p>我计划手动根据回复对这个网站进行数据更新，以避免我的GitHub小号因不常登陆而收不到PR的情况。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;网站运营的简要介绍。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>PyTorch中，LSTM的两种不同形式</title>
@@ -492,48 +531,6 @@
       <category term="machine learning" scheme="http://ldzhangyx.github.io/tags/machine-learning/"/>
     
       <category term="Master" scheme="http://ldzhangyx.github.io/tags/Master/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>music21配置与使用</title>
-    <link href="http://ldzhangyx.github.io/2019/03/25/music21/"/>
-    <id>http://ldzhangyx.github.io/2019/03/25/music21/</id>
-    <published>2019-03-25T14:44:04.000Z</published>
-    <updated>2019-03-25T15:14:12.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>一篇讲述music21使用时可能会出现的问题的解决方案。</p><a id="more"></a><p>环境：</p><ul><li>Windows 10</li><li>Python 3.6</li><li>Anaconda</li></ul><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>安装不用细说，如果安装不上的话可以考虑开发环境问题，另外配一个开发环境问题可能得解。亲测Anaconda + Python 3.6环境是没有问题的。</p><h1 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h1><p>请先安装MuseScore 3，然后这样在代码中加上这几行。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">us = music21.environment.UserSettings()</span><br><span class="line">us[&apos;musescoreDirectPNGPath&apos;] = r&quot;C:\Program Files\MuseScore 3\bin\MuseScore3.exe&quot;</span><br><span class="line">us[&apos;musicxmlPath&apos;] = r&quot;C:\Program Files\MuseScore 3\bin\MuseScore3.exe&quot;</span><br></pre></td></tr></table></figure><h1 id="播放midi文件"><a href="#播放midi文件" class="headerlink" title="播放midi文件"></a>播放midi文件</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file = music21.converter.parse(<span class="string">"music.mid"</span>)</span><br><span class="line">midi.realtime.StreamPlayer(file).play()</span><br></pre></td></tr></table></figure><h1 id="展示乐谱"><a href="#展示乐谱" class="headerlink" title="展示乐谱"></a>展示乐谱</h1><p>配置好环境变量之后，你可能会遇到这个问题：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SubConverterFileIOException: png file of xml not found. Or file &gt;999 pages?</span><br></pre></td></tr></table></figure><p>请将你的代码改写成这个样子：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file.show(<span class="string">'musicxml'</span>)</span><br></pre></td></tr></table></figure><p>当参数设置为musicxml，且环境变量正确，则乐谱可以正常显示。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;一篇讲述music21使用时可能会出现的问题的解决方案。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
-    
-      <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>个人向RSS订阅列表，以及极简RSS配置指南</title>
-    <link href="http://ldzhangyx.github.io/2019/02/18/rss-recommend/"/>
-    <id>http://ldzhangyx.github.io/2019/02/18/rss-recommend/</id>
-    <published>2019-02-18T05:10:02.000Z</published>
-    <updated>2019-02-18T06:40:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>这份订阅列表是微软学生俱乐部一个不完全个人网站清单。</p><a id="more"></a><h1 id="订阅列表"><a href="#订阅列表" class="headerlink" title="订阅列表"></a>订阅列表</h1><ul><li>张逸霄的技术小站<ul><li>ldzhangyx.github.io</li><li>主题：音乐生成，自然语言处理</li><li>也就是我的个人网站，不定期更新有趣的论文笔记和想法。</li></ul></li><li>LeoJhon.Song’s Blog<ul><li>leojhonsong.github.io/zh-CN </li><li>主题：技巧和个人心得</li><li>宋铸恒的博客，本身水平不错，博客质量也比较高。</li></ul></li><li>…</li></ul><h1 id="RSS配置指南"><a href="#RSS配置指南" class="headerlink" title="RSS配置指南"></a>RSS配置指南</h1><h2 id="订阅他人的RSS"><a href="#订阅他人的RSS" class="headerlink" title="订阅他人的RSS"></a>订阅他人的RSS</h2><ol><li>检查此博客支不支持RSS订阅</li></ol><p>最简单的检查方式是，访问atom.xml子页面。比如说我的网站，可以访问ldzhangyx.github.io/atom.xml页面来查看。如果没有这个网页，那就是没有RSS订阅。</p><ol><li>安装chrome插件</li></ol><p>我自己用的是<a href="https://feeder.co/reader" target="_blank" rel="noopener">Feeder</a>，很好用。</p><ol><li>添加网址到插件订阅列表里</li></ol><h2 id="配置RSS"><a href="#配置RSS" class="headerlink" title="配置RSS"></a>配置RSS</h2><ol><li>npm安装hexo-generator-feed</li></ol><p>网址在这里：<a href="https://github.com/hexojs/hexo-generator-feed" target="_blank" rel="noopener">https://github.com/hexojs/hexo-generator-feed</a></p><ol><li><p>按照上面网页的指引，在根目录的_config.yml添加RSS项。</p></li><li><p>在当前主题的_config.yml添加RSS列，用于显示RSS图标。</p></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rss: &quot;/atom.xml&quot;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这份订阅列表是微软学生俱乐部一个不完全个人网站清单。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="RSS" scheme="http://ldzhangyx.github.io/tags/RSS/"/>
     
   </entry>
   
