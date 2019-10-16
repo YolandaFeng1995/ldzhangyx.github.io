@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2019-10-16T07:17:32.718Z</updated>
+  <updated>2019-10-16T07:21:59.614Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://ldzhangyx.github.io/2019/10/16/practice-1016/"/>
     <id>http://ldzhangyx.github.io/2019/10/16/practice-1016/</id>
     <published>2019-10-16T07:17:32.000Z</published>
-    <updated>2019-10-16T07:17:32.718Z</updated>
+    <updated>2019-10-16T07:21:59.614Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="PyTorch与TensorBoard的交互"><a href="#PyTorch与TensorBoard的交互" class="headerlink" title="PyTorch与TensorBoard的交互"></a>PyTorch与TensorBoard的交互</h1><p>PyTorch最近一直在改进TensorBoard的支持，包括在最新v1.3中，也在一直改进。</p><p>最基本的使用方法是，新建一个<code>SummaryWriter</code>对象，之后在合适的位置进行<code>add_scalar()</code>记录，最后<code>close()</code>即可。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"></span><br><span class="line">writer = SummaryWriter()</span><br><span class="line">writer.add_scalar(<span class="string">"valid loss"</span>, loss, n_iter) <span class="comment"># 三个参数代表变量，数值，横坐标</span></span><br><span class="line"></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure><p>文件会保存在代码的<code>.run/</code>目录里，访问<code>localhost:6006</code>即可进行观察。</p><h1 id="音乐数据集的移调数据扩增"><a href="#音乐数据集的移调数据扩增" class="headerlink" title="音乐数据集的移调数据扩增"></a>音乐数据集的移调数据扩增</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">train_X_augment = []</span><br><span class="line">train_Y_augment = []</span><br><span class="line"><span class="keyword">for</span> i, target <span class="keyword">in</span> enumerate(train_Y):</span><br><span class="line">    train_X_augment.append(pad(train_X[i], pad_size))</span><br><span class="line">    train_Y_augment.append(pad(train_Y[i], pad_size))</span><br><span class="line">    <span class="keyword">if</span> augment_data:</span><br><span class="line">        <span class="keyword">for</span> direction <span class="keyword">in</span> [<span class="number">-1</span>, <span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">for</span> shift <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">12</span>):</span><br><span class="line">                train_X_temp = (train_X[i]).clone()</span><br><span class="line">                train_X_temp[:] += direction * shift</span><br><span class="line">                train_X_augment.append(pad(train_X_temp, pad_size))</span><br><span class="line">                train_Y_augment.append(pad(train_Y[i], pad_size))</span><br><span class="line">train_X = torch.stack(train_X_augment)</span><br><span class="line">train_Y= torch.stack(train_Y_augment)</span><br><span class="line">···</span><br><span class="line"></span><br><span class="line"><span class="comment"># 统计模型总参数量</span></span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">params = list(model.parameters())</span><br><span class="line">total_params = sum(x.size()[<span class="number">0</span>] * x.size()[<span class="number">1</span>] <span class="keyword">if</span> len(x.size()) &gt; <span class="number">1</span> <span class="keyword">else</span> x.size()[<span class="number">0</span>] <span class="keyword">for</span> x <span class="keyword">in</span> params <span class="keyword">if</span> x.size())</span><br><span class="line">print(<span class="string">'Args:'</span>, args)</span><br><span class="line">print(<span class="string">'Model total parameters:'</span>, total_params)</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h1 id="PyTorch与TensorBoard的交互"><a href="#PyTorch与TensorBoard的交互" class="headerlink" title="PyTorch与TensorBoard的交互"></a>PyTorch与TensorBoard的交互</h1><p>PyTorch最近一直在改进TensorBoard的支持，包括在最新v1.3中，也在一直改进。</p><p>最基本的使用方法是，新建一个<code>SummaryWriter</code>对象，之后在合适的位置进行<code>add_scalar()</code>记录，最后<code>close()</code>即可。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"></span><br><span class="line">writer = SummaryWriter()</span><br><span class="line">writer.add_scalar(<span class="string">"valid loss"</span>, loss, n_iter) <span class="comment"># 三个参数代表变量，数值，横坐标</span></span><br><span class="line"></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure><p>文件会保存在代码的<code>.run/</code>目录里，访问<code>localhost:6006</code>即可进行观察。</p><h1 id="音乐数据集的移调数据扩增"><a href="#音乐数据集的移调数据扩增" class="headerlink" title="音乐数据集的移调数据扩增"></a>音乐数据集的移调数据扩增</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">train_X_augment = []</span><br><span class="line">train_Y_augment = []</span><br><span class="line"><span class="keyword">for</span> i, target <span class="keyword">in</span> enumerate(train_Y):</span><br><span class="line">    train_X_augment.append(pad(train_X[i], pad_size))</span><br><span class="line">    train_Y_augment.append(pad(train_Y[i], pad_size))</span><br><span class="line">    <span class="keyword">if</span> augment_data:</span><br><span class="line">        <span class="keyword">for</span> direction <span class="keyword">in</span> [<span class="number">-1</span>, <span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">for</span> shift <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">12</span>):</span><br><span class="line">                train_X_temp = (train_X[i]).clone()</span><br><span class="line">                train_X_temp[:] += direction * shift</span><br><span class="line">                train_X_augment.append(pad(train_X_temp, pad_size))</span><br><span class="line">                train_Y_augment.append(pad(train_Y[i], pad_size))</span><br><span class="line">train_X = torch.stack(train_X_augment)</span><br><span class="line">train_Y= torch.stack(train_Y_augment)</span><br></pre></td></tr></table></figure><h1 id="统计模型总参数量"><a href="#统计模型总参数量" class="headerlink" title="统计模型总参数量"></a>统计模型总参数量</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">params = list(model.parameters())</span><br><span class="line">total_params = sum(x.size()[<span class="number">0</span>] * x.size()[<span class="number">1</span>] <span class="keyword">if</span> len(x.size()) &gt; <span class="number">1</span> <span class="keyword">else</span> x.size()[<span class="number">0</span>] <span class="keyword">for</span> x <span class="keyword">in</span> params <span class="keyword">if</span> x.size())</span><br><span class="line">print(<span class="string">'Args:'</span>, args)</span><br><span class="line">print(<span class="string">'Model total parameters:'</span>, total_params)</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
@@ -34,6 +34,10 @@
     
     </summary>
     
+      <category term="开发笔记" scheme="http://ldzhangyx.github.io/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="【music generation, PyTorch, 心得体会]" scheme="http://ldzhangyx.github.io/tags/%E3%80%90music-generation-PyTorch-%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"/>
     
   </entry>
   
@@ -42,7 +46,7 @@
     <link href="http://ldzhangyx.github.io/2019/09/12/music-conference-deadline/"/>
     <id>http://ldzhangyx.github.io/2019/09/12/music-conference-deadline/</id>
     <published>2019-09-12T15:05:35.000Z</published>
-    <updated>2019-09-12T15:13:14.997Z</updated>
+    <updated>2019-10-16T07:21:19.453Z</updated>
     
     <content type="html"><![CDATA[<p>网站运营的简要介绍。</p><a id="more"></a><p>之前看到aideadlin.es对AI各个领域会议做了一个汇总。音乐领域没有专门的网站做汇集，于是我fork过来重新整理发布了一个网站，挂载在我特意注册的小号上。</p><p>网址是：yixiao-music.github.io，直接点这个网页的侧栏tab也可以直接进去。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>网页更新采用ISMIR社区的回复更新：<a href="https://groups.google.com/a/ismir.net/forum/#!topic/community/8CnJfljcx0E" target="_blank" rel="noopener">https://groups.google.com/a/ismir.net/forum/#!topic/community/8CnJfljcx0E</a></p><p>我计划手动根据回复对这个网站进行数据更新，以避免我的GitHub小号因不常登陆而收不到PR的情况。</p>]]></content>
     
@@ -52,6 +56,14 @@
     
     </summary>
     
+      <category term="其他" scheme="http://ldzhangyx.github.io/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
+    
+      <category term="MIR" scheme="http://ldzhangyx.github.io/tags/MIR/"/>
+    
+      <category term="community" scheme="http://ldzhangyx.github.io/tags/community/"/>
     
   </entry>
   
