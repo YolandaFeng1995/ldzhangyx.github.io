@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2019-10-16T07:23:47.644Z</updated>
+  <updated>2019-10-16T08:50:16.693Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python两个代码技巧</title>
+    <link href="http://ldzhangyx.github.io/2019/10/16/python-trick-1016/"/>
+    <id>http://ldzhangyx.github.io/2019/10/16/python-trick-1016/</id>
+    <published>2019-10-16T08:50:16.000Z</published>
+    <updated>2019-10-16T08:50:16.693Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="字符串格式化：F-string（v3-6-）"><a href="#字符串格式化：F-string（v3-6-）" class="headerlink" title="字符串格式化：F-string（v3.6+）"></a>字符串格式化：F-string（v3.6+）</h1><p>之前版本的Python给字符串赋值会使用<code>%</code>和<code>.format()</code>两种方法。F-string提供了第三种方法。</p><p>F-string的使用例子：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">name = <span class="string">'Bob'</span></span><br><span class="line">age = <span class="number">12</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">f"My name is <span class="subst">&#123;name&#125;</span>, and my age is <span class="subst">&#123;age&#125;</span>."</span>)</span><br></pre></td></tr></table></figure><p>这种表达在阅读代码的时候能让人更加容易将位置和变量对应起来。</p><p>PEP 498中提到，其规范的格式应当是：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f &apos; &lt;text&gt; &#123; &lt;expression&gt; &lt;optional !s, !r, or !a&gt; &lt;optional : format specifier&gt; &#125; &lt;text&gt; ... &apos;</span><br></pre></td></tr></table></figure><h1 id="赋值的表达式（Assignment-Expressions，-v3-8-）"><a href="#赋值的表达式（Assignment-Expressions，-v3-8-）" class="headerlink" title="赋值的表达式（Assignment Expressions， v3.8+）"></a>赋值的表达式（Assignment Expressions， v3.8+）</h1><p>这是Python 3.8加入的新功能。众所周知Python的<code>=</code>赋值运算符不返回任何值。新增的赋值表达式运算符<code>:=</code>可以完成运算，同时将赋值结果返回。</p><p>这使得以下代码成为可能：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (result := function()) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure><p>而如果用普通的<code>=</code>运算符，只能以额外声明变量实现：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">result = function()</span><br><span class="line"><span class="keyword">if</span> result <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure><p>或重复计算表达式：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> function() <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">print(function())</span><br></pre></td></tr></table></figure><p>新的语法糖改善了此过程。</p><p>PEP 572完整阐述了这个语法糖的使用。给出的其他例子如：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    line = fp.readline()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> line:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    print(line)</span><br></pre></td></tr></table></figure><p>可以简化成：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (line := fp.readline()):</span><br><span class="line">    print(line)</span><br></pre></td></tr></table></figure><p>以及列表推导式可以从</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">results = [</span><br><span class="line">    f(x) <span class="keyword">for</span> x <span class="keyword">in</span> data</span><br><span class="line">    <span class="keyword">if</span> f(x)</span><br><span class="line">]</span><br></pre></td></tr></table></figure><p>改进以避免重复运算，到：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">results = [</span><br><span class="line">    y <span class="keyword">for</span> x <span class="keyword">in</span> data</span><br><span class="line">    <span class="keyword">if</span> (y := f(x))</span><br><span class="line">]</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;字符串格式化：F-string（v3-6-）&quot;&gt;&lt;a href=&quot;#字符串格式化：F-string（v3-6-）&quot; class=&quot;headerlink&quot; title=&quot;字符串格式化：F-string（v3.6+）&quot;&gt;&lt;/a&gt;字符串格式化：F-string（v3.6
+      
+    
+    </summary>
+    
+      <category term="开发笔记" scheme="http://ldzhangyx.github.io/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Python" scheme="http://ldzhangyx.github.io/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>使音乐模型更好地训练的一些技巧（2019.10.16）</title>
@@ -50,7 +75,7 @@
     <link href="http://ldzhangyx.github.io/2019/09/12/music-conference-deadline/"/>
     <id>http://ldzhangyx.github.io/2019/09/12/music-conference-deadline/</id>
     <published>2019-09-12T15:05:35.000Z</published>
-    <updated>2019-10-16T07:21:19.453Z</updated>
+    <updated>2019-10-16T07:23:54.398Z</updated>
     
     <content type="html"><![CDATA[<p>网站运营的简要介绍。</p><a id="more"></a><p>之前看到aideadlin.es对AI各个领域会议做了一个汇总。音乐领域没有专门的网站做汇集，于是我fork过来重新整理发布了一个网站，挂载在我特意注册的小号上。</p><p>网址是：yixiao-music.github.io，直接点这个网页的侧栏tab也可以直接进去。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>网页更新采用ISMIR社区的回复更新：<a href="https://groups.google.com/a/ismir.net/forum/#!topic/community/8CnJfljcx0E" target="_blank" rel="noopener">https://groups.google.com/a/ismir.net/forum/#!topic/community/8CnJfljcx0E</a></p><p>我计划手动根据回复对这个网站进行数据更新，以避免我的GitHub小号因不常登陆而收不到PR的情况。</p>]]></content>
     
@@ -516,37 +541,6 @@
       <category term="Python" scheme="http://ldzhangyx.github.io/tags/Python/"/>
     
       <category term="软件工程" scheme="http://ldzhangyx.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>之后几年里想做的研究（非正式Research Proposal）</title>
-    <link href="http://ldzhangyx.github.io/2019/03/31/research-proposal/"/>
-    <id>http://ldzhangyx.github.io/2019/03/31/research-proposal/</id>
-    <published>2019-03-31T12:01:10.000Z</published>
-    <updated>2019-04-01T04:34:48.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>The area I am passionate about is computational creativity[1]. It includes story generation, message generation, and even music generation. I want to endow machines with creative behaviors, and, I am doing good at music generation, indeed.</p><p>About generation model, there are several questions.</p><ul><li>Is that useful? My answer is yes. We have lots of ideas, but it is difficult to transform ideas to artworks. Most of us only have the abilities to finish a draft. If it can be controlled, then models can be used to assist people do creative task like writing and composition.</li><li>How can we control the model? Some approaches can be applied.</li></ul><ol><li>The first is to control input.[2] FAIR developed a model to generate stories from tags and topic words[3]. Hierarchical attention mechanism is used in this model. By controlling the input, they can create different kinds of stories.</li><li>The second way is to control structure. Skeleton model is used to keep generated narrative consistent[4]. They set a structure via reinforcement learning and generate stories progressively, to keep articles fluent and can be read.</li></ol><ul><li>What is the main difficulty?</li></ul><ol><li>We lack data. However, we can solve the problem by designing training methods. CocoNet is used to generate J.S. Bach’s chorales[5]. In the beginning, they have only 306 pieces of artworks. But they tried to erase different parts and let the model recover them, and then erase again. During this period, the model can gradually learn composition skills</li><li>We lack benchmarks. Now most generative models are evaluated manually. We can quantify the content of the assessment and achieve results similar to human assessment in mathematical form. A good example is VMO analysis, which can discover the hierarchy of music clips and analyze the logic of music.</li><li>We lack good learning target. In my opinion, traditional seq2seq model uses cross-entropy loss, which limits probabilities. My idea is that, we can analyze features, like consistency and local circulation, to train a discriminative model, like GAN.</li><li>Structure design is difficult. Skeleton model applied reinforcement learning, but I have a better idea – use meta-learning techniques. Learning to teach models[6] is my current research topic at Microsoft. Meta-learning can help us decide hypothesis space[7]. Maybe we can use this method to control the structure of artworks.</li></ol><ul><li>Your ideas?</li></ul><ol><li>Generate models hierarchically, but use meta-learning techniques as assistance, to make generated results controllable.</li><li>Graph Convolutional Network should be applied to used to make the text logical. Knowledge graph include prior knowledge in the network structure, and graph embedding allows embedding results to contain information about the knowledge graph[8].</li></ol><p>References<br>[1] Colton, S., Charnley, J. W., &amp; Pease, A. (2011, April). Computational Creativity Theory: The FACE and IDEA Descriptive Models. In ICCC (pp. 90-95).<br>[2] Briot, J. P., &amp; Pachet, F. (2017). Music generation by deep learning-challenges and directions. arXiv preprint arXiv:1712.04371.<br>[3] Fan, A., Lewis, M., &amp; Dauphin, Y. (2018). Hierarchical neural story generation. arXiv preprint arXiv:1805.04833.<br>[4] Xu, J., Zhang, Y., Zeng, Q., Ren, X., Cai, X., &amp; Sun, X. (2018). A skeleton-based model for promoting coherence among sentences in narrative story generation. arXiv preprint arXiv:1808.06945.<br>[5] Huang, C. Z. A., Cooijmans, T., Roberts, A., Courville, A., &amp; Eck, D. (2019). Counterpoint by convolution. arXiv preprint arXiv:1903.07227.<br>[6] Fan, Y., Tian, F., Qin, T., Li, X. Y., &amp; Liu, T. Y. (2018). Learning to teach. arXiv preprint arXiv:1805.03643.<br>[7] Han, B., Yao, Q., Yu, X., Niu, G., Xu, M., Hu, W., … &amp; Sugiyama, M. (2018). Co-teaching: Robust training of deep neural networks with extremely noisy labels. In Advances in Neural Information Processing Systems (pp. 8536-8546).<br>[8] Liu, W., Wang, Z., Liu, X., Zeng, N., Liu, Y., &amp; Alsaadi, F. E. (2017). A survey of deep neural network architectures and their applications. Neurocomputing, 234, 11-26.</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;The area I am passionate about is computational creativity[1]. It includes story generation, message generation, and even music generatio
-      
-    
-    </summary>
-    
-    
-      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
-    
-      <category term="NLG" scheme="http://ldzhangyx.github.io/tags/NLG/"/>
-    
-      <category term="个人想法" scheme="http://ldzhangyx.github.io/tags/%E4%B8%AA%E4%BA%BA%E6%83%B3%E6%B3%95/"/>
-    
-      <category term="machine learning" scheme="http://ldzhangyx.github.io/tags/machine-learning/"/>
-    
-      <category term="Master" scheme="http://ldzhangyx.github.io/tags/Master/"/>
     
   </entry>
   
