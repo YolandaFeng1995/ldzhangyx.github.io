@@ -327,7 +327,7 @@ ga('send', 'pageview');
     <div class="waves-block waves-effect prev">
       <a href="/2019/10/23/update-1023/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">本站评论系统即日起升级为gitment组件</h4>
+        <h4 class="title">本站评论系统即日起升级为gitalk组件</h4>
       </a>
     </div>
   
@@ -353,22 +353,6 @@ ga('send', 'pageview');
 
 
 
-<section class="comments" id="comments">
-    <div id="gitment_thread"></div>
-    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
-    <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
-    <script>
-        var gitment = new Gitment({
-            owner: '',
-            repo: '',
-            oauth: {
-                client_id: '',
-                client_secret: '',
-            },
-        })
-        gitment.render('comments')
-    </script>
-</section>
 
 
 
@@ -377,6 +361,30 @@ ga('send', 'pageview');
 
 
 
+
+    <section class="comments" id="comments">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+            var id = location.pathname
+            if (location.pathname.length > 50) {
+              id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+            }
+            const gitalk = new Gitalk({
+              clientID: '',
+              clientSecret: '',
+              repo: '',
+              owner: '',
+              admin: [''],
+              id: id,      // Ensure uniqueness and length less than 50
+              title: document.title.split('|')[0],
+              distractionFreeMode: false  // Facebook-like distraction free mode
+            })
+            gitalk.render('gitalk-container')
+        </script>
+    </section>
+    
 
 
 </article>

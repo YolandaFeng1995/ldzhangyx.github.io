@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2019-10-23T06:24:59.467Z</updated>
+  <updated>2019-10-23T06:47:49.540Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -17,21 +17,20 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>本站评论系统即日起升级为gitment组件</title>
+    <title>本站评论系统即日起升级为gitalk组件</title>
     <link href="http://ldzhangyx.github.io/2019/10/23/update-1023/"/>
     <id>http://ldzhangyx.github.io/2019/10/23/update-1023/</id>
     <published>2019-10-23T06:16:12.000Z</published>
-    <updated>2019-10-23T06:24:59.467Z</updated>
+    <updated>2019-10-23T06:47:49.540Z</updated>
     
-    <content type="html"><![CDATA[<p>本站之前的评论系统使用了valine，评论并不能被即时地阅读。升级了评论系统后，gitment将访客的评论转为issue添加到GitHub repo中，这样我可以及时收到评论提醒。</p><p>因为这样的机制，评论模块需要访客的GitHub OAuth授权。</p><p>另外，最有效和快速的联系方法是<em>点击首页头像下的邮箱链接，向我发送邮件</em>。技术讨论类问题会在一天内进行回复。</p>]]></content>
+    <content type="html"><![CDATA[<p>本站之前的评论系统使用了valine，评论并不能被即时地阅读。升级了评论系统后，gitalk将访客的评论转为issue添加到GitHub repo中，这样我可以及时收到评论提醒。</p><p>另外，最有效和快速的联系方法是<strong>点击首页头像下的邮箱链接，向我发送邮件</strong>。技术讨论类问题会在一天内进行回复。</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;本站之前的评论系统使用了valine，评论并不能被即时地阅读。升级了评论系统后，gitment将访客的评论转为issue添加到GitHub repo中，这样我可以及时收到评论提醒。&lt;/p&gt;
-&lt;p&gt;因为这样的机制，评论模块需要访客的GitHub OAuth授权。&lt;/p&gt;
-&lt;p
+        &lt;p&gt;本站之前的评论系统使用了valine，评论并不能被即时地阅读。升级了评论系统后，gitalk将访客的评论转为issue添加到GitHub repo中，这样我可以及时收到评论提醒。&lt;/p&gt;
+&lt;p&gt;另外，最有效和快速的联系方法是&lt;strong&gt;点击首页头像下的邮箱链接，向我发送
       
     
     </summary>
