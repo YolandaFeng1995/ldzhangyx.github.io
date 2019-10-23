@@ -87,9 +87,9 @@
       <category term="开发笔记" scheme="http://ldzhangyx.github.io/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="心得体会" scheme="http://ldzhangyx.github.io/tags/%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"/>
-    
       <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
+    
+      <category term="心得体会" scheme="http://ldzhangyx.github.io/tags/%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"/>
     
       <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
     
@@ -370,9 +370,9 @@
     </summary>
     
     
-      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
-    
       <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
+    
+      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
     
       <category term="dataset" scheme="http://ldzhangyx.github.io/tags/dataset/"/>
     
@@ -402,13 +402,13 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
-    
       <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
     
-      <category term="structure" scheme="http://ldzhangyx.github.io/tags/structure/"/>
+      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
     
       <category term="VAE" scheme="http://ldzhangyx.github.io/tags/VAE/"/>
+    
+      <category term="structure" scheme="http://ldzhangyx.github.io/tags/structure/"/>
     
       <category term="图网络" scheme="http://ldzhangyx.github.io/tags/%E5%9B%BE%E7%BD%91%E7%BB%9C/"/>
     
