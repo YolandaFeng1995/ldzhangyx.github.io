@@ -221,7 +221,7 @@ ga('send', 'pageview');
 </div>
 </div>
 <h1 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h1><div class="card">
-<p>个人邮箱：<a href="&#x6d;&#97;&#105;&#x6c;&#116;&#111;&#58;&#108;&#x64;&#122;&#x68;&#97;&#x6e;&#103;&#x79;&#x78;&#x40;&#x6f;&#x75;&#x74;&#108;&#x6f;&#111;&#x6b;&#46;&#x63;&#111;&#109;">&#108;&#x64;&#122;&#x68;&#97;&#x6e;&#103;&#x79;&#x78;&#x40;&#x6f;&#x75;&#x74;&#108;&#x6f;&#111;&#x6b;&#46;&#x63;&#111;&#109;</a><br>联系电话：(+86)一八四-零八二五-三五五零</p>
+<p>个人邮箱：<a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#108;&#100;&#122;&#x68;&#x61;&#x6e;&#103;&#121;&#120;&#64;&#x6f;&#117;&#x74;&#x6c;&#111;&#x6f;&#x6b;&#46;&#99;&#x6f;&#x6d;">&#108;&#100;&#122;&#x68;&#x61;&#x6e;&#103;&#121;&#120;&#64;&#x6f;&#117;&#x74;&#x6c;&#111;&#x6f;&#x6b;&#46;&#99;&#x6f;&#x6d;</a><br>联系电话：(+86)一八四-零八二五-三五五零</p>
 </div>
 
         </div>
@@ -244,6 +244,22 @@ ga('send', 'pageview');
 
 
 
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: '',
+            repo: '',
+            oauth: {
+                client_id: '',
+                client_secret: '',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
 
 
 
@@ -253,29 +269,7 @@ ga('send', 'pageview');
 
 
 
-    <section class="comments" id="comments">
-        <div id="gitalk-container"></div>
-        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-        <script>
-            var id = location.pathname
-            if (location.pathname.length > 50) {
-              id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
-            }
-            const gitalk = new Gitalk({
-              clientID: '',
-              clientSecret: '',
-              repo: '',
-              owner: '',
-              admin: [''],
-              id: id,      // Ensure uniqueness and length less than 50
-              title: document.title.split('|')[0],
-              distractionFreeMode: false  // Facebook-like distraction free mode
-            })
-            gitalk.render('gitalk-container')
-        </script>
-    </section>
-    
+
 
 
     </article>
