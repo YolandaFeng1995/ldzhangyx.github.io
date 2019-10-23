@@ -39,7 +39,7 @@ ga('send', 'pageview');
 <meta property="og:site_name" content="张逸霄的技术小站">
 <meta property="og:description" content="个人简介@card{ 我是张逸霄，电子科技大学2015级本科毕业生。我的研究兴趣集中在自然语言生成和音乐生成相关领域。你可以在这里看到我的英文简历。目前我正在上海纽约大学（NYU Shanghai）做人工智能音乐领域的相关研究。 } 科研经历@card{ @timeline{ 2019@item{ 7月-8月加入上海纽约大学Music X Lab，作为RA进行为期一年的研究，方向主要为自动音乐结构">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-13T08:03:42.530Z">
+<meta property="og:updated_time" content="2019-10-23T06:25:50.972Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于我">
 <meta name="twitter:description" content="个人简介@card{ 我是张逸霄，电子科技大学2015级本科毕业生。我的研究兴趣集中在自然语言生成和音乐生成相关领域。你可以在这里看到我的英文简历。目前我正在上海纽约大学（NYU Shanghai）做人工智能音乐领域的相关研究。 } 科研经历@card{ @timeline{ 2019@item{ 7月-8月加入上海纽约大学Music X Lab，作为RA进行为期一年的研究，方向主要为自动音乐结构">
@@ -221,7 +221,7 @@ ga('send', 'pageview');
 </div>
 </div>
 <h1 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h1><div class="card">
-<p>个人邮箱：<a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#x3a;&#x6c;&#x64;&#122;&#104;&#97;&#110;&#103;&#x79;&#x78;&#x40;&#111;&#x75;&#116;&#x6c;&#x6f;&#x6f;&#107;&#46;&#x63;&#111;&#x6d;">&#x6c;&#x64;&#122;&#104;&#97;&#110;&#103;&#x79;&#x78;&#x40;&#111;&#x75;&#116;&#x6c;&#x6f;&#x6f;&#107;&#46;&#x63;&#111;&#x6d;</a><br>联系电话：(+86)171-3808-6414</p>
+<p>个人邮箱：<a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6c;&#x64;&#122;&#x68;&#x61;&#x6e;&#x67;&#x79;&#x78;&#x40;&#111;&#x75;&#116;&#108;&#x6f;&#111;&#x6b;&#x2e;&#99;&#111;&#109;">&#x6c;&#x64;&#122;&#x68;&#x61;&#x6e;&#x67;&#x79;&#x78;&#x40;&#111;&#x75;&#116;&#108;&#x6f;&#111;&#x6b;&#x2e;&#99;&#111;&#109;</a><br>联系电话：(+86)一八四-零八二五-三五五零</p>
 </div>
 
         </div>
@@ -244,32 +244,25 @@ ga('send', 'pageview');
 
 
 
-
-
-
-    <!-- Valine Comments -->
-    <div class="comments vcomment" id="comments"></div>
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-    <!-- Valine Comments script -->
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
     <script>
-        var GUEST_INFO = ['nick','mail','link'];
-        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-          return GUEST_INFO.indexOf(item) > -1
-        });
-        new Valine({
-            el: '#comments',
-            notify: 'false' == 'true',
-            verify: 'false' == 'true',
-            appId: "vjXNi1yCMdQOFUwuQ8kmMcBC-gzGzoHsz",
-            appKey: "FntMqfzRaFO2Jm4fjUC9Mz4S",
-            avatar: "mm",
-            placeholder: "随便写点什么吧",
-            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
-            pageSize: "10"
+        var gitment = new Gitment({
+            owner: '',
+            repo: '',
+            oauth: {
+                client_id: '',
+                client_secret: '',
+            },
         })
+        gitment.render('comments')
     </script>
-    <!-- Valine Comments end -->
+</section>
+
+
+
 
 
 
