@@ -32,18 +32,18 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="others">
-    <meta name="description" content="本站之前的评论系统使用了valine，评论并不能被即时地阅读。升级了评论系统后，gitalk将访客的评论转为issue添加到GitHub repo中，这样我可以及时收到评论提醒。 另外，最有效和快速的联系方法是点击首页头像下的邮箱链接，向我发送邮件。技术讨论类问题会在一天内进行回复。">
+    <meta name="description" content="本站之前的评论系统使用了valine，评论并不能被即时地阅读。升级了评论系统后，gitalk将访客的评论转为issue添加到GitHub repo中，这样我可以及时收到评论提醒。 另外，最有效和快速的联系方法是点击首页头像下的邮箱链接，向我发送邮件。技术讨论类问题会在一天内进行回复。 Gitalk配置中踩到的坑 Gitalk.ejs可能获取不到_config.yml的参数，使得OAuth链接的参数">
 <meta name="keywords" content="others">
 <meta property="og:type" content="article">
 <meta property="og:title" content="本站评论系统即日起升级为gitalk组件">
 <meta property="og:url" content="http://ldzhangyx.github.io/2019/10/23/update-1023/index.html">
 <meta property="og:site_name" content="张逸霄的技术小站">
-<meta property="og:description" content="本站之前的评论系统使用了valine，评论并不能被即时地阅读。升级了评论系统后，gitalk将访客的评论转为issue添加到GitHub repo中，这样我可以及时收到评论提醒。 另外，最有效和快速的联系方法是点击首页头像下的邮箱链接，向我发送邮件。技术讨论类问题会在一天内进行回复。">
+<meta property="og:description" content="本站之前的评论系统使用了valine，评论并不能被即时地阅读。升级了评论系统后，gitalk将访客的评论转为issue添加到GitHub repo中，这样我可以及时收到评论提醒。 另外，最有效和快速的联系方法是点击首页头像下的邮箱链接，向我发送邮件。技术讨论类问题会在一天内进行回复。 Gitalk配置中踩到的坑 Gitalk.ejs可能获取不到_config.yml的参数，使得OAuth链接的参数">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-23T06:47:49.540Z">
+<meta property="og:updated_time" content="2019-10-23T08:11:41.175Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="本站评论系统即日起升级为gitalk组件">
-<meta name="twitter:description" content="本站之前的评论系统使用了valine，评论并不能被即时地阅读。升级了评论系统后，gitalk将访客的评论转为issue添加到GitHub repo中，这样我可以及时收到评论提醒。 另外，最有效和快速的联系方法是点击首页头像下的邮箱链接，向我发送邮件。技术讨论类问题会在一天内进行回复。">
+<meta name="twitter:description" content="本站之前的评论系统使用了valine，评论并不能被即时地阅读。升级了评论系统后，gitalk将访客的评论转为issue添加到GitHub repo中，这样我可以及时收到评论提醒。 另外，最有效和快速的联系方法是点击首页头像下的邮箱链接，向我发送邮件。技术讨论类问题会在一天内进行回复。 Gitalk配置中踩到的坑 Gitalk.ejs可能获取不到_config.yml的参数，使得OAuth链接的参数">
     
         <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
     
@@ -180,6 +180,13 @@ ga('send', 'pageview');
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Gitalk配置中踩到的坑"><span class="post-toc-number">1.</span> <span class="post-toc-text">Gitalk配置中踩到的坑</span></a></li></ol>
+        </nav>
+    </aside>
+
 
 <article id="post-update-1023"
   class="post-article article-type-post fade" itemprop="blogPost">
@@ -202,6 +209,12 @@ ga('send', 'pageview');
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>本站之前的评论系统使用了valine，评论并不能被即时地阅读。升级了评论系统后，gitalk将访客的评论转为issue添加到GitHub repo中，这样我可以及时收到评论提醒。</p>
 <p>另外，最有效和快速的联系方法是<strong>点击首页头像下的邮箱链接，向我发送邮件</strong>。技术讨论类问题会在一天内进行回复。</p>
+<h1 id="Gitalk配置中踩到的坑"><a href="#Gitalk配置中踩到的坑" class="headerlink" title="Gitalk配置中踩到的坑"></a>Gitalk配置中踩到的坑</h1><ul>
+<li><p>Gitalk.ejs可能获取不到_config.yml的参数，使得OAuth链接的参数为空，导致404 Error问题。可以考虑将gitalk.ejs的参数直接硬编码。</p>
+</li>
+<li><p>配置完成后需要手动访问一次文章页面，完成此文章的评论区初始化。文章不多的话可以考虑全部打开一遍，多的话可以考虑自动脚本。</p>
+</li>
+</ul>
 
         </div>
 
@@ -210,7 +223,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-10-23T06:47:49.540Z" itemprop="dateUpdated">2019-10-23 14:47:49</time>
+    最后更新时间：<time datetime="2019-10-23T08:11:41.175Z" itemprop="dateUpdated">2019-10-23 16:11:41</time>
 </span><br>
 
 
@@ -291,7 +304,14 @@ ga('send', 'pageview');
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/10/30/polytree/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记</h4>
+      </a>
+    </div>
   
 
   

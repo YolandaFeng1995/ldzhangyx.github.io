@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2019-10-23T06:47:49.540Z</updated>
+  <updated>2019-10-30T10:05:10.618Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -17,13 +17,41 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记</title>
+    <link href="http://ldzhangyx.github.io/2019/10/30/polytree/"/>
+    <id>http://ldzhangyx.github.io/2019/10/30/polytree/</id>
+    <published>2019-10-30T10:05:10.000Z</published>
+    <updated>2019-10-30T10:05:10.618Z</updated>
+    
+    <content type="html"><![CDATA[<p>组里的最新工作，投到了ICASSP 2020，提出了一种复调音乐的树结构，并利用结构设计了适当的实验，证明其有效性。</p><a id="more"></a><h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>复调音乐是一种共时、离散的时间序列新高，通常被表示为1-d的events序列，或者2d的piano roll，缺点是music knowledge不够多，不能体现复调音乐的内在结构。本文提出poly-tree的树结构，包含三个级别：时间序列——音符——音符属性。同时本文进一步提出了一个Encoder-Decoder网络，以学习复调音乐的latent representation（VAE中的<code>z</code>）。在钢琴表征学习任务实验结果显示，poly-tree在<strong>重建准确性</strong>和<strong>模型泛化</strong>方面优于baseline。</p><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>对于复调音乐，我们不仅可以从信号处理的角度理解，还可以从音乐本身来理解。复调音乐有metrical structure和pitch order的概念，metrical structure指的是音符之间的时间关系，它们形成了节奏模式；而pitch order与音程有关，可以由此构建harmony（和声）的概念。这两个属性可以一起组成更高级别的音乐结构，例如repetition和sequence。因此，如果数据结构<strong>优先</strong>反映这两个属性，而将其他细节作为次要信息处理。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>poly-tree的主要结构如下：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>可以看到poly-tree顶层是time-step sequence，每一个time-step，包含了一个list，容纳<strong>同时弹下的音符</strong>；中层的list里，每一个音符由其基本属性概括（如pitch和duration）。</p><h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><p>Midi-like event使用这样的方式表示：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="3.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>Piano-Roll是用这样的方式表示：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="4.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="5.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>上面乐谱被poly-tree以下面的方式表示：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="6.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>时间维度上，音乐以不定长数量的block表示。每一个block搭载了不定长数量的此时onset的音符。音符以(128 + N)长度的向量表示，其中128代表pitch，N的长度取决于音乐片段的总长度。如果音乐片段长度为8拍，分辨率为16分音符，意味着一个音符的duration可能为1（16分）~32（双全），共32种表示，则N=5.</p><p>因为时间维度上的block数量和block里同时出现的音符都是数量不同的，故在两个维度各用一次GRU。第一个GRU将block里的音符做转换，再在时间维度上用GRU将转换后的结果再转换为latent representation。如图：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="7.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>数据集使用了Musicalion Dataset和POP909 Dataset，前者是古典音乐钢琴数据集，后面的数据集是组里新公开的流行音乐钢琴数据集。</p><h2 id="Baseline"><a href="#Baseline" class="headerlink" title="Baseline"></a>Baseline</h2><p>对于midi-event表征，使用循环VAE；对于piano-roll表征，训练循环VAE，卷积VAE，全连接VAE，后两者是图像级别的操作。具体参数不表，可以阅读原论文。</p><h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="8.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="9.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>可以发现新的表征表现得很好，从主观实验结果也能听出其有更高的质量。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;组里的最新工作，投到了ICASSP 2020，提出了一种复调音乐的树结构，并利用结构设计了适当的实验，证明其有效性。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
+    
+      <category term="representation learning" scheme="http://ldzhangyx.github.io/tags/representation-learning/"/>
+    
+      <category term="MIR" scheme="http://ldzhangyx.github.io/tags/MIR/"/>
+    
+      <category term="polyphonic music" scheme="http://ldzhangyx.github.io/tags/polyphonic-music/"/>
+    
+  </entry>
+  
+  <entry>
     <title>本站评论系统即日起升级为gitalk组件</title>
     <link href="http://ldzhangyx.github.io/2019/10/23/update-1023/"/>
     <id>http://ldzhangyx.github.io/2019/10/23/update-1023/</id>
     <published>2019-10-23T06:16:12.000Z</published>
-    <updated>2019-10-23T06:47:49.540Z</updated>
+    <updated>2019-10-23T08:11:41.175Z</updated>
     
-    <content type="html"><![CDATA[<p>本站之前的评论系统使用了valine，评论并不能被即时地阅读。升级了评论系统后，gitalk将访客的评论转为issue添加到GitHub repo中，这样我可以及时收到评论提醒。</p><p>另外，最有效和快速的联系方法是<strong>点击首页头像下的邮箱链接，向我发送邮件</strong>。技术讨论类问题会在一天内进行回复。</p>]]></content>
+    <content type="html"><![CDATA[<p>本站之前的评论系统使用了valine，评论并不能被即时地阅读。升级了评论系统后，gitalk将访客的评论转为issue添加到GitHub repo中，这样我可以及时收到评论提醒。</p><p>另外，最有效和快速的联系方法是<strong>点击首页头像下的邮箱链接，向我发送邮件</strong>。技术讨论类问题会在一天内进行回复。</p><h1 id="Gitalk配置中踩到的坑"><a href="#Gitalk配置中踩到的坑" class="headerlink" title="Gitalk配置中踩到的坑"></a>Gitalk配置中踩到的坑</h1><ul><li><p>Gitalk.ejs可能获取不到_config.yml的参数，使得OAuth链接的参数为空，导致404 Error问题。可以考虑将gitalk.ejs的参数直接硬编码。</p></li><li><p>配置完成后需要手动访问一次文章页面，完成此文章的评论区初始化。文章不多的话可以考虑全部打开一遍，多的话可以考虑自动脚本。</p></li></ul>]]></content>
     
     <summary type="html">
     
@@ -70,9 +98,9 @@
     <link href="http://ldzhangyx.github.io/2019/10/16/practice-1016/"/>
     <id>http://ldzhangyx.github.io/2019/10/16/practice-1016/</id>
     <published>2019-10-16T07:17:32.000Z</published>
-    <updated>2019-10-23T06:20:53.239Z</updated>
+    <updated>2019-11-11T07:30:47.266Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="PyTorch与TensorBoard的交互"><a href="#PyTorch与TensorBoard的交互" class="headerlink" title="PyTorch与TensorBoard的交互"></a>PyTorch与TensorBoard的交互</h1><p>PyTorch最近一直在改进TensorBoard的支持，包括在最新v1.3中，也在一直改进。</p><p>最基本的使用方法是，新建一个<code>SummaryWriter</code>对象，之后在合适的位置进行<code>add_scalar()</code>记录，最后<code>close()</code>即可。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"></span><br><span class="line">writer = SummaryWriter()</span><br><span class="line">writer.add_scalar(<span class="string">"valid loss"</span>, loss, n_iter) <span class="comment"># 三个参数代表变量，数值，横坐标</span></span><br><span class="line"></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure><p>文件会保存在代码的<code>.run/</code>目录里，访问<code>localhost:6006</code>即可进行观察。</p><h1 id="音乐数据集的移调数据扩增"><a href="#音乐数据集的移调数据扩增" class="headerlink" title="音乐数据集的移调数据扩增"></a>音乐数据集的移调数据扩增</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">train_X_augment = []</span><br><span class="line">train_Y_augment = []</span><br><span class="line"><span class="keyword">for</span> i, target <span class="keyword">in</span> enumerate(train_Y):</span><br><span class="line">    train_X_augment.append(pad(train_X[i], pad_size))</span><br><span class="line">    train_Y_augment.append(pad(train_Y[i], pad_size))</span><br><span class="line">    <span class="keyword">if</span> augment_data:</span><br><span class="line">        <span class="keyword">for</span> direction <span class="keyword">in</span> [<span class="number">-1</span>, <span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">for</span> shift <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">12</span>):</span><br><span class="line">                train_X_temp = (train_X[i]).clone()</span><br><span class="line">                train_X_temp[:] += direction * shift</span><br><span class="line">                train_X_augment.append(pad(train_X_temp, pad_size))</span><br><span class="line">                train_Y_augment.append(pad(train_Y[i], pad_size))</span><br><span class="line">train_X = torch.stack(train_X_augment)</span><br><span class="line">train_Y= torch.stack(train_Y_augment)</span><br></pre></td></tr></table></figure><h1 id="统计模型总参数量"><a href="#统计模型总参数量" class="headerlink" title="统计模型总参数量"></a>统计模型总参数量</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">params = list(model.parameters())</span><br><span class="line">total_params = sum(x.size()[<span class="number">0</span>] * x.size()[<span class="number">1</span>] <span class="keyword">if</span> len(x.size()) &gt; <span class="number">1</span> <span class="keyword">else</span> x.size()[<span class="number">0</span>] <span class="keyword">for</span> x <span class="keyword">in</span> params <span class="keyword">if</span> x.size())</span><br><span class="line">print(<span class="string">'Args:'</span>, args)</span><br><span class="line">print(<span class="string">'Model total parameters:'</span>, total_params)</span><br></pre></td></tr></table></figure><h1 id="CUDA-out-of-memory问题"><a href="#CUDA-out-of-memory问题" class="headerlink" title="CUDA out of memory问题"></a>CUDA out of memory问题</h1><p>模型在做evaluate的时候经常遇到CUDA out of memory的问题。常见的做法是用<code>with torch.no_grad()</code>方法将对应的代码块包起来，使模型不存储梯度。</p><p>注意，<code>model.eval()</code>代码执行的仅为<code>dropout</code>层和<code>batchnorm</code>层固定的功能，并不能达到<code>torch.no_grad()</code>这样的效果。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="PyTorch与TensorBoard的交互"><a href="#PyTorch与TensorBoard的交互" class="headerlink" title="PyTorch与TensorBoard的交互"></a>PyTorch与TensorBoard的交互</h1><p>PyTorch最近一直在改进TensorBoard的支持，包括在最新v1.3中，也在一直改进。</p><p>最基本的使用方法是，新建一个<code>SummaryWriter</code>对象，之后在合适的位置进行<code>add_scalar()</code>记录，最后<code>close()</code>即可。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"></span><br><span class="line">writer = SummaryWriter()</span><br><span class="line">writer.add_scalar(<span class="string">"valid loss"</span>, loss, n_iter) <span class="comment"># 三个参数代表变量，数值，横坐标</span></span><br><span class="line"></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure><p>文件会保存在代码的<code>.run/</code>目录里，访问<code>localhost:6006</code>即可进行观察。</p><h1 id="音乐数据集的移调数据扩增"><a href="#音乐数据集的移调数据扩增" class="headerlink" title="音乐数据集的移调数据扩增"></a>音乐数据集的移调数据扩增</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">train_X_augment = []</span><br><span class="line">train_Y_augment = []</span><br><span class="line"><span class="keyword">for</span> i, target <span class="keyword">in</span> enumerate(train_Y):</span><br><span class="line">    train_X_augment.append(pad(train_X[i], pad_size))</span><br><span class="line">    train_Y_augment.append(pad(train_Y[i], pad_size))</span><br><span class="line">    <span class="keyword">if</span> augment_data:</span><br><span class="line">        <span class="keyword">for</span> direction <span class="keyword">in</span> [<span class="number">-1</span>, <span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">for</span> shift <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">12</span>):</span><br><span class="line">                train_X_temp = (train_X[i]).clone()</span><br><span class="line">                train_X_temp[:] += direction * shift</span><br><span class="line">                train_X_augment.append(pad(train_X_temp, pad_size))</span><br><span class="line">                train_Y_augment.append(pad(train_Y[i], pad_size))</span><br><span class="line">train_X = torch.stack(train_X_augment)</span><br><span class="line">train_Y= torch.stack(train_Y_augment)</span><br></pre></td></tr></table></figure><h1 id="统计模型总参数量"><a href="#统计模型总参数量" class="headerlink" title="统计模型总参数量"></a>统计模型总参数量</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">params = list(model.parameters())</span><br><span class="line">total_params = sum(x.size()[<span class="number">0</span>] * x.size()[<span class="number">1</span>] <span class="keyword">if</span> len(x.size()) &gt; <span class="number">1</span> <span class="keyword">else</span> x.size()[<span class="number">0</span>] <span class="keyword">for</span> x <span class="keyword">in</span> params <span class="keyword">if</span> x.size())</span><br><span class="line">print(<span class="string">'Args:'</span>, args)</span><br><span class="line">print(<span class="string">'Model total parameters:'</span>, total_params)</span><br></pre></td></tr></table></figure><h1 id="CUDA-out-of-memory问题"><a href="#CUDA-out-of-memory问题" class="headerlink" title="CUDA out of memory问题"></a>CUDA out of memory问题</h1><p>模型在做evaluate的时候经常遇到CUDA out of memory的问题。常见的做法是用<code>with torch.no_grad()</code>方法将对应的代码块包起来，使模型不存储梯度。</p><p>注意，<code>model.eval()</code>代码执行的仅为<code>dropout</code>层和<code>batchnorm</code>层固定的功能，并不能达到<code>torch.no_grad()</code>这样的效果。</p><h1 id="int与one-hot的转换"><a href="#int与one-hot的转换" class="headerlink" title="int与one-hot的转换"></a>int与one-hot的转换</h1><p><code>torch.nn.functional.one_hot(tensor, num_classes=-1)</code>可以直接将int转为one-hot。</p><p>转回来可以通过这种办法：</p><p><code>melody1[0].tolist().index(1)</code></p>]]></content>
     
     <summary type="html">
     
@@ -86,9 +114,9 @@
       <category term="开发笔记" scheme="http://ldzhangyx.github.io/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
-    
       <category term="心得体会" scheme="http://ldzhangyx.github.io/tags/%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"/>
+    
+      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
     
       <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
     
@@ -263,11 +291,11 @@
       <category term="简明指南" scheme="http://ldzhangyx.github.io/categories/%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/"/>
     
     
-      <category term="argparse" scheme="http://ldzhangyx.github.io/tags/argparse/"/>
-    
       <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
     
       <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
+    
+      <category term="argparse" scheme="http://ldzhangyx.github.io/tags/argparse/"/>
     
   </entry>
   
@@ -289,9 +317,9 @@
       <category term="简明指南" scheme="http://ldzhangyx.github.io/categories/%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/"/>
     
     
-      <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
-    
       <category term="software" scheme="http://ldzhangyx.github.io/tags/software/"/>
+    
+      <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
     
   </entry>
   
@@ -315,9 +343,9 @@
     
       <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
     
-      <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
-    
       <category term="software" scheme="http://ldzhangyx.github.io/tags/software/"/>
+    
+      <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
     
       <category term="PyCharm" scheme="http://ldzhangyx.github.io/tags/PyCharm/"/>
     
@@ -369,9 +397,9 @@
     </summary>
     
     
-      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
-    
       <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
+    
+      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
     
       <category term="dataset" scheme="http://ldzhangyx.github.io/tags/dataset/"/>
     
@@ -401,9 +429,9 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
-    
       <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
+    
+      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
     
       <category term="VAE" scheme="http://ldzhangyx.github.io/tags/VAE/"/>
     
@@ -507,38 +535,6 @@
       <category term="SLURM" scheme="http://ldzhangyx.github.io/tags/SLURM/"/>
     
       <category term="HPC" scheme="http://ldzhangyx.github.io/tags/HPC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《Ordered Neurons： Integrating Tree Structures into Recurrent Neural Networks》阅读笔记</title>
-    <link href="http://ldzhangyx.github.io/2019/07/03/on-lstm/"/>
-    <id>http://ldzhangyx.github.io/2019/07/03/on-lstm/</id>
-    <published>2019-07-03T06:38:11.000Z</published>
-    <updated>2019-08-07T09:29:21.046Z</updated>
-    
-    <content type="html"><![CDATA[<p>Ordered Neurons是ICLR 2019的The best paper之一。知乎上对这篇论文也有诸多讨论。本文主要探讨ON-LSTM在结构上的构建和分析，为我之后要做的音乐结构分析做一些准备。</p><h1 id="ON-LSTM"><a href="#ON-LSTM" class="headerlink" title="ON-LSTM"></a>ON-LSTM</h1><p>用一句话来概括这篇论文的核心思想，那就是：<strong>重新设计了LSTM中，历史信息的融合更新策略，使其能够显式地分层融合历史信息和当前信息。为了分层地融合信息，本文也设计了一个方法估计信息的层级，之后也利用层级，推导出了序列信息的树状结构</strong>。</p><h2 id="普通的LSTM"><a href="#普通的LSTM" class="headerlink" title="普通的LSTM"></a>普通的LSTM</h2><p>首先回忆一个普通的LSTM：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="LSTM Cell结构" title="">                </div>                <div class="image-caption">LSTM Cell结构</div>            </figure><p>从结构图从左往右依次有三个sigmoid模块：<br>第一个sigmoid是遗忘门，输出一个值，决定$c_{t-1}$应该被遗忘的比例：</p><script type="math/tex; mode=display">f_{t}  = \sigma( W_{f} x_{t} + U_{f} h_{t - 1} + b_{f}）</script><p>第二个sigmoid是输入门，输出一个值，决定输入$x_t$应该多大程度影响到$h_{t-1}$：</p><script type="math/tex; mode=display">o_{t}  = \sigma( W_{o} x_{t} + U_{o} h_{t - 1} + b_{o})</script><script type="math/tex; mode=display">\hat{c}_t  = \tanh ( W_{c} x_{t} + U_{c} h_{t - 1} + b_{c})</script><p>接下来是融合的过程。遗忘门决定了$c_{t-1}$的遗忘程度，输入门处理了输入，用点加的方式将两个向量进行融合：</p><script type="math/tex; mode=display">c_{t}  = f_{t} \circ c_{t - 1} + i_{t} \circ \hat{c}_t</script><p>第三个sigmoid是输出门，将$h_{t-1}$的结果与更新后的$c_t$进行综合考虑，进行输出。这里得到的$h_t$同时也就直接是这个时刻的output，也就是$y_t$：</p><script type="math/tex; mode=display">o_{t}  = \sigma ( W_{o} x_{t} + U_{o} h_{t - 1} + b_{o})</script><script type="math/tex; mode=display">h_{t}  = o_{t} \circ \tanh ( c_{t} )</script><h2 id="ON-LSTM-1"><a href="#ON-LSTM-1" class="headerlink" title="ON-LSTM"></a>ON-LSTM</h2><p>我们注意到，在融合的过程中（也就是点加的过程中），过去的信息、输入的信息、融合的信息，这些向量都是无序排列的。ON-LSTM的总体思想，是将$c_t$，也就是LSTM Cell的状态，赋予了三个层次。向量中，层次比较低的位置，更新比较频繁；层次比较高的位置，更新比较不频繁，这样可以更多地保留一些高层、远程的信息。</p><p>ON-LSTM具体是怎么做的呢？</p><p>假设我们有两个函数，可以在更新$c_t$前，预测出历史信息的层级$d_f$和当前输入的层级$d_i$：</p><script type="math/tex; mode=display">d_f = F_1(x_t, h_{t-1})</script><script type="math/tex; mode=display">f_i = F_2(x_t, h_{t-1})</script><p>新建一个空白的$c_t$，大致分为三个层级进行填充，三个层级的两个分界线，由$d_f$和$d_i$决定。现在分为两个情况：</p><ol><li>当前输入$x_t$的层级高于历史记录$h_{t-1}$的层级，那么$c_t$中，层次高于$d_i$的部分，保持$c_{t-1}$不变，层次低于$d_f$的部分，被当前输入的$\hat{c}_t$直接覆盖，而两个分界线中间的部分，使用点加的方式正常融合：</li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><ol><li>当前输入$x_t$的层级低于历史记录$h_{t-1}$的层级，那么高层仍然保留，底层仍然用$\hat{c}_t$直接覆盖，而分界线中层的位置直接置0：</li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="3.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>这就是ON—LSTM做出的重要更改。高层信息就可能保留相当长的距离（因为高层直接复制历史信息，导致历史信息可能不断被复制而不改变），而低层信息在每一步输入时都可能被更新（因为低层直接复制输入，而输入是不断改变的），所以就通过信息分级来嵌入了层级结构。更通俗地说就是分组更新，更高的组信息传得更远（跨度更大），更低的组跨度更小，这些不同的跨度就形成了输入序列的层级结构。</p><p>这里隐含了一个规律。因为我们总是遗忘$d_f$以下的所有内容，记住$d_i$以上的所有内容，所以，每当我们想更新或者擦除高层次的内容时，我们必定擦除或更新了更低层次的内容。这个结论是非常容易推理出来的。</p><h2 id="无监督树结构的生成"><a href="#无监督树结构的生成" class="headerlink" title="无监督树结构的生成"></a>无监督树结构的生成</h2><p>给定一个预训练好的ON-LSTM模型，输入一个序列${x_t}$，可以得到每一个LSTM Cell在融合时计算出来的历史信息结构的层级序列${d_f}$。找到层级最大值的下标，以它为分界线，将左右两个子序列分开，然后递归地重复这个步骤。</p><p>具体的论文细节在这里不详细描述了。</p><h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>实验分为四个task：语言建模，无监督依赖解析，针对性的句法评估，逻辑推理。笔记只关注语言建模部分。因为只有这个task在音乐界才有公认的数据集。</p><h3 id="Language-Modeling"><a href="#Language-Modeling" class="headerlink" title="Language Modeling"></a>Language Modeling</h3><p>Language Modeling通过测量PTB的困惑度（ppl）评估我们的模型。</p><p>模型使用三层ON-LSTM，hidden unit有1150个，embedding size为400。对于master gates，缩小因子C=10. Embedding dropout为(0.5, 0.3, 0.45, 0.1)。current matrics使用了0.45的weight dropout。</p><p>同等状态下ON-LSTM表现优于普通LSTM，值得注意的是，不需要增加skip connection或者是大量增加参数。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="4.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><h1 id="见解和感想"><a href="#见解和感想" class="headerlink" title="见解和感想"></a>见解和感想</h1><p>树状结构在各个topic都是有用的。将树状结构引入神经网络语言模型可能会带来一些这样的好处：</p><ol><li>可以得到语言的分层表示；</li><li>可以建模语言的组分效应（compositional effects）；</li><li>可以提供反向求导的捷径，帮助解决长期依赖的问题；</li><li>一个更好的归纳偏置，从而降低训练数据的要求，提高泛化能力。</li></ol><p>在音乐领域，得到一个音乐片段的结构也是非常有用的。</p><p>知乎上面相关的讨论，我比较感兴趣的是一个现象。这样训练的Language Model同时对语法和语义进行了建模，所以对于语义不行而完全符合语法的句子，LSTM的得分也会较低。那么这样得出来的无监督树结构到底是语法的树表达，还是语义的树表达呢？</p><p>这里有一个猜测，ON-LSTM用于树结构生成时，使用了三层ON-LSTM中第二层的历史层级序列，可能暗含一个现象：模型的第一层LSTM偏句法，第二层偏语义。这个问题被ELMo (Peters et al., 2018)和Liu et al. (2019)从不同的角度得出过一些可以参考的见解。</p><h1 id="论文引用链"><a href="#论文引用链" class="headerlink" title="论文引用链"></a>论文引用链</h1><p>这篇文章有两篇前置文章，分别是：</p><ol><li>Neural Language Modeling by Jointly Learning Syntax and Lexicon, ICLR 2018</li></ol><p>这篇文章提出了PRPN模型，将类似的距离——树结构信息用在了这个模型。</p><ol><li>Straight to the Tree: Constituency Parsing with Neural Syntactic Distance, ACL 2018</li></ol><p>这篇文章正式提出了衡量两个节点之间距离的概念，并且提出了将距离与二叉树进行相互转换的算法。</p><p>这篇文章后面被这些文章引用：</p><ol><li>Unsupervised Recurrent Neural Network Grammars, NAACL 2019</li></ol><p>这篇文章通过一个VAE的类似结构，将树结构作为latent information传递。然而算法无监督，论文使用了变分推理以及Inside算法，推导出可能的语法树，而生成模型是一个RNNG，输入语法树，使用句子本身作为监督信号。更详细的讲解可以看这里：<a href="https://zhuanlan.zhihu.com/p/64032803" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/64032803</a></p><ol><li>An Imitation Learning Approach to Unsupervised Parsing, ACL 2019（最佳短文章提名）</li></ol><p>这个模型将PRPN的知识转移到了Tree-LSTM模型上，然后通过Gumbel-Softmax training将任务转换到语义导向上来。</p><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol><li>苏剑林. (2019, May 28). 《ON-LSTM：用有序神经元表达层次结构 》[Blog post]. Retrieved from <a href="https://kexue.fm/archives/6621" target="_blank" rel="noopener">https://kexue.fm/archives/6621</a></li><li>知乎. 如何评价ICLR 2019 best paper: Ordered Neurons? <a href="https://www.zhihu.com/question/323190069" target="_blank" rel="noopener">https://www.zhihu.com/question/323190069</a></li><li><a href="https://arxiv.org/abs/1810.09536" target="_blank" rel="noopener">https://arxiv.org/abs/1810.09536</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Ordered Neurons是ICLR 2019的The best paper之一。知乎上对这篇论文也有诸多讨论。本文主要探讨ON-LSTM在结构上的构建和分析，为我之后要做的音乐结构分析做一些准备。&lt;/p&gt;
-&lt;h1 id=&quot;ON-LSTM&quot;&gt;&lt;a href=&quot;#ON-L
-      
-    
-    </summary>
-    
-      <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
-    
-      <category term="自然语言处理" scheme="http://ldzhangyx.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-      <category term="NLG" scheme="http://ldzhangyx.github.io/tags/NLG/"/>
-    
-      <category term="NLP" scheme="http://ldzhangyx.github.io/tags/NLP/"/>
     
   </entry>
   
