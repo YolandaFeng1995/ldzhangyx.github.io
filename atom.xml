@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2019-10-30T10:05:10.618Z</updated>
+  <updated>2019-11-26T14:02:17.062Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MuseScore 3：快速使用小记</title>
+    <link href="http://ldzhangyx.github.io/2019/11/26/musescore/"/>
+    <id>http://ldzhangyx.github.io/2019/11/26/musescore/</id>
+    <published>2019-11-26T14:02:17.000Z</published>
+    <updated>2019-11-26T14:02:17.062Z</updated>
+    
+    <content type="html"><![CDATA[<p>MuseScore 3是一款基本功能免费的软件，主要用处是打谱，以及作为各种音乐文件的阅读和编辑器。这篇文章旨在让你快速上手MuseScore。</p><a id="more"></a><h1 id="新建乐谱后，如何输入音符？"><a href="#新建乐谱后，如何输入音符？" class="headerlink" title="新建乐谱后，如何输入音符？"></a>新建乐谱后，如何输入音符？</h1><p>你可以使用鼠标，midi键盘，普通键盘输入。</p><h2 id="鼠标"><a href="#鼠标" class="headerlink" title="鼠标"></a>鼠标</h2><p>按下左上角的音符“N”按钮，选择工具栏中对应的音符，点击乐谱放置到合理的位置上。</p><h2 id="键盘"><a href="#键盘" class="headerlink" title="键盘"></a>键盘</h2><ul><li><p>按下“N”键可以打开输入模式。</p></li><li><p>按下Esc键可以退出输入模式。</p></li><li><p>方向键左右可以选择不同时长的音符。</p></li><li><p>输入音名即得到对应音符。如敲击C键可以在乐谱当前位置输入一个C音。休止符是0键。</p></li><li><p>方向键上下可以对这个音符做升降。</p></li><li><p>Ctrl + 方向键上下可以对音符移八度。</p></li><li><p>Shift + 音名，可以直接打出和弦。</p></li></ul><h2 id="Midi键盘"><a href="#Midi键盘" class="headerlink" title="Midi键盘"></a>Midi键盘</h2><ul><li><p>可以通过midi键盘选择对应音高，用键盘辅助输入。</p></li><li><p>同时弹下的音会被同时记录。</p></li></ul><h1 id="工具箱"><a href="#工具箱" class="headerlink" title="工具箱"></a>工具箱</h1><p>工具箱中所有的工具可以通过拖拽和双击的方法添加到乐谱中。</p><h1 id="选中音符"><a href="#选中音符" class="headerlink" title="选中音符"></a>选中音符</h1><ul><li><p>单击音符可以选中。</p></li><li><p>按下ctrl可以多选。</p></li><li><p>按下shift可以拉一个框，自动选中框内所有音符。</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;MuseScore 3是一款基本功能免费的软件，主要用处是打谱，以及作为各种音乐文件的阅读和编辑器。这篇文章旨在让你快速上手MuseScore。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="开发笔记" scheme="http://ldzhangyx.github.io/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="music" scheme="http://ldzhangyx.github.io/tags/music/"/>
+    
+      <category term="musescore" scheme="http://ldzhangyx.github.io/tags/musescore/"/>
+    
+  </entry>
   
   <entry>
     <title>《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记</title>
@@ -114,9 +138,9 @@
       <category term="开发笔记" scheme="http://ldzhangyx.github.io/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="心得体会" scheme="http://ldzhangyx.github.io/tags/%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"/>
-    
       <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
+    
+      <category term="心得体会" scheme="http://ldzhangyx.github.io/tags/%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"/>
     
       <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
     
@@ -397,9 +421,9 @@
     </summary>
     
     
-      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
-    
       <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
+    
+      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
     
       <category term="dataset" scheme="http://ldzhangyx.github.io/tags/dataset/"/>
     
@@ -429,9 +453,9 @@
       <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
-    
       <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
+    
+      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
     
       <category term="VAE" scheme="http://ldzhangyx.github.io/tags/VAE/"/>
     
@@ -507,34 +531,6 @@
       <category term="dataset" scheme="http://ldzhangyx.github.io/tags/dataset/"/>
     
       <category term="data" scheme="http://ldzhangyx.github.io/tags/data/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SLURM快速上手使用指南</title>
-    <link href="http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/"/>
-    <id>http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/</id>
-    <published>2019-07-08T07:53:23.000Z</published>
-    <updated>2019-07-08T11:12:53.815Z</updated>
-    
-    <content type="html"><![CDATA[<p>学校的HPC计算资源通过SLURM进行管理。为了方便我进行配置，我决定整理一个快速上手指南。</p><h1 id="连接服务器"><a href="#连接服务器" class="headerlink" title="连接服务器"></a>连接服务器</h1><p>推荐使用MobaXTerm进行连接。MobaXTerm不仅可以进行连接，对目录还做了可视化处理，因此可以对文件进行方便的操作。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh &lt;YourID&gt;@hpc.xxxxx.edu</span><br></pre></td></tr></table></figure><p>输入密码后成功连接服务器。</p><h1 id="几个常用命令"><a href="#几个常用命令" class="headerlink" title="几个常用命令"></a>几个常用命令</h1><h2 id="module"><a href="#module" class="headerlink" title="module"></a>module</h2><p>SLURM上一般有一些预先配置好的库可以使用。</p><ul><li><code>module list</code>: 查看目前存在的模块</li><li><code>module avail</code>: 查看可以安装的模块</li><li><code>module purge</code>: 移除当前所有模块</li><li><code>module load XXX</code>: 加载XXX模块</li></ul><p>模块的加载工作一般直接写在下文提到的脚本里。我自己常用的模块一般就是anaconda/5.2.0和各个版本的cuda，cudnn对环境进行配置。</p><h2 id="sbatch"><a href="#sbatch" class="headerlink" title="sbatch"></a>sbatch</h2><p>sbatch有两种用法。你可以在sbatch命令后直接显式指定你的job要求，比如索取1个CPU，使用4小时，也可以将配置写在脚本文件里（推荐）。格式直接就是：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sbatch xxx.sh</span><br></pre></td></tr></table></figure><p>之后会收到服务器返回的job id。</p><h2 id="scontrol"><a href="#scontrol" class="headerlink" title="scontrol"></a>scontrol</h2><p>可以使用scontrol查看job情况。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scontrol show &lt;job id&gt;</span><br></pre></td></tr></table></figure><p>会返回这个job的所有状态。</p><h2 id="sview"><a href="#sview" class="headerlink" title="sview"></a>sview</h2><p>输入这个命令可以打开一个新窗口，监控集群结点上所有任务的情况。</p><h1 id="配置重点"><a href="#配置重点" class="headerlink" title="配置重点"></a>配置重点</h1><p>运行和提交一个新任务，只需要做两件事：</p><ol><li>准备并上传代码文件</li><li>编写并运行sh脚本</li></ol><p>下面分两种情况进行讨论。</p><h2 id="运行任务（py文件）"><a href="#运行任务（py文件）" class="headerlink" title="运行任务（py文件）"></a>运行任务（py文件）</h2><p>这种情况意味着你只想得到结果，观察输出。</p><ol><li>上传代码文件。</li><li>编写sh脚本。sh脚本的基本格式如下：</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">#SBATCH --mail-user=</span><br><span class="line">#SBATCH --mail-type=ALL</span><br><span class="line">#SBATCH --nodes=1</span><br><span class="line">#SBATCH --ntasks-per-node=1</span><br><span class="line">#SBATCH --time=1-01:10:00</span><br><span class="line">#SBATCH --mem=200G</span><br><span class="line">#SBATCH --output=Job.%j.out</span><br><span class="line">#SBATCH --error=Job.%j.err</span><br><span class="line">#SBATCH --account=testuser</span><br><span class="line">#SBATCH --partition=debug</span><br></pre></td></tr></table></figure><p>文件中的配置部分。—mail-type=<type>代表指定状态发生时，发送邮件通知，有效种类为（NONE, BEGIN, END, FAIL, REQUEUE, ALL）；—mail-user=<user>代表发送给对应邮箱。更多的参数我没有仔细研究，读者可以因地制宜进行控制。</user></type></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">module purge</span><br><span class="line">module load anaconda3/5.2.0</span><br><span class="line">python &lt; xxx.py</span><br></pre></td></tr></table></figure><p>加载模块，运行脚本。</p><h2 id="运行任务（Jupyter-Notebook）"><a href="#运行任务（Jupyter-Notebook）" class="headerlink" title="运行任务（Jupyter Notebook）"></a>运行任务（Jupyter Notebook）</h2><p>这种情况比较复杂，因为你需要保持一个状态，进行操作。</p><ol><li>上传代码文件（或者不传，之后新建notebook）。</li><li>编写sh脚本。sh脚本的格式如下：</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">#SBATCH -p serial</span><br><span class="line">#SBATCH -n1</span><br><span class="line">#SBATCH -N1</span><br><span class="line">#SBATCH -t 01:00:00</span><br><span class="line">#SBATCH --mem=4GB</span><br><span class="line">#SBATCH --job-name jupyter</span><br><span class="line">#SBATCH --output jupyter-log-%J.txt</span><br></pre></td></tr></table></figure><p>上面对各个资源进行了配置。n代表任务数量。#SBATCH指令的意义可以查看参考链接5，以及官方文档。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">module purge</span><br><span class="line">module load anaconda3/5.2.0</span><br></pre></td></tr></table></figure><p>对必要的模块进行加载。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">XDG_RUNTIME_DIR=&quot;&quot;</span><br><span class="line">ipnport=$(shuf -i8000-9999 -n1)</span><br><span class="line">ipnip=$(hostname -i)</span><br><span class="line"></span><br><span class="line">echo -e &quot;\n&quot;</span><br><span class="line">echo    &quot;  Paste ssh command in a terminal on local host (i.e., laptop)&quot;</span><br><span class="line">echo    &quot;  ------------------------------------------------------------&quot;</span><br><span class="line">echo -e &quot;  ssh -N -L $ipnport:$ipnip:$ipnport $USER@hpc.shanghai.nyu.edu\n&quot;</span><br><span class="line">echo    &quot;  Open this address in a browser on local host; see token below&quot;</span><br><span class="line">echo    &quot;  ------------------------------------------------------------&quot;</span><br><span class="line">echo -e &quot;  localhost:$ipnport</span><br></pre></td></tr></table></figure><p>输出提示信息，方便之后进行通道搭建。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter-notebook --no-browser --port=$ipnport --ip=$ipnip</span><br></pre></td></tr></table></figure><p>运行jupyter notebook。</p><ol><li>运行之后，新开一个local terminal，输入以下命令，为本地localhost与服务器之间建立一个隧道。</li></ol><p>我们假设第二步的输出提示是：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Paste ssh command in a terminal on local host (i.e., laptop)</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">ssh -N -L 8896:xx.xxx.xx.xx:8896 &lt;yourID&gt;@hpc.xxx.edu</span><br><span class="line"></span><br><span class="line">Open this address in a browser on local host; see token below</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">localhost:8896</span><br></pre></td></tr></table></figure><p>那么直接运行指令，建立隧道：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -N -L 8896:xx.xxx.xx.xx:8896 &lt;yourID&gt;@hpc.xxx.edu</span><br></pre></td></tr></table></figure><ol><li>在本地浏览器上进入下面网址，输入token，开始工作。</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localhost:8896</span><br></pre></td></tr></table></figure><h1 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h1><ol><li><a href="https://github.com/PDC-support/jupyter-notebook/blob/master/0-setup.ipynb" target="_blank" rel="noopener">https://github.com/PDC-support/jupyter-notebook/blob/master/0-setup.ipynb</a></li><li><a href="https://www.youtube.com/watch?v=U42qlYkzP9k&amp;feature=player_embedded" target="_blank" rel="noopener">https://www.youtube.com/watch?v=U42qlYkzP9k&amp;feature=player_embedded</a></li><li><a href="https://github.com/michael-qi/nyush_hpc" target="_blank" rel="noopener">https://github.com/michael-qi/nyush_hpc</a></li><li><a href="https://wikis.nyu.edu/pages/viewpage.action?spaceKey=NYUShanghaiITS&amp;title=NYU+Shanghai+HPC+cluster+Environment" target="_blank" rel="noopener">https://wikis.nyu.edu/pages/viewpage.action?spaceKey=NYUShanghaiITS&amp;title=NYU+Shanghai+HPC+cluster+Environment</a></li><li><a href="http://hpc.pku.edu.cn/guide_sbatch.html" target="_blank" rel="noopener">http://hpc.pku.edu.cn/guide_sbatch.html</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;学校的HPC计算资源通过SLURM进行管理。为了方便我进行配置，我决定整理一个快速上手指南。&lt;/p&gt;
-&lt;h1 id=&quot;连接服务器&quot;&gt;&lt;a href=&quot;#连接服务器&quot; class=&quot;headerlink&quot; title=&quot;连接服务器&quot;&gt;&lt;/a&gt;连接服务器&lt;/h1&gt;&lt;p&gt;推荐使用
-      
-    
-    </summary>
-    
-      <category term="开发笔记" scheme="http://ldzhangyx.github.io/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="SLURM" scheme="http://ldzhangyx.github.io/tags/SLURM/"/>
-    
-      <category term="HPC" scheme="http://ldzhangyx.github.io/tags/HPC/"/>
     
   </entry>
   
