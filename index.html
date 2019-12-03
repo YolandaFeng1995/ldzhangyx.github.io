@@ -176,6 +176,55 @@ ga('send', 'pageview');
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-pytorch-skill-1204"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-12-04 04:39:41" datetime="2019-12-03T20:39:41.000Z"  itemprop="datePublished">2019-12-04</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/开发笔记/">开发笔记</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/12/04/pytorch-skill-1204/">PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        使用PyTorch编写代码的时候，我们通常将模型整合进一个类，在init方法里声明模型结构，在forward方法里约定模型里数据的正向流动，然后PyTorch自动生成数据的方向传播backward方法。
+PyTorch在1.3版本及之后，规定forward方法必须是静态方法。违反了该原则的代码将会在运行时报下列错误：
+1&quot;Legacy autograd function with ...
+    
+
+        <a href="/2019/12/04/pytorch-skill-1204/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pytorch/">pytorch</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-musescore"
   class="article-card article-type-post" itemprop="blogPost">
 
@@ -596,54 +645,6 @@ F-string的使用例子：
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/structure/">structure</a></li></ul>
 
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-pytorch-0801"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-08-05 16:23:48" datetime="2019-08-05T08:23:48.000Z"  itemprop="datePublished">2019-08-05</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/08/05/pytorch-0801/">PyTorch使用的日常（2019.8.5）</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        nn.Embedding我一直对nn.Embedding层感到困惑。它在训练中有没有改变过呢？
-查询StackOverflow，我得到了一个答案：
-
-我可以随机初始化一个词向量，也可以导入一个预训练的词向量；
-我可以选择是否让它参与训练（默认参与了训练）。
-
-如果要固定某几层不进行训练，需要做两件事：
-
-层数的requires_grad参数设为False；
-传给optimizer的param...
-    
-
-        <a href="/2019/08/05/pytorch-0801/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
     </div>
     
 </article>
