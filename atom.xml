@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2019-12-03T20:49:25.820Z</updated>
+  <updated>2019-12-10T08:03:06.148Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PyTorch 1.2版本中，mask.bernoulli_()的问题记录和解决方案</title>
+    <link href="http://ldzhangyx.github.io/2019/12/09/bernoulli-bool/"/>
+    <id>http://ldzhangyx.github.io/2019/12/09/bernoulli-bool/</id>
+    <published>2019-12-09T14:43:07.000Z</published>
+    <updated>2019-12-10T08:03:06.148Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近coding的时候遇到一个问题。以前都没出现，突然出现了。暂时没法定位是不是PyTorch降级的问题。</p><p>环境：PyTorch 1.2， CUDA 10，cudatoolkit 0.40</p><h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>在mask函数里：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sample_mask</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> self.dropout == <span class="number">0.</span>:</span><br><span class="line">        self._weight = self.weight</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        mask = self.weight.new_empty(</span><br><span class="line">            self.weight.size(),</span><br><span class="line">            dtype=torch.uint8</span><br><span class="line">        )</span><br><span class="line">        mask.bernoulli_(self.dropout)</span><br><span class="line">        self._weight = self.weight.masked_fill(mask, <span class="number">0.</span>)</span><br></pre></td></tr></table></figure><p>mask是一个只有1和0的矩阵，用于dropout实现。在定义mask时，如果将mask定义为<code>torch.uint8</code>类型，在<code>bernoulli()</code>函数里会报如下warning：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UserWarning: masked_fill_ received a mask with dtype torch.uint8, this behavior is now deprecated,please use a mask with dtype torch.bool instead.</span><br></pre></td></tr></table></figure><p>提示初始化为bool类型。初始化后，下一步的<code>bernoulli()</code>函数会报另一个错：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RuntimeError: &quot;bernoulli_scalar_cuda_&quot; not implemented for &apos;Bool&apos;</span><br></pre></td></tr></table></figure><p>提示<code>bernoulli</code>函数不支持对bool的运算。</p><h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>在<code>bernoulli()</code>和<code>bernoulli()</code>中间做一次类型转换：<code>mask.bool()</code></p><p>完整代码如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sample_mask</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> self.dropout == <span class="number">0.</span>:</span><br><span class="line">        self._weight = self.weight</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        mask = self.weight.new_empty(</span><br><span class="line">            self.weight.size(),</span><br><span class="line">            dtype=torch.uint8</span><br><span class="line">        )</span><br><span class="line">        mask.bernoulli_(self.dropout)</span><br><span class="line">        mask = mask.bool()</span><br><span class="line">        self._weight = self.weight.masked_fill(mask, <span class="number">0.</span>)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近coding的时候遇到一个问题。以前都没出现，突然出现了。暂时没法定位是不是PyTorch降级的问题。&lt;/p&gt;
+&lt;p&gt;环境：PyTorch 1.2， CUDA 10，cudatoolkit 0.40&lt;/p&gt;
+&lt;h1 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; c
+      
+    
+    </summary>
+    
+      <category term="开发笔记" scheme="http://ldzhangyx.github.io/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
+    
+      <category term="pytorch" scheme="http://ldzhangyx.github.io/tags/pytorch/"/>
+    
+  </entry>
   
   <entry>
     <title>PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案</title>
@@ -86,9 +115,9 @@
     
       <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
     
-      <category term="MIR" scheme="http://ldzhangyx.github.io/tags/MIR/"/>
-    
       <category term="representation learning" scheme="http://ldzhangyx.github.io/tags/representation-learning/"/>
+    
+      <category term="MIR" scheme="http://ldzhangyx.github.io/tags/MIR/"/>
     
       <category term="polyphonic music" scheme="http://ldzhangyx.github.io/tags/polyphonic-music/"/>
     
@@ -166,9 +195,9 @@
     
       <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
     
-      <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
-    
       <category term="心得体会" scheme="http://ldzhangyx.github.io/tags/%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"/>
+    
+      <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
     
   </entry>
   
@@ -341,9 +370,9 @@
       <category term="简明指南" scheme="http://ldzhangyx.github.io/categories/%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/"/>
     
     
-      <category term="argparse" scheme="http://ldzhangyx.github.io/tags/argparse/"/>
-    
       <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
+    
+      <category term="argparse" scheme="http://ldzhangyx.github.io/tags/argparse/"/>
     
       <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
     
@@ -514,20 +543,6 @@
       <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
     
       <category term="Python" scheme="http://ldzhangyx.github.io/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>abc-midi</title>
-    <link href="http://ldzhangyx.github.io/2019/07/14/abc-midi/"/>
-    <id>http://ldzhangyx.github.io/2019/07/14/abc-midi/</id>
-    <published>2019-07-14T09:38:09.000Z</published>
-    <updated>2019-07-14T09:38:09.522Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
     
   </entry>
   

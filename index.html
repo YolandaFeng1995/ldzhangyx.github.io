@@ -176,6 +176,56 @@ ga('send', 'pageview');
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-bernoulli-bool"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-12-09 22:43:07" datetime="2019-12-09T14:43:07.000Z"  itemprop="datePublished">2019-12-09</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/开发笔记/">开发笔记</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/12/09/bernoulli-bool/">PyTorch 1.2版本中，mask.bernoulli_()的问题记录和解决方案</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        最近coding的时候遇到一个问题。以前都没出现，突然出现了。暂时没法定位是不是PyTorch降级的问题。
+环境：PyTorch 1.2， CUDA 10，cudatoolkit 0.40
+问题描述在mask函数里：
+12345678910def sample_mask(self):    if self.dropout == 0.:        self._weight = self.w...
+    
+
+        <a href="/2019/12/09/bernoulli-bool/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pytorch/">pytorch</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-pytorch-skill-1204"
   class="article-card article-type-post" itemprop="blogPost">
 
@@ -599,51 +649,6 @@ F-string的使用例子：
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/distanglement/">distanglement</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/generation/">generation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem-generation/">poem generation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/诗歌生成/">诗歌生成</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-tree-evaluation"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-08-07 17:03:45" datetime="2019-08-07T09:03:45.000Z"  itemprop="datePublished">2019-08-07</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/08/07/tree-evaluation/">如何评估树结构的相似性？也许可以了解一下Tree Editing Distance</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        这是一篇关于树编辑距离相关算法和相关包的介绍。
-    
-
-        <a href="/2019/08/07/tree-evaluation/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/structure/">structure</a></li></ul>
 
     </div>
     

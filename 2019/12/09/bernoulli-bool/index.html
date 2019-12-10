@@ -25,25 +25,25 @@ ga('send', 'pageview');
     
     
     
-    <title>PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案 | 张逸霄的技术小站 | 欢迎RSS订阅我的个人主页！</title>
+    <title>PyTorch 1.2版本中，mask.bernoulli_()的问题记录和解决方案 | 张逸霄的技术小站 | 欢迎RSS订阅我的个人主页！</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="pytorch">
-    <meta name="description" content="使用PyTorch编写代码的时候，我们通常将模型整合进一个类，在init方法里声明模型结构，在forward方法里约定模型里数据的正向流动，然后PyTorch自动生成数据的方向传播backward方法。 PyTorch在1.3版本及之后，规定forward方法必须是静态方法。违反了该原则的代码将会在运行时报下列错误： 1&amp;quot;Legacy autograd function with non">
-<meta name="keywords" content="pytorch">
+    <meta name="keywords" content="python,pytorch">
+    <meta name="description" content="最近coding的时候遇到一个问题。以前都没出现，突然出现了。暂时没法定位是不是PyTorch降级的问题。 环境：PyTorch 1.2， CUDA 10，cudatoolkit 0.40 问题描述在mask函数里： 12345678910def sample_mask(self):    if self.dropout == 0.:        self._weight = self.weig">
+<meta name="keywords" content="python,pytorch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案">
-<meta property="og:url" content="http://ldzhangyx.github.io/2019/12/04/pytorch-skill-1204/index.html">
+<meta property="og:title" content="PyTorch 1.2版本中，mask.bernoulli_()的问题记录和解决方案">
+<meta property="og:url" content="http://ldzhangyx.github.io/2019/12/09/bernoulli-bool/index.html">
 <meta property="og:site_name" content="张逸霄的技术小站">
-<meta property="og:description" content="使用PyTorch编写代码的时候，我们通常将模型整合进一个类，在init方法里声明模型结构，在forward方法里约定模型里数据的正向流动，然后PyTorch自动生成数据的方向传播backward方法。 PyTorch在1.3版本及之后，规定forward方法必须是静态方法。违反了该原则的代码将会在运行时报下列错误： 1&amp;quot;Legacy autograd function with non">
+<meta property="og:description" content="最近coding的时候遇到一个问题。以前都没出现，突然出现了。暂时没法定位是不是PyTorch降级的问题。 环境：PyTorch 1.2， CUDA 10，cudatoolkit 0.40 问题描述在mask函数里： 12345678910def sample_mask(self):    if self.dropout == 0.:        self._weight = self.weig">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-03T20:49:25.820Z">
+<meta property="og:updated_time" content="2019-12-10T08:03:06.148Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案">
-<meta name="twitter:description" content="使用PyTorch编写代码的时候，我们通常将模型整合进一个类，在init方法里声明模型结构，在forward方法里约定模型里数据的正向流动，然后PyTorch自动生成数据的方向传播backward方法。 PyTorch在1.3版本及之后，规定forward方法必须是静态方法。违反了该原则的代码将会在运行时报下列错误： 1&amp;quot;Legacy autograd function with non">
+<meta name="twitter:title" content="PyTorch 1.2版本中，mask.bernoulli_()的问题记录和解决方案">
+<meta name="twitter:description" content="最近coding的时候遇到一个问题。以前都没出现，突然出现了。暂时没法定位是不是PyTorch降级的问题。 环境：PyTorch 1.2， CUDA 10，cudatoolkit 0.40 问题描述在mask函数里： 12345678910def sample_mask(self):    if self.dropout == 0.:        self._weight = self.weig">
     
         <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
     
@@ -138,7 +138,7 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案</div>
+        <div class="flex-col header-title ellipsis">PyTorch 1.2版本中，mask.bernoulli_()的问题记录和解决方案</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -160,11 +160,11 @@ ga('send', 'pageview');
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案</h1>
+        <h1 class="title">PyTorch 1.2版本中，mask.bernoulli_()的问题记录和解决方案</h1>
         <h5 class="subtitle">
             
-                <time datetime="2019-12-03T20:39:41.000Z" itemprop="datePublished" class="page-time">
-  2019-12-04
+                <time datetime="2019-12-09T14:43:07.000Z" itemprop="datePublished" class="page-time">
+  2019-12-09
 </time>
 
 
@@ -182,14 +182,21 @@ ga('send', 'pageview');
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#问题描述"><span class="post-toc-number">1.</span> <span class="post-toc-text">问题描述</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解决方案"><span class="post-toc-number">2.</span> <span class="post-toc-text">解决方案</span></a></li></ol>
+        </nav>
+    </aside>
 
-<article id="post-pytorch-skill-1204"
+
+<article id="post-bernoulli-bool"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案</h1>
+        <h1 class="post-card-title">PyTorch 1.2版本中，mask.bernoulli_()的问题记录和解决方案</h1>
         <div class="post-meta">
-            <time class="post-time" title="2019-12-04 04:39:41" datetime="2019-12-03T20:39:41.000Z"  itemprop="datePublished">2019-12-04</time>
+            <time class="post-time" title="2019-12-09 22:43:07" datetime="2019-12-09T14:43:07.000Z"  itemprop="datePublished">2019-12-09</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/开发笔记/">开发笔记</a></li></ul>
@@ -204,20 +211,18 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>使用PyTorch编写代码的时候，我们通常将模型整合进一个类，在init方法里声明模型结构，在forward方法里约定模型里数据的正向流动，然后PyTorch自动生成数据的方向传播backward方法。</p>
-<p>PyTorch在1.3版本及之后，规定forward方法必须是静态方法。违反了该原则的代码将会在运行时报下列错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;Legacy autograd function with non-static forward method is deprecated and will be removed in 1.3. &quot;,&quot;Please use new-style autograd function withstatic forward method.&quot;,&quot;(Example: https://pytorch.org/docs/stable/autograd.html#torch.autograd.Function)&quot;.</span><br></pre></td></tr></table></figure>
-<p>于是一般的解决办法是，在forward方法声明上一行加入<code>@staticmethod</code>装饰器，即可完成修改。</p>
-<p>但是在一些没那么规范的代码下，这个改进可能会成为我们的绊脚石。如：<a href="https://pytorch.org/tutorials/beginner/nlp/advanced_tutorial.html" target="_blank" rel="noopener">https://pytorch.org/tutorials/beginner/nlp/advanced_tutorial.html</a></p>
-<p>这一篇文章里提到的代码，其训练和推断使用了两个不同的路径，使得模型结构比较混乱。我自行尝试后，发现无论如何没有办法解决掉这个问题。</p>
-<p>一个临时的解决办法是：</p>
-<ol>
-<li><p>将PyTorch降级到1.2版本及以下，因为这个改进直到1.3版本才正式生效；</p>
-</li>
-<li><p>手动忽略掉UserWarning：</p>
-</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">"ignore"</span>)</span><br></pre></td></tr></table></figure>
+            <p>最近coding的时候遇到一个问题。以前都没出现，突然出现了。暂时没法定位是不是PyTorch降级的问题。</p>
+<p>环境：PyTorch 1.2， CUDA 10，cudatoolkit 0.40</p>
+<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>在mask函数里：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sample_mask</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> self.dropout == <span class="number">0.</span>:</span><br><span class="line">        self._weight = self.weight</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        mask = self.weight.new_empty(</span><br><span class="line">            self.weight.size(),</span><br><span class="line">            dtype=torch.uint8</span><br><span class="line">        )</span><br><span class="line">        mask.bernoulli_(self.dropout)</span><br><span class="line">        self._weight = self.weight.masked_fill(mask, <span class="number">0.</span>)</span><br></pre></td></tr></table></figure>
+<p>mask是一个只有1和0的矩阵，用于dropout实现。在定义mask时，如果将mask定义为<code>torch.uint8</code>类型，在<code>bernoulli()</code>函数里会报如下warning：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UserWarning: masked_fill_ received a mask with dtype torch.uint8, this behavior is now deprecated,please use a mask with dtype torch.bool instead.</span><br></pre></td></tr></table></figure>
+<p>提示初始化为bool类型。初始化后，下一步的<code>bernoulli()</code>函数会报另一个错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RuntimeError: &quot;bernoulli_scalar_cuda_&quot; not implemented for &apos;Bool&apos;</span><br></pre></td></tr></table></figure>
+<p>提示<code>bernoulli</code>函数不支持对bool的运算。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>在<code>bernoulli()</code>和<code>bernoulli()</code>中间做一次类型转换：<code>mask.bool()</code></p>
+<p>完整代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sample_mask</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> self.dropout == <span class="number">0.</span>:</span><br><span class="line">        self._weight = self.weight</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        mask = self.weight.new_empty(</span><br><span class="line">            self.weight.size(),</span><br><span class="line">            dtype=torch.uint8</span><br><span class="line">        )</span><br><span class="line">        mask.bernoulli_(self.dropout)</span><br><span class="line">        mask = mask.bool()</span><br><span class="line">        self._weight = self.weight.masked_fill(mask, <span class="number">0.</span>)</span><br></pre></td></tr></table></figure>
 
         </div>
 
@@ -226,12 +231,12 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-12-03T20:49:25.820Z" itemprop="dateUpdated">2019-12-04 04:49:25</time>
+    最后更新时间：<time datetime="2019-12-10T08:03:06.148Z" itemprop="dateUpdated">2019-12-10 16:03:06</time>
 </span><br>
 
 
         
-        原文地址：<a href="/2019/12/04/pytorch-skill-1204/" target="_blank" rel="external">http://ldzhangyx.github.io/2019/12/04/pytorch-skill-1204/</a>
+        原文地址：<a href="/2019/12/09/bernoulli-bool/" target="_blank" rel="external">http://ldzhangyx.github.io/2019/12/09/bernoulli-bool/</a>
         
     </div>
     
@@ -252,7 +257,7 @@ ga('send', 'pageview');
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pytorch/">pytorch</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pytorch/">pytorch</a></li></ul>
 
 
             
@@ -262,7 +267,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/12/04/pytorch-skill-1204/&title=《PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/12/09/bernoulli-bool/&title=《PyTorch 1.2版本中，mask.bernoulli_()的问题记录和解决方案》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -272,22 +277,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/12/04/pytorch-skill-1204/&title=《PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案》 — 张逸霄的技术小站&source=自然语言处理、音乐生成、音乐结构分析等领域的经验分享，也有PyTorch等代码的实践归纳。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/12/09/bernoulli-bool/&title=《PyTorch 1.2版本中，mask.bernoulli_()的问题记录和解决方案》 — 张逸霄的技术小站&source=自然语言处理、音乐生成、音乐结构分析等领域的经验分享，也有PyTorch等代码的实践归纳。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/12/04/pytorch-skill-1204/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/12/09/bernoulli-bool/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/12/04/pytorch-skill-1204/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PyTorch 1.2版本中，mask.bernoulli_()的问题记录和解决方案》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/12/09/bernoulli-bool/&via=http://ldzhangyx.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/12/04/pytorch-skill-1204/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/12/09/bernoulli-bool/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -307,21 +312,14 @@ ga('send', 'pageview');
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2019/12/09/bernoulli-bool/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">PyTorch 1.2版本中，mask.bernoulli_()的问题记录和解决方案</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/11/26/musescore/" id="post-next" class="post-nav-link">
+      <a href="/2019/12/04/pytorch-skill-1204/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">MuseScore 3：快速使用小记</h4>
+        <h4 class="title">PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案</h4>
       </a>
     </div>
   
@@ -443,7 +441,7 @@ ga('send', 'pageview');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/12/04/pytorch-skill-1204/&title=《PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/12/09/bernoulli-bool/&title=《PyTorch 1.2版本中，mask.bernoulli_()的问题记录和解决方案》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -453,22 +451,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/12/04/pytorch-skill-1204/&title=《PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案》 — 张逸霄的技术小站&source=自然语言处理、音乐生成、音乐结构分析等领域的经验分享，也有PyTorch等代码的实践归纳。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/12/09/bernoulli-bool/&title=《PyTorch 1.2版本中，mask.bernoulli_()的问题记录和解决方案》 — 张逸霄的技术小站&source=自然语言处理、音乐生成、音乐结构分析等领域的经验分享，也有PyTorch等代码的实践归纳。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/12/04/pytorch-skill-1204/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/12/09/bernoulli-bool/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/12/04/pytorch-skill-1204/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PyTorch 1.2版本中，mask.bernoulli_()的问题记录和解决方案》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/12/09/bernoulli-bool/&via=http://ldzhangyx.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/12/04/pytorch-skill-1204/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/12/09/bernoulli-bool/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -479,7 +477,7 @@ ga('send', 'pageview');
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACH0lEQVR42u3aS3LCMBAFQO5/aXKB2LwniaQstVcpB8w0i2E+er3i6x1f96+/eubVncUXBgbGYxljYd0/Z/5OHhsGBsY5jKuw7h99nyjzLyghfYgZAwMDI0i+eRAJHgMDA2OGkQeUF3//kHAxMDAeyGgLuLbhbJvVL/biGBgYD2TkU/e///sr+w0MDIxHMd7llZeG7VJhKioMDIytGXmCS8q7dog2k3AxMDDOYeRhjY3DkjHcgoNiGBgYBzDG1oerAl1wLAMDA+MYRlLSjR3FaFeSbfOMgYGxN2Os7VzVfM40w5e9OAYGxqaM+cQ6hk+Se33AAgMDYztGW8Ylo7exZWdbMv5S4WJgYGzNaNvINoF+o3z8MG7DwMDYmhFVkeUiYey9dReOgYGxKSN/XLK2HBvu5yO2Bd8KBgbGAxltM5msBPIDHO2yYUFpiIGB8UBGPldfi2wLwVebrTEwMDZljJWPOawtAZNVAQYGxmmM5CPHRnJ5Sh1bZGJgYJzJKNaHZYjt/SLdY2BgHMaYOVSRB5QM4PJVBAYGxgmMdkw2lnBnFpxRaYiBgbEd411eawNdVSxiYGDszZhJczOF49h6ID8agoGBsR8jSbJjSXMsOeYxYGBgnMbID1jkqbBNvst6cQwMDIy4xkz+O5he8w/DwMA4mJEfGpvvraMGGAMD4wBGkv7aV+aJtU24GBgYpzHy1nHtAjJPr+3PAAYGxkaMHw6rqHaJRifiAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMElEQVR42u3a3WqEQAwG0L7/S1voVWG7+iVxKc6cuVrUqsdCyM98fcXr+FmvR34ff/397uz5Na9X3rYwMDAeyzhO15xxfk0Oe3dPDAyMfRjnQbYaCquvm//t2+MYGBgYp69yHl4xMDAw/ivgJrC8DM7TRwwMjJ0Zd4XOHNArhm+oxTEwMB7ImBSln/79wfkGBgbGQxhHcc0HkEnQLL8VBgbG0ow8mZsnedUhZX5PDAyMtRnVrRLVMjUJvvMgjoGBsTYjarjHqVt+ttz0L34gDAyM9Ri9B+cBupdWJlf+UcRiYGBsychv12ufVWtuDAyM3RjVBlk1HE+uLAR9DAyMpRlJ663XUKtuF5uMEzAwMNZmJK3/anAsd/gGwR0DA2MHRm+zRbVK7m3CKL8JBgbGooxemywfdva2bpRTUgwMjA0YeeCbnJ08McpwMTAwFmVUt3lNGnC9pl6hhYeBgbEooxcce0fu2pbx9v+AgYGxKCMvGvNEcFKOVrejYWBg7MCYtON7yWKvhXfxyTAwMDZg5Ecmw8vqaOGIFwYGxtqM+TAyefXz9C5/+sVnxcDAWJRxFFd15pCTRuNSDAyMpRnzaN0sO+MS+rzRhoGBsQ8jT/jyx5S/U1wSX8xjMTAwlmZUB4flDRC9SF8dZGJgYGzP6E0Mk2QxGSdcBHQMDAyMoO2VF6Xn44S8qTcKuBgYGA9kTAaT1fDaa7dd3BkDA2NpxnwwkI88e0nnbRgMDIznMb4B2YOyUDQfC1oAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
