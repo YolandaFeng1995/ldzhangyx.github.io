@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-126536496-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题 | 张逸霄的技术小站 | 欢迎RSS订阅我的个人主页！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="TensorFlow">
+    <meta name="description" content="问题描述： Specifically, I want to do matmul(A,B) where &amp;nbsp;’A’ has shape (m,n) &amp;nbsp;’B’ has shape (k,n,p) and the result should have shape (k,m,p)  参考网站： https://groups.google.com/a/tensorflow.org/foru">
+<meta name="keywords" content="TensorFlow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题">
+<meta property="og:url" content="http://ldzhangyx.github.io/2017/12/21/tensorflow-matrix/index.html">
+<meta property="og:site_name" content="张逸霄的技术小站">
+<meta property="og:description" content="问题描述： Specifically, I want to do matmul(A,B) where &amp;nbsp;’A’ has shape (m,n) &amp;nbsp;’B’ has shape (k,n,p) and the result should have shape (k,m,p)  参考网站： https://groups.google.com/a/tensorflow.org/foru">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-15T12:39:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题">
+<meta name="twitter:description" content="问题描述： Specifically, I want to do matmul(A,B) where &amp;nbsp;’A’ has shape (m,n) &amp;nbsp;’B’ has shape (k,n,p) and the result should have shape (k,m,p)  参考网站： https://groups.google.com/a/tensorflow.org/foru">
+    
+        <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">张逸霄</h5>
+          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/projects"  >
+                <i class="icon icon-lg icon-project-diagram"></i>
+                项目列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ldzhangyx" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://yixiao-music.github.io" target="_blank" >
+                <i class="icon icon-lg icon-users"></i>
+                音乐会议Deadline
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-20T17:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-12-21
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-tensorflow-matrix"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-21 01:00:00" datetime="2017-12-20T17:00:00.000Z"  itemprop="datePublished">2017-12-21</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>问题描述：</p>
+<p>Specifically, I want to do matmul(A,B) where</p>
+<p>&nbsp;’A’ has shape (m,n)</p>
+<p>&nbsp;’B’ has shape (k,n,p)</p>
+<p>and the result should have shape (k,m,p)</p>
+<hr>
+<p>参考网站：</p>
+<p><a href="https://groups.google.com/a/tensorflow.org/forum/#!topic/discuss/4tgsOSxwtkY" target="_blank" rel="noopener">https://groups.google.com/a/tensorflow.org/forum/#!topic/discuss/4tgsOSxwtkY</a></p>
+<p><a href="https://stackoverflow.com/questions/38235555/tensorflow-matmul-of-input-matrix-with-batch-data" target="_blank" rel="noopener">https://stackoverflow.com/questions/38235555/tensorflow-matmul-of-input-matrix-with-batch-data</a></p>
+<hr>
+<p>解决办法：</p>
+<p>1，我们知道TensorFlow的matmul已经支持了batch，即：</p>
+<pre><code>A = tf.Variable(tf.random_normal(shape=(a, b, n, m)))
+B = tf.Variable(tf.random_normal(shape=(a, b, m, k)))
+tf.matmul(A, B)
+</code></pre><p>会返回(a,b,n,k)，前面的N个维度会被保留。但是适用情景与题目不符。</p>
+<p>2，所以我们自然想到reshape。</p>
+<p><span class="comment-copy">You can conflate the two dimensions not used in the multiplication using reshape, multiply the two matrices, and then call reshape again to get the desired shape. This is equivalent to doing batch multiplication.</span></p>
+<p><span class="comment-copy">简而言之呢，就是，你可以将乘法中用不到的维度reshape到后面去，比如</span></p>
+<p><span class="comment-copy">(k, m, p) =&gt; (m, p * k)</span></p>
+<p>进行矩阵乘法得到：(n, p * k)</p>
+<p>之后reshape成：(k, n, p)。</p>
+<p>虽然有些麻烦，但这是唯一的解决办法了。</p>
+<p>适用情景：A矩阵只有一个，但是B矩阵有batch_num个，需要逐个进行矩阵乘法的场合。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-11-15T12:39:54.000Z" itemprop="dateUpdated">2018-11-15 20:39:54</time>
+</span><br>
+
+
+        
+        原文地址：<a href="/2017/12/21/tensorflow-matrix/" target="_blank" rel="external">http://ldzhangyx.github.io/2017/12/21/tensorflow-matrix/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://ldzhangyx.github.io">
+            <img src="/img/avatar.jpg" alt="张逸霄">
+            张逸霄
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TensorFlow/">TensorFlow</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2017/12/21/tensorflow-matrix/&title=《【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2017/12/21/tensorflow-matrix/&title=《【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题》 — 张逸霄的技术小站&source=自然语言处理、音乐生成、音乐结构分析等领域的经验分享，也有PyTorch等代码的实践归纳。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2017/12/21/tensorflow-matrix/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2017/12/21/tensorflow-matrix/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2017/12/21/tensorflow-matrix/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/04/05/unity-fungus/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">10分钟快速构建Unity中的万能对话系统 / 叙事系统 / 剧情系统</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/11/05/python-package/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">【Python音乐生成】可能有用的一些Python库</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <section class="comments" id="comments">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+            var id = location.pathname
+            if (location.pathname.length > 50) {
+              id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+            }
+            const gitalk = new Gitalk({
+              clientID: '2fe1bcc914de92fd5141',
+              clientSecret: '38e2830b66e3ce7e3a8b21cc86bbd2b715f6b2e3',
+              repo: 'ldzhangyx.github.io',
+              owner: 'ldzhangyx',
+              admin: ['ldzhangyx'],
+              id: id,      // Ensure uniqueness and length less than 50
+              title: document.title.split('|')[0],
+              distractionFreeMode: false  // Facebook-like distraction free mode
+            })
+            gitalk.render('gitalk-container')
+        </script>
+    </section>
+    
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        非常感谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>张逸霄 &copy; 2017 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2017/12/21/tensorflow-matrix/&title=《【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2017/12/21/tensorflow-matrix/&title=《【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题》 — 张逸霄的技术小站&source=自然语言处理、音乐生成、音乐结构分析等领域的经验分享，也有PyTorch等代码的实践归纳。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2017/12/21/tensorflow-matrix/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【TensorFlow随笔】关于一个矩阵与多个矩阵相乘的问题》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2017/12/21/tensorflow-matrix/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2017/12/21/tensorflow-matrix/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACL0lEQVR42u3aQXLDQAgFUd//0so2G436g5zUDK1VKnYknhaEAT4ffF2/rrtP777P/3b9zRcuGTJkbMu4llcaVsq7w/DYZMiQMYdBUuE6OJJACWD9rNvfy5AhQ8YyCa7vQ/DkuTJkyJBRS7i8oCS8f/u/IUOGjE0YJKB1A+4u6PT+Xz+Ly5AhY0MG77r//c9fmW/IkCFjK8YVXumAszNOCKKSIUPG0Qye4NJCkAdXS7gyZMiYyegfFzuNtvRlFfO0DBkytmWkaxBkaazTkqutZciQIeNsxjqpkXA7DX3+Uh5StgwZMg5l9JckOimyn5plyJAxgbE+TNZCqY0N+slXhgwZExg83FrXi7TYeLmJKlwZMmQcx0jb/Tz58qIzvb8MGTImM/olIG/e1Qact5MNGTJkjGTUGmRvLVsEhakMGTIOZaQNsloCTcvHeJAgQ4aMoxm8cdZZquCDydqrlCFDxtkMXsylTbd0USOt92TIkDGHkS5Y9I+p/UPsw3NlyJBxKIMXamlzn4fIF8KCZQsZMmQcx0ivdDkjfWV8CCFDhoxpjLQpn5Jqw050AJYhQ8ahjH6S7aRmvrTxclEoQ4aMrRjpILPYrMdlYrqcEWNkyJCxLSNdmODNstqbS2OQIUPGHAZPfO+2+2tINN+QIUPGYEY/FNJ0IyOEVsKVIUPGMEbnO/yQ/PDiZMiQMYBB0h9vt/GRJz+mvtZukyFDxoaM9OhIbtppwNUWOGTIkHEo4wco1GqYWdEKBAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Yixiao Zhang's Website';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Yixiao Zhang's Website';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
