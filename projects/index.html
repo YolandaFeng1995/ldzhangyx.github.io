@@ -41,6 +41,7 @@ ga('send', 'pageview');
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ldzhangyx.github.io/projects/11.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/projects/12.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/projects/13.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/projects/5.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/projects/9.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/projects/6.png">
@@ -49,7 +50,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://ldzhangyx.github.io/projects/2.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/projects/3.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/projects/4.png">
-<meta property="og:updated_time" content="2020-01-10T18:35:12.108Z">
+<meta property="og:updated_time" content="2020-01-10T18:52:00.272Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="项目列表 Project List">
 <meta name="twitter:description" content="两个音乐无监督隐式结构树提取模型Two Unsupervised Latent Tree Extraction on Symbolic Music Sequence, 2019@card{ Note-level Structure Binary Tree Parsing using Ordered Neurons产生长音乐序列的关键是音乐的层次结构，可以将其表示为音符级别的二叉树。 大多数工作试图">
@@ -224,6 +225,15 @@ ga('send', 'pageview');
 <div class="card">
 <h3 id="Note-level-Structure-Binary-Tree-Parsing-using-Inside-Outside-Algorithm"><a href="#Note-level-Structure-Binary-Tree-Parsing-using-Inside-Outside-Algorithm" class="headerlink" title="Note-level Structure Binary Tree Parsing using Inside-Outside Algorithm"></a>Note-level Structure Binary Tree Parsing using Inside-Outside Algorithm</h3></div>
 <h1 id="借助结构化信息的音乐类比生成"><a href="#借助结构化信息的音乐类比生成" class="headerlink" title="借助结构化信息的音乐类比生成"></a>借助结构化信息的音乐类比生成</h1><h2 id="Deep-Music-Analogy-via-Latent-Tree-Structure-Transfer-2019"><a href="#Deep-Music-Analogy-via-Latent-Tree-Structure-Transfer-2019" class="headerlink" title="Deep Music Analogy via Latent Tree Structure Transfer, 2019"></a>Deep Music Analogy via Latent Tree Structure Transfer, 2019</h2><div class="card">
+<p>对于音乐结构迁移任务，我通过将树结构矢量视为条件约束，将生成的结构合并到条件VAE模型中，这与情感生成程序类似。 我这样训练了有条件的VAE，然后在推理过程中将结构更改为另一首音乐。 实验结果表明，生成的音乐节奏准确地改变为另一首歌曲的节奏。 结构不仅包括节奏模式，而且它们的高级功能（例如重复，模仿和变体）应反映在任务中。 因此，正在进行一项实验，将所有音符减少为连续演奏的十六分音符，以消除节奏模式的影响。 这些后续实验可能会导致音乐的结构迁移任务取得更多进展。</p>
+<p>For the music structure transfer task, I incorporated the generated structure into a conditional VAE model by treating the tree structure vector as a condition constraint, which is like the sentimental generation program. I trained a conditional VAE as such and then changed the structure to another piece of music during the inference process. The experimental results show that the generated music rhythm accurately changes to the rhythm of another song. Structures not only include rhythmic patterns, but their high-level features such as repetition, imitation, and mold advancement should be reflected in the task. Hence, there is an ongoing experiment to reduce all notes to a continuous play of sixteenth notes to eliminate the effects of rhythm patterns. These follow-up experiments may lead to more progress in the structural transfer task of music.</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="13.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 </div>
 <h1 id="使用神经网络条件随机场的短语级音乐分句"><a href="#使用神经网络条件随机场的短语级音乐分句" class="headerlink" title="使用神经网络条件随机场的短语级音乐分句"></a>使用神经网络条件随机场的短语级音乐分句</h1><h2 id="Phrase-level-Music-Segmentation-Using-Neural-CRF-2019"><a href="#Phrase-level-Music-Segmentation-Using-Neural-CRF-2019" class="headerlink" title="Phrase-level Music Segmentation Using Neural CRF, 2019"></a>Phrase-level Music Segmentation Using Neural CRF, 2019</h2><div class="card">
 <p>这是在短语级音乐分割上的一项工作。 以前的模型只是将旋律分割视为一种顺序分类任务，只能对隐藏状态之间的上下文信息进行回复。 与它们相比，我的模型还使用条件随机场（CRF）对标签之间的关系进行建模。 我使用Essen Folksong数据集进行了比较实验，该数据集包含6,000多种世界各地的民歌。 原始数据采用简谱，因此我将数据表示形式转换为一个one-hot向量，每个向量都表示一个16分音符。实验结果表明，我的模型的F1分数为83％，在F1-measure得分上比基线LSTM和CNN分类模型的性能高出约10％。 此外，我们设计了一种新颖的线性标签技术来训练类似CRF的模型，使训练过程更稳定，并且在F1测量结果中表现更进约1%.</p>
