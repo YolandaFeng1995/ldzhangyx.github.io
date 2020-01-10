@@ -244,7 +244,13 @@ ga('send', 'pageview');
 </ul>
 <h1 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>论文的目标在于无监督生成风格诗歌。之前的诗歌生成更注重于一致性、连续性。本文更关注于同一输入下生成不同风格的诗歌。</p>
 <p>同一意象下，人们可以以不同的风格写出不同的诗歌：</p>
-<p><img src="1.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <ul>
 <li>诗歌并没有明确的风格label。本文使用了无监督的方法生成不同风格的诗词。</li>
 <li>论文中，我们提出了一个模型，可以从诗歌中解耦出不同的风格，并在给定人工风格输入后生成特定风格的诗歌。模型总体是seq2seq的，同时通过最大化衡量两个随机变量之间依赖的互信息，以强化人工风格输入和生成的特定风格输出的关系。</li>
@@ -257,7 +263,13 @@ ga('send', 'pageview');
 <script type="math/tex; mode=display">
 I(X, Y)=\int_{Y} \int_{X} p(X, Y) \log \frac{p(X, Y)}{p(X) p(Y)} d X d Y</script><h3 id="风格解耦的Decoder模型"><a href="#风格解耦的Decoder模型" class="headerlink" title="风格解耦的Decoder模型"></a>风格解耦的Decoder模型</h3><p>定义输入句子$X$，输出句子$Y$，字典为$V$，时间步为$T$。</p>
 <p>模型如图：</p>
-<p><img src="2.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>将Encoder最后一步的hidden state与风格的one-hot向量concatenate起来，送Decoder。</p>
 <p>我们无法从理论上证明，Decoder的output能与风格K正确地对应起来。output很可能会忽略掉风格输入，使得输出不受风格影响。因此我们显式添加一个约束，强制风格K与output有强烈的依赖关系。</p>
 <p>假定K的id分布k是一个均匀分布的随机向量，就是这样：</p>
@@ -310,14 +322,38 @@ Q(S t y | Y)=\operatorname{softmax}\left(W \cdot \frac{1}{T} \sum_{i=1}^{T} e\le
 </ul>
 <p>上述四个指标被纳入考虑。</p>
 <p>分别生成了20首五言和20首七言，作为评估。邀请了10个中国文学专家，做了两组实验。第一组对比seq2seq，第二组对比别的先进模型。</p>
-<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p><img src="3.png" alt=""></p>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>seq2seq生成的是混合风格的模型，更可能产生无意义的诗歌。风格作为统一信息，为一致性提供了帮助，并且缩小了空间，因此在风格内部能学习得更加准确、紧凑。</p>
 <h3 id="习得风格的可解释性"><a href="#习得风格的可解释性" class="headerlink" title="习得风格的可解释性"></a>习得风格的可解释性</h3><p>10种风格的关键词如下：</p>
-<p><img src="4.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>首先输入每种风格各生成5首诗，再由人类专家进行分类。由于是无监督生成的，故模型很可能不会严格对齐人类的风格标注。</p>
-<p><img src="5.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>可以看见，人类可以以更高的概率成功识别出很多风格。观察结果表明，模型的学习风格只有两三个关键词有意义、可识别。除此之外，生成的诗歌需要是多样的，否则他们不能被区分开。</p>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><img src="6.png" alt=""></p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 
         </div>
 

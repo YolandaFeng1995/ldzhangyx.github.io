@@ -238,7 +238,13 @@ ga('send', 'pageview');
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>论文首先聊了一下自动音乐生成的历史。神经网络给音乐生成带来了新进展，但是结构性上仍有所不足。比较成功的作曲局限于巴赫，因为其结构局部化明显，易于察觉。以前的研究提出过结构约束的技术，但是这样的约束与生成的过程有冲突，并且需要细致调参。相比之下直接将结构进行Encoding更加有意义。</p>
 <p>论文选定了给定和弦行进的音乐生成任务。这个任务中，论文对两个结构做了系统比较：LSTM和WaveNet（空洞时序CNN，dilated temporal-CNN）。值得一提的是WaveNet在这篇论文中才第一次被用于象征域（symbolic domain）的音乐生成。就隐藏变量（hidden virables）的依赖性来看，两个结构是相似的——相对于ARMA模型和MA模型（都是统计学领域的模型）。据了解，这篇论文也是第一个进行两个结构系统性比较的论文。</p>
 <p>象征域的音乐生成任务，有着信息量丰富的优点。在任务中，论文提出了一种创新的编码方式，将和弦与旋律进行交错表示（如图1）。这样能够高效组合不同时间尺度的和弦与旋律，使得模型能够同时学习到“过去的旋律”和“接下来两个小节的旋律”之间的时间延迟的依赖性,同时也可以学到两个小节内的和弦与旋律的同时关系。这样操作的优点在于，人们很少完全做即兴创作，几乎总是依赖于一个提前定义好的蕴含了高层音乐结构的信息（比如figured bass）。</p>
-<p><img src="1.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="问题定义"><a href="#问题定义" class="headerlink" title="问题定义"></a>问题定义</h3><p>对长度为$T$的音乐，给定直到时间点$t$的旋律，和全局和弦行进，目标是生成从$t$到$T$的剩余旋律。所以和弦是用作condition，在每一个step给出，最终的输出应保持旋律流，且与和弦有交互。</p>
 <p>回头看图1，其中K是给定的内容，而P是期待输出的内容。</p>
 <p>一个单向模型的条件概率分布可以这么定义：</p>
@@ -248,14 +254,26 @@ p(M_{T-t+1:T}|C_{1:T}) = \prod_{i=1}^{T-t}p(m_i|m_1, ..., m_{i-1}, c_1, ..., c_i
 <script type="math/tex; mode=display">V = (M,C)</script><p>拥有1*155的维度，其中0~127代表MIDI的128个音，128代表休止符，129代表holding；130~154代表25个不同的和弦，其中前12个是大调和弦，之后12个是小调和弦，而最后一个代表没有和弦。</p>
 <p>和弦不止24个，那么将之外的和弦映射到对应的和弦，比如C7和弦映射到C和弦，Cm7和弦映射到Cm和弦。</p>
 <p>一首长度为T的乐曲，可以分别用五线谱和矩阵表示为下图：</p>
-<p><img src="2.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>可以看出来数据处理以八分音符为最小的分辨率（实际模型可以使用更高的分辨率），四分音符就可以表示为八分音符，然后holding住一个八分音符时长（在双向的模型里有所区别）。我个人认为这是一个有效的表示法。其他类似的表示法是music21提供的包，也可以对音乐进行编码。</p>
 <p>特别要指出一点，在原来的论文里没有提及，是我对作者进行询问之后得到的结论。</p>
 <p>在单向模型里，这一个表示没有问题，但是在双向模型里，这样的表示会让输入有一些奇怪之处，比如说holding究竟是在holding哪个音。对于这个问题，作者实际处理的时候使用了回文序列（在双向模型中），即将一个这样的序列：[64,129,129,129]改成了[64,129,129,64]，以保证模型不会出现理解障碍。这样就有另一个问题了，如果这个模型短到holding不存在，即“单音序列”，这该怎么表示呢？作者使用了0.03125秒作为最小分辨率，而八分音符的时长为0.125秒，所以0.03125秒应该是32分音符的时长。作者去除了这些单音序列，保证这样的数据表示正常工作（其实我也没有完全明白，因为单音序列看起来并不会带来任何问题）。</p>
 <h4 id="WaveNet"><a href="#WaveNet" class="headerlink" title="WaveNet"></a>WaveNet</h4><p>表示与上述相同，但是M只有128维，0代表rest，其他代表音高。这里不区分连续多音，相连的两个同样音高视为延音（为什么？）。而和弦仍然是25维。</p>
 <h3 id="LSTM结构"><a href="#LSTM结构" class="headerlink" title="LSTM结构"></a>LSTM结构</h3><p>两个模型，单向和双向。其中双向编码的特别之处在于将和弦完全编码进来了。编码的方式如之前所说是交叉编码，所以在i时刻之后的旋律部分置空，只留和弦部分，将这个矩阵进行编码。</p>
 <p>LSTM结构的大致结构如下：</p>
-<p><img src="3.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="WaveNet结构"><a href="#WaveNet结构" class="headerlink" title="WaveNet结构"></a>WaveNet结构</h3><p>WaveNet将旋律与和弦分开编码，所以也需要分开输入。没有condition的模型公式如下（k代表第k层）：</p>
 <script type="math/tex; mode=display">
 z = \tanh(W_{f,k} * m) \odot \sigma(W_{g,k} * m)</script><p>其中*符号代表了空洞卷积。</p>
@@ -263,31 +281,97 @@ z = \tanh(W_{f,k} * m) \odot \sigma(W_{g,k} * m)</script><p>其中*符号代表�
 <script type="math/tex; mode=display">
 z = \tanh(W_{f,k} * m + V_{f,k} * c) \odot \sigma(W_{g,k} * m + V_{f,k} * c)</script><p>上述公式的第一个*符号都代表了空洞卷积操作，而涉及到c的第二个*符号代表了一个1*1的卷积层。</p>
 <p>空洞卷积的结构如下：</p>
-<p><img src="4.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>WaveNet的结构如下：</p>
-<p><img src="5.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>训练的时候使用交叉熵，将其对比原始的音乐序列（loss函数一直是NLP生成模型的痛，因为原有的label不一定是唯一解，所以在NLP领域也出现了一些别的方法来解决生成模型多样性的问题）。</p>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><p>Nottingham数据集，平移到12个大/小调，进行数据增强；速度调整为120bpm，所以4分音符对应0.5秒，而最小分辨率0.03125秒对应16分音符。</p>
 <h3 id="人类评估的调查问卷"><a href="#人类评估的调查问卷" class="headerlink" title="人类评估的调查问卷"></a>人类评估的调查问卷</h3><p>评分制，只要考察：旋律与和弦的交互性，旋律复杂性，旋律结构性。</p>
 <p>验证姐u哦采用了ANOVA方法做假设检验，以及对不同的模型做了两两的t检验。</p>
-<p><img src="6.png" alt=""></p>
-<p><img src="7.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>模型性能的确有着统计学显著的差异。</p>
-<p><img src="8.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="VMO的模式发现（Pattern-Discovery）"><a href="#VMO的模式发现（Pattern-Discovery）" class="headerlink" title="VMO的模式发现（Pattern Discovery）"></a>VMO的模式发现（Pattern Discovery）</h3><p>VMO，全称Variable Markov Oracle，用于分析时间序列的音乐模式。VMO可以捕捉三种连接：前向连接（forward link）、后缀连接（suffix link）、反向后缀连接（reverse suffix link）。每个时间片段t的后缀连接是给定序列的最长后缀的起始点。</p>
 <p>相关的论文可以看《Music Pattern Discovery with Variable Markov Oracle: A Unified Approach to Symbolic and Audio Representations》。一个典型的VMO分析图可以看下图：</p>
-<p><img src="9.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>作者将生成的midi文件转化成了波形用于对比。采样频率44.1kHz，并且实现了short-time Frourier transform得到频谱数据。下图将频谱根据energy折成了12类音高得到的图：</p>
-<p><img src="10.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>频谱中前10秒是给定的开头。</p>
 <p>作者还计算了信息率（Information Rate）得到距离阈值$\theta$。如果两个时序的距离如果小于$\theta$的话，将会被认为是同一个时间序列。所以过大或者过小的阈值都会影响到模式识别的结果。作者通过寻找最大的IR值来确定$\theta$的值，如图所示：</p>
-<p><img src="11.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="11.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h2 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h2><h3 id="VMO"><a href="#VMO" class="headerlink" title="VMO"></a>VMO</h3><p>VMO分析能够寻找音乐的主题片段。由于VMO分析中，阈值并不完全相同，所以显示出来的结果也会略有不同。</p>
-<p><img src="12.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="LSTM-1"><a href="#LSTM-1" class="headerlink" title="LSTM"></a>LSTM</h3><p>我们发现LSTM模型生成的音乐在重复生成模式方面具有很大的潜力。图10显示单向LSTM模型出现几次重复（蓝色框），而双向LSTM模型在时间范围内肯定会有更多的模式重复（红色框和黄色框表示）。由于它所拥有的短期记忆和我们处理的直接输入，LSTM模型揭示了捕获数据集中固有结构的自然和主动性。此外，我们注意到，与单向LSTM相比，双向LSTM产生的音乐对于变化的和弦更稳定且更敏感。下图显示了一个示例，其中顶部系统表示双向LSTM模型，底部系统表示单向LSTM模型。我们看到两种模型都可以在当前和弦之后生成音符片段（度量），单向模型无法作为整体进行和弦进行。对于双向LSTM，生成的音符序列趋向于更不稳定，平滑和音乐。这可能是因为生成过程包括即将到来的和弦作为全局结构限制。</p>
-<p><img src="13.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="13.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="WaveNet-1"><a href="#WaveNet-1" class="headerlink" title="WaveNet"></a>WaveNet</h3><p>WaveNet能够学到一些有趣的节奏模式，下图可以看出切分被学习到了，而这个模式因为分辨率只有16分音符，所以需要长期结构才能捕捉到。这表示空洞卷积的堆叠恰好与音乐结构一致。从节奏生成的角度来看，WaveNet更适合象征域的音乐生成（对比音频），因为音频的层次结构较少。<br>但，WaveNet同时丢失了一些结构特征。所以双向WaveNet是一个很好的idea。</p>
-<p><img src="14.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="14.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>结果表明，两个关键因素在很大程度上改善了模型性能：</p>
 <ol>
 <li>一组扩张的卷积层，它们明确地编码了旋律序列的结构依赖性。</li>

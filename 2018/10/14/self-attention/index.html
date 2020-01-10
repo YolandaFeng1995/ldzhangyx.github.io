@@ -221,7 +221,13 @@ ga('send', 'pageview');
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="Attention的计算机制"><a href="#Attention的计算机制" class="headerlink" title="Attention的计算机制"></a>Attention的计算机制</h1><h2 id="总说"><a href="#总说" class="headerlink" title="总说"></a>总说</h2><p>Attention机制主要作用在Decode阶段。在这一阶段，$s_t$的运算受到了$s_{t-1}$，$y_{t-1}$和$c_t$的影响。根据目前比较统一的观点，Attention值的计算是相似度比较的结果。Decoder端的Query与Encoder端的各个Key进行相似度比较得到不同的权重，最后对各个Key对应的Value进行归一化的加权累加，得到Attention Value。</p>
-<p><img src="1.jpg" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>在实际应用中，Key就是Value，即K=V；而K与Q（Query）实际上也常用Hidden State来计算。</p>
 <h2 id="相似度计算"><a href="#相似度计算" class="headerlink" title="相似度计算"></a>相似度计算</h2><p>相似度计算有几种方式。下面公式中$t$代表Decoder第$t$时刻，$s$代表Encoder中第$s$个位置的hidden state。</p>
 <p>点积注意力：<script type="math/tex">s(h_t, h_s) = h_t^Th_s</script></p>

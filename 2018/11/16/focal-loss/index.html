@@ -246,7 +246,13 @@ p_t =
 <p>现在在交叉熵上加入另一个因子，用于动态调节权重：</p>
 <script type="math/tex; mode=display">
 FL(p_t) = -(1-p_t)^\gamma\log(p_t)</script><p>FL即为Focal Loss，$\gamma$是一个可以调节的参数，当这个参数不同时，对loss的影响如下：</p>
-<p><img src="1.jpg" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>其中参数为0的时候，Focal Loss退化为交叉熵CE。从图中我们可以很直观地看到，$p_t$越大，$FL(p_t)$越小，其对总体loss所做的贡献就越小；反过来说，$p_t$越小（小于0.5的情况也就是被误分类），越能反映在总体loss上。实验发现$\gamma=2$时效果最好，在这种情况下，一个样本被分类的$P_t=0.9$的损失比CE小1000多倍。这样就增加了那些误分类的重要性。</p>
 <p>作者最后将$\alpha$-balanced loss也加入了公式，最后公式为：</p>
 <script type="math/tex; mode=display">

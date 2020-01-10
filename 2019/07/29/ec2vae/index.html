@@ -260,7 +260,13 @@ ga('send', 'pageview');
 <p>额外设计了一个节奏pattern约束网络的中间输出。8拍节奏模式表示为32x3的矩阵，3为one-hot向量，代表：(onset, holding, rest)。</p>
 <p>chord作为条件，表示成32x12的矩阵（色度图），如12维的multi-hot向量。</p>
 <h3 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h3><p>模型基本结构与Vanilla sequence VAE一致。</p>
-<p><img src="1.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>模型的创新点在于，为Decoder的一部分（橙色）设计了一个子任务，通过明确地鼓励$z_r$的中间输出，匹配节点的节奏特征，从而将潜在（latent）节奏表示$z_r$从整体的表示z中解开。</p>
 <p>因此z的另一部分是节奏以外的一切，被解释为音高表示$z_p$。这样明确编码的解耦技术非常灵活，因为可以设计多个子部分，解开z的多个语义可解释的因子。只要可以定义相应潜在因子的中间输出。</p>
 <p>新模型将chord作为condition，优点是使z免于存储和弦信息。</p>
@@ -280,12 +286,30 @@ ga('send', 'pageview');
 <li>一个augmantation-based序列的F-score。</li>
 </ol>
 <h4 id="音高转换的Δz可视化"><a href="#音高转换的Δz可视化" class="headerlink" title="音高转换的Δz可视化"></a>音高转换的Δz可视化</h4><p>将$F_i$定义为一个操作，将所有音符转$i$个半音。使用L1范数测量z的变化。</p>
-<p><img src="2.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>增加音高时，音高的潜在表示的变化$z_p$远高于节奏的潜在表示变化$z_r$。这充分证明了解耦的成功。</p>
 <h4 id="F-score"><a href="#F-score" class="headerlink" title="F-score"></a>F-score</h4><p>从IR角度，可以实现新的评估方法。我们将模型结构定义中的pitch-rhythm split作为ground truth，将factor-wise数据增强（保持一个，改变另一个，vice versa），作为query。将因此出现了最大variance的实际上latent dimensions，成为结果集（result set）。用这种方法，可以量化评估模型的P、R和F分数。</p>
-<p><img src="3.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>这是第一个为明确编码的解耦模型定制的测量方法，因此将random作为baseline。</p>
-<p><img src="4.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>后面的case study略。</p>
 <h1 id="想法与见解"><a href="#想法与见解" class="headerlink" title="想法与见解"></a>想法与见解</h1><p>一路看下来感觉很流畅，从音乐的结果来看也是一个非常好的模型，起解耦能力值得肯定。</p>
 <p>值得挑一些刺的地方我认为有两点。</p>

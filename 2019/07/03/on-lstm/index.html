@@ -226,7 +226,13 @@ ga('send', 'pageview');
             <p>Ordered Neurons是ICLR 2019的The best paper之一。知乎上对这篇论文也有诸多讨论。本文主要探讨ON-LSTM在结构上的构建和分析，为我之后要做的音乐结构分析做一些准备。</p>
 <h1 id="ON-LSTM"><a href="#ON-LSTM" class="headerlink" title="ON-LSTM"></a>ON-LSTM</h1><p>用一句话来概括这篇论文的核心思想，那就是：<strong>重新设计了LSTM中，历史信息的融合更新策略，使其能够显式地分层融合历史信息和当前信息。为了分层地融合信息，本文也设计了一个方法估计信息的层级，之后也利用层级，推导出了序列信息的树状结构</strong>。</p>
 <h2 id="普通的LSTM"><a href="#普通的LSTM" class="headerlink" title="普通的LSTM"></a>普通的LSTM</h2><p>首先回忆一个普通的LSTM：</p>
-<p><img src="1.png" alt="LSTM Cell结构"></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="LSTM Cell结构" title="">
+                </div>
+                <div class="image-caption">LSTM Cell结构</div>
+            </figure>
 <p>从结构图从左往右依次有三个sigmoid模块：<br>第一个sigmoid是遗忘门，输出一个值，决定$c_{t-1}$应该被遗忘的比例：</p>
 <script type="math/tex; mode=display">f_{t}  = \sigma( W_{f} x_{t} + U_{f} h_{t - 1} + b_{f}）</script><p>第二个sigmoid是输入门，输出一个值，决定输入$x_t$应该多大程度影响到$h_{t-1}$：</p>
 <script type="math/tex; mode=display">o_{t}  = \sigma( W_{o} x_{t} + U_{o} h_{t - 1} + b_{o})</script><script type="math/tex; mode=display">\hat{c}_t  = \tanh ( W_{c} x_{t} + U_{c} h_{t - 1} + b_{c})</script><p>接下来是融合的过程。遗忘门决定了$c_{t-1}$的遗忘程度，输入门处理了输入，用点加的方式将两个向量进行融合：</p>
@@ -238,11 +244,23 @@ ga('send', 'pageview');
 <ol>
 <li>当前输入$x_t$的层级高于历史记录$h_{t-1}$的层级，那么$c_t$中，层次高于$d_i$的部分，保持$c_{t-1}$不变，层次低于$d_f$的部分，被当前输入的$\hat{c}_t$直接覆盖，而两个分界线中间的部分，使用点加的方式正常融合：</li>
 </ol>
-<p><img src="2.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <ol>
 <li>当前输入$x_t$的层级低于历史记录$h_{t-1}$的层级，那么高层仍然保留，底层仍然用$\hat{c}_t$直接覆盖，而分界线中层的位置直接置0：</li>
 </ol>
-<p><img src="3.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>这就是ON—LSTM做出的重要更改。高层信息就可能保留相当长的距离（因为高层直接复制历史信息，导致历史信息可能不断被复制而不改变），而低层信息在每一步输入时都可能被更新（因为低层直接复制输入，而输入是不断改变的），所以就通过信息分级来嵌入了层级结构。更通俗地说就是分组更新，更高的组信息传得更远（跨度更大），更低的组跨度更小，这些不同的跨度就形成了输入序列的层级结构。</p>
 <p>这里隐含了一个规律。因为我们总是遗忘$d_f$以下的所有内容，记住$d_i$以上的所有内容，所以，每当我们想更新或者擦除高层次的内容时，我们必定擦除或更新了更低层次的内容。这个结论是非常容易推理出来的。</p>
 <h2 id="无监督树结构的生成"><a href="#无监督树结构的生成" class="headerlink" title="无监督树结构的生成"></a>无监督树结构的生成</h2><p>给定一个预训练好的ON-LSTM模型，输入一个序列${x_t}$，可以得到每一个LSTM Cell在融合时计算出来的历史信息结构的层级序列${d_f}$。找到层级最大值的下标，以它为分界线，将左右两个子序列分开，然后递归地重复这个步骤。</p>
@@ -251,7 +269,13 @@ ga('send', 'pageview');
 <h3 id="Language-Modeling"><a href="#Language-Modeling" class="headerlink" title="Language Modeling"></a>Language Modeling</h3><p>Language Modeling通过测量PTB的困惑度（ppl）评估我们的模型。</p>
 <p>模型使用三层ON-LSTM，hidden unit有1150个，embedding size为400。对于master gates，缩小因子C=10. Embedding dropout为(0.5, 0.3, 0.45, 0.1)。current matrics使用了0.45的weight dropout。</p>
 <p>同等状态下ON-LSTM表现优于普通LSTM，值得注意的是，不需要增加skip connection或者是大量增加参数。</p>
-<p><img src="4.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h1 id="见解和感想"><a href="#见解和感想" class="headerlink" title="见解和感想"></a>见解和感想</h1><p>树状结构在各个topic都是有用的。将树状结构引入神经网络语言模型可能会带来一些这样的好处：</p>
 <ol>
 <li>可以得到语言的分层表示；</li>

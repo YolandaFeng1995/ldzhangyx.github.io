@@ -229,7 +229,13 @@ ga('send', 'pageview');
             <p>这篇文章发表在2018年的AAAI上，继承了VAE在自然语言处理上的应用，将其应用于句子复述上，用于生成相似的句子；同时因为RNN可以作为语言模型使用，语句的语法正确性也有一定提升。<br>论文地址：<a href="https://arxiv.org/pdf/1709.05074.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1709.05074.pdf</a></p>
 <a id="more"></a>
 <h1 id="背景材料"><a href="#背景材料" class="headerlink" title="背景材料"></a>背景材料</h1><p>关于变分自编码器在NLP领域的相关介绍，可以看<a href="http://rsarxiv.github.io/2017/03/02/PaperWeekly%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%83%E6%9C%9F/" target="_blank" rel="noopener">这篇讨论</a>。</p>
-<p><img src="1.jpg" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>关于文本生成的背景研究，可以看<a href="https://www.msra.cn/zh-cn/news/features/ruihua-song-20161226" target="_blank" rel="noopener">这篇文章</a>。</p>
 <p>关于VAE的原理（流形学习）和工程实现，可以看<a href="https://blog.csdn.net/JackyTintin/article/details/53641885" target="_blank" rel="noopener">这篇博文</a>。这篇博文详细介绍了VAE的训练过程，Encoder部分（识别模型）和Decoder部分（生成模型）的结构和各个参数的含义。这篇文章同时也提及了reparemetriazation trick的原理。</p>
 <p>对于VAE结构的理解和讨论，可以看<a href="https://zhuanlan.zhihu.com/p/34998569" target="_blank" rel="noopener">这篇文章</a>。</p>
@@ -245,25 +251,61 @@ ga('send', 'pageview');
 <p>更多地，在建模文字数据的时候，也可以使用KL-term annealing以及dropout of inputs of the decoder等训练技巧，避免一些问题。</p>
 <h3 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h3><p>我们的训练集使用了N对句子，表示为${\mathbf{s}_n^{(o), \mathbf{s}_n^{(p)}}^N_{n=1}$，其中原始句子用$o$标注，复述句子用$p$标注。句子的向量表示标记为$x^{(o)}$与$x^{(p)}$，</p>
 <p>去掉LSTM后，本文的宏观模型如图所示：</p>
-<p><img src="3.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>区别于传统的VAE，本文构建的模型将$x^{o}$作为了condition加在了Encoder和Decoder之上。</p>
 <p>更加细节的结构如图所示：</p>
-<p><img src="4.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>实际上，本文的模型包括了三个LSTM encoder和一个LSTM decoder，总共有4个LSTM，如上图所示。</p>
 <p>在VAE的Encoder方面，两个LSTM encoder被使用，第一个转换原始句子$s^{(o)}$到其向量表示$x^{o}$，与复述句子$s^{(p)}$送入第二个LSTM。将两个句子都编码进了LSTM之后，使用一个前馈网络输出$\Phi$，也就是向量表示的均值和方差，送入VAE。</p>
 <p>在VAE的Decoder方面，VAE输出隐变量$z$，第三个LSTM编码原始句子，然后将原始句子的向量表示$x^{(o)}$与$z$一同送入第四个LSTM，产生复述的句子。</p>
 <p>将LSTM抽象化，可以得到一个这样的模型：</p>
-<p><img src="2.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>这个模型的variational lower-bound，也就是$ELBO$如下。最小化KL散度的过程等同于最大化$ELBO$的过程。</p>
 <script type="math/tex; mode=display">L(\theta, \Phi; x^{(p)}, x^{(o)})) = E_{q_\Phi(z|x^{(p)}, x^{(o)})}[\log p_\theta(x^{(p)}|z, x^{(o)})] -KL(q_\Phi(z|x^{(p)}, x^{(o)})||p(z))</script><p>模型的训练方法与<a href="https://aclweb.org/anthology/K/K16/K16-1002.pdf" target="_blank" rel="noopener">《Generating sentences from a continuous space》</a>中的相同。这篇论文深深地影响了后续论文的思路。</p>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><p>本文使用了两个数据集进行评测。</p>
 <h4 id="MSCOCO数据集"><a href="#MSCOCO数据集" class="headerlink" title="MSCOCO数据集"></a>MSCOCO数据集</h4><p>这个数据集，也曾用于评测句子复述的方法，对120K张图片分别有人工标注的五句描述。构建数据集的时候，本文随机忽略一个描述，然后将剩下的描述两两配对组成数据集，同时限制长度在15个单词以内，以减少模型复杂度。</p>
-<p><img src="5.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="Quora数据集"><a href="#Quora数据集" class="headerlink" title="Quora数据集"></a>Quora数据集</h3><p>Quora在2017年发布了一个数据集，包含400K行潜在的重复问题对。借助这个数据集，本文将重复的问题看作是复述的句子进行训练。重复的问题对大约有155K对，使用50K，100K，150K对进行训练，4K对作为测试。</p>
-<p><img src="6.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="实验设置"><a href="#实验设置" class="headerlink" title="实验设置"></a>实验设置</h3><p>实验的主要参数设置参考了《Generating sentences from a continuous space》的<a href="https://github.com/kefirski/pytorch_RVAE" target="_blank" rel="noopener">实现代码</a>，未对任何数据集做fine-tuning。本文模型中，作者没有使用预先embedding好的词向量，而是自己进行了训练。embedding dimension设置为300，encoder和decoder的dimension是600，隐变量dimension是1100。Encoder只有一层而Decoder有两层。模型使用SGD进行训练，学习率固定为$5*10^{-5}$，dropout为0.3，batch size为32。</p>
 <h2 id="评测"><a href="#评测" class="headerlink" title="评测"></a>评测</h2><p>本文使用了BLEU，METEOR和TER进行评测。因为这个过程类似翻译任务，所以借用翻译的指标效果会比较好。评测结果显示优于其他模型。</p>
-<p><img src="7.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>评测包含了对实验结果的分析，可以直接阅读原文。</p>
 <h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>本文提出了一个深度生成框架，基于VAE，增加了seq2seq模型，用于生成释义。与传统的VAE和无条件句子生成模型不同，这个模型在输入句子上调节VAE的encoder和decoder侧，因此可以为给定句子生成多个释义。在一般复述生成数据集上评估所提出的方法，并且表明它在很大程度上优于现有技术，没有任何超参数调整。本文还评估了对最近发布的问题复述数据集的方法，并展示了其卓越的性能。生成的释义不仅在语义上与原始输入句子相似，而且还能够捕获与原始句子相关的新概念。</p>
 <h1 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h1><p><strong>这篇文章是我阅读的第一篇关于VAE文本生成的论文</strong>，我将在本周使用PyTorch完成这个模型的复现工作。在学习VAE背后深层原理的过程中，我遇到了一些麻烦，只能说是初步理解。然而工程上VAE是一个相比GAN更加自然地适用于NLP的模型，其噪声与重建的对抗思路让我对文本生成有了全新的认识。</p>

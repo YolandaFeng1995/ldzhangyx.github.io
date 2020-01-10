@@ -223,21 +223,51 @@ ga('send', 'pageview');
             <p>VAE在我心里，是NLP领域生成模型的一把好手。在很多Task上，VAE的表现其实不如RNN，但是其出色的地方在于足够灵活，能生成出很多不一样的符合条件的结果。这么几年下来，VAE也有着各种各样的变体，也会顺便提一下。</p>
 <a id="more"></a>
 <h2 id="VAE-amp-Conditional-VAE"><a href="#VAE-amp-Conditional-VAE" class="headerlink" title="VAE &amp; Conditional VAE"></a>VAE &amp; Conditional VAE</h2><h3 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h3><p>首先来看VAE，其比较详细的解释可以看<a href="https://zhuanlan.zhihu.com/p/34998569" target="_blank" rel="noopener">这里</a>。VAE的模型结构如下：</p>
-<p><img src="1.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>其Encoder提取输入的特征，并将其map到一个正态分布上。用神经网络输出其均值和方差，得到一个正态分布。这个正态分布体现了输入的特征。编码器不能自由地使用整个潜在空间，而是必须限制产生的z，使其可能服从先验分布。</p>
 <p>对正态分布进行采样，采样数据通过Decoder进行输出。采样可以通过重参数技巧进行代换，保证了整个过程可导，绕开了采样这个不可导的动作。</p>
 <p>为了保证模型具有一定的生成能力，输出的方差需要进行控制，所以要求这个正态分布向标准正态分布看齐。</p>
 <p>使用KL散度衡量这个分布与标准正态分布的距离，其Loss可以推导为下列式子：</p>
-<p><img src="3.jpg" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>LOSS = KL散度 + 生成图片与原图片的交叉熵</p>
 <p>之后ELBO的提出都是为了方便计算。VAE 的变分下界，是直接基于 KL 散度就得到的。所以直接承认了 KL 散度的话，就没有变分的什么事了<a href="https://zhuanlan.zhihu.com/p/34998569" target="_blank" rel="noopener">参考</a>。，大体模型就是这个样子。</p>
 <h3 id="CVAE"><a href="#CVAE" class="headerlink" title="CVAE"></a>CVAE</h3><p>CVAE是一类模型，通过在Encoder与Decoder中添加标签来控制生成结果的类别。</p>
-<p><img src="2.jpg" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>其实现方法是，每一类label，其正态分布存在均值，于是Encoder编码形成的正态分布，不仅方差要接近标准正态分布，而且均值要接近label的均值，可以通过修改KL散度实现：</p>
-<p><img src="4.jpg" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h2 id="AAE"><a href="#AAE" class="headerlink" title="AAE"></a>AAE</h2><p>AAE，对抗自编码器，在2015年于《Adversial Autoencoders》提出来。其详细介绍在<a href="http://kissg.me/2017/12/17/papernotes03/" target="_blank" rel="noopener">这里</a>可以查看。</p>
 <p>其与VAE最显著的特征是将KL散度惩罚替换成了对抗学习的过程。</p>
-<p><img src="5.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 
         </div>
 

@@ -239,7 +239,13 @@ ga('send', 'pageview');
 <li>在和弦条件下的马尔可夫旋律生成</li>
 </ol>
 <p>为了估计给定旋律的可变长度和弦序列，作者使用了具有分裂、合并操作的Metropolis-Hastings采样器迭代地细化潜在树结构和和弦符号和节奏。实验结果表明，该方法在预测能力方面优于基于HMM的方法。</p>
-<p><img src="1.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>和弦序列的创建在音乐构成和排列中起关键作用，因为和声影响音乐的情绪并且表征某种音乐风格的印象。我们的目标是自动旋律协调，或为给定旋律（一系列音符）自动生成一系列和弦符号。在本文中，我们将注意力集中在流行音乐风格的协调问题上。我们采用统计方法自动学习音乐语料库中的模型架构和参数，并根据数据的风格进行协调，而不是手动描述爵士乐和古典音乐等风格的音乐理论。我们制定了一个概率模型，表示和弦序列的生成可能性和另一个代表在和弦序列上有条件地产生旋律的可能性的模型。</p>
 <p>和弦序列通常由马尔可夫模型描述。常用的方法是，使用一个有潜在马尔可夫链的HMM模型，假定旋律在这个和弦上生成。但是这个方法的缺点在于忽略了和弦的句法角色和层次结构。在传统的和声理论中，这种句法角色通常被称为调和函数，包括三类（例如，主音（tonic，第一音级），属音（dominant，第五音级）和下属音（subdominant，第四音级）），它们类似于语言学理论中的词性。</p>
 <p>举个例子，一个和弦序列(C, Dm, G, Am, C, F, G, C)，可以被解释成：(((T, SD),(D, T)), ((T, SD), (D, T)))。因此，当我们计算地帮助人们创造新音乐时，期望考虑这种和弦序列的分层树结构。</p>
@@ -310,7 +316,13 @@ p(x_{nm}|x_{nm-1}, z_n) = \tau^{z_n}_{x_{nm-1}x_{nm}}</script><p>这个公式决
 \pi_a \sim Dirichlet(\beta) \\
 \tau_x^z \sim Dirichlet(\gamma)</script><p>相似地，我们也要建立一个旋律生成模型。这个旋律生成模型的边界类似于和弦的边界，但是作为协调模型，旋律作为输入进行处理。</p>
 <p>当然也可以使用LSTM进行旋律生成：</p>
-<p><img src="2.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h2 id="贝叶斯学习"><a href="#贝叶斯学习" class="headerlink" title="贝叶斯学习"></a>贝叶斯学习</h2><p>我们通过最大后验（MAP）估计获得模型参数$\Theta = {\theta, \eta, \lambda, \pi, \tau}$。使用一种内部滤波-外部采样（inside-filtering-outside-sampling，2007年被提出）的算法进行Gibbs采样变体。</p>
 <p>假设和弦序列$z$是从latent树$t$中导出的，那么$t$可以有一组非终结节点${t_{n:m}}_{1 \leq n \leq m \leq N}$，其中$t_{n:m}$是根节点。这样可以导出从n到m的所有和弦$z_{n:m} = {z_n, z_{n+1}, …, z_m}$。这个latent树$t$和参数$\theta, \eta, \lambda$采用条件后验分布$p(t|\theta, \eta, \lambda,z)$和$p(\theta, \eta, \lambda| t,z)$进行交替的采样。</p>
 <p>这个算法可以从正确的后验分布$p(t,\theta, \eta, \lambda|z)$中得到$t,\theta, \eta, \lambda$这四个参数的样本。</p>
@@ -357,19 +369,55 @@ p^A_{n,n+k} = (1-\lambda_A)\max_{B,C \in V, l \in [1,k]}\theta_{A \rightarrow BC
 p(x_n|z_n) = p(x_{n1}|z_n)p(x_{n2}|x_{n1}z_n)...p(x_{nI_n}|x_{n,I_{n}-1}z_n)</script><p>最可能的$t,z$通过回溯最佳路线得到。</p>
 <h3 id="分裂-合并操作"><a href="#分裂-合并操作" class="headerlink" title="分裂-合并操作"></a>分裂-合并操作</h3><p>分割操作与合并操作是相反的操作。</p>
 <p>为了得到新状态$s^*$，在分割操作中，随机选择一个和弦$z_n$，将其分割为$z^L$和$z^R$，选择新的开始时间在$[\phi_n + 1, \phi_{n+1} - 1]$，同时将非终结符$t_{n:n}$分割为$t^L, T^R$。</p>
-<p><img src="3.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>合并操作，选择一对相邻和弦进行操作：</p>
-<p><img src="4.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>其中$#MergeableNodes(s^*)$指可以在这个状态里合并的和弦对的数量。</p>
 <p>两个概率的似然比：</p>
-<p><img src="5.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>通过上述三个式子，可以计算$s^*$的接受率。</p>
 <p>图为示意操作：</p>
-<p><img src="6.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h2 id="更新和弦节奏"><a href="#更新和弦节奏" class="headerlink" title="更新和弦节奏"></a>更新和弦节奏</h2><p>更新和弦节奏的前提是其他的因素都固定下来了：$p(\phi|t,z,x,\psi,\Theta)$。</p>
 <p>给出相关公式：</p>
-<p><img src="7.png" alt=""></p>
-<p><img src="8.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h1 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h1><h2 id="实验准备"><a href="#实验准备" class="headerlink" title="实验准备"></a>实验准备</h2><p>从SALAMI数据集（McGill公开的一个音乐标注数据集）中提取和弦序列，长度从8到32的序列被选择。和弦符号仍被分为25个大小调标记。</p>
 <p>为了以有监督的方式训练两个马尔可夫模型，从Rock Corpus中提取了9902对旋律和对应和弦序列。</p>
 <p>在测试阶段，使用了RWC音乐数据集，用于评估。</p>
@@ -378,12 +426,30 @@ p(x_n|z_n) = p(x_{n1}|z_n)p(x_{n2}|x_{n1}z_n)...p(x_{nI_n}|x_{n,I_{n}-1}z_n)</sc
 <p>非终结符的种类数（或PCFG的复杂度）K，从1变为20。在K的每种情况下，我们通过Gibbs采样获得不同的PCFG参数，并计算每个参数集的边际似然。根据计算复杂性，不同参数集的数量在37和50之间。我们假设和弦开始与小节线完全同步，使得和弦序列在分析上被边缘化。</p>
 <p>将所提出的模型与HMM进行比较，该HMM学习相邻单元之间的和弦符号转换，（相邻单元是）音符或小节。当最小时间单位是音符时，假设每个音符在当时的和弦符号上有条件地生成。当最小时间单位是小节时，假设伴随每个和弦的音符是根据旋律马尔可夫模型生成的。</p>
 <p>每一个音符的边缘似然值：</p>
-<p><img src="10.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h2 id="评估和弦序列的预测能力"><a href="#评估和弦序列的预测能力" class="headerlink" title="评估和弦序列的预测能力"></a>评估和弦序列的预测能力</h2><p>与标签的比较结果见下图：</p>
-<p><img src="9.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>所提出的模型16.6％优于基于HMM的方法。虽然一定范围的K显示出比基于HMM的方法高得多的准确度（例如，26％），但是K与准确度的中值之间几乎没有相关性。</p>
 <h2 id="生成样本的讨论"><a href="#生成样本的讨论" class="headerlink" title="生成样本的讨论"></a>生成样本的讨论</h2><p>下图显示了具有分裂、合并操作的MH采样方法如何进行harmonization:</p>
-<p><img src="11.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="11.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>问题依然存在。这个方法更倾向于生成简单的和弦，原因是因为优化使用了Viterbi算法。此外，实验中得出的和弦序列数量往往不高于最初采样的初始化数量，因为拆分比合并接受率更低。</p>
 <h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>本文提出了一种harmonization方法，根据隐藏在流行音乐语料库中的音乐规则，为给定的旋律生成可变长度的和弦序列。实验结果表明，所提出的模型在预测能力方面优于基于HMM的方法，并且具有很大的作曲、编曲潜力。<br>由于我们的方法基于统计学习，因此发现它更喜欢更简单和基本的和弦序列。更具体地，产生的和弦的数量倾向于小于小节的数量。这个问题可以通过为MCMC采样中的拆分操作提供更多机会来解决。为了增加所生成的和弦符号的多样性，sampling或beam search方法被认为是有效的，而不是viterbi算法——其倾向于从统计观点找到具有最高后验概率的流行和弦序列。<br>我们还需要进一步研究我们的模型。在本文中，一个4/4拍的小节被分为16个时间单位。因此，研究最佳时间分辨率并扩展模型以处理其他拍子的音乐类型非常重要。此外，为了评估生成的和弦序列的音乐适应性，我们计划进行基于调查的听力测试，并评估我们的模型与音乐理论或音乐直觉的一致性。</p>
 <p>（他们在2018版的确做了一个详尽的测试评估）</p>

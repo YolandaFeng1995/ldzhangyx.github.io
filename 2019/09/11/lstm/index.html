@@ -223,7 +223,13 @@ ga('send', 'pageview');
             <p>最近在LSTM这一块有点扯不清，现在回想一下发现自己将两种LSTM记混了。</p>
 <a id="more"></a>
 <h1 id="LSTM-input与label无关"><a href="#LSTM-input与label无关" class="headerlink" title="LSTM(input与label无关)"></a>LSTM(input与label无关)</h1><p>第一种是这样的：</p>
-<p><img src="1.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>t时刻的input x与t-1时刻的label y没有关系，完成的是一个序列到另一个序列的转换。</p>
 <p>Neural Language Models通过input和output的错位，用一行LSTM完成操作。</p>
 <p>PyTorch中，直接</p>

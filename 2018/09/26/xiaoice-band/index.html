@@ -263,16 +263,34 @@ ga('send', 'pageview');
 <h2 id="Ralated-Work"><a href="#Ralated-Work" class="headerlink" title="Ralated Work"></a>Ralated Work</h2><h3 id="音乐生成"><a href="#音乐生成" class="headerlink" title="音乐生成"></a>音乐生成</h3><p>在音乐生成上一开始有数据驱动的传统统计学方法，但是需要大量人力和领域知识。</p>
 <p>深度学习上的方法有RNN，VAE和GAN几种方法。对于RNN来说，有一项工作利用分层RNN也生成了搭配的和弦和鼓点（看了一下引用列表，因为这个领域不大，除了VAE那篇以外我都是好好读过的）。</p>
 <p>然而没有单一的研究考虑了音乐的特殊性（比如流行音乐里的和弦行进）。下图所示是各个模型的特点对比：</p>
-<p><img src="1.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="多任务学习"><a href="#多任务学习" class="headerlink" title="多任务学习"></a>多任务学习</h3><p>多任务学习经常被用于在相关的任务间共享特征，因为一个任务中学到的特征可能对其他任务有帮助。多任务学习在NLP和CV里都广泛应用。</p>
 <h2 id="背景知识-名词定义"><a href="#背景知识-名词定义" class="headerlink" title="背景知识/名词定义"></a>背景知识/名词定义</h2><h3 id="和弦的行进"><a href="#和弦的行进" class="headerlink" title="和弦的行进"></a>和弦的行进</h3><p>这段话是我自己总结的：</p>
 <p>和弦的行进是人们在创作音乐时挖掘的套路。随着共同声部的保留和和弦顺/逆级进，一个成功的和弦走向能让人感到完善和谐。一般流行音乐中，在主和弦和结束式中插入调内和弦可以拓展歌曲长度，同时让歌曲流畅发展。</p>
 <p>更多知识可以这个<a href="https://www.zhihu.com/question/46536599" target="_blank" rel="noopener">知乎问题</a>。</p>
 <h3 id="节奏模式"><a href="#节奏模式" class="headerlink" title="节奏模式"></a>节奏模式</h3><p>流行音乐中会出现一些相同重复的结构，使得流行音乐有着结构化特点。</p>
-<p><img src="2.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="乐器特点"><a href="#乐器特点" class="headerlink" title="乐器特点"></a>乐器特点</h3><p>很多流行歌是多轨的，而钢琴一般负责主旋律，其他乐器负责伴奏。</p>
 <h2 id="问题陈述-amp-模型结构"><a href="#问题陈述-amp-模型结构" class="headerlink" title="问题陈述 &amp; 模型结构"></a>问题陈述 &amp; 模型结构</h2><p>表中为使用的数学符号含义。</p>
-<p><img src="4.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="问题陈述"><a href="#问题陈述" class="headerlink" title="问题陈述"></a>问题陈述</h3><p>在音乐生成的任务上，给定输入为和弦进行式</p>
 <script type="math/tex; mode=display">C = \{c_1, c_2, ..., c_{l_c}\}</script><p>其中$c_i$为和弦的one-hot编码，$l_c$是序列长度。</p>
 <p>要生成的节奏</p>
@@ -285,9 +303,21 @@ ga('send', 'pageview');
 <li>MICA多音轨组织生成</li>
 <li>展示</li>
 </ol>
-<p><img src="3.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="CRMCG"><a href="#CRMCG" class="headerlink" title="CRMCG"></a>CRMCG</h3><p>CRMCG的模型框架如图所示：</p>
-<p><img src="5.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>图中我用Surface Pen做了一些不影响阅读的标记。</p>
 <p>给定一个长度为N的和弦行进，我们要生成的当然是N个音乐片段。我们将这N个音乐片段标记为${p_1, p_2, …, p_N}$，每一个片段里（假设片段$i$），有着节奏$R_i$和旋律$M_i$。</p>
 <p>和弦的one-hot编码需要降维。通过一个Embedding矩阵输出和弦的低维表示：</p>
@@ -301,15 +331,39 @@ ga('send', 'pageview');
 <h3 id="MICA"><a href="#MICA" class="headerlink" title="MICA"></a>MICA</h3><h4 id="MICA-1"><a href="#MICA-1" class="headerlink" title="MICA"></a>MICA</h4><p>设计了一个One-to-Many Sequence Generation任务（OSMG）。不同于常规的多序列学习，OSMG生成的序列有着紧密的联系。</p>
 <p>如同下图所示，Decoder的hidden state包含了序列信息。所以，在生成一个音轨中的音符的时候，自然地引入了其他音轨的hidden state。作者设计了两个合作的cell在decoder的隐层之间进行hidden states的整合。</p>
 <h4 id="Attention-Cell"><a href="#Attention-Cell" class="headerlink" title="Attention Cell"></a>Attention Cell</h4><p>作者设计了一个attention cell，捕获其它task的state供current states使用，结构如下图：</p>
-<p><img src="7.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>attention机制如下列公式：</p>
 <script type="math/tex; mode=display">a^i_{t,k} = \sum^T_{j=1}\alpha_{t,ij}h^j_{t,k-1},</script><script type="math/tex; mode=display">e_{t,ij} = v^T\tanh(Wh^i_{t,k-1}+Uh^j_{t,k-1}), W,U \in \mathbb{R}^{b*b},</script><script type="math/tex; mode=display">\alpha_{t,ij} = \frac{exp(e_{t,ij})}{\sum^T_{s=1}exp(e_{t,is})}</script><p>其中$a^i_{t.k}$代表task $i$在step $k$，period $t$的合作向量；$h^j_{t,k-1}$代表了第$j$个任务在step $k-1$，period $t$的hidden state。</p>
 <p>之后，修改GRU单元，允许其他音轨的信息能够充分影响到当前音轨的形成。</p>
-<p><img src="8.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h4 id="MLP-Cell"><a href="#MLP-Cell" class="headerlink" title="MLP Cell"></a>MLP Cell</h4><p>为了同时考虑到每种乐器的重要程度，通过其重要程度对hidden states进行整合，作者设计了这样一个模块：</p>
-<p><img src="9.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>其公式为：</p>
-<p><img src="10.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h4 id="损失函数-1"><a href="#损失函数-1" class="headerlink" title="损失函数"></a>损失函数</h4><p>受上述公式的启发，作者优化了以相同Encoder生成的表示为条件的几个条件概率项的总和。</p>
 <script type="math/tex; mode=display">L(\theta) = {argmax}_\theta(\sum_{T_k}(frac{1}{N_p}\sum^{N_p}_ilogp(Y_i^{T_k}|X_i^{T_k};\theta)))</script><p>其中$\theta = {\theta_{src}, \theta_{trgT_k},T_k = 1,2,…, T_m}$，$m$是任务的总数。$\theta_{src}$是源encoder的参数集，$\theta_{trgT_k}$是第$T_k$个目标音轨的参数集，$N_p$是第$p$个序列对，平行training corpus的大小。</p>
 <h4 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h4><p>假设已经有了旋律序列$M_i = {m_{i1}, m|_{i2), …,m_{il_m}}$，下一个步骤是生成其他的乐器音轨，去配合这个旋律。使用GRU处理序列，得到Decoder的初始state：</p>
@@ -318,7 +372,13 @@ ga('send', 'pageview');
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>作者在两个数据集上做了实验，包括旋律生成和组织生成。</p>
 <h3 id="数据描述"><a href="#数据描述" class="headerlink" title="数据描述"></a>数据描述</h3><p>做实验的数据集叫做真实世界数据集（a real-world dataset），包含了超过50000个MIDI文件。去除掉没有区分音轨的文件，最后14,077个文件得以保留。每个MIDI文件包含了几种不同的音轨，如：旋律、鼓、贝斯、弦乐。</p>
 <p>为保证实验结果可靠性，作者将所有的MIDI文件移到了C大调或者A小调，保证音乐在同样的调上。然后作者设置速度为60bpm，将一个period片段设置为两个小节长。数据集统计如下表：</p>
-<p><img src="11.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="11.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="训练细节"><a href="#训练细节" class="headerlink" title="训练细节"></a>训练细节</h3><p>采用9855个文件作为训练集，2855个用于调整参数，最后1407个文件作为训练集。</p>
 <p>每个GRU的hidden unit设为256，Attention Cell和MLP Cell的参数维度为256。模型使用SGD进行训练，batch size为64，验证集使用交叉熵损失函数。</p>
 <h3 id="旋律生成-1"><a href="#旋律生成-1" class="headerlink" title="旋律生成"></a>旋律生成</h3><p>只使用MIDI的旋律音轨。</p>
@@ -333,7 +393,13 @@ ga('send', 'pageview');
 <li>分别基于两个损失函数进行交叉训练。</li>
 </ul>
 <h4 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h4><p>使用8个志愿者打分。</p>
-<p><img src="12.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>考虑下列因素：</p>
 <ul>
 <li>节奏</li>
@@ -342,11 +408,23 @@ ga('send', 'pageview');
 <li>适合唱的程度</li>
 </ul>
 <h4 id="和弦进行的分析"><a href="#和弦进行的分析" class="headerlink" title="和弦进行的分析"></a>和弦进行的分析</h4><p>作者定义了和弦精确度，来度量生成的旋律是否符合输入的和弦序列：</p>
-<p><img src="13.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="13.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>其中$P$是period片段的数量，$y_i$是第$i$个生成旋律，检测出来的和弦，而$\widetilde{y_i}$是输入的和弦。</p>
 <p>准确度达到了82.25%，同时发现随着和弦精确度提升，旋律质量得到了保证。</p>
 <h4 id="休止符分析"><a href="#休止符分析" class="headerlink" title="休止符分析"></a>休止符分析</h4><p>作者通过对比生成音乐片段的最小、最大、平均长度，对比数据集音乐，分布如果接近，证明模型的休止是恰当的。</p>
-<p><img src="14.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="14.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="组织生成"><a href="#组织生成" class="headerlink" title="组织生成"></a>组织生成</h3><h4 id="Baseline-1"><a href="#Baseline-1" class="headerlink" title="Baseline"></a>Baseline</h4><ul>
 <li>HRNN，《Song From Pi》的模型</li>
 </ul>
@@ -360,9 +438,21 @@ ga('send', 'pageview');
 <li>多音轨得分高于单音轨（但是评测更倾向于整体氛围）</li>
 <li>MLP比Attention得分更高</li>
 </ul>
-<p><img src="15.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="15.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h4 id="和谐程度分析"><a href="#和谐程度分析" class="headerlink" title="和谐程度分析"></a>和谐程度分析</h4><p>考虑：如果两个音轨有相似的和弦进行，我们认为它们和谐。</p>
-<p><img src="16.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="16.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>实验发现音轨少，和谐度会更高。因此对于多音轨的生成，和谐度有着更高的要求。</p>
 <h4 id="组织分析"><a href="#组织分析" class="headerlink" title="组织分析"></a>组织分析</h4><ul>
 <li>音符准确度</li>

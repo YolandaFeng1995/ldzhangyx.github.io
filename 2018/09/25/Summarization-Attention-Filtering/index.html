@@ -228,11 +228,23 @@ ga('send', 'pageview');
 <p>介绍主要是讲了文本摘要的历史，以及多模态方法最早应用在翻译领域，表现特别好，但是作者认为在摘要上表现得应该更好。</p>
 <p>在解决MMSS任务的时候，作者准备使用分层注意力机制，底层分别关注图片和文本的内部，而上层对两个模态进行平衡。因为图片不能表现很多抽象内容，所以图片特征需要过滤去噪；为了解决生成句子结巴的问题，使用了coverage方法。</p>
 <p>顺便他们做了一个数据集，真是让人肝疼的工作量。</p>
-<p><img src="1.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>图片展示了多模态模型的实际效果要好于文本模型。</p>
 <h2 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h2><p>模型可见由句子编码器，图片编码器，摘要解码器和图片过滤器四个部分组成。</p>
 <h3 id="模型图"><a href="#模型图" class="headerlink" title="模型图"></a>模型图</h3><p>模型简图如下：</p>
-<p><img src="2.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="句子Encoder"><a href="#句子Encoder" class="headerlink" title="句子Encoder"></a>句子Encoder</h3><p>模型的句子Encoder使用了Bi-GRU。</p>
 <script type="math/tex; mode=display">\overrightarrow{h}_i =  GRU(E[x_i], \overrightarrow{h}_{i-1})</script><script type="math/tex; mode=display">\overleftarrow{h}_i =  GRU(E[x_i], \overleftarrow{h}_{i-1})</script><h3 id="图片Encoder"><a href="#图片Encoder" class="headerlink" title="图片Encoder"></a>图片Encoder</h3><p>图片Encoder使用了VGG19，抽取了两种特征：7x7x512的局部特征（flatten之后成为了49x512），和4096维的全局特征。其中局部特征表示为：</p>
 <script type="math/tex; mode=display">
@@ -258,7 +270,13 @@ a_l \in \mathbb{R}^{512}</script><h3 id="摘要Decoder"><a href="#摘要Decoder"
 <script type="math/tex; mode=display">I_a = \sigma(\mathbf{W}_ss_0 + \mathbf{W}_qq + \mathbf{W}_rs_{t-1})</script><p>这里的矩阵相乘可以使用Dense Layer实现，但是$I_c$与$I_a$最大的不同在于，$I_c$是一个向量，其元素用于控制特征的选择。</p>
 <script type="math/tex; mode=display">c_{img} = I_{c} \odot c_{img}</script><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>本文贡献了一个MMSS任务使用的数据集。数据集首先从Gigaword Corpus里作为基础，对每个Headline，使用Yahoo!搜索图片，并取出top 5图片。之后删除无关图片（人物，缩略图，广告），雇佣10个研究生选择最匹配的图片（无图片标0），最后得到66,000条可用数据。随机将62,000作为训练集，2,000作为测试集，2,000作为开发集。</p>
 <h2 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h2><p>作者做了广泛的对比：</p>
-<p><img src="3.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>Q：对Decoder状态进行的初始化有效吗？<br>A：有效。</p>
 <p>Q：图片有助于提升摘要质量吗？<br>A：是的，可能是因为图片提供了更多信息。</p>
 <p>Q：哪种图片更有效？<br>A：要求3个研究生标注300条数据中图片的匹配程度（匹配从1到3），发现更加匹配的图片所在的那条数据，模型能获得更高的ROUGE分数。</p>

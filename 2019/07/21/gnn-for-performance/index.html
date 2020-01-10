@@ -31,9 +31,9 @@ ga('send', 'pageview');
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="structure,music generation,音乐生成,VAE,图网络">
+    <meta name="keywords" content="音乐生成,structure,music generation,VAE,图网络">
     <meta name="description" content="这篇文章的亮点在于利用了图网络编码额外信息，来改进其他任务效果的思想。这篇文章写作清晰，想法新颖，值得关注。文章出自韩国KAIST的Juhan Nam老师组（出身Stanford的CCRMA实验室，师承Malcolm Slaney老师）。">
-<meta name="keywords" content="structure,music generation,音乐生成,VAE,图网络">
+<meta name="keywords" content="音乐生成,structure,music generation,VAE,图网络">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《Graph Neural Network for Music Score Data and Modeling Expressive Piano Performance》论文笔记">
 <meta property="og:url" content="http://ldzhangyx.github.io/2019/07/21/gnn-for-performance/index.html">
@@ -241,7 +241,13 @@ ga('send', 'pageview');
 <p>另一种输入表示是通过采样，得到Piano Roll的2D矩阵。这使得CNN可以使用，但是基于采样的表示需要更高的维度，和随乐曲复杂性而跟着增长的时间分辨率。这种高维可能会阻碍模型学习长期结构。</p>
 <p>为了解决这个问题，我们提出了一种基于GNN的模型，音符作为图中的节点，而乐谱中音符的关系被转化为一个表（后文会详细论述表的构造）。</p>
 <p>如图1所示，我们将GNN结合到轻量的RNN来学习长期结构。此外，我们建议使用迭代循环来使用彼此的结果更新GNN和RNN的输入。</p>
-<p><img src="1.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>与其他生成任务类似，给定condition，生成各种结果是建模有表现力的演奏的重要目标。我们采用VAE训练模型，包含相同条件C但具有不同输出Y的数据。</p>
 <p>系统的范围侧重于为MusicXML格式的乐谱生成MIDI格式的演奏。</p>
 <p>论文两点有两个：</p>
@@ -256,18 +262,63 @@ ga('send', 'pageview');
 <p>next：将音符连接到接下来的音符上。如接下来的音符在上一个音符结束时恰好开始。<br>rest：将音符连接到休止符后面的音符上。多个休止符会被当做单个处理。<br>onset：连接两个同时开始的音符。<br>sustain：在一个音符的开始和结尾中间出现的音符用sustain连接。<br>voice：是next边集的子集。它们仅用以连接同一个语音内的音符。<br>slur：在同一个圆滑线下的音符通过slur边互相连接。</p>
 <p>（sustain和slur的定义有一些模糊，因为其没有注明是否仅为邻接的）</p>
 <p>除了onset边以外，所有的边都是有向的。所以我们将前向和后向的边视为两种不同的类型。同时，为每一个音符添加自我连接，这样一共得到12种不同的边。每种边共享不同的权重参数。</p>
-<p><img src="2.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>我们使用GGNN，因为它在学习图中的节点级表示方面有优势。</p>
 <p>GGNN的概念介绍如下：</p>
-<p><img src="r1.png" alt=""><br><img src="r2.png" alt=""><br><img src="r3.png" alt=""><br><img src="r4.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="r1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="r2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="r3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="r4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>论文中对于GGNN的表述没有超出上面所介绍的范围。</p>
 <h2 id="Hierarchical-Attention-RNN（HAN）"><a href="#Hierarchical-Attention-RNN（HAN）" class="headerlink" title="Hierarchical Attention RNN（HAN）"></a>Hierarchical Attention RNN（HAN）</h2><p>我们之前的工作曾使用过HAN渲染有表现力的钢琴演奏。（对比了HRNN和HMRNN）</p>
 <p>在分层RNN模型中，使用HAN的原因是其直接适用于GNN。事实上，因为HAN使用注意力来总结较低级别的表示，因此它可以直接应用于任何类型的网络。</p>
 <p>我们的系统里，使用了context attention（《Hierarchical attention networks for document classification》里的），将音符表示转为小节向量。attention同时使用了多头注意力机制（multi-head attention）。通过这种方法，每一个小节的内容可以转化到高层的一个节点里。</p>
 <p>作者的公式有一些问题，不过大致上就是attention计算那一套，其中$u_c$是context vector。因为context vector并没有接受其他输入，实际上这是一个trainable的参数。计算细节不在此赘述。</p>
-<p><img src="eq2.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="eq2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h2 id="Iterative-Sequential-Graph-Network"><a href="#Iterative-Sequential-Graph-Network" class="headerlink" title="Iterative Sequential Graph Network"></a>Iterative Sequential Graph Network</h2><p>组合来自不同分层单元的输出的简单方法是将它们连接为单个向量。然而，这种方法具有以下限制：较低级别的层不能以较高层中编码的长期上下文为条件，因为较高级别的输出不会影响较低级别的层。<br>在HRNN和HM-RNN中，较低级别的隐藏状态在分层边界处被馈送到较高级别，反之亦然。然而，在HAN中，隐藏状态传播仅在自下而上的方向上进行。<br>当模型的目标结果是给定顺序输入的单个输出时，例如在最初应用HAN的文档分类中，这种限制并不重要。但是为每个音符学习音乐表示时，我们希望高层的信息也能传到底层去，利用更加扩展的上下文学习。<br>为了克服这个限制，我们提出了GGNN和HAN的组合，称为迭代顺序图网络（ISGN），GGNN和HAN以迭代的方式将它们的结果互相馈送：</p>
-<p><img src="3.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>GGNN不仅接受音符表示，还接受高层的hidden state，以concatenate的方式输送。第一次迭代中，高层信息为0，之后再用HAN高层状态接进来。</p>
 <p>这样的结构有两个优点：</p>
 <ol>
@@ -276,7 +327,13 @@ ga('send', 'pageview');
 </ol>
 <p>另外，多次迭代也一定程度上能弥补非自回归模型的缺点。</p>
 <h1 id="Expressive-Performance-Rendering-System"><a href="#Expressive-Performance-Rendering-System" class="headerlink" title="Expressive Performance Rendering System"></a>Expressive Performance Rendering System</h1><p>下图展示了模型结构。</p>
-<p><img src="4.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h2 id="输入和输出"><a href="#输入和输出" class="headerlink" title="输入和输出"></a>输入和输出</h2><p>模型使用预定义的乐谱和演奏作为输入和输出。特征提取方案在《 Score and performance features for rendering expressive music performances》有详述。输入feature包括各类音乐信息，比如音高、市场、速度、响度、起始偏差、清晰度、踏板等。</p>
 <h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p>系统包括三个结构：乐谱编码器$E_s$，演奏编码器$E_p$，演奏解码器$D_p$。对于给定输入X，$E_s$推断乐谱条件$C$。模块包括两层GGNN，和一层LSTM。输入X经过三层选链接，第一层GGNN仅更新音符级别特征（固定小节级别的特征）；第二层GGNN更新整个隐状态。输出进行skip connection组成C。</p>
 <p>根据C和对应的演奏特征Y，$E_p$编码出latent vector Z。Encoder的输入使用了全连接，对concatenated data进行了降维。编码器由GGNN和LSTM组成，具体如图。</p>
@@ -289,11 +346,35 @@ ga('send', 'pageview');
 <p>收集到了16位作曲家的227个作品，以及1061个演奏，包含3606930个音符。</p>
 <h2 id="对比模型"><a href="#对比模型" class="headerlink" title="对比模型"></a>对比模型</h2><p>本文使用了基于HAN的VAE模型。HAN模型包括使用HAN的score encoder和演奏decoder。score encoder使用音符和语音LSTM作为字符表示，HAN作为节拍几别和小节级别的表示。Baseline省略了HAN和语音LSTM，仅使用音符级别的LSTM。仅使用GGNN替换语音和音符LSTM的修改版本被称为G-HAN。</p>
 <p>模型对比如下：</p>
-<p><img src="5.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h2 id="训练设置"><a href="#训练设置" class="headerlink" title="训练设置"></a>训练设置</h2><p>具体参见原论文。</p>
-<h2 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h2><h3 id="重建误差（Reconstruction-Loss）"><a href="#重建误差（Reconstruction-Loss）" class="headerlink" title="重建误差（Reconstruction Loss）"></a>重建误差（Reconstruction Loss）</h3><p><img src="6.png" alt=""></p>
-<h3 id="相关系数"><a href="#相关系数" class="headerlink" title="相关系数"></a>相关系数</h3><p><img src="7.png" alt=""></p>
-<h3 id="聆听测试"><a href="#聆听测试" class="headerlink" title="聆听测试"></a>聆听测试</h3><p><img src="8.png" alt=""></p>
+<h2 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h2><h3 id="重建误差（Reconstruction-Loss）"><a href="#重建误差（Reconstruction-Loss）" class="headerlink" title="重建误差（Reconstruction Loss）"></a>重建误差（Reconstruction Loss）</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="相关系数"><a href="#相关系数" class="headerlink" title="相关系数"></a>相关系数</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="聆听测试"><a href="#聆听测试" class="headerlink" title="聆听测试"></a>聆听测试</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>我们提出了一种迭代序列图网络，它结合了门控图神经网络和分层注意RNN，用于为给定的乐谱建模表现的钢琴演奏。定量和定性评估表明，与以前的模型相比，所提出的模型取得了显着的进步。对于未来的工作，我们将进一步研究如何定量评估表达性能模型。</p>
 <h1 id="想法和见解"><a href="#想法和见解" class="headerlink" title="想法和见解"></a>想法和见解</h1><p>用图网络进行乐谱表示是一个很棒的主意。音乐不同于NLP其他任务的一点在于，它可以是多声部协调进行的；音乐的Piano Roll相比图像的丰富信息来说，也比较稀疏。乐谱上的音符稀疏度，用一个图来表示是相当合理的。规定图网络的连接线属性，对图拓扑结构进行定义和约束，图就能自然地表示出乐谱。</p>
 <p>论文阐述了一个生成任务，VAE的中间结果z是随机取样的。但是从表示学习的角度来看，VAE能解耦出演奏风格，z必然有其意义。如果指定VAE中间的z，而不是随机生成，那么能否做到某种意义上的演奏风格迁移？</p>
