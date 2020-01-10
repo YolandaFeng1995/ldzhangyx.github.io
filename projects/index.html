@@ -43,7 +43,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://ldzhangyx.github.io/projects/2.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/projects/3.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/projects/4.png">
-<meta property="og:updated_time" content="2020-01-10T10:27:54.737Z">
+<meta property="og:updated_time" content="2020-01-10T13:39:08.696Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="项目列表 Project List">
 <meta name="twitter:description" content="借助结构化信息的音乐类比生成Deep Music Analogy via Latent Tree Structure Transfer, 2019@card{ } 两个音乐无监督隐式结构树提取模型Two Unsupervised Latent Tree Extraction on Symbolic Music Sequence, 2019@card{ } 使用神经网络条件随机场的短语级音乐分句Ph">
@@ -191,6 +191,11 @@ ga('send', 'pageview');
 <h1 id="两个音乐无监督隐式结构树提取模型"><a href="#两个音乐无监督隐式结构树提取模型" class="headerlink" title="两个音乐无监督隐式结构树提取模型"></a>两个音乐无监督隐式结构树提取模型</h1><h2 id="Two-Unsupervised-Latent-Tree-Extraction-on-Symbolic-Music-Sequence-2019"><a href="#Two-Unsupervised-Latent-Tree-Extraction-on-Symbolic-Music-Sequence-2019" class="headerlink" title="Two Unsupervised Latent Tree Extraction on Symbolic Music Sequence, 2019"></a>Two Unsupervised Latent Tree Extraction on Symbolic Music Sequence, 2019</h2><div class="card">
 </div>
 <h1 id="使用神经网络条件随机场的短语级音乐分句"><a href="#使用神经网络条件随机场的短语级音乐分句" class="headerlink" title="使用神经网络条件随机场的短语级音乐分句"></a>使用神经网络条件随机场的短语级音乐分句</h1><h2 id="Phrase-level-Music-Segmentation-Using-Neural-CRF-2019"><a href="#Phrase-level-Music-Segmentation-Using-Neural-CRF-2019" class="headerlink" title="Phrase-level Music Segmentation Using Neural CRF, 2019"></a>Phrase-level Music Segmentation Using Neural CRF, 2019</h2><div class="card">
+<p>这是在短语级音乐分割上的一项工作。 以前的模型只是将旋律分割视为一种顺序分类任务，只能对隐藏状态之间的上下文信息进行回复。 与它们相比，我的模型还使用条件随机场（CRF）对标签之间的关系进行建模。 我使用Essen Folksong数据集进行了比较实验，该数据集包含6,000多种世界各地的民歌。 原始数据采用简谱，因此我将数据表示形式转换为一个one-hot向量，每个向量都表示一个16分音符。实验结果表明，我的模型的F1分数为83％，在F1-measure得分上比基线LSTM和CNN分类模型的性能高出约10％。 此外，我们设计了一种新颖的线性标签技术来训练类似CRF的模型，使训练过程更稳定，并且在F1测量结果中表现更进约1%.</p>
+<p>我将原始数据集，清洗之后的数据集，和项目的所有代码于GitHub开源。相关论文正在撰写中。</p>
+<p>This work is on phrase-level music segmentation. Previous models simply considered melody segmentation as a sequential classification task, which only reply on context information among hidden states. Compared with them, my model also models the relationship among labels using a Conditional Random Field (CRF). I did comparison experiments using the Essen Folksong Dataset, a dataset includes more than 6,000 world-wide folk songs. The original data is in numbered musical notations, thus I transformed the data representation into one-hot vectors, each as a 16th note. Experimental results show that my models gets F1-measure of 83%, which perform roughly 10% better than the baseline LSTM and CNN classification models on the F-measure score. Besides, we disigned a novel linear label technique for training CRF-like models, making the training process more stable, and even perform 1% better in F1-measure result.</p>
+<p>I open sourced the original dataset, the cleaned dataset, and all the code of the project on GitHub. I am preparing a manusciript for upcoming conferences (ICMC, ISMIR, etc.)</p>
+<p>Project Code: <a href="https://github.com/ldzhangyx/music-melody-segmentation-using-neural-CRF/tree/master/code" target="_blank" rel="noopener">https://github.com/ldzhangyx/music-melody-segmentation-using-neural-CRF/tree/master/code</a><br>Essen Folksong Database: <a href="https://github.com/ldzhangyx/music-melody-segmentation-using-neural-CRF/tree/master/data" target="_blank" rel="noopener">https://github.com/ldzhangyx/music-melody-segmentation-using-neural-CRF/tree/master/data</a></p>
 </div>
 <h1 id="基于元学习的人工智能投资模型"><a href="#基于元学习的人工智能投资模型" class="headerlink" title="基于元学习的人工智能投资模型"></a>基于元学习的人工智能投资模型</h1><h2 id="A-Meta-Learning-AI-Investiment-Model-2019"><a href="#A-Meta-Learning-AI-Investiment-Model-2019" class="headerlink" title="A Meta Learning AI Investiment Model, 2019"></a>A Meta Learning AI Investiment Model, 2019</h2><div class="card">
 </div>
