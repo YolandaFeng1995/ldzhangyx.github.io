@@ -39,10 +39,13 @@ ga('send', 'pageview');
 <meta property="og:site_name" content="张逸霄的技术小站">
 <meta property="og:description" content="借助结构化信息的音乐类比生成Deep Music Analogy via Latent Tree Structure Transfer, 2019@card{ } 两个音乐无监督隐式结构树提取模型Two Unsupervised Latent Tree Extraction on Symbolic Music Sequence, 2019@card{ } 使用神经网络条件随机场的短语级音乐分句Ph">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-10T07:27:33.162Z">
+<meta property="og:image" content="http://ldzhangyx.github.io/projects/2.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/projects/4.png">
+<meta property="og:updated_time" content="2020-01-10T09:41:29.536Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="项目列表 Project List">
 <meta name="twitter:description" content="借助结构化信息的音乐类比生成Deep Music Analogy via Latent Tree Structure Transfer, 2019@card{ } 两个音乐无监督隐式结构树提取模型Two Unsupervised Latent Tree Extraction on Symbolic Music Sequence, 2019@card{ } 使用神经网络条件随机场的短语级音乐分句Ph">
+<meta name="twitter:image" content="http://ldzhangyx.github.io/projects/2.png">
     
         <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
     
@@ -194,8 +197,31 @@ ga('send', 'pageview');
 <h1 id="利用深度信念网络预处理得到更好的抽取式文本摘要"><a href="#利用深度信念网络预处理得到更好的抽取式文本摘要" class="headerlink" title="利用深度信念网络预处理得到更好的抽取式文本摘要"></a>利用深度信念网络预处理得到更好的抽取式文本摘要</h1><h2 id="Pretraining-Sentences-with-RBM-for-Extractive-Document-Summarization-2018"><a href="#Pretraining-Sentences-with-RBM-for-Extractive-Document-Summarization-2018" class="headerlink" title="Pretraining Sentences with RBM for Extractive Document Summarization, 2018"></a>Pretraining Sentences with RBM for Extractive Document Summarization, 2018</h2><div class="card">
 </div>
 <h1 id="Unity-3D引擎的音乐节奏游戏"><a href="#Unity-3D引擎的音乐节奏游戏" class="headerlink" title="Unity 3D引擎的音乐节奏游戏"></a>Unity 3D引擎的音乐节奏游戏</h1><h2 id="Music-Rhythm-Game-Using-Unity-3D-Engine-2018"><a href="#Music-Rhythm-Game-Using-Unity-3D-Engine-2018" class="headerlink" title="Music Rhythm Game Using Unity 3D Engine, 2018"></a>Music Rhythm Game Using Unity 3D Engine, 2018</h2><div class="card">
+<p>我们设计了一个3D的音乐节奏游戏。游戏采用了Unity 3D制作，拥有像素画风。我们设计了十六个方形石砖，以4*4的方式排列，玩家可以操纵角色从一个石砖走到另一个石砖，但是时机必须和背景音乐的鼓点相同。为了提高可玩性，我们设计了七个互不相同的小世界，并编写了五万词的剧情故事。</p>
+<p>我们使用了情绪可控的的风格化音乐生成模型，以保证每一次游玩时，音乐的节奏都不一样。我们将音乐生成服务托管在Azure云服务器上，并编写代码，在每一次游玩之前向服务器发起生成音乐的请求。对于节奏，我们采用了rule-based的节奏提取算法。</p>
+<p>这个游戏在2018年的创新杯拿到了奖项。</p>
+<p>We designed a 3D music rhythm game. The game is made in Unity 3D and has a pixel style. We designed sixteen square stone bricks, arranged in a 4 * 4 manner. Players can manipulate characters to walk from one stone brick to another, but the timing must be the same as the drumbeat of background music. To improve playability, we designed seven different small worlds and wrote a 50,000-word storyline.</p>
+<p>We use a mood-controllable stylized music generation model to ensure that the rhythm of the music is different every time we play. We host the music generation service on an Azure cloud server and write code to make a request to the server to generate music before each play. For rhythm, we used a rule-based rhythm extraction algorithm.</p>
+<p>This game won a prize in Microsoft Imagine Cup 2018.</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="](1.png)![" title="">
+                </div>
+                <div class="image-caption">](1.png)![</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt="](3.png)![" title="">
+                </div>
+                <div class="image-caption">](3.png)![</div>
+            </figure>
 </div>
-<h1 id="情绪可控的音乐生成"><a href="#情绪可控的音乐生成" class="headerlink" title="情绪可控的音乐生成"></a>情绪可控的音乐生成</h1><h2 id="Sentiment-controllable-Music-Generation-2017"><a href="#Sentiment-controllable-Music-Generation-2017" class="headerlink" title="Sentiment-controllable Music Generation, 2017"></a>Sentiment-controllable Music Generation, 2017</h2><div class="card">
+<div class="image">
+<p>!</p>
+</div>
+<h1 id="情绪可控的风格化音乐生成"><a href="#情绪可控的风格化音乐生成" class="headerlink" title="情绪可控的风格化音乐生成"></a>情绪可控的风格化音乐生成</h1><h2 id="Sentiment-controllable-Stylic-Music-Generation-2017"><a href="#Sentiment-controllable-Stylic-Music-Generation-2017" class="headerlink" title="Sentiment-controllable Stylic Music Generation, 2017"></a>Sentiment-controllable Stylic Music Generation, 2017</h2><div class="card">
 <p>给定输入句子，模型自动生成与文本情感匹配的音乐。我设计了一个模型，该模型包含两个部分：</p>
 <ol>
 <li>使用LSTM的文本情感检测器</li>
