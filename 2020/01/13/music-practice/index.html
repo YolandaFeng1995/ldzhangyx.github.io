@@ -45,7 +45,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/01/13/music-practice/3.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/01/13/music-practice/5.jpg">
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/01/13/music-practice/4.png">
-<meta property="og:updated_time" content="2020-01-13T06:44:21.754Z">
+<meta property="og:updated_time" content="2020-01-13T08:03:05.708Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="借助pretty_midi包进行数据格式转换">
 <meta name="twitter:description" content="一些能让你的计算机音乐代码更好写的技巧。">
@@ -271,7 +271,7 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<p>以8分音符为最小分辨率，那么这段歌曲的音符时长为（1，1，1，1，1，1，3，3）. 向量表示为(64, 65, 64, 63, 62, 61, 60, 128, 128, 128, 57, 128, 128, 128)，当然实际上都是one-hot向量表示。</p>
+<p>以8分音符为最小分辨率，那么这段歌曲的音符时长为（1，1，1，1，1，1，3，3）. 向量表示为(64, 65, 64, 63, 62, 61, 60, 128, 128, 57, 128, 128)，当然实际上都是one-hot向量表示。</p>
 <h2 id="如何转换一个单旋律midi到numpy矩阵"><a href="#如何转换一个单旋律midi到numpy矩阵" class="headerlink" title="如何转换一个单旋律midi到numpy矩阵"></a>如何转换一个单旋律midi到numpy矩阵</h2><p>首先取出midi中的音乐信息，将第一个音轨提出来，然后取所有音符元素。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">music = pretty_midi.PrettyMIDI(fpath)</span><br><span class="line">notes = music.instruments[<span class="number">0</span>].notes</span><br></pre></td></tr></table></figure>
 <p>Pretty_midi的文档可以参见：<a href="http://craffel.github.io/pretty-midi/" target="_blank" rel="noopener">http://craffel.github.io/pretty-midi/</a></p>
@@ -310,7 +310,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-01-13T06:44:21.754Z" itemprop="dateUpdated">2020-01-13 14:44:21</time>
+    最后更新时间：<time datetime="2020-01-13T08:03:05.708Z" itemprop="dateUpdated">2020-01-13 16:03:05</time>
 </span><br>
 
 
@@ -434,7 +434,7 @@ ga('send', 'pageview');
     <section class="comments" id="comments">
         <div id="gitalk-container"></div>
         <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script src="gitalk.min.js"></script>
         <script>
             var id = location.pathname
             if (location.pathname.length > 50) {
@@ -443,6 +443,7 @@ ga('send', 'pageview');
             const gitalk = new Gitalk({
               clientID: '2fe1bcc914de92fd5141',
               clientSecret: '38e2830b66e3ce7e3a8b21cc86bbd2b715f6b2e3',
+              accessToken: '6d91fb0c829c1a9b85219dd747aa5952fd3ec312',
               repo: 'ldzhangyx.github.io',
               owner: 'ldzhangyx',
               admin: ['ldzhangyx'],
