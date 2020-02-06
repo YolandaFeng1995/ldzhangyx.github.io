@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2020-01-13T07:36:18.357Z</updated>
+  <updated>2020-02-06T18:44:05.720Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>无监督句法分析：《Unsupervised Latent Tree Induction with Deep Inside-Outside Recursive Auto-Encoders》论文笔记</title>
+    <link href="http://ldzhangyx.github.io/2020/02/07/diora-urnng/"/>
+    <id>http://ldzhangyx.github.io/2020/02/07/diora-urnng/</id>
+    <published>2020-02-06T18:44:05.000Z</published>
+    <updated>2020-02-06T18:44:05.720Z</updated>
+    
+    <content type="html"><![CDATA[<p>这篇文章聊聊无监督句法分析的文章：DIORA。文章最后会顺带着聊一下别的PCFG系统。</p><a id="more"></a><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] <a href="https://godweiyang.com/2018/04/19/inside-outside/" target="_blank" rel="noopener">https://godweiyang.com/2018/04/19/inside-outside/</a><br>[2] <a href="https://godweiyang.com/2019/07/25/diora/" target="_blank" rel="noopener">https://godweiyang.com/2019/07/25/diora/</a><br>[3] <a href="https://arxiv.org/pdf/1904.02142.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1904.02142.pdf</a></p><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>DIORA这篇文章在NAACL 2019被提出，与其同时提出的还有URNNG。由paperwithcode.com提供的成分句法分析任务中F1值的排行来看，DIORA的效果排在第一，紧随其后的是Compound PCFG，随后是ON-LSTM，而URNNG排在最后。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="2019年底的排行榜情况，在PTB上做parsing" title="">                </div>                <div class="image-caption">2019年底的排行榜情况，在PTB上做parsing</div>            </figure><p>ON-LSTM是一个非常自然的模型，然而其建模效果似乎并不出色。我推测是因为ON-LSTM的训练机制，导致其无法先看到所有的单词，再导出树。这样做出来的树会存在明显的不平衡现象，即树很可能是一棵极度不平衡的二叉树。</p><p>而直接通过整个句子对树进行推导的算法因此更有可能达到一个更好的结果。</p><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>句法分析被广泛用于NLP下游任务，然而tree data很少，且仅限于newswire域。想在其他的域中用这些方法，不仅缺少数据，而且效果很差。</p><p>无监督建模，比如BERT和ELBo都是很成功的，在无监督领域，作者提出了新的深度学习方法，从任何域中提取浅层解析和完整语法树。模型同时构建了内部成分的表示，反映了语法和语义规律，便于用在下游任务中。</p><p>模型建立在现有的<strong>latent tree chart parser</strong>工作上，这些方法为一棵树上的所有节点产生表示，表示为chart里的一个cell。每一个表示都是对所有可能子树的软加权。然而他们仍然需要句子级别的注释，因为它们目的是提升下游任务。</p><p>为了解决这个限制，作者提出了DIORA。DIORA将Inside-Outside算法（<a href="https://www.wikiwand.com/en/Inside%E2%80%93outside_algorithm）合并到一个latent" target="_blank" rel="noopener">https://www.wikiwand.com/en/Inside%E2%80%93outside_algorithm）合并到一个latent</a> tree chart parser中。自下而上的inside算法，计算输入句子中二叉树所有可能成分的表示形式。这个步骤等效于之前研究的forward pass。这些inside表示只编码了当前的子树，忽略了所有的外界上下文；而outside算法，对每个节点自上而下地计算，为节点的子树表示提供一个外部的上下文。然后对模型进行训练，目标为leaf结点的outside表示能够重建leaf的输入单词，类似于mask的语言模型的预训练，但是我们动态编程预测每一个单词用的是一个没有mask的上下文。</p><p>怎么得到一棵最可能的树？通过CKY算法和各个constituents之间的compatibility。之前的工作不是没有很好地对齐已知的treebanks，就是没有显式建模短语的机制，需要复杂的过程提取结构。</p><h2 id="DIORA"><a href="#DIORA" class="headerlink" title="DIORA"></a>DIORA</h2><p>目标是设计一个可以从原始文本中学习结构的模型，和一个训练它的方法。模型遵循一个假设：<strong>句子的最有效压缩将来自于遵循基础输入的正确句法结构（the most effectie compression of a sentence will be derived from following the true syntactic structure of the underlying input）</strong>。模型建立在之前parser的基础上，用inside-outside算法进行了扩充，并且被训练为能通过outside上下文重现每一个输入词。根据我们的假设，在某种程度上收到“替代原理”（substitution principle）的启发，模型将通过发现、利用文本的句法规律性来最好地重构输入。</p><p>方法中，inside pass递归地压缩输入序列。在每一步中，将两个孩子的向量表示输入到合成函数（composition function）中，该函数输出父亲的inside向量表示。这个过程一直持续到树的根节点，最终生成代表整个句子的单个向量（图2a）.这类似于AE的压缩步骤，等效于现在的latent tree parser的前向传递。</p><p>接下来，启动outside pass。使用一个通用的（根节点）的表示，它被当作一个单独的参数学习。我们展开它直到产生叶子结点的表示。之后，对叶子节点进行优化，以构建输入句子，就像AE所做的一样。</p><h3 id="用inside-outside算法填写chart"><a href="#用inside-outside算法填写chart" class="headerlink" title="用inside-outside算法填写chart"></a>用inside-outside算法填写chart</h3><p>由上文得知，inside得出来的表示不考虑外部上下文。当inside表示被计算后，我们通过一个top-down的outside pass来计算outside表示。填完表格后，每一个成分k（表格里的每一个cell），都有对应的</p><ul><li>一个inside向量$\bar{a}(k)$和</li><li>一个outside向量$\bar{b}(k)$，以及</li><li>inside相容性分数（compatibility score）$\bar{e}(k)$和</li><li>outside相容性分数$\bar{f}(k)$</li></ul><p>约定输入一个长度为T的句子x，每一个x都可以被预训练的embedding vector $v$表示。</p><h4 id="Inside-Pass"><a href="#Inside-Pass" class="headerlink" title="Inside Pass"></a>Inside Pass</h4><p>首先为了避免困扰，特此说明：在NLP的成分语法中，树的节点和叶子都是一个成分。</p><p>我们接下来约定i，j，k这些都指代的成分所包括的一个范围。</p><p>对于每一对相邻成分i和j，计算一个compatibility分数，和一个composition向量。</p><p>这样的分数和向量表示了特定范围k（k可以大于2）以内，k内所有可能的成分对（pair）进行软加权（soft weight）计算得出。将这些成分对记为${k}$。</p><p>当span为1时，vector被初始化为embedding vector $v$的非线性变换；而score被初始化为0.</p><script type="math/tex; mode=display">\begin{array}{l}{\left[\begin{array}{l}{x} \\ {o} \\ {u}\end{array}\right]=\left[\begin{array}{c}{\sigma} \\ {\sigma} \\ {\tanh }\end{array}\right]\left(U_{\psi} v_{k}+b\right)} \\ {\bar{a}(k)=o+\tanh (x \odot u)} \\ {\bar{e}(k)=0}\end{array}</script><p>作者说明：This function shares its bias term b with $Compose_α$, although $U_ψ$ is not tied to any other weights.</p><p>通过观察u到a的变化，可以发现这是一个双线性变换，因为经过了两次tan函数。</p><p>而表格的高层通过这样的加法进行计算：</p><script type="math/tex; mode=display">\begin{aligned} \bar{a}(k) &=\sum_{i, j \in\{k\}} e(i, j) a(i, j) \\ \bar{e}(k) &=\sum_{i, j \in\{k\}} e(i, j) \hat{e}(i, j) \end{aligned}</script><p>这也很好理解，这就是软加权的过程。</p><p>相容函数$\hat{e}$（区分相容分数$\hat{e}$）旨在产生一个分数计算两个相邻的cell有多大可能被合并。我们使用被学习到参数的矩阵S，实现一个双线性函数（矩阵模拟函数功能）。我们额外加上了原有cell的分数。直觉上来说，这些独立的分数关系到这些cell有多大可能存在于最后的二叉树中。</p><p>相容函数$\hat{e}$这么计算：</p><script type="math/tex; mode=display">\begin{aligned}&e(i, j)=\frac{\exp (\hat{e}(i, j))}{\sum_{\hat{i}, \hat{j} \in\{k\}} \exp (\hat{e}(\hat{i}, \hat{j}))}\\&\hat{e}(i, j)=\phi\left(\bar{a}(i), \bar{a}(j) ; S_{\alpha}\right)+\bar{e}(i)+\bar{e}(j)\end{aligned}</script><p>其中的双线性投影$\phi$被这么定义：</p><script type="math/tex; mode=display">\phi(u, v ; W)=u^{\top} W v</script><p>上面的路线最终得到了$e(i,j)$。</p><p>之后通过composition function得到$a(i,j)$。</p><p>这个函数的选择有好几种。可以选择TreeLSTM或者是2层MLP。将函数定义为Compose，产生一个hidden state h，对于TreeLSTM，得到的是cell state。</p><script type="math/tex; mode=display">a(i, j)=\text { Compose }_{\alpha}(\bar{a}(i), \bar{a}(j))</script><h5 id="TreeLSTM"><a href="#TreeLSTM" class="headerlink" title="TreeLSTM"></a>TreeLSTM</h5><p>TreeLSTM做了一个这样的变换，得到h和c：</p><script type="math/tex; mode=display">\left[\begin{array}{l}{x} \\{f_{i}} \\{f_{j}} \\{o} \\{u}\end{array}\right]=\left[\begin{array}{c}{\sigma} \\{\sigma} \\{\sigma} \\{\sigma} \\{\tanh }\end{array}\right]\left(U\left[\begin{array}{l}{h_{i}} \\{h_{j}}\end{array}\right]+b+\left[\begin{array}{c}{0} \\{\omega} \\{\omega} \\{0} \\{0}\end{array}\right]\right)</script><script type="math/tex; mode=display">\begin{array}{l}{c=c_{i} \odot f_{i}+c_{j} \odot f_{j}+x \odot u} \\{h=o+\tanh (c)}\end{array}</script><p>参数w在inside里设为1，outside里设为0.</p><h5 id="MLP"><a href="#MLP" class="headerlink" title="MLP"></a>MLP</h5><script type="math/tex; mode=display">h=W_{1}\left(W_{0}\left\langle h_{i}, h_{j}\right\rangle+ b\right)+b_{1}</script><p>其中$\left\langle h_{i}, h_{j}\right\rangle$是concat操作。</p><p>现在我们回顾一下整个inside过程：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="3.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>实际上这么多计算就是为了得到e和a……</p><p>当然$\hat{a}$还是有意义的，这是为了填chart。</p><h4 id="Outside-Pass"><a href="#Outside-Pass" class="headerlink" title="Outside Pass"></a>Outside Pass</h4><p>Outside算法类似inside算法。outside chart的根节点被作为变差学习。后代cell被预测，使用的是可能的outside上下文的消歧（disambiguation）。每一个上下文都包括一个inside表中的同级cell，和一个outside表中的父级cell。</p><p>函数f与之前的函数e类似，在span k上对成分对(i,j)做归一化，消除了outside上下文的歧义。函数b为缺失的同级细胞生成短语级表示。公式如下：</p><script type="math/tex; mode=display">\begin{aligned}\bar{b}(k) &=\sum_{i, j \in\{k\}} f(i, j) b(i, j) \\\bar{f}(k) &=\sum_{i, j \in\{k\}} f(i, j) \hat{f}(i, j) \\b(i, j) &=\operatorname{Compose}_{\beta}(\bar{a}(i), \bar{b}(j)) \\\hat{f}(i, j) &=\phi\left(\bar{a}(i), \bar{b}(j) ; S_{\beta}\right)+\bar{e}(i)+\bar{f}(j)\end{aligned}</script><p>在大多数实验中，b中使用的Compose与a共享参数，$\hat{e}$和$\hat{f}$依然是如此。？</p><h3 id="训练目标"><a href="#训练目标" class="headerlink" title="训练目标"></a>训练目标</h3><p>使用类似AE的语言建模目标。我们模型并不限制单个z上x的重构，因为root的outside表示是用bias而不是root自己的inside向量表示的。因此，我们以许多子树根为condition的x，每个子树根仅仅是输入的子集的压缩。</p><p>为了近似这种重构，使用max-margin loss。考虑一组${x^*}$的N个negative samples，从词频出现频率中采样。？</p><p>terminal outside向量$\bar{b}(i)$被训练以预测原始输入$v_i$。</p><p>损失函数为：</p><script type="math/tex; mode=display">\begin{aligned}L_{\boldsymbol{x}}=\sum_{i=0}^{T-1} \sum_{i^{*}=0}^{N-1} \max (0,1-\bar{b}(i) \cdot \bar{a}(i)\\\left.+\bar{b}(i) \cdot \bar{a}\left(i^{*}\right)\right)\end{aligned}</script><p>这是一个max-margin loss。普通的交叉熵损失函数是：</p><script type="math/tex; mode=display">\begin{aligned}&Z^{*}=\sum_{i^{*}=0}^{N-1} \exp \left(\bar{b}(i) \cdot \bar{a}\left(i^{*}\right)\right)\\&L_{\boldsymbol{x}}=-\sum_{i=0}^{T-1} \log \frac{\exp (\bar{b}(i) \cdot \bar{a}(i))}{\exp (\bar{b}(i) \cdot \bar{a}(i))+Z^{\star}}\end{aligned}</script><h3 id="DIORA-CKY-Parsing"><a href="#DIORA-CKY-Parsing" class="headerlink" title="DIORA CKY Parsing"></a>DIORA CKY Parsing</h3><p>为了获取DIORA的解析，我们要使用input sentence填充inside和outside chart。我们使用CKY过程，根据单一语法规则日趋最大得分分析。CKY算法的步骤如图。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="4.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>因为我的博客关注的是音乐方面的问题，NLP本身的实验细节我会略过。</p><h3 id="无监督解析"><a href="#无监督解析" class="headerlink" title="无监督解析"></a>无监督解析</h3><p>数据集为WSJ和MultiNLI。对比模型为PRPN，ON-LSTM，确定性构造的做分支、右分支、平衡树、随机数、RL-SPINN，ST-Gumbel。后两者训练用于NLI任务。</p><h3 id="无监督短语分割"><a href="#无监督短语分割" class="headerlink" title="无监督短语分割"></a>无监督短语分割</h3><h3 id="短语相似性"><a href="#短语相似性" class="headerlink" title="短语相似性"></a>短语相似性</h3><h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><h3 id="Latent-Tree-Learning"><a href="#Latent-Tree-Learning" class="headerlink" title="Latent Tree Learning"></a>Latent Tree Learning</h3><ul><li>survey: Do latent tree learning models identify meaningful structure in sentences?</li><li>第一个parsing的积极结果：Grammar induction with neural language models: An unusual replication（URNNG）</li><li>IO算法计算边界概率：Structured alignment networks for matching sentences</li></ul><h3 id="Neural-Inside-Outside-Parsers"><a href="#Neural-Inside-Outside-Parsers" class="headerlink" title="Neural Inside-Outside Parsers"></a>Neural Inside-Outside Parsers</h3><ul><li>最接近：graph-based dependency parser + beam search: The insideoutside recursive neural network model for dependency parsing</li><li>Neural CRF Parser，需要标记和语法规则：Neural crf parsing.<br>In Association for Computational Linguistics</li><li>Structured alignment networks for matching sentences</li></ul><h3 id="Learning-from-Raw-Text"><a href="#Learning-from-Raw-Text" class="headerlink" title="Learning from Raw Text"></a>Learning from Raw Text</h3><p>语法结构的无监督学习，包括无监督分割、无监督依赖分析等。</p><h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><ol><li><p>怎么讲树形结构与重复性联系在一起？</p></li><li><p>得到note-level的树形结构，能否利用其中间节点，完成SALAMI上的segmentation任务？</p></li></ol><h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="Inside-Outside算法"><a href="#Inside-Outside算法" class="headerlink" title="Inside-Outside算法"></a>Inside-Outside算法</h2><h2 id="CKY算法"><a href="#CKY算法" class="headerlink" title="CKY算法"></a>CKY算法</h2><h2 id="替代原理（Frege-1960）"><a href="#替代原理（Frege-1960）" class="headerlink" title="替代原理（Frege, 1960）"></a>替代原理（Frege, 1960）</h2><p>相关文献包括：</p><ul><li>Semi-supervised recursive autoencoders for predicting sentiment distributions</li><li>The forest convolutional network: Compositional distributional semantics with a neural chart and without binarization</li><li>Learning to compose task-specific tree structures, AAAI 2018</li><li>Jointly Learning Sentence Embeddings and Syntax with Unsupervised Tree-LSTMs</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这篇文章聊聊无监督句法分析的文章：DIORA。文章最后会顺带着聊一下别的PCFG系统。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="structure" scheme="http://ldzhangyx.github.io/tags/structure/"/>
+    
+      <category term="NLP" scheme="http://ldzhangyx.github.io/tags/NLP/"/>
+    
+  </entry>
   
   <entry>
     <title>利用networkx进行二叉树可视化</title>
@@ -34,9 +58,9 @@
       <category term="开发笔记" scheme="http://ldzhangyx.github.io/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="structure" scheme="http://ldzhangyx.github.io/tags/structure/"/>
-    
       <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
+    
+      <category term="structure" scheme="http://ldzhangyx.github.io/tags/structure/"/>
     
       <category term="MIR" scheme="http://ldzhangyx.github.io/tags/MIR/"/>
     
@@ -62,9 +86,9 @@
       <category term="开发笔记" scheme="http://ldzhangyx.github.io/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="NLP" scheme="http://ldzhangyx.github.io/tags/NLP/"/>
-    
       <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
+    
+      <category term="NLP" scheme="http://ldzhangyx.github.io/tags/NLP/"/>
     
       <category term="MIR" scheme="http://ldzhangyx.github.io/tags/MIR/"/>
     
@@ -426,9 +450,9 @@
       <category term="简明指南" scheme="http://ldzhangyx.github.io/categories/%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/"/>
     
     
-      <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
-    
       <category term="argparse" scheme="http://ldzhangyx.github.io/tags/argparse/"/>
+    
+      <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
     
       <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
     
@@ -513,36 +537,6 @@
       <category term="representation learning" scheme="http://ldzhangyx.github.io/tags/representation-learning/"/>
     
       <category term="analogy" scheme="http://ldzhangyx.github.io/tags/analogy/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我们来聊聊EsAC和Essen Folk Song Database</title>
-    <link href="http://ldzhangyx.github.io/2019/07/26/esac/"/>
-    <id>http://ldzhangyx.github.io/2019/07/26/esac/</id>
-    <published>2019-07-26T07:01:14.000Z</published>
-    <updated>2019-07-27T08:39:22.296Z</updated>
-    
-    <content type="html"><![CDATA[<p>古董级民歌数据集，对数据格式做了一些整理，在本文进行解释和说明。</p><a id="more"></a><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><h2 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h2><p>EsAC全称是Essen Associative Code，可能是现存最长的音乐编码系统。EsAC的概念可以追溯到200年前，于1982年正式形成。因为其年代过于久远，现在很多音乐文档，尤其是欧洲音乐文档都在使用这种编码格式。</p><p>1980年-1994年，项目在Helmut Schaffrath在Essen领导推动这个项目。1994年Schaffrach意外去世后，他生前所在的实验室继续着他的工作。</p><h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>EsAC项目搜集了世界各地（尤其是欧洲）的民歌和历史上的音乐，编码后用于方便地进行搜索、分析和表示研究。</p><h1 id="格式说明"><a href="#格式说明" class="headerlink" title="格式说明"></a>格式说明</h1><p>EsAC被编码为Database record，在esac-data.org能下载到其txt版本。在这里，一条record对应一首曲调。</p><p>一条常见的记录如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ALTDEU</span><br><span class="line">CUT[Landsknecht als Schlemmer]</span><br><span class="line">REG[Europa, Mitteleuropa, Deutschland]</span><br><span class="line">KEY[A0359  08  G 4/4]</span><br><span class="line">MEL[1_  3b_3b_4_4_  5_5_5_7b_  ^_656_6_  5__0_</span><br><span class="line">    3b_  2_3b_2_2_  1__.+1_  +1_7b_6_6_  5__0_</span><br><span class="line">    5_  +1__+1__  7b__5__  7b__6b__  5__0_</span><br><span class="line">    7b_  5_5_5_3b_  5_5_5_1_  4_3b_2_2_  1__0_</span><br><span class="line">    1_  3b_3b_4_4_  5_5_5_7b_  ^_656_6_  5__0_</span><br><span class="line">    3b_  2_3b_2_2_  1__.+1_  +1_7b_6_6_  5__0_</span><br><span class="line">    5_  +1__+1__  7b__5__  7b__6b__  5__0_</span><br><span class="line">    7b_  5_5_5_3b_  5_5_5_1_  4_3b_2_2_  1__0__</span><br><span class="line">    +1__+1_+1_  7b__6b__  5_5_5__  4_4_4__  3b__3b__</span><br><span class="line">    7b_7b_7b__  5__5_5_  4_4_4__</span><br><span class="line">    3b_3b_3b_3b_  4_3b_2_2_  1__3b__</span><br><span class="line">    4_.41_2_  3b_.45_.6b  7b__.6b_  5_4_3b_2_  1__. //] &gt;&gt;</span><br><span class="line">FCT[Romanze, Ballade, Lied]</span><br><span class="line">CMT[Forster II. 1540 No. 17.]</span><br></pre></td></tr></table></figure><p>其中音乐旋律信息为单音旋律，由简谱格式构成。是的，当时他们采用了简谱格式。旋律包含在MEL字段里。</p><ul><li>CUT：标题</li><li>REG：区域</li><li>TRD：曲调来源，如书籍、录音带</li><li>KEY：签名行</li><li>MEL：旋律线</li><li>FKT：歌曲功能，如舞曲</li><li>BEM：标记</li><li>TXT：歌词</li></ul><h2 id="KEY"><a href="#KEY" class="headerlink" title="KEY"></a>KEY</h2><p>签名行包含了正确解释旋律所需要的信息：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">KEY[A0359  08  G 4/4]</span><br></pre></td></tr></table></figure><p>这一行包含了：签名、最小节奏单位、调性、拍子，四个信息。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><h2 id="EsAC-syntax"><a href="#EsAC-syntax" class="headerlink" title="EsAC syntax"></a>EsAC syntax</h2><p>EsAC的语法基本与简谱一致，但在细微之处做了很多的补充。<br>MEL中的数字代表首调音高，而2、3等数字代表相对音高。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>节奏以下划线和点作为标记。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="3.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><ul><li>我自己在看数据的时候遇到了”^”的标记，这个意味着跨小节延音。</li><li>两个空格代表小节线</li><li>换行代表断句。</li><li>注意，这里的附点一般出现在延音符后，会将延音后总时长*150%。</li><li>注意，延音符连着出现，时长成倍增长。</li></ul><p>i.e. <code>5__</code>的时长是4倍，<code>5__.</code>的时长是6倍，<code>5___</code>的时长是8倍。</p><ul><li>标注中会出现括号，意味着出现了三连音等连音。</li></ul><p>i.e. <code>(-3-71)  3_2_(-5-72)  4_3_</code></p><p>即使经过这样的处理之后，还是会有这等肮脏的例子，可以说是非常恶心了……</p><p>i.e. <code>33  2__(^_1#_2_)(2_3_4_)  5__(^_4#_5_)(5_3_1_)</code></p><p>甚至还有打拍子……：</p><p>i.e. <code>xxxx  xxxx  1_2-5  1_ //] &gt;&gt;</code></p><p>甚至还有神奇的调子（居然还是德国标注法，将B调标为H调是什么鬼辣！）：</p><p>i.e. <code>KEY[U0002  16  H 6/8]</code></p><p>甚至还有不在旋律结束处加//标记的：</p><p>i.e. <code>1_+2+31_+3+51_+5_+5__  1_+5+61_+6++11_++1_++1__] &gt;&gt;</code></p><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol><li><a href="http://wiki.ccarh.org/wiki/EsAC" target="_blank" rel="noopener">http://wiki.ccarh.org/wiki/EsAC</a></li><li><a href="http://www.cs.uu.nl/events/dech1999/dahlig/tsld001.htm" target="_blank" rel="noopener">http://www.cs.uu.nl/events/dech1999/dahlig/tsld001.htm</a></li><li><a href="http://www.esac-data.org/" target="_blank" rel="noopener">http://www.esac-data.org/</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;古董级民歌数据集，对数据格式做了一些整理，在本文进行解释和说明。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
-    
-      <category term="音乐生成" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%94%9F%E6%88%90/"/>
-    
-      <category term="MIR" scheme="http://ldzhangyx.github.io/tags/MIR/"/>
-    
-      <category term="dataset" scheme="http://ldzhangyx.github.io/tags/dataset/"/>
-    
-      <category term="music information retrival" scheme="http://ldzhangyx.github.io/tags/music-information-retrival/"/>
-    
-      <category term="音乐结构分析" scheme="http://ldzhangyx.github.io/tags/%E9%9F%B3%E4%B9%90%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
