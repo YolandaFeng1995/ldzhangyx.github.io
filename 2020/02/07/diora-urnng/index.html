@@ -41,9 +41,10 @@ ga('send', 'pageview');
 <meta property="og:description" content="这篇文章聊聊无监督句法分析的文章：DIORA。文章最后会顺带着聊一下别的PCFG系统。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/02/07/diora-urnng/1.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2020/02/07/diora-urnng/2.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/02/07/diora-urnng/3.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/02/07/diora-urnng/4.png">
-<meta property="og:updated_time" content="2020-02-06T18:44:05.720Z">
+<meta property="og:updated_time" content="2020-02-10T13:42:05.105Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="无监督句法分析：《Unsupervised Latent Tree Induction with Deep Inside-Outside Recursive Auto-Encoders》论文笔记">
 <meta name="twitter:description" content="这篇文章聊聊无监督句法分析的文章：DIORA。文章最后会顺带着聊一下别的PCFG系统。">
@@ -196,7 +197,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考文献"><span class="post-toc-number">1.</span> <span class="post-toc-text">参考文献</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#正文"><span class="post-toc-number">2.</span> <span class="post-toc-text">正文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Introduction</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DIORA"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">DIORA</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#用inside-outside算法填写chart"><span class="post-toc-number">2.3.1.</span> <span class="post-toc-text">用inside-outside算法填写chart</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Inside-Pass"><span class="post-toc-number">2.3.1.1.</span> <span class="post-toc-text">Inside Pass</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#TreeLSTM"><span class="post-toc-number">2.3.1.1.1.</span> <span class="post-toc-text">TreeLSTM</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#MLP"><span class="post-toc-number">2.3.1.1.2.</span> <span class="post-toc-text">MLP</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Outside-Pass"><span class="post-toc-number">2.3.1.2.</span> <span class="post-toc-text">Outside Pass</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#训练目标"><span class="post-toc-number">2.3.2.</span> <span class="post-toc-text">训练目标</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DIORA-CKY-Parsing"><span class="post-toc-number">2.3.3.</span> <span class="post-toc-text">DIORA CKY Parsing</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实验"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">实验</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#无监督解析"><span class="post-toc-number">2.4.1.</span> <span class="post-toc-text">无监督解析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#无监督短语分割"><span class="post-toc-number">2.4.2.</span> <span class="post-toc-text">无监督短语分割</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#短语相似性"><span class="post-toc-number">2.4.3.</span> <span class="post-toc-text">短语相似性</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Related-Work"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">Related Work</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Latent-Tree-Learning"><span class="post-toc-number">2.5.1.</span> <span class="post-toc-text">Latent Tree Learning</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Neural-Inside-Outside-Parsers"><span class="post-toc-number">2.5.2.</span> <span class="post-toc-text">Neural Inside-Outside Parsers</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Learning-from-Raw-Text"><span class="post-toc-number">2.5.3.</span> <span class="post-toc-text">Learning from Raw Text</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#思考"><span class="post-toc-number">3.</span> <span class="post-toc-text">思考</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#附录"><span class="post-toc-number">4.</span> <span class="post-toc-text">附录</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Inside-Outside算法"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">Inside-Outside算法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CKY算法"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">CKY算法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#替代原理（Frege-1960）"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">替代原理（Frege, 1960）</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考文献"><span class="post-toc-number">1.</span> <span class="post-toc-text">参考文献</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#正文"><span class="post-toc-number">2.</span> <span class="post-toc-text">正文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Introduction</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DIORA"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">DIORA</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#用inside-outside算法填写chart"><span class="post-toc-number">2.3.1.</span> <span class="post-toc-text">用inside-outside算法填写chart</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Inside-Pass"><span class="post-toc-number">2.3.1.1.</span> <span class="post-toc-text">Inside Pass</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#TreeLSTM"><span class="post-toc-number">2.3.1.1.1.</span> <span class="post-toc-text">TreeLSTM</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#MLP"><span class="post-toc-number">2.3.1.1.2.</span> <span class="post-toc-text">MLP</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Outside-Pass"><span class="post-toc-number">2.3.1.2.</span> <span class="post-toc-text">Outside Pass</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#训练目标"><span class="post-toc-number">2.3.2.</span> <span class="post-toc-text">训练目标</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DIORA-CKY-Parsing"><span class="post-toc-number">2.3.3.</span> <span class="post-toc-text">DIORA CKY Parsing</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实验"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">实验</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#无监督解析"><span class="post-toc-number">2.4.1.</span> <span class="post-toc-text">无监督解析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#无监督短语分割"><span class="post-toc-number">2.4.2.</span> <span class="post-toc-text">无监督短语分割</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#短语相似性"><span class="post-toc-number">2.4.3.</span> <span class="post-toc-text">短语相似性</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Related-Work"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">Related Work</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Latent-Tree-Learning"><span class="post-toc-number">2.5.1.</span> <span class="post-toc-text">Latent Tree Learning</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Neural-Inside-Outside-Parsers"><span class="post-toc-number">2.5.2.</span> <span class="post-toc-text">Neural Inside-Outside Parsers</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Learning-from-Raw-Text"><span class="post-toc-number">2.5.3.</span> <span class="post-toc-text">Learning from Raw Text</span></a></li></ol></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -241,8 +242,15 @@ ga('send', 'pageview');
 <p>为了解决这个限制，作者提出了DIORA。DIORA将Inside-Outside算法（<a href="https://www.wikiwand.com/en/Inside%E2%80%93outside_algorithm）合并到一个latent" target="_blank" rel="noopener">https://www.wikiwand.com/en/Inside%E2%80%93outside_algorithm）合并到一个latent</a> tree chart parser中。自下而上的inside算法，计算输入句子中二叉树所有可能成分的表示形式。这个步骤等效于之前研究的forward pass。这些inside表示只编码了当前的子树，忽略了所有的外界上下文；而outside算法，对每个节点自上而下地计算，为节点的子树表示提供一个外部的上下文。然后对模型进行训练，目标为leaf结点的outside表示能够重建leaf的输入单词，类似于mask的语言模型的预训练，但是我们动态编程预测每一个单词用的是一个没有mask的上下文。</p>
 <p>怎么得到一棵最可能的树？通过CKY算法和各个constituents之间的compatibility。之前的工作不是没有很好地对齐已知的treebanks，就是没有显式建模短语的机制，需要复杂的过程提取结构。</p>
 <h2 id="DIORA"><a href="#DIORA" class="headerlink" title="DIORA"></a>DIORA</h2><p>目标是设计一个可以从原始文本中学习结构的模型，和一个训练它的方法。模型遵循一个假设：<strong>句子的最有效压缩将来自于遵循基础输入的正确句法结构（the most effectie compression of a sentence will be derived from following the true syntactic structure of the underlying input）</strong>。模型建立在之前parser的基础上，用inside-outside算法进行了扩充，并且被训练为能通过outside上下文重现每一个输入词。根据我们的假设，在某种程度上收到“替代原理”（substitution principle）的启发，模型将通过发现、利用文本的句法规律性来最好地重构输入。</p>
-<p>方法中，inside pass递归地压缩输入序列。在每一步中，将两个孩子的向量表示输入到合成函数（composition function）中，该函数输出父亲的inside向量表示。这个过程一直持续到树的根节点，最终生成代表整个句子的单个向量（图2a）.这类似于AE的压缩步骤，等效于现在的latent tree parser的前向传递。</p>
-<p>接下来，启动outside pass。使用一个通用的（根节点）的表示，它被当作一个单独的参数学习。我们展开它直到产生叶子结点的表示。之后，对叶子节点进行优化，以构建输入句子，就像AE所做的一样。</p>
+<p>方法中，inside pass递归地压缩输入序列。在每一步中，将两个孩子的向量表示输入到合成函数（composition function）中，该函数输出父亲的inside向量表示。这个过程一直持续到树的根节点，最终生成代表整个句子的单个向量（图2a）.这类似于AE的压缩步骤，等效于现在的latent tree parser的前向传递。先从叶子节点开始，从下往上，每一个节点的inside向量和score都由它的两个儿子计算出来。</p>
+<p>接下来，启动outside pass。使用一个通用的（根节点）的表示，它被当作一个单独的参数学习。我们展开它直到产生叶子结点的表示。之后，对叶子节点进行优化，以构建输入句子，就像AE所做的一样。计算每一个节点的outside向量时，输入则是其兄弟节点的inside向量和父结点的outside向量。可以看公式。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="用inside-outside算法填写chart"><a href="#用inside-outside算法填写chart" class="headerlink" title="用inside-outside算法填写chart"></a>用inside-outside算法填写chart</h3><p>由上文得知，inside得出来的表示不考虑外部上下文。当inside表示被计算后，我们通过一个top-down的outside pass来计算outside表示。填完表格后，每一个成分k（表格里的每一个cell），都有对应的</p>
 <ul>
 <li>一个inside向量$\bar{a}(k)$和</li>
@@ -254,11 +262,10 @@ ga('send', 'pageview');
 <h4 id="Inside-Pass"><a href="#Inside-Pass" class="headerlink" title="Inside Pass"></a>Inside Pass</h4><p>首先为了避免困扰，特此说明：在NLP的成分语法中，树的节点和叶子都是一个成分。</p>
 <p>我们接下来约定i，j，k这些都指代的成分所包括的一个范围。</p>
 <p>对于每一对相邻成分i和j，计算一个compatibility分数，和一个composition向量。</p>
-<p>这样的分数和向量表示了特定范围k（k可以大于2）以内，k内所有可能的成分对（pair）进行软加权（soft weight）计算得出。将这些成分对记为${k}$。</p>
+<p>这样的分数和向量表示了特定范围k（k可以大于2）以内，k内所有可能的成分对（pair）进行软加权（soft weight）计算得出一个向量，那就是上层节点的inside向量。将这些成分对记为${k}$。</p>
 <p>当span为1时，vector被初始化为embedding vector $v$的非线性变换；而score被初始化为0.</p>
 <script type="math/tex; mode=display">
 \begin{array}{l}{\left[\begin{array}{l}{x} \\ {o} \\ {u}\end{array}\right]=\left[\begin{array}{c}{\sigma} \\ {\sigma} \\ {\tanh }\end{array}\right]\left(U_{\psi} v_{k}+b\right)} \\ {\bar{a}(k)=o+\tanh (x \odot u)} \\ {\bar{e}(k)=0}\end{array}</script><p>作者说明：This function shares its bias term b with $Compose_α$, although $U_ψ$ is not tied to any other weights.</p>
-<p>通过观察u到a的变化，可以发现这是一个双线性变换，因为经过了两次tan函数。</p>
 <p>而表格的高层通过这样的加法进行计算：</p>
 <script type="math/tex; mode=display">
 \begin{aligned} \bar{a}(k) &=\sum_{i, j \in\{k\}} e(i, j) a(i, j) \\ \bar{e}(k) &=\sum_{i, j \in\{k\}} e(i, j) \hat{e}(i, j) \end{aligned}</script><p>这也很好理解，这就是软加权的过程。</p>
@@ -270,11 +277,13 @@ ga('send', 'pageview');
 &\hat{e}(i, j)=\phi\left(\bar{a}(i), \bar{a}(j) ; S_{\alpha}\right)+\bar{e}(i)+\bar{e}(j)
 \end{aligned}</script><p>其中的双线性投影$\phi$被这么定义：</p>
 <script type="math/tex; mode=display">
-\phi(u, v ; W)=u^{\top} W v</script><p>上面的路线最终得到了$e(i,j)$。</p>
+\phi(u, v ; W)=u^{\top} W v</script><p>其实有点类似于attention计算。</p>
+<p>上面的路线最终得到了$e(i,j)$。</p>
 <p>之后通过composition function得到$a(i,j)$。</p>
 <p>这个函数的选择有好几种。可以选择TreeLSTM或者是2层MLP。将函数定义为Compose，产生一个hidden state h，对于TreeLSTM，得到的是cell state。</p>
 <script type="math/tex; mode=display">
-a(i, j)=\text { Compose }_{\alpha}(\bar{a}(i), \bar{a}(j))</script><h5 id="TreeLSTM"><a href="#TreeLSTM" class="headerlink" title="TreeLSTM"></a>TreeLSTM</h5><p>TreeLSTM做了一个这样的变换，得到h和c：</p>
+a(i, j)=\text { Compose }_{\alpha}(\bar{a}(i), \bar{a}(j))</script><p>概述一下，inside向量 = 所有可能的节点对i,j的composition score的加权和</p>
+<h5 id="TreeLSTM"><a href="#TreeLSTM" class="headerlink" title="TreeLSTM"></a>TreeLSTM</h5><p>TreeLSTM做了一个这样的变换，得到h和c：</p>
 <script type="math/tex; mode=display">
 \left[\begin{array}{l}
 {x} \\
@@ -314,7 +323,7 @@ h=W_{1}\left(W_{0}\left\langle h_{i}, h_{j}\right\rangle+ b\right)+b_{1}</script
             </figure>
 <p>实际上这么多计算就是为了得到e和a……</p>
 <p>当然$\hat{a}$还是有意义的，这是为了填chart。</p>
-<h4 id="Outside-Pass"><a href="#Outside-Pass" class="headerlink" title="Outside Pass"></a>Outside Pass</h4><p>Outside算法类似inside算法。outside chart的根节点被作为变差学习。后代cell被预测，使用的是可能的outside上下文的消歧（disambiguation）。每一个上下文都包括一个inside表中的同级cell，和一个outside表中的父级cell。</p>
+<h4 id="Outside-Pass"><a href="#Outside-Pass" class="headerlink" title="Outside Pass"></a>Outside Pass</h4><p>Outside算法类似inside算法。outside chart的根节点被作为偏差学习。后代cell被预测，使用的是可能的outside上下文的消歧（disambiguation）。每一个上下文都包括一个inside表中的同级cell，和一个outside表中的父级cell。因为计算顺序的问题，我们从上往下计算的时候，知道了父亲的outside变量，而不知道兄弟的outside变量，所以要用inside向量。</p>
 <p>函数f与之前的函数e类似，在span k上对成分对(i,j)做归一化，消除了outside上下文的歧义。函数b为缺失的同级细胞生成短语级表示。公式如下：</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
@@ -323,7 +332,9 @@ h=W_{1}\left(W_{0}\left\langle h_{i}, h_{j}\right\rangle+ b\right)+b_{1}</script
 b(i, j) &=\operatorname{Compose}_{\beta}(\bar{a}(i), \bar{b}(j)) \\
 \hat{f}(i, j) &=\phi\left(\bar{a}(i), \bar{b}(j) ; S_{\beta}\right)+\bar{e}(i)+\bar{f}(j)
 \end{aligned}</script><p>在大多数实验中，b中使用的Compose与a共享参数，$\hat{e}$和$\hat{f}$依然是如此。？</p>
-<h3 id="训练目标"><a href="#训练目标" class="headerlink" title="训练目标"></a>训练目标</h3><p>使用类似AE的语言建模目标。我们模型并不限制单个z上x的重构，因为root的outside表示是用bias而不是root自己的inside向量表示的。因此，我们以许多子树根为condition的x，每个子树根仅仅是输入的子集的压缩。</p>
+<h3 id="训练目标"><a href="#训练目标" class="headerlink" title="训练目标"></a>训练目标</h3><p>最后我们推出来每一个叶子结点的outside表示，这个表示是完全由context推出来的。因为根节点的vector是随机初始化的，所以不会存在信息泄露问题，使得outside向量混入了inside向量的信息。</p>
+<p>使用类似AE的语言建模目标。<strong>也就是，我们希望叶子的outside向量能最大程度上还原叶子的inside向量</strong>。</p>
+<p>我们模型并不限制单个z上x的重构，因为root的outside表示是用bias而不是root自己的inside向量表示的。因此，我们以许多子树根为condition的x，每个子树根仅仅是输入的子集的压缩。</p>
 <p>为了近似这种重构，使用max-margin loss。考虑一组${x^*}$的N个negative samples，从词频出现频率中采样。？</p>
 <p>terminal outside向量$\bar{b}(i)$被训练以预测原始输入$v_i$。</p>
 <p>损失函数为：</p>
@@ -331,7 +342,8 @@ b(i, j) &=\operatorname{Compose}_{\beta}(\bar{a}(i), \bar{b}(j)) \\
 \begin{aligned}
 L_{\boldsymbol{x}}=\sum_{i=0}^{T-1} \sum_{i^{*}=0}^{N-1} \max (0,1-\bar{b}(i) \cdot \bar{a}(i)\\
 \left.+\bar{b}(i) \cdot \bar{a}\left(i^{*}\right)\right)
-\end{aligned}</script><p>这是一个max-margin loss。普通的交叉熵损失函数是：</p>
+\end{aligned}</script><p>这是一个max-margin loss。采样负样本有一个好处，会让训练更加稳健。这个loss的含义实际上就是：让outside向量与inside向量相似。</p>
+<p>普通的交叉熵损失函数是：</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 &Z^{*}=\sum_{i^{*}=0}^{N-1} \exp \left(\bar{b}(i) \cdot \bar{a}\left(i^{*}\right)\right)\\
@@ -357,13 +369,7 @@ L_{\boldsymbol{x}}=\sum_{i=0}^{T-1} \sum_{i^{*}=0}^{N-1} \max (0,1-\bar{b}(i) \c
 <li>Structured alignment networks for matching sentences</li>
 </ul>
 <h3 id="Learning-from-Raw-Text"><a href="#Learning-from-Raw-Text" class="headerlink" title="Learning from Raw Text"></a>Learning from Raw Text</h3><p>语法结构的无监督学习，包括无监督分割、无监督依赖分析等。</p>
-<h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><ol>
-<li><p>怎么讲树形结构与重复性联系在一起？</p>
-</li>
-<li><p>得到note-level的树形结构，能否利用其中间节点，完成SALAMI上的segmentation任务？</p>
-</li>
-</ol>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="Inside-Outside算法"><a href="#Inside-Outside算法" class="headerlink" title="Inside-Outside算法"></a>Inside-Outside算法</h2><h2 id="CKY算法"><a href="#CKY算法" class="headerlink" title="CKY算法"></a>CKY算法</h2><h2 id="替代原理（Frege-1960）"><a href="#替代原理（Frege-1960）" class="headerlink" title="替代原理（Frege, 1960）"></a>替代原理（Frege, 1960）</h2><p>相关文献包括：</p>
+<p>相关文献包括：</p>
 <ul>
 <li>Semi-supervised recursive autoencoders for predicting sentiment distributions</li>
 <li>The forest convolutional network: Compositional distributional semantics with a neural chart and without binarization</li>
@@ -378,7 +384,7 @@ L_{\boldsymbol{x}}=\sum_{i=0}^{T-1} \sum_{i^{*}=0}^{N-1} \max (0,1-\bar{b}(i) \c
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-02-06T18:44:05.720Z" itemprop="dateUpdated">2020-02-07 02:44:05</time>
+    最后更新时间：<time datetime="2020-02-10T13:42:05.105Z" itemprop="dateUpdated">2020-02-10 21:42:05</time>
 </span><br>
 
 
