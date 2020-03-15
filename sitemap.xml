@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ldzhangyx.github.io/community/index.html</loc>
+    
+    <lastmod>2020-03-15T07:05:20.137Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/2019/08/05/pytorch-0801/</loc>
+    
+    <lastmod>2020-02-14T18:08:45.357Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ldzhangyx.github.io/2020/02/07/diora-urnng/</loc>
     
-    <lastmod>2020-02-10T13:42:05.105Z</lastmod>
+    <lastmod>2020-02-10T13:43:37.302Z</lastmod>
     
   </url>
   
@@ -33,13 +47,6 @@
     <loc>http://ldzhangyx.github.io/about/index.html</loc>
     
     <lastmod>2020-01-07T08:50:47.741Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/2019/08/05/pytorch-0801/</loc>
-    
-    <lastmod>2019-12-30T08:52:50.242Z</lastmod>
     
   </url>
   

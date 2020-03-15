@@ -39,7 +39,7 @@ ga('send', 'pageview');
 <meta property="og:site_name" content="张逸霄的技术小站">
 <meta property="og:description" content="nn.Embedding我一直对nn.Embedding层感到困惑。它在训练中有没有改变过呢？ 查询StackOverflow，我得到了一个答案：  我可以随机初始化一个词向量，也可以导入一个预训练的词向量； 我可以选择是否让它参与训练（默认参与了训练）。  如果要固定某几层不进行训练，需要做两件事：  层数的requires_grad参数设为False； 传给optimizer的paramete">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-30T08:52:50.242Z">
+<meta property="og:updated_time" content="2020-02-14T18:08:45.357Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PyTorch使用的日常（2019.8.5）">
 <meta name="twitter:description" content="nn.Embedding我一直对nn.Embedding层感到困惑。它在训练中有没有改变过呢？ 查询StackOverflow，我得到了一个答案：  我可以随机初始化一个词向量，也可以导入一个预训练的词向量； 我可以选择是否让它参与训练（默认参与了训练）。  如果要固定某几层不进行训练，需要做两件事：  层数的requires_grad参数设为False； 传给optimizer的paramete">
@@ -189,7 +189,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#nn-Embedding"><span class="post-toc-number">1.</span> <span class="post-toc-text">nn.Embedding</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#CUDA-out-of-memory"><span class="post-toc-number">2.</span> <span class="post-toc-text">CUDA out of memory</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Learning-Rate-Scheduler"><span class="post-toc-number">3.</span> <span class="post-toc-text">Learning Rate Scheduler</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用GELU激活函数"><span class="post-toc-number">4.</span> <span class="post-toc-text">使用GELU激活函数</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#nn-Embedding"><span class="post-toc-number">1.</span> <span class="post-toc-text">nn.Embedding</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#CUDA-out-of-memory"><span class="post-toc-number">2.</span> <span class="post-toc-text">CUDA out of memory</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Learning-Rate-Scheduler"><span class="post-toc-number">3.</span> <span class="post-toc-text">Learning Rate Scheduler</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用GELU激活函数"><span class="post-toc-number">4.</span> <span class="post-toc-text">使用GELU激活函数</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Word-Embedding的workflow"><span class="post-toc-number">5.</span> <span class="post-toc-text">Word Embedding的workflow</span></a></li></ol>
         </nav>
     </aside>
 
@@ -236,6 +236,19 @@ ga('send', 'pageview');
 <p>将这行代码插入你认为应该调整的地方。下面是一种常见做法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">optimizer.zero_grad()</span><br><span class="line">output = model(input)</span><br><span class="line">loss = loss(output, label)</span><br><span class="line">loss.backward()</span><br><span class="line">optimizer.step()</span><br><span class="line">schedule.step()</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <h1 id="使用GELU激活函数"><a href="#使用GELU激活函数" class="headerlink" title="使用GELU激活函数"></a>使用GELU激活函数</h1><p>一些实验证明在NLP领域，GELU函数的效果要好于RELU。</p>
+<h1 id="Word-Embedding的workflow"><a href="#Word-Embedding的workflow" class="headerlink" title="Word Embedding的workflow"></a>Word Embedding的workflow</h1><p>对NLP的数据集做预处理，一般需要两个步骤。</p>
+<ol>
+<li><p>建立word2idx的映射，建立一个字典。</p>
+</li>
+<li><p>idx2vector的映射，使得每一个index对应一个vector。</p>
+</li>
+</ol>
+<p>在不使用高阶API（如pytorch-nlp库）时，两个映射函数都需要自己完成。</p>
+<p>建立word2idx的映射时，首先创建字典。其切分函数一般使用<code>split()</code>或<code>nltk.tokenize()</code>进行单词分割。一般来说需要在句子前后添加<code>&lt;SOS&gt;</code>和<code>&lt;EOS&gt;</code>占位符，使得模型学习到句子的结束。</p>
+<p>在获取数据时，根据字典坐word2idx的转换操作时，有两种方法可供参考。第一种是<code>for</code>循环，而第二种是使用<code>map()</code>函数，将字典作为参数进行转换，在并行化上有优势。</p>
+<p>而idx2vector，如果使用GloVe这类预训练的word vector，可以直接在embedding层里使用<code>nn.Embedding.from_pretrained()</code>函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">embedding_layer = nn.Embedding.from_pretrained(torch.from_numpy(embeddings), freeze=<span class="keyword">True</span>)</span><br><span class="line">embed = Embed(embedding_layer, input_size=input_dim, size=size)</span><br></pre></td></tr></table></figure>
+<p>模型的output一般是embedding size的vector，但是要经过全连接层，通过softmax映射到vocab size大小的vector，然后进行交叉熵运算。</p>
 
         </div>
 
@@ -244,7 +257,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-12-30T08:52:50.242Z" itemprop="dateUpdated">2019-12-30 16:52:50</time>
+    最后更新时间：<time datetime="2020-02-14T18:08:45.357Z" itemprop="dateUpdated">2020-02-15 02:08:45</time>
 </span><br>
 
 
