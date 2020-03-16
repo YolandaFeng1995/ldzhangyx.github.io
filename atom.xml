@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2020-02-10T13:43:37.302Z</updated>
+  <updated>2020-03-16T02:54:40.995Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>matplotlib最佳实践技巧</title>
+    <link href="http://ldzhangyx.github.io/2020/03/16/matplotlib-practice/"/>
+    <id>http://ldzhangyx.github.io/2020/03/16/matplotlib-practice/</id>
+    <published>2020-03-16T02:54:40.000Z</published>
+    <updated>2020-03-16T02:54:40.995Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="在subplot中使用seaborn绘制子图"><a href="#在subplot中使用seaborn绘制子图" class="headerlink" title="在subplot中使用seaborn绘制子图"></a>在subplot中使用seaborn绘制子图</h2><p><a href="https://stackoverflow.com/questions/41384040/subplot-for-seaborn-boxplot" target="_blank" rel="noopener">https://stackoverflow.com/questions/41384040/subplot-for-seaborn-boxplot</a><br><a href="https://matplotlib.org/3.2.0/api/_as_gen/matplotlib.pyplot.subplots.html" target="_blank" rel="noopener">https://matplotlib.org/3.2.0/api/_as_gen/matplotlib.pyplot.subplots.html</a><br><a href="https://stackoverflow.com/questions/34162443/why-do-many-examples-use-fig-ax-plt-subplots-in-matplotlib-pyplot-python" target="_blank" rel="noopener">https://stackoverflow.com/questions/34162443/why-do-many-examples-use-fig-ax-plt-subplots-in-matplotlib-pyplot-python</a></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fig, axes = fig.subplot(nrows, ncolumns, figsize=(A,B)) <span class="comment"># 三个参数可选，如果不填就默认1x1</span></span><br><span class="line">                                                        <span class="comment"># 为什么要这样初始化，请看上面第三个链接</span></span><br><span class="line"><span class="comment"># 这里ax是一个列表，每一个元素就是子图index。</span></span><br><span class="line"><span class="comment"># fig是子图对象列表</span></span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].set_title(<span class="string">'title1'</span>) <span class="comment"># 以这种方式设定title</span></span><br><span class="line">axes[<span class="number">1</span>].set_title(<span class="string">'title1'</span>)</span><br><span class="line"></span><br><span class="line">sns.scatterplot(x, y, data, <span class="comment"># 指定数据</span></span><br><span class="line">                hue, palatte=<span class="string">'rainbow'</span>, <span class="comment"># 指定怎么分类，怎么染色</span></span><br><span class="line">                markers=<span class="keyword">True</span>, <span class="comment"># 指定图例</span></span><br><span class="line">                ax = axes[<span class="number">0</span>] <span class="comment"># 指定绘制在哪个子图里</span></span><br><span class="line">                )</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">axs[<span class="number">1</span>].scatter(x, y) <span class="comment">#plt直接操作</span></span><br></pre></td></tr></table></figure><p>其中axes的内容为：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array([&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7f9ed85feb50&gt;,</span><br><span class="line">       &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7f9ed8980650&gt;],</span><br><span class="line">      dtype=object)</span><br></pre></td></tr></table></figure><h2 id="在subplot中绘制3D图的不优雅的方法"><a href="#在subplot中绘制3D图的不优雅的方法" class="headerlink" title="在subplot中绘制3D图的不优雅的方法"></a>在subplot中绘制3D图的不优雅的方法</h2><p>使用<code>add_subplot()</code>方法，以和上面不一样的方法初始化子图。<br><a href="https://zhuanlan.zhihu.com/p/66306575" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/66306575</a><br><a href="https://matplotlib.org/mpl_toolkits/mplot3d/tutorial.html" target="_blank" rel="noopener">https://matplotlib.org/mpl_toolkits/mplot3d/tutorial.html</a></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</span><br><span class="line"></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax1 = fig.add_subplot(<span class="number">121</span>, projection=<span class="string">'3d'</span>)</span><br><span class="line">ax2 = fig.add_subplot(<span class="number">122</span>) <span class="comment"># 用于别的子图</span></span><br></pre></td></tr></table></figure><p>当然，如果只想画一个3D图，还有别的办法可选，如：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fig = plt.figure()</span><br><span class="line">ax = plt.axes(projection=<span class="string">'3d'</span>)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;在subplot中使用seaborn绘制子图&quot;&gt;&lt;a href=&quot;#在subplot中使用seaborn绘制子图&quot; class=&quot;headerlink&quot; title=&quot;在subplot中使用seaborn绘制子图&quot;&gt;&lt;/a&gt;在subplot中使用seaborn绘制
+      
+    
+    </summary>
+    
+      <category term="开发笔记" scheme="http://ldzhangyx.github.io/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
+    
+      <category term="matplotlib" scheme="http://ldzhangyx.github.io/tags/matplotlib/"/>
+    
+  </entry>
   
   <entry>
     <title>无监督句法分析：《Unsupervised Latent Tree Induction with Deep Inside-Outside Recursive Auto-Encoders》论文笔记</title>
@@ -450,11 +477,11 @@
       <category term="简明指南" scheme="http://ldzhangyx.github.io/categories/%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/"/>
     
     
-      <category term="argparse" scheme="http://ldzhangyx.github.io/tags/argparse/"/>
-    
       <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
     
       <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
+    
+      <category term="argparse" scheme="http://ldzhangyx.github.io/tags/argparse/"/>
     
   </entry>
   
@@ -476,9 +503,9 @@
       <category term="简明指南" scheme="http://ldzhangyx.github.io/categories/%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/"/>
     
     
-      <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
-    
       <category term="software" scheme="http://ldzhangyx.github.io/tags/software/"/>
+    
+      <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
     
   </entry>
   
@@ -502,41 +529,13 @@
     
       <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
     
-      <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
-    
       <category term="software" scheme="http://ldzhangyx.github.io/tags/software/"/>
+    
+      <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
     
       <category term="PyCharm" scheme="http://ldzhangyx.github.io/tags/PyCharm/"/>
     
       <category term="SSH" scheme="http://ldzhangyx.github.io/tags/SSH/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《Deep Music Analogy via Latent Representation Distanglement》论文笔记</title>
-    <link href="http://ldzhangyx.github.io/2019/07/29/ec2vae/"/>
-    <id>http://ldzhangyx.github.io/2019/07/29/ec2vae/</id>
-    <published>2019-07-29T06:30:57.000Z</published>
-    <updated>2019-07-31T13:28:26.633Z</updated>
-    
-    <content type="html"><![CDATA[<p>组里大佬们的工作。</p><a id="more"></a><h1 id="论文笔记"><a href="#论文笔记" class="headerlink" title="论文笔记"></a>论文笔记</h1><h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>类比制作（Analogy-making）是使用计算机算法生成自然而有创造力的音乐作品的关键方法。通常来说，将音乐的抽象形式（如，高层表示及这些表示之间的关系）做部分地转移，可以达成类比的目的。</p><p>这个过程要求对音乐表示做解耦（如，保留风格，创作内容不一样的曲子）。对于人类音乐家来说，是轻而易举的事情，但是这对计算机来说却是一个难题。要完成这个目标，我们有三个步骤：</p><ol><li>从观察（observation）中提取潜在的表示（latent representations）；</li><li>对表示进行解耦，使得解耦后每一部分有唯一的的语义解释；</li><li>将潜在表示映射回实际的音乐。</li></ol><p>这篇论文提出了一个具有明确约束（explicitly-constrained）的VAE模型（简称$EC^2-VAE$），作为所有三个子问题的统一解决方案。</p><p>更确切地说，本文专注于对8-beat音乐片段，以和弦（chord）作为condition，解耦音高（pitch）和节奏（rhythm）的表示。这个模型借用了其他音乐片段的表示，帮助我们实现了假设情景：一个片段如果使用别的音高、节奏、和弦将会怎么样？</p><p>最后，本文用客观的测量方法验证了模型的解耦方法，并通过一个主观的研究，评估了类比的实际例子。</p><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>类比是一个生成高质量艺术作品的有效方法。一般来说，如果两个系统有共同的抽象表示、共同的表示间关系，那么这两个系统就是相似的。举个例子，“氢原子就像太阳系”，形式化表示为$A:B::C:D$的形式：“原子核:氢原子::太阳::太阳系”。两个系统共享的抽象就是“更大的部分是一个系统的中心”。对于生成算法来说，解决一个“what if”问题，即已知ABC，D是什么的问题，是生成算法的一个捷径。</p><p><code>A:B::C:D</code></p><p>对于音乐生成来说，如果A是B的抽象，A与B的关系是，A是音乐B的节奏pattern（一个例子）。那么，如果我们有另一个节奏pattern C，那么B搭配上C的pattern，得到的D将会是什么样子呢？</p><p>类比生成的一大优势是能够产生自然、有创意的结果。之所以自然，是因为模型复用了人类作品实例的表示（如image style等），以及这些概念之间的内在关系；之所以有创意，是因为这些表示使用了新颖的方式进行重新组合，进行了不同的表达。</p><p>我们清楚地意识到，类比的实质是对抽象表征的迁移，而不是浅层observation的组合和复读。要进行有意义的类比，需要对高层表征进行解耦，而这对计算机来说是一个难题。</p><p>EC2-VAE模型，就是一个学习解耦的有效工具。具体来说，Encoder从Observation中获取latent representation，语义约束（semantic constraints）解耦表征，使得每个部分具有唯一的解释，然后Decoder将解耦表示映射回实际的音乐，同时保持表示之间的内在关系。</p><p>作为生成模型，我们希望EC2-VAE有三个特性。</p><ol><li>对表示的解耦是明确的。即我们可以指定哪些维度表示哪些语义因素。</li><li>解耦不能对重建造成大量牺牲。</li><li>训练阶段不需要任何类似的例子，但该模型能够在推理阶段进行类比。</li></ol><p>为了评估，我们提出了一个新的指标（metric）进行调查。</p><h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><h3 id="类比生成"><a href="#类比生成" class="headerlink" title="类比生成"></a>类比生成</h3><p>两种类比算法：</p><ol><li>监督学习。需要大量标注，表示学习的需求较少。</li><li>严格的类比算法，不仅需要学习表示，还需要解耦表示，允许模型通过操纵任何解耦的表示来进行domain-free的类比。</li></ol><h3 id="表示学习-amp-解耦"><a href="#表示学习-amp-解耦" class="headerlink" title="表示学习 &amp; 解耦"></a>表示学习 &amp; 解耦</h3><p>（相关研究略）</p><p>本文模型并不直接约束z，而是将loss应用于与latent factor有关的中间输出。间接而显式的约束使得模型能够进一步将表示分解为音调、节奏等语义因素。</p><h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><p>目标是解开时长为8拍的旋律的节奏和音高两个方面。数据均来源于Nottingham数据集。分辨率为1/4拍。</p><h3 id="数据表示"><a href="#数据表示" class="headerlink" title="数据表示"></a>数据表示</h3><p>每个8拍旋律都可以用一个32x130的矩阵表示。32为时间维，130为音高、保持和休止符维。</p><p>额外设计了一个节奏pattern约束网络的中间输出。8拍节奏模式表示为32x3的矩阵，3为one-hot向量，代表：(onset, holding, rest)。</p><p>chord作为条件，表示成32x12的矩阵（色度图），如12维的multi-hot向量。</p><h3 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h3><p>模型基本结构与Vanilla sequence VAE一致。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>模型的创新点在于，为Decoder的一部分（橙色）设计了一个子任务，通过明确地鼓励$z_r$的中间输出，匹配节点的节奏特征，从而将潜在（latent）节奏表示$z_r$从整体的表示z中解开。</p><p>因此z的另一部分是节奏以外的一切，被解释为音高表示$z_p$。这样明确编码的解耦技术非常灵活，因为可以设计多个子部分，解开z的多个语义可解释的因子。只要可以定义相应潜在因子的中间输出。</p><p>新模型将chord作为condition，优点是使z免于存储和弦信息。</p><p>Decoder中，为了解耦，本文将z分割成了两半：$z_p$和$z_r$，让两边的向量各有128个维度。</p><h3 id="具有解耦功能的ELBO目标的理论正当性"><a href="#具有解耦功能的ELBO目标的理论正当性" class="headerlink" title="具有解耦功能的ELBO目标的理论正当性"></a>具有解耦功能的ELBO目标的理论正当性</h3><p>表征解耦有时会牺牲重建能力。本节主要证明了模型没有遭受大量的解耦-重构悖论，并且模型的likelihood bound接近原始条件的VAE，在一些情况下甚至可能相等。</p><p>ELBO目标函数：</p><script type="math/tex; mode=display">\begin{aligned} \operatorname{ELBO}(\phi, \theta)=& \mathbb{E}_{Q}\left[\log P_{\phi}(x | z, c)\right] \\ &-\mathbb{K} \mathbb{L}\left[Q_{\theta}(z | x, c)| | P_{\phi}(z | c)\right] \leq \log P_{\phi}(x | c) \end{aligned}</script><p>下面用$\mathcal{D}$代替$&amp;-\mathbb{K} \mathbb{L}\left[Q_{\theta}(z | x, c)| | P_{\phi}(z | c)\right]$。如果我们将图1(b)的中间节奏输出看作网络的hidden variable，模型的ELBO只会增加基于原始节奏的节奏重建loss，达到原始ELBO的下限。</p><script type="math/tex; mode=display">\begin{aligned} & \mathrm{ELBO}^{\mathrm{new}}(\phi, \theta) \\=& \mathbb{E}_{Q}\left[\log P_{\phi}(x | z, c)\right]-\mathcal{D}+\mathbb{E}_{Q}\left[\log P_{\phi_{r}}\left(r(x) | z_{r}\right)\right] \\=& \operatorname{ELBO}(\phi, \theta)+\mathbb{E}_{Q}\left[\log P_{\phi_{r}}\left(r(x) | z_{r}\right)\right] \end{aligned}</script><p>其中$\phi_r$代表节奏decoder的参数。新ELBO是原始ELBO的一个下界，因为$\mathbb{E}_{Q}\left[\log P_{\phi_{r}}\left(r(x) | z_{r}\right)\right] \leq 0$。</p><p>此外，如果将global decoder的其余部分采用原始节奏而不是节奏decoder的中间输出作为输入，则目标可以重写为：</p><script type="math/tex; mode=display">\begin{aligned} & \operatorname{ELBO}^{\mathrm{new}}(\phi, \theta) \\=& \mathbb{E}_{Q}\left[\underbrace{\log P_{\phi}\left(x | r(x), z_{p}, c\right)+\log P_{\phi}\left(r(x) | z_{r}, c\right)}_{x \underline{ \|} z_{r} | r(x),c;r(x)\underline{ \|}z_p}\right] -\mathcal{D}\\=& \mathbb{E}_{Q}\left[\log P_{\phi}(x, r(x) | z, c)\right]-\mathcal{D} \\=& \mathbb{E}_{Q}\left[P_{\phi}(x | z, c)+\log P_{\phi}(r(x) | x, z, c)\right]-\mathcal{D} \\=& \operatorname{ELBO}(\phi, \theta) \end{aligned}</script><p>第二个等号表示一个完美的解耦，最后一个等号成立，因为$r(x)$由$x$决定。换而言之，我们展示了在某些假设下，两个ELBO相同。</p><h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><h3 id="客观指标"><a href="#客观指标" class="headerlink" title="客观指标"></a>客观指标</h3><p>一旦成功解耦，音高的任何变化都不应影响潜在的节奏表示。为此设计了两个指标：</p><ol><li>换位后的Δz；</li><li>一个augmantation-based序列的F-score。</li></ol><h4 id="音高转换的Δz可视化"><a href="#音高转换的Δz可视化" class="headerlink" title="音高转换的Δz可视化"></a>音高转换的Δz可视化</h4><p>将$F_i$定义为一个操作，将所有音符转$i$个半音。使用L1范数测量z的变化。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>增加音高时，音高的潜在表示的变化$z_p$远高于节奏的潜在表示变化$z_r$。这充分证明了解耦的成功。</p><h4 id="F-score"><a href="#F-score" class="headerlink" title="F-score"></a>F-score</h4><p>从IR角度，可以实现新的评估方法。我们将模型结构定义中的pitch-rhythm split作为ground truth，将factor-wise数据增强（保持一个，改变另一个，vice versa），作为query。将因此出现了最大variance的实际上latent dimensions，成为结果集（result set）。用这种方法，可以量化评估模型的P、R和F分数。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="3.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>这是第一个为明确编码的解耦模型定制的测量方法，因此将random作为baseline。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="4.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>后面的case study略。</p><h1 id="想法与见解"><a href="#想法与见解" class="headerlink" title="想法与见解"></a>想法与见解</h1><p>一路看下来感觉很流畅，从音乐的结果来看也是一个非常好的模型，起解耦能力值得肯定。</p><p>值得挑一些刺的地方我认为有两点。</p><ol><li><p>在模型描述上，模型的图画得并不是很清楚。比如说在对z的分割上，原文中提到对z对半分割，而图中的描述并不能体现这一点。</p></li><li><p>F-score的evaluation做得并不是很清晰。这个measurement从实现上来说是衡量解耦效果的，但是与random对比并不是好的选择。我猜测，使用“没有明确解耦”的普通VAE比较，也许是一个更好的选择。这就像是ON-LSTM的论文，也有人质疑，普通的LSTM会不会也有一定的order性呢？</p></li></ol><p>模型可以发展的地方相比缺点来说要多得多。首先是解耦设计的灵活性，几乎可以无成本地在之后进行扩展；其次，解耦类比生成的这个topic本身，也应该是正确的方向。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;组里大佬们的工作。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="论文笔记" scheme="http://ldzhangyx.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
-    
-      <category term="VAE" scheme="http://ldzhangyx.github.io/tags/VAE/"/>
-    
-      <category term="representation learning" scheme="http://ldzhangyx.github.io/tags/representation-learning/"/>
-    
-      <category term="analogy" scheme="http://ldzhangyx.github.io/tags/analogy/"/>
     
   </entry>
   
