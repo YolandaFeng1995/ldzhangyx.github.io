@@ -2,15 +2,6 @@
 <html>
 <head>
     
-<!-- Google Analytics -->
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-126536496-1', 'auto');
-ga('send', 'pageview');
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-<!-- End Google Analytics -->
-
 
     
 
@@ -20,15 +11,11 @@ ga('send', 'pageview');
 
     <meta charset="utf-8">
     
-    <meta name="google-site-verification" content="true">
-    
     
     
     
     <title>张逸霄的技术小站 | 欢迎RSS订阅我的个人主页！</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="">
@@ -45,8 +32,8 @@ ga('send', 'pageview');
     
         <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
     
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <link rel="shortcut icon" href="/">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
@@ -62,82 +49,19 @@ ga('send', 'pageview');
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+    <div class="brand-wrap" style="background-image:url(/)">
       <div class="brand">
         <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/img/avatar.jpg">
+          <img src="/">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">张逸霄</h5>
-          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+          <a href="mailto:undefined" class="mail">
         </hgroup>
       </div>
     </div>
     <div class="scroll-wrap flex-col">
       <ul class="nav">
-        
-            <li class="waves-block waves-effect active">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-archives"></i>
-                归档
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/tags"  >
-                <i class="icon icon-lg icon-tags"></i>
-                标签
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/categories"  >
-                <i class="icon icon-lg icon-th-list"></i>
-                分类
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                关于我
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/projects"  >
-                <i class="icon icon-lg icon-code"></i>
-                项目列表
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/community"  >
-                <i class="icon icon-lg icon-microphone"></i>
-                社群活动
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/ldzhangyx" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                GitHub
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://yixiao-music.github.io" target="_blank" >
-                <i class="icon icon-lg icon-music"></i>
-                音乐会议Deadline
-              </a>
-            </li>
         
       </ul>
     </div>
@@ -152,20 +76,6 @@ ga('send', 'pageview');
         </a>
         <div class="flex-col header-title ellipsis">张逸霄的技术小站</div>
         
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
         
     </div>
 </header>
@@ -218,7 +128,7 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        在subplot中使用seaborn绘制子图https://stackoverflow.com/questions/41384040/subplot-for-seaborn-boxplothttps://matplotlib.org/3.2.0/api/_as_gen/matplotlib.pyplot.subplots.htmlhttps://stackoverflow.com/quest...
+        在subplot中使用seaborn绘制子图https...
     
 
         <a href="/2020/03/16/matplotlib-practice/" class="post-more waves-effect waves-button">
@@ -406,10 +316,7 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        最近coding的时候遇到一个问题。以前都没出现，突然出现了。暂时没法定位是不是PyTorch降级的问题。
-环境：PyTorch 1.2， CUDA 10，cudatoolkit 0.40
-问题描述在mask函数里：
-12345678910def sample_mask(self):    if self.dropout == 0.:        self._weight = self.w...
+        最近coding的时候遇到一个问题。以前都没出现，突然...
     
 
         <a href="/2019/12/09/bernoulli-bool/" class="post-more waves-effect waves-button">
@@ -456,9 +363,7 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        使用PyTorch编写代码的时候，我们通常将模型整合进一个类，在init方法里声明模型结构，在forward方法里约定模型里数据的正向流动，然后PyTorch自动生成数据的方向传播backward方法。
-PyTorch在1.3版本及之后，规定forward方法必须是静态方法。违反了该原则的代码将会在运行时报下列错误：
-1&quot;Legacy autograd function with ...
+        使用PyTorch编写代码的时候，我们通常将模型整合进...
     
 
         <a href="/2019/12/04/pytorch-skill-1204/" class="post-more waves-effect waves-button">
@@ -597,10 +502,7 @@ PyTorch在1.3版本及之后，规定forward方法必须是静态方法。违反
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        本站之前的评论系统使用了valine，评论并不能被即时地阅读。升级了评论系统后，gitalk将访客的评论转为issue添加到GitHub repo中，这样我可以及时收到评论提醒。
-另外，最有效和快速的联系方法是点击首页头像下的邮箱链接，向我发送邮件。技术讨论类问题会在一天内进行回复。
-Gitalk配置中踩到的坑
-Gitalk.ejs可能获取不到_config.yml的参数，使得OAuth链接...
+        本站之前的评论系统使用了valine，评论并不能被即时...
     
 
         <a href="/2019/10/23/update-1023/" class="post-more waves-effect waves-button">
@@ -647,10 +549,7 @@ Gitalk.ejs可能获取不到_config.yml的参数，使得OAuth链接...
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        字符串格式化：F-string（v3.6+）之前版本的Python给字符串赋值会使用%和.format()两种方法。F-string提供了第三种方法。
-F-string的使用例子：
-12345name = 'Bob'age = 12print(f"My name is &#123;name&#125;, and my age is &#123;age&#125;.")
-这种表达在阅读代码的时...
+        字符串格式化：F-string（v3.6+）之前版本的...
     
 
         <a href="/2019/10/16/python-trick-1016/" class="post-more waves-effect waves-button">
@@ -683,15 +582,6 @@ F-string的使用例子：
         <footer class="footer">
     <div class="top">
         
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
 
         <p>
             
@@ -701,7 +591,7 @@ F-string的使用例子：
         </p>
     </div>
     <div class="bottom">
-        <p><span>张逸霄 &copy; 2017 - 2020</span>
+        <p><span>张逸霄 &copy; 2020</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -715,127 +605,21 @@ F-string的使用例子：
 <a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
 
-
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/&title=张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/&title=张逸霄的技术小站&source=自然语言处理、音乐生成、音乐结构分析等领域的经验分享，也有PyTorch等代码的实践归纳。" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=张逸霄的技术小站&url=http://ldzhangyx.github.io/&via=http://ldzhangyx.github.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxUlEQVR42u3aS27DMAwFQN//0u62gBP3UbQIFxitgiCWxlkQ4uc44nVe1u/vr7+5Pvttz2PHwsXFbXPP25X8Jtnh2+vlBlxc3HnufaBJDr6n5J//sOHi4r6YmwSjfE9cXNz/zk1YSXqDi4v7fm6S/HTKGZ3kChcXd56bH7bv85b6Li4u7hK3U/rMCyKPFV5xcXFHuHlASRoka42T/FxcXNwZbjIqkYeYVrqS/DW4uLgj3OSakoehtTGOagEFFxd3htsviPRbL/kwBy4u7gy3M1pRHdZMnl3M1XBxcR/lVgugearTacdGO+Di4m7gJoXOfZXafNTjQ+cHFxd3MzcvWa6NcK2VSz7siYuLO8ItpBnFy1CSVrXaM7i4uOPcKmKt7ZFfjI5qrMXFxW1z86JnPjBRHc4o13dxcXFHuB3EWumketHBxcWd53YOqBZAW1cfXFzczdyzuPKxibwlU7hO4eLijnCrIxGdTfPG7QPn4uLitrlPJTnVC819ICs0UXBxcbdx70NPh169ykS5Gi4u7iu59wGouk/ywri4uG/mVpumedEkeg1cXNxBbr9N0imMFpIoXFzcEW613JlfTZ56FhcXd5D7A5cLmnnkVQirAAAAAElFTkSuQmCC" alt="微信分享二维码">
-</div>
-
-
-
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+var BLOG = { ROOT: '/', SHARE: , REWARD: false };
 
 
 </script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
-
-
-
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
-
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script src="/js/main.min.js?v=1.7.2"></script>
 
 
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = 'Yixiao Zhang's Website';
-            clearTimeout(titleTime);
-        } else {
-            document.title = 'Yixiao Zhang's Website';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
 
 
 
