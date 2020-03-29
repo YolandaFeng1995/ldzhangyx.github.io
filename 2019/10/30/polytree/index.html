@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-126536496-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记 | 张逸霄的技术小站 | 欢迎RSS订阅我的个人主页！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="music generation,MIR,representation learning,polyphonic music">
+    <meta name="description" content="组里的最新工作，投到了ICASSP 2020，提出了一种复调音乐的树结构，并利用结构设计了适当的实验，证明其有效性。">
+<meta name="keywords" content="music generation,MIR,representation learning,polyphonic music">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记">
+<meta property="og:url" content="http://ldzhangyx.github.io/2019/10/30/polytree/index.html">
+<meta property="og:site_name" content="张逸霄的技术小站">
+<meta property="og:description" content="组里的最新工作，投到了ICASSP 2020，提出了一种复调音乐的树结构，并利用结构设计了适当的实验，证明其有效性。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/10/30/polytree/1.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/10/30/polytree/2.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/10/30/polytree/3.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/10/30/polytree/4.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/10/30/polytree/5.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/10/30/polytree/6.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/10/30/polytree/7.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/10/30/polytree/8.png">
+<meta property="og:image" content="http://ldzhangyx.github.io/2019/10/30/polytree/9.png">
+<meta property="og:updated_time" content="2019-10-30T10:05:10.618Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记">
+<meta name="twitter:description" content="组里的最新工作，投到了ICASSP 2020，提出了一种复调音乐的树结构，并利用结构设计了适当的实验，证明其有效性。">
+<meta name="twitter:image" content="http://ldzhangyx.github.io/2019/10/30/polytree/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/icon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">张逸霄</h5>
+          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/projects"  >
+                <i class="icon icon-lg icon-code"></i>
+                项目列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/community"  >
+                <i class="icon icon-lg icon-microphone"></i>
+                社群活动
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ldzhangyx" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://yixiao-music.github.io" target="_blank" >
+                <i class="icon icon-lg icon-music"></i>
+                音乐会议Deadline
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/abc"  >
+                <i class="icon icon-lg icon-guitar"></i>
+                ABCjs在线渲染工具
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-10-30T10:05:10.000Z" itemprop="datePublished" class="page-time">
+  2019-10-30
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/论文笔记/">论文笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Abstract"><span class="post-toc-number">1.</span> <span class="post-toc-text">Abstract</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">2.</span> <span class="post-toc-text">Introduction</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Related-Work"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Related Work</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Method"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Method</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#实验"><span class="post-toc-number">3.</span> <span class="post-toc-text">实验</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据集"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">数据集</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Baseline"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">Baseline</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实验结果"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">实验结果</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-polytree"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-10-30 18:05:10" datetime="2019-10-30T10:05:10.000Z"  itemprop="datePublished">2019-10-30</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/论文笔记/">论文笔记</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>组里的最新工作，投到了ICASSP 2020，提出了一种复调音乐的树结构，并利用结构设计了适当的实验，证明其有效性。</p>
+<a id="more"></a>
+<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>复调音乐是一种共时、离散的时间序列新高，通常被表示为1-d的events序列，或者2d的piano roll，缺点是music knowledge不够多，不能体现复调音乐的内在结构。本文提出poly-tree的树结构，包含三个级别：时间序列——音符——音符属性。同时本文进一步提出了一个Encoder-Decoder网络，以学习复调音乐的latent representation（VAE中的<code>z</code>）。在钢琴表征学习任务实验结果显示，poly-tree在<strong>重建准确性</strong>和<strong>模型泛化</strong>方面优于baseline。</p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>对于复调音乐，我们不仅可以从信号处理的角度理解，还可以从音乐本身来理解。复调音乐有metrical structure和pitch order的概念，metrical structure指的是音符之间的时间关系，它们形成了节奏模式；而pitch order与音程有关，可以由此构建harmony（和声）的概念。这两个属性可以一起组成更高级别的音乐结构，例如repetition和sequence。因此，如果数据结构<strong>优先</strong>反映这两个属性，而将其他细节作为次要信息处理。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>poly-tree的主要结构如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看到poly-tree顶层是time-step sequence，每一个time-step，包含了一个list，容纳<strong>同时弹下的音符</strong>；中层的list里，每一个音符由其基本属性概括（如pitch和duration）。</p>
+<h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><p>Midi-like event使用这样的方式表示：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>Piano-Roll是用这样的方式表示：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>上面乐谱被poly-tree以下面的方式表示：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>时间维度上，音乐以不定长数量的block表示。每一个block搭载了不定长数量的此时onset的音符。音符以(128 + N)长度的向量表示，其中128代表pitch，N的长度取决于音乐片段的总长度。如果音乐片段长度为8拍，分辨率为16分音符，意味着一个音符的duration可能为1（16分）~32（双全），共32种表示，则N=5.</p>
+<p>因为时间维度上的block数量和block里同时出现的音符都是数量不同的，故在两个维度各用一次GRU。第一个GRU将block里的音符做转换，再在时间维度上用GRU将转换后的结果再转换为latent representation。如图：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>数据集使用了Musicalion Dataset和POP909 Dataset，前者是古典音乐钢琴数据集，后面的数据集是组里新公开的流行音乐钢琴数据集。</p>
+<h2 id="Baseline"><a href="#Baseline" class="headerlink" title="Baseline"></a>Baseline</h2><p>对于midi-event表征，使用循环VAE；对于piano-roll表征，训练循环VAE，卷积VAE，全连接VAE，后两者是图像级别的操作。具体参数不表，可以阅读原论文。</p>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以发现新的表征表现得很好，从主观实验结果也能听出其有更高的质量。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-10-30T10:05:10.618Z" itemprop="dateUpdated">2019-10-30 18:05:10</time>
+</span><br>
+
+
+        
+        原文地址：<a href="/2019/10/30/polytree/" target="_blank" rel="external">http://ldzhangyx.github.io/2019/10/30/polytree/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://ldzhangyx.github.io">
+            <img src="/img/avatar.jpg" alt="张逸霄">
+            张逸霄
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MIR/">MIR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/music-generation/">music generation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/polyphonic-music/">polyphonic music</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/representation-learning/">representation learning</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/10/30/polytree/&title=《《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/10/30/polytree/&title=《《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记》 — 张逸霄的技术小站&source=组里的最新工作，投到了ICASSP 2020，提出了一种复调音乐的树结构，并利用结构设计了适当的实验，证明其有效性。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/10/30/polytree/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/10/30/polytree/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/10/30/polytree/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/11/26/musescore/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">MuseScore 3：快速使用小记</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/10/23/update-1023/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">本站评论系统即日起升级为gitalk组件</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <section class="comments" id="comments">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+            var id = location.pathname
+            if (location.pathname.length > 50) {
+              id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+            }
+            const gitalk = new Gitalk({
+              clientID: '2fe1bcc914de92fd5141',
+              clientSecret: '38e2830b66e3ce7e3a8b21cc86bbd2b715f6b2e3',
+              accessToken: '6d91fb0c829c1a9b85219dd747aa5952fd3ec312',
+              repo: 'ldzhangyx.github.io',
+              owner: 'ldzhangyx',
+              admin: ['ldzhangyx'],
+              id: id,      // Ensure uniqueness and length less than 50
+              title: document.title.split('|')[0],
+              distractionFreeMode: false  // Facebook-like distraction free mode
+            })
+            gitalk.render('gitalk-container')
+        </script>
+    </section>
+    
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        非常感谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>张逸霄 &copy; 2017 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/10/30/polytree/&title=《《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/10/30/polytree/&title=《《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记》 — 张逸霄的技术小站&source=组里的最新工作，投到了ICASSP 2020，提出了一种复调音乐的树结构，并利用结构设计了适当的实验，证明其有效性。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/10/30/polytree/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/10/30/polytree/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/10/30/polytree/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3a0W7jMAwEwPz/T+deC+Ts7lJxAcujpyKIHI0LEBTJ1yte7x/r5yef3/n8/ufeZNfrioWBgXFbxvt0JT+Q7zp6ztELSs6GgYHxHEYSCmchuA2+5888/BwDAwPjNF1rw3SbLGJgYGCsBNz8OXlSiIGBgbFyiV2pd+XHvfwujoGBcUNGXnX/+78v6W9gYGDcivEuV54arjQm61NhYGBszZilfQlm5bI6PA8GBsamjHZsq+W1SV475BHV8zAwMLZgzIr7yQ+cF85WSn7/CbgYGBibMvJg1x49TyVbcNHIxMDA2IjRFsLygYzzY7Vtzl+QGBgYWzOubliuHH1pwAIDA2MjxreC3SwnzYt9vySaGBgYmzLWB7Za2OVVQwwMjE0ZsxGuvJTWJp31K8PAwHgAo93W7srHONp2AgYGxhMYUW9zNISxUrzL9x7yMDAwNmLk18s8/LXNgNnriyY1MDAwtmO0j/vWcNhKCMbAwHgCI0/7ZkdsmwQ5O/qfYGBgbMpYKXi1DchZUe8wKGNgYDyGkTy6veiuXHqLxioGBsYDGH9zuCS5nHUnMTAwdmW8y9UmebOSXD3kgYGBsTWjDXNtypiH4FnbYDguhoGBcUPGLMjmgXJ260zYGBgYT2Pkga89XMJbeT4GBgZGkpblV83ZVTl6rRgYGBjxga64W0fhGwMD4wGMvKB2/mNJq2BW7v9auQ0DA+OGjHbEoU0EZwH6u1drDAyM2zL+Aem3vCoznMT4AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Yixiao Zhang's Website';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Yixiao Zhang's Website';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

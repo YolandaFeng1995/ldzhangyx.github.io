@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-126536496-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>简洁明快的命令行解析器argparse简明指南 | 张逸霄的技术小站 | 欢迎RSS订阅我的个人主页！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="argparse,python,tutorial">
+    <meta name="description" content="为了避免Python代码在需要设置的情况下进行hard code，我们有很多种方式将参数指定在一个地方，便于集中、解耦地修改参数。可以使用的解决办法很多，如设立config类，全局变量指明，以及使用argparse。 本文是argparse的简明指南，指明了argparse模块的快速上手方法。 指南argparse应该放在文件的什么地方？argparse可以放在main.py文件的最上方，仅在im">
+<meta name="keywords" content="argparse,python,tutorial">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简洁明快的命令行解析器argparse简明指南">
+<meta property="og:url" content="http://ldzhangyx.github.io/2019/07/30/argparse/index.html">
+<meta property="og:site_name" content="张逸霄的技术小站">
+<meta property="og:description" content="为了避免Python代码在需要设置的情况下进行hard code，我们有很多种方式将参数指定在一个地方，便于集中、解耦地修改参数。可以使用的解决办法很多，如设立config类，全局变量指明，以及使用argparse。 本文是argparse的简明指南，指明了argparse模块的快速上手方法。 指南argparse应该放在文件的什么地方？argparse可以放在main.py文件的最上方，仅在im">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-30T07:49:14.937Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简洁明快的命令行解析器argparse简明指南">
+<meta name="twitter:description" content="为了避免Python代码在需要设置的情况下进行hard code，我们有很多种方式将参数指定在一个地方，便于集中、解耦地修改参数。可以使用的解决办法很多，如设立config类，全局变量指明，以及使用argparse。 本文是argparse的简明指南，指明了argparse模块的快速上手方法。 指南argparse应该放在文件的什么地方？argparse可以放在main.py文件的最上方，仅在im">
+    
+        <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/icon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">张逸霄</h5>
+          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/projects"  >
+                <i class="icon icon-lg icon-code"></i>
+                项目列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/community"  >
+                <i class="icon icon-lg icon-microphone"></i>
+                社群活动
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ldzhangyx" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://yixiao-music.github.io" target="_blank" >
+                <i class="icon icon-lg icon-music"></i>
+                音乐会议Deadline
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/abc"  >
+                <i class="icon icon-lg icon-guitar"></i>
+                ABCjs在线渲染工具
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">简洁明快的命令行解析器argparse简明指南</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">简洁明快的命令行解析器argparse简明指南</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-30T04:22:23.000Z" itemprop="datePublished" class="page-time">
+  2019-07-30
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/简明指南/">简明指南</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#指南"><span class="post-toc-number">1.</span> <span class="post-toc-text">指南</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#argparse应该放在文件的什么地方？"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">argparse应该放在文件的什么地方？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#argparse分为几个步骤？"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">argparse分为几个步骤？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#add-augment接收几种参数？"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">add_augment接收几种参数？</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-argparse"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">简洁明快的命令行解析器argparse简明指南</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-30 12:22:23" datetime="2019-07-30T04:22:23.000Z"  itemprop="datePublished">2019-07-30</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/简明指南/">简明指南</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>为了避免Python代码在需要设置的情况下进行hard code，我们有很多种方式将参数指定在一个地方，便于集中、解耦地修改参数。可以使用的解决办法很多，如设立config类，全局变量指明，以及使用argparse。</p>
+<p>本文是argparse的简明指南，指明了argparse模块的快速上手方法。</p>
+<h1 id="指南"><a href="#指南" class="headerlink" title="指南"></a>指南</h1><h2 id="argparse应该放在文件的什么地方？"><a href="#argparse应该放在文件的什么地方？" class="headerlink" title="argparse应该放在文件的什么地方？"></a>argparse应该放在文件的什么地方？</h2><p>argparse可以放在main.py文件的最上方，仅在import语句块下。</p>
+<h2 id="argparse分为几个步骤？"><a href="#argparse分为几个步骤？" class="headerlink" title="argparse分为几个步骤？"></a>argparse分为几个步骤？</h2><p>四个步骤。</p>
+<p>第一步，import argparse。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import argparse</span><br></pre></td></tr></table></figure>
+<p>第二步，定义parser。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parser = argparse.ArgumentParser(description=&apos;Process some integers.&apos;)</span><br></pre></td></tr></table></figure>
+<p>第三步，增加参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">parser.add_argument(&apos;integers&apos;, metavar=&apos;N&apos;, type=int, nargs=&apos;+&apos;,</span><br><span class="line">                    help=&apos;an integer for the accumulator&apos;)</span><br><span class="line">parser.add_argument(&apos;--sum&apos;, dest=&apos;accumulate&apos;, action=&apos;store_const&apos;,</span><br><span class="line">                    const=sum, default=max,</span><br><span class="line">                    help=&apos;sum the integers (default: find the max)&apos;)</span><br></pre></td></tr></table></figure>
+<p>第四步，解析参数并实例化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args = parser.parse_args()</span><br></pre></td></tr></table></figure>
+<p>在调用main.py时，在后面增添命令行参数，或以default值的方式指定参数。后面的参数值可以以args变量的各个attribute直接使用，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args.sum</span><br></pre></td></tr></table></figure>
+<h2 id="add-augment接收几种参数？"><a href="#add-augment接收几种参数？" class="headerlink" title="add_augment接收几种参数？"></a>add_augment接收几种参数？</h2><blockquote>
+<p>name or flags - 一个命名或者一个选项字符串的列表，例如 foo 或 -f, —foo。<br>action - 当参数在命令行中出现时使用的动作基本类型。<br>nargs - 命令行参数应当消耗的数目。<br>const - 被一些 action 和 nargs 选择所需求的常数。<br>default - 当参数未在命令行中出现时使用的值。<br>type - 命令行参数应当被转换成的类型。<br>choices - 可用的参数的容器。<br>required - 此命令行选项是否可省略 （仅选项可用）。<br>help - 一个此选项作用的简单描述。<br>metavar - 在使用方法消息中使用的参数值示例。<br>dest - 被添加到 parse_args() 所返回对象上的属性名。</p>
+</blockquote>
+<ul>
+<li><p>name or flags<br>这几乎是必须的。<code>add_augment</code>后需要为参数命名。一般来说，使用<code>--name</code>字段即可。这样调用时写<code>--name=xxx</code>进行参数指定。</p>
+</li>
+<li><p>action<br>默认action是<code>store</code>，代表存储参数的值。</p>
+</li>
+<li><p>nargs<br>关联剁个参数到一个arguments里。<code>N</code>代表之后N个参数会形成一个列表。<code>+</code>代表片段内所有参数被聚集到列表（直到下一个参数）。</p>
+</li>
+<li><p>default<br>指定默认值。最常用。</p>
+</li>
+<li><p>type<br>指定参数类型，指定为<code>str</code>或<code>int</code>最常用。</p>
+</li>
+<li><p>help<br>填写参数的提示。</p>
+</li>
+</ul>
+<p>参数实例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">parser.add_argument(&apos;--model&apos;, type=str, default=&apos;LSTM&apos;,</span><br><span class="line">                    help=&apos;type of recurrent net (LSTM, QRNN, GRU)&apos;)</span><br><span class="line">parser.add_argument(&apos;--emsize&apos;, type=int, default=100,</span><br><span class="line">                    help=&apos;size of word embeddings&apos;)</span><br><span class="line">parser.add_argument(&apos;--when&apos;, nargs=&quot;+&quot;, type=int, default=[-1],</span><br><span class="line">                    help=&apos;When (which epochs) to divide the learning rate by 10 - accepts multiple&apos;)</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-07-30T07:49:14.937Z" itemprop="dateUpdated">2019-07-30 15:49:14</time>
+</span><br>
+
+
+        
+        原文地址：<a href="/2019/07/30/argparse/" target="_blank" rel="external">http://ldzhangyx.github.io/2019/07/30/argparse/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://ldzhangyx.github.io">
+            <img src="/img/avatar.jpg" alt="张逸霄">
+            张逸霄
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/argparse/">argparse</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tutorial/">tutorial</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/07/30/argparse/&title=《简洁明快的命令行解析器argparse简明指南》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/07/30/argparse/&title=《简洁明快的命令行解析器argparse简明指南》 — 张逸霄的技术小站&source=自然语言处理、音乐生成、音乐结构分析等领域的经验分享，也有PyTorch等代码的实践归纳。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/07/30/argparse/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《简洁明快的命令行解析器argparse简明指南》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/07/30/argparse/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/07/30/argparse/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/07/31/awd-lstm/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">《Regularizing and Optimizing LSTM Language Models》论文笔记</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/07/29/mobaxterm-tutorial/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">MobaXTerm简明指南</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <section class="comments" id="comments">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+            var id = location.pathname
+            if (location.pathname.length > 50) {
+              id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+            }
+            const gitalk = new Gitalk({
+              clientID: '2fe1bcc914de92fd5141',
+              clientSecret: '38e2830b66e3ce7e3a8b21cc86bbd2b715f6b2e3',
+              accessToken: '6d91fb0c829c1a9b85219dd747aa5952fd3ec312',
+              repo: 'ldzhangyx.github.io',
+              owner: 'ldzhangyx',
+              admin: ['ldzhangyx'],
+              id: id,      // Ensure uniqueness and length less than 50
+              title: document.title.split('|')[0],
+              distractionFreeMode: false  // Facebook-like distraction free mode
+            })
+            gitalk.render('gitalk-container')
+        </script>
+    </section>
+    
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        非常感谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>张逸霄 &copy; 2017 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/07/30/argparse/&title=《简洁明快的命令行解析器argparse简明指南》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/07/30/argparse/&title=《简洁明快的命令行解析器argparse简明指南》 — 张逸霄的技术小站&source=自然语言处理、音乐生成、音乐结构分析等领域的经验分享，也有PyTorch等代码的实践归纳。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/07/30/argparse/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《简洁明快的命令行解析器argparse简明指南》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/07/30/argparse/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/07/30/argparse/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJklEQVR42u3aQXIDIQwEwPz/005VTrl4dyThShZ6Ty47xjSHCUh8fcXP6+e5fv37nev3q58uezAwMB7LeF0++dR700p+63puGBgY5zCqIZuHY74o1395M2cMDAyMOBaTgO79CgYGBkYeuPkkks1iviXFwMDASIbLS2bzgt0Hz+IYGBgPZKxqDHzi9R/0NzAwMP4Z47XoqTYJqpvImxEwMDC2ZiRbuiSC8+NodTkKQYyBgXEAY9WRstrUnDdHMTAwTmAkQ1QbAHmRrheyb8fBwMA4gNELx2TLuGo5br6LgYGxHWNeApu0EPImaLMHi4GBsQVj1bWtyXE0Hy0qEWJgYGzNqJ4He1e+JjnZK8lhYGA8nVEtvk/Cd228vu1sYGBgbMrIU7lXyRulfhLNGBgYBzBWNQCq28E8xAttSwwMjO0Y1wNVC/f5D0+uX2BgYJzGyIeYI3N8dW4YGBinMfK4nLQKqiF7MwIGBsbWjEm8VkN21eWz5k03DAyMhzOqk6hekkim3ruKEf0fwMDA2IjRawBMpjgvxmFgYJzDKDcLi8uRX/+aNDsxMDB2ZbyKT7Vh2dt05mwMDIwTGL0dV7XolpPmy4SBgbEroxqyk6lXF6WwlcTAwDiAkVeukgZAuYM6P4tjYGBgxCX+yaWu/HLGTb0QAwPjYMYkmicthGQOGBgYJzCSQ2x+KK1uFvOwXnAWx8DAeCCj2hjoHUQn2778uxgYGNsxvgGhzdsZsjf+qAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Yixiao Zhang's Website';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Yixiao Zhang's Website';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

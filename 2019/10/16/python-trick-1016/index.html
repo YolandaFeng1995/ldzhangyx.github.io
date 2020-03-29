@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-126536496-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>Python两个代码技巧 | 张逸霄的技术小站 | 欢迎RSS订阅我的个人主页！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Python">
+    <meta name="description" content="字符串格式化：F-string（v3.6+）之前版本的Python给字符串赋值会使用%和.format()两种方法。F-string提供了第三种方法。 F-string的使用例子： 12345name = &apos;Bob&apos;age = 12print(f&quot;My name is &amp;#123;name&amp;#125;, and my age is &amp;#123;age&amp;#125;.&quot;) 这种表达在阅读代码的时候能让">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python两个代码技巧">
+<meta property="og:url" content="http://ldzhangyx.github.io/2019/10/16/python-trick-1016/index.html">
+<meta property="og:site_name" content="张逸霄的技术小站">
+<meta property="og:description" content="字符串格式化：F-string（v3.6+）之前版本的Python给字符串赋值会使用%和.format()两种方法。F-string提供了第三种方法。 F-string的使用例子： 12345name = &apos;Bob&apos;age = 12print(f&quot;My name is &amp;#123;name&amp;#125;, and my age is &amp;#123;age&amp;#125;.&quot;) 这种表达在阅读代码的时候能让">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-16T08:50:16.693Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python两个代码技巧">
+<meta name="twitter:description" content="字符串格式化：F-string（v3.6+）之前版本的Python给字符串赋值会使用%和.format()两种方法。F-string提供了第三种方法。 F-string的使用例子： 12345name = &apos;Bob&apos;age = 12print(f&quot;My name is &amp;#123;name&amp;#125;, and my age is &amp;#123;age&amp;#125;.&quot;) 这种表达在阅读代码的时候能让">
+    
+        <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/icon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">张逸霄</h5>
+          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/projects"  >
+                <i class="icon icon-lg icon-code"></i>
+                项目列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/community"  >
+                <i class="icon icon-lg icon-microphone"></i>
+                社群活动
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ldzhangyx" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://yixiao-music.github.io" target="_blank" >
+                <i class="icon icon-lg icon-music"></i>
+                音乐会议Deadline
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/abc"  >
+                <i class="icon icon-lg icon-guitar"></i>
+                ABCjs在线渲染工具
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Python两个代码技巧</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Python两个代码技巧</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-10-16T08:50:16.000Z" itemprop="datePublished" class="page-time">
+  2019-10-16
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/开发笔记/">开发笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#字符串格式化：F-string（v3-6-）"><span class="post-toc-number">1.</span> <span class="post-toc-text">字符串格式化：F-string（v3.6+）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#赋值的表达式（Assignment-Expressions，-v3-8-）"><span class="post-toc-number">2.</span> <span class="post-toc-text">赋值的表达式（Assignment Expressions， v3.8+）</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-python-trick-1016"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Python两个代码技巧</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-10-16 16:50:16" datetime="2019-10-16T08:50:16.000Z"  itemprop="datePublished">2019-10-16</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/开发笔记/">开发笔记</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="字符串格式化：F-string（v3-6-）"><a href="#字符串格式化：F-string（v3-6-）" class="headerlink" title="字符串格式化：F-string（v3.6+）"></a>字符串格式化：F-string（v3.6+）</h1><p>之前版本的Python给字符串赋值会使用<code>%</code>和<code>.format()</code>两种方法。F-string提供了第三种方法。</p>
+<p>F-string的使用例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">name = <span class="string">'Bob'</span></span><br><span class="line">age = <span class="number">12</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">f"My name is <span class="subst">&#123;name&#125;</span>, and my age is <span class="subst">&#123;age&#125;</span>."</span>)</span><br></pre></td></tr></table></figure>
+<p>这种表达在阅读代码的时候能让人更加容易将位置和变量对应起来。</p>
+<p>PEP 498中提到，其规范的格式应当是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f &apos; &lt;text&gt; &#123; &lt;expression&gt; &lt;optional !s, !r, or !a&gt; &lt;optional : format specifier&gt; &#125; &lt;text&gt; ... &apos;</span><br></pre></td></tr></table></figure>
+<h1 id="赋值的表达式（Assignment-Expressions，-v3-8-）"><a href="#赋值的表达式（Assignment-Expressions，-v3-8-）" class="headerlink" title="赋值的表达式（Assignment Expressions， v3.8+）"></a>赋值的表达式（Assignment Expressions， v3.8+）</h1><p>这是Python 3.8加入的新功能。众所周知Python的<code>=</code>赋值运算符不返回任何值。新增的赋值表达式运算符<code>:=</code>可以完成运算，同时将赋值结果返回。</p>
+<p>这使得以下代码成为可能：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (result := function()) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
+<p>而如果用普通的<code>=</code>运算符，只能以额外声明变量实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">result = function()</span><br><span class="line"><span class="keyword">if</span> result <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
+<p>或重复计算表达式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> function() <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">print(function())</span><br></pre></td></tr></table></figure>
+<p>新的语法糖改善了此过程。</p>
+<p>PEP 572完整阐述了这个语法糖的使用。给出的其他例子如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    line = fp.readline()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> line:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    print(line)</span><br></pre></td></tr></table></figure>
+<p>可以简化成：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (line := fp.readline()):</span><br><span class="line">    print(line)</span><br></pre></td></tr></table></figure>
+<p>以及列表推导式可以从</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">results = [</span><br><span class="line">    f(x) <span class="keyword">for</span> x <span class="keyword">in</span> data</span><br><span class="line">    <span class="keyword">if</span> f(x)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>改进以避免重复运算，到：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">results = [</span><br><span class="line">    y <span class="keyword">for</span> x <span class="keyword">in</span> data</span><br><span class="line">    <span class="keyword">if</span> (y := f(x))</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-10-16T08:50:16.693Z" itemprop="dateUpdated">2019-10-16 16:50:16</time>
+</span><br>
+
+
+        
+        原文地址：<a href="/2019/10/16/python-trick-1016/" target="_blank" rel="external">http://ldzhangyx.github.io/2019/10/16/python-trick-1016/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://ldzhangyx.github.io">
+            <img src="/img/avatar.jpg" alt="张逸霄">
+            张逸霄
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/10/16/python-trick-1016/&title=《Python两个代码技巧》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/10/16/python-trick-1016/&title=《Python两个代码技巧》 — 张逸霄的技术小站&source=自然语言处理、音乐生成、音乐结构分析等领域的经验分享，也有PyTorch等代码的实践归纳。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/10/16/python-trick-1016/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Python两个代码技巧》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/10/16/python-trick-1016/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/10/16/python-trick-1016/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/10/23/update-1023/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">本站评论系统即日起升级为gitalk组件</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/10/16/practice-1016/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">使音乐模型更好地训练的一些技巧（2019.10.16）</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <section class="comments" id="comments">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+            var id = location.pathname
+            if (location.pathname.length > 50) {
+              id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+            }
+            const gitalk = new Gitalk({
+              clientID: '2fe1bcc914de92fd5141',
+              clientSecret: '38e2830b66e3ce7e3a8b21cc86bbd2b715f6b2e3',
+              accessToken: '6d91fb0c829c1a9b85219dd747aa5952fd3ec312',
+              repo: 'ldzhangyx.github.io',
+              owner: 'ldzhangyx',
+              admin: ['ldzhangyx'],
+              id: id,      // Ensure uniqueness and length less than 50
+              title: document.title.split('|')[0],
+              distractionFreeMode: false  // Facebook-like distraction free mode
+            })
+            gitalk.render('gitalk-container')
+        </script>
+    </section>
+    
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        非常感谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>张逸霄 &copy; 2017 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2019/10/16/python-trick-1016/&title=《Python两个代码技巧》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2019/10/16/python-trick-1016/&title=《Python两个代码技巧》 — 张逸霄的技术小站&source=自然语言处理、音乐生成、音乐结构分析等领域的经验分享，也有PyTorch等代码的实践归纳。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2019/10/16/python-trick-1016/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Python两个代码技巧》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2019/10/16/python-trick-1016/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2019/10/16/python-trick-1016/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJ0lEQVR42u3aQW4DMQgF0Nz/0tNtpWbcDySRYr9ZRe009vOCAubxiJ/r13P327v37/7278/Xq7zgwcDA+FrGtXzWS1bxa9Ld5+RQMDAwTmCsw2hOSt5cr5gcFgYGBsZ6c+tgXc3lJutiYGBgVEPqOrzmaSUGBgbGpIjNW2xJUJ4cEwYGxmmMahr3yc9vud/AwMD4KsZVfKppXO/byrvCwMDYmjG/jKw20apHUxj+wMDA2JQxCbVJ8O19Q3lQDAMD4wDGpMWfNNTysbC85fck4GJgYBzDmDTFeg396pE9WREDA2NrRrV0zLOynPqqC1EMDIxzGL30Lm/3J1ssbDqpyzEwMLZg5MGuN/8w2WgevjEwME5g9MJl3hpLEtBmuw0DA+MYRj5akXx1PjDRy/SiKhwDA+MYxuSacz5sUWgFYmBgHMyojnD1Rr4mwR0DA2NvRlK49t7JTzEfwijnmBgYGFswksyqWuj2gnX1iDEwME5mVAvX9TLVYJ1s/Z89YGBgbMrINzpph1VTwJyEgYFxDmM+SJEHx7ysTf4NYGBgnMPIs8h5mti74CykhhgYGBsxruLTC5fzzlgzt8XAwNiC8YJo3Wqx9S4kCr1DDAyM7RiTwrUXlPMjywtmDAyMExjVEnRySZlfXpZrcQwMDIxW8pcH1kJ4XW8XAwMDo5gOzmvraEQDAwPjAEZ5uGE8TjEpWTEwME5j5GlcdaPJsNc7LiEwMDA2YvwAkzbbGV3rcroAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Yixiao Zhang's Website';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Yixiao Zhang's Website';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
