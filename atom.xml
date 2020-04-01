@@ -302,9 +302,9 @@
     
       <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
     
-      <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
-    
       <category term="心得体会" scheme="http://ldzhangyx.github.io/tags/%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"/>
+    
+      <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
     
   </entry>
   
