@@ -39,7 +39,7 @@ ga('send', 'pageview');
 <meta property="og:site_name" content="张逸霄的技术小站">
 <meta property="og:description" content="ABCjs项目的第三方应用。原项目地址：https://github.com/paulrosen/abcjs">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-01T07:23:17.666Z">
+<meta property="og:updated_time" content="2020-04-01T07:58:22.707Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ABC在线渲染组件">
 <meta name="twitter:description" content="ABCjs项目的第三方应用。原项目地址：https://github.com/paulrosen/abcjs">
@@ -198,7 +198,19 @@ ga('send', 'pageview');
             <p><link href="/css/abcjs-audio.css" media="all" rel="stylesheet" type="text/css"></p>
 <script src="/js/abcjs_basic_5.9.1-min.js" type="text/javascript"></script>
 
-<textarea name="abc" id="abc" cols="80" rows="15">X: 1
+<div style="padding-bottom: 50px;">
+
+<div style="float:left">
+
+<textarea name="abc" id="abc" cols="80" rows="15" spellcheck="false" style="
+    padding-left: 10px;
+    margin-left: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 50px;
+    margin-right: 50px;
+    margin-top: 0px;">
+X: 1
 T: Cooley's
 M: 4/4
 L: 1/8
@@ -211,7 +223,13 @@ eB B2 eBgB|eB B2 defg|afe^c dBAF|DEFD E2:|
 </textarea>
 
 
-<div id="audio"></div>
+<div id="audio" style="
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;"></div>
+
+<p>&lt;/div&gt;</p>
 <div id="warnings"></div>
 <div id="paper0" class="paper"></div>
 <div id="paper1" class="paper"></div>
@@ -219,6 +237,7 @@ eB B2 eBgB|eB B2 defg|afe^c dBAF|DEFD E2:|
 <div id="paper3" class="paper"></div>
 <div id="selection"></div>
 
+<p>&lt;/div&gt;</p>
 <script type="text/javascript">
     function selectionCallback(abcelem) {
         var note = {};
@@ -247,9 +266,12 @@ eB B2 eBgB|eB B2 defg|afe^c dBAF|DEFD E2:|
     }
 
     window.addEventListener("load", initEditor, false);
-</script>
+</script></div></div>
         </div>
+    </article>
+</div>
 
+<div class="container body-wrap">
         
 
         
@@ -303,7 +325,7 @@ eB B2 eBgB|eB B2 defg|afe^c dBAF|DEFD E2:|
     
 
 
-    </article>
+    
     
 <div id="reward" class="page-modal reward-lay">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
