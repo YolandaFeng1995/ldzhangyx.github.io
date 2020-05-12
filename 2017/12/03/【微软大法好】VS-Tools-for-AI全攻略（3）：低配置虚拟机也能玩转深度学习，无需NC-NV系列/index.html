@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-126536496-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>【微软大法好】VS Tools for AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC/NV系列 | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="VS Tools for AI">
+    <meta name="description" content="接着上文，现在我们需要一种穷人的方法来搭建好Azure虚拟机。 思路很简单，因为AI组件的原理其实是传送了script文件和命令上去，那么我们这个虚拟机只要做好了所有的配置，那么我们就可以将它当作深度学习虚拟机来用了。 写到这里，我忍不住哀叹一声。买不起外置显卡的穷人，只能绞尽脑汁想这种省钱的办法。 新建一个Ubuntu 16.04LTS虚拟机。当然选择Windows虚拟机也是可以的，只是不太主流">
+<meta name="keywords" content="VS Tools for AI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【微软大法好】VS Tools for AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC&#x2F;NV系列">
+<meta property="og:url" content="http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC-NV系列/index.html">
+<meta property="og:site_name" content="张逸霄的技术小站">
+<meta property="og:description" content="接着上文，现在我们需要一种穷人的方法来搭建好Azure虚拟机。 思路很简单，因为AI组件的原理其实是传送了script文件和命令上去，那么我们这个虚拟机只要做好了所有的配置，那么我们就可以将它当作深度学习虚拟机来用了。 写到这里，我忍不住哀叹一声。买不起外置显卡的穷人，只能绞尽脑汁想这种省钱的办法。 新建一个Ubuntu 16.04LTS虚拟机。当然选择Windows虚拟机也是可以的，只是不太主流">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203215333304-446155281.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203215923476-712735973.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203220226804-1047305166.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203220428413-1012102344.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203220539944-339700366.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203220629991-972301993.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203221536569-163455782.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203220848991-224244246.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203221233460-1588080758.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203221133335-1003452712.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203221305101-1765862488.png">
+<meta property="og:updated_time" content="2018-11-15T12:40:31.771Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【微软大法好】VS Tools for AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC&#x2F;NV系列">
+<meta name="twitter:description" content="接着上文，现在我们需要一种穷人的方法来搭建好Azure虚拟机。 思路很简单，因为AI组件的原理其实是传送了script文件和命令上去，那么我们这个虚拟机只要做好了所有的配置，那么我们就可以将它当作深度学习虚拟机来用了。 写到这里，我忍不住哀叹一声。买不起外置显卡的穷人，只能绞尽脑汁想这种省钱的办法。 新建一个Ubuntu 16.04LTS虚拟机。当然选择Windows虚拟机也是可以的，只是不太主流">
+<meta name="twitter:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203215333304-446155281.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">张逸霄</h5>
+          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ldzhangyx" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">【微软大法好】VS Tools for AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC/NV系列</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">【微软大法好】VS Tools for AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC/NV系列</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-03T14:14:00.000Z" itemprop="datePublished" class="page-time">
+  2017-12-03
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-【微软大法好】VS-Tools-for-AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC-NV系列"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">【微软大法好】VS Tools for AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC/NV系列</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-03 22:14:00" datetime="2017-12-03T14:14:00.000Z"  itemprop="datePublished">2017-12-03</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>接着上文，现在我们需要一种穷人的方法来搭建好Azure虚拟机。</p>
+<p>思路很简单，因为AI组件的原理其实是传送了script文件和命令上去，那么我们这个虚拟机只要做好了所有的配置，那么我们就可以将它当作深度学习虚拟机来用了。</p>
+<p>写到这里，我忍不住哀叹一声。买不起外置显卡的穷人，只能绞尽脑汁想这种省钱的办法。</p>
+<p>新建一个Ubuntu 16.04LTS虚拟机。当然选择Windows虚拟机也是可以的，只是不太主流。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203215333304-446155281.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>选择存储之后，使用XShell远程连接虚拟机（这样比较方便）。</p>
+<p>注意此时的虚拟机，GPU约等于没有，所以我们不得不运行CPU版本。所以这个虚拟机的性能会比较差，但是虚拟机此时也可以拿来用作其他事情，比如当作私有云盘，或者是tizi。</p>
+<p><strong>具体的安装步骤可以查看<a href="http://www.cnblogs.com/ldzhangyx/p/7624771.html，这篇博文主要讲述了如何deploy你的虚拟机，并且安装好TensorFlow环境。注意，与那篇文章有些区别的是，Azure虚拟机一般情况下不能带动CUDA，所以我们需要做的仅仅是：" target="_blank" rel="noopener">http://www.cnblogs.com/ldzhangyx/p/7624771.html，这篇博文主要讲述了如何deploy你的虚拟机，并且安装好TensorFlow环境。注意，与那篇文章有些区别的是，Azure虚拟机一般情况下不能带动CUDA，所以我们需要做的仅仅是：</a></strong></p>
+<p><strong>1，安装Python3</strong></p>
+<p><strong>2，安装TensotFlow及必要的依赖库（如pandas），这个依赖库的列表可能很长，所以也可以安装Anaconda来做到一次性配置。</strong></p>
+<p><strong>TIPS：一定要安装好所有的依赖库，具体的列表可以通过报错信息确定。</strong></p>
+<p>下面的操作以Ubuntu版本为准，Windows版本的配置方法类似。</p>
+<p>我们打开VS installer，安装Azure SDK。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203215923476-712735973.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<hr>
+<p>&nbsp;</p>
+<p>安装完成之后的主要步骤参见：<a href="https://github.com/Microsoft/vs-tools-for-ai/blob/master/docs/tensorflow-vm.md" target="_blank" rel="noopener">https://github.com/Microsoft/vs-tools-for-ai/blob/master/docs/tensorflow-vm.md</a></p>
+<p>这里做出中文的说明。</p>
+<p>1，打开你的解决方案。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203220226804-1047305166.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>2，选择服务器资源管理器，使用SSH连接好你的虚拟机。（记得提前给你的虚拟机设置静态IP）</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203220428413-1012102344.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203220539944-339700366.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>连接完成之后你可以发现Remote machine里多了你的虚拟机。你可以点进去看看你虚拟机的文件。</p>
+<p>&nbsp;</p>
+<p>3，提交一个Job。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203220629991-972301993.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在解决方案管理器里提交job，有几个参数需要注意一下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203221536569-163455782.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>&nbsp;</p>
+<p>cluster是你的虚拟机名字。在第三行有一个Job Name必须写，你选一个自己喜欢的名字就好，作为job的区分标识。</p>
+<p>下面这些参数有些复杂，但是如果你直接提交的话，将会报类似的错误。</p>
+<p>点击这里查看所有的Jobs：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203220848991-224244246.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>&nbsp;如果你选择了Python2/3双版本共存，可能会出现这样的错误：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203221233460-1588080758.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>&nbsp;</p>
+<p>原因出在这里：</p>
+<p>如果我们在Summit的时候填写的是python，那么虚拟机会执行python tensorflowapplication.py这一条指令。</p>
+<p>而我们之前为了方便，安装了Python3使得两版本共存，那么python调用的其实是python2.要使虚拟机调用Python3，我们只需要这么修改：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203221133335-1003452712.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>&nbsp;</p>
+<p>这样我们就可以使用Python3了。</p>
+<p>提交，查看结果：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203221305101-1765862488.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如果你要在执行的时候指定一些参数，也是在类似的地方进行调整。</p>
+<p>&nbsp;</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-11-15T12:40:31.771Z" itemprop="dateUpdated">2018-11-15 20:40:31</time>
+</span><br>
+
+
+        
+        原文地址：<a href="/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC-NV系列/" target="_blank" rel="external">http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC-NV系列/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://ldzhangyx.github.io">
+            <img src="/img/avatar.jpg" alt="张逸霄">
+            张逸霄
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VS-Tools-for-AI/">VS Tools for AI</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC-NV系列/&title=《【微软大法好】VS Tools for AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC/NV系列》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC-NV系列/&title=《【微软大法好】VS Tools for AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC/NV系列》 — 张逸霄的技术小站&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC-NV系列/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【微软大法好】VS Tools for AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC/NV系列》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC-NV系列/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC-NV系列/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/12/05/【微软大法好】VS-Tools-for-AI全攻略（4）：从样例库中快速构建项目进行深度学习/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">【微软大法好】VS Tools for AI全攻略（4）：从样例库中快速构建项目进行深度学习</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（2）/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">【微软大法好】VS Tools for AI全攻略（2）</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "vjXNi1yCMdQOFUwuQ8kmMcBC-gzGzoHsz",
+            appKey: "FntMqfzRaFO2Jm4fjUC9Mz4S",
+            avatar: "mm",
+            placeholder: "随便写点什么吧",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        非常感谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>张逸霄 &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC-NV系列/&title=《【微软大法好】VS Tools for AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC/NV系列》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC-NV系列/&title=《【微软大法好】VS Tools for AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC/NV系列》 — 张逸霄的技术小站&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC-NV系列/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【微软大法好】VS Tools for AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC/NV系列》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC-NV系列/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（3）：低配置虚拟机也能玩转深度学习，无需NC-NV系列/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4AAAE+CAAAAAAxUyPsAAAFM0lEQVR42u3cwYrbQBAEUP3/T28gp8BGdlX3aAPx02mJLWn0xqCe6iHXFR9fv4+7v//8l+9n3X0/+XQ2qtff39xxeODDhw8fPnw3F00ebMb9/dzNHZMJe2Ka/3IFfPjw4cOHb8SXE8xw787acNyd20K8vv4bK3z48OHDh+8xvnahvoeeFRxJOTV7Lnz48OHDh+/f8iWRd/KQp8KItg2QFEb48OHDhw/fE3zJonoWl+flQvuoszHMWA/0OvDhw4cPH75DG9T+v78PH/jw4cOHD1/wet4UMflrfra8T6KKfGxfowMfPnz48OEbaawC6w3uLKZvpySPDIZ3x4cPHz58+OK7/+RQNq3x2aa0fbj/ZoT48OHDhw/foqubnJC3wNu44dRZm3AhmdTbT/Hhw4cPH77g03YQr4uVvGTJw/S8YJqVSu2P5trMIT58+PDhwxeUIMlj5+H7bLgtYtseGAYi+PDhw4cP3yhL3yywkwC9bbfnkcS+5ZDfJfoN4sOHDx8+fJM1cvHfWeaX3mxKO7Xsb0ur2VY2fPjw4cOHL7lL3vaelQstwaywmJUv7Zij4AAfPnz48OEL+DblwqzcyUuWWeiQNxiSKxRDwYcPHz58+NYv+DZ2zxfkbZNgdsdT0Pjw4cOHD9+Mr32A5yLvdntcXr5s2vBvxo8PHz58+PCVfPn7N7lQGxDsg/JNZH9siwA+fPjw4cMX8+VlyqYc2U9AclYSZ5wK/esqDx8+fPjw4SsLhTaCb5lmZPuW+WrLHT58+PDhwzfi28f0yaf5d/K4IY/j28Z8VMzhw4cPHz58h/jyh29f/G34ngQBLdYmOMCHDx8+fPjW16wJNsVBHkO0x4z+QHMdHz58+PDhi/lmjepkKO0C/lRk37b58/vWM4YPHz58+PDFO6w20UB+1qYxkAcZybltkIEPHz58+PDt+WYDTcLu2WM83Qjf4OLDhw8fPnwbvieC7H0jfNPGTu6Ytwpur48PHz58+PCVfE8UGfmANqH/JnTYNxvq3AUfPnz48OErX/9tiLBpgedMeVRxqi2BDx8+fPjw7fnyBXnbkM5Lh1lknwcKeXxQxBn48OHDhw/fgi8PsvPiI19+bwqO9l55c+INJT58+PDhw3eIL2lpr175cQDRFk+nGuTRDwsfPnz48OEb8c0i+HY7VzsNM8Q22phtibtmvyB8+PDhw/fxfPvIvm2xz1bcbXCwL5UKdHz48OHDh2/7vr7ygeZDb4PydoLz8bf/0sYN+PDhw4cPX8u3OW0WqSeFSDtJm+ghuQ4+fPjw4cPX8p2K5tuiYTMldTN7RIwPHz58+PA9xzdbkLft7VlbPZ/gtgCabba73aCGDx8+fPjwdSZ14zlHSa45G27emM/H07b/8eHDhw8fvpYvf7BNcLAvLE41FdpNdfjw4cOHD99Zvk0TelPonAoUWoK2bR/54MOHDx8+fIHP7FXdNtT3sfumNJlFDFGogQ8fPnz48I34ZkH2JpSfhQKzR51NeTQx+PDhw4cP35pv1V1fBOuvt4u1i/+8MGqvv8oz8OHDhw/fx/M9USi0W9Dab84+bdsJ7bn48OHDhw9ffm5SrOQv9bwAaguItlXfliCzdjs+fPjw4cM349sUEHmgf7ieCuhnLfmk6Y4PHz58+PA9zTfbstY2zmfby5JiJWn81214fPjw4cOH78f59oObtb335dGskMKHDx8+fPj2fE9sGpuFDrM2dhvHb0qow21yfPjw4cP3YXynAvFNeTFrYyfXb8usVgMfPnz48OGLNX4Bi7ziYpmnPUoAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Yixiao Zhang's Website';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Yixiao Zhang's Website';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

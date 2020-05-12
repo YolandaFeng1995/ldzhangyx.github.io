@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-126536496-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    
+    
+    <title>【微软大法好】VS Tools for AI全攻略 | 张逸霄的技术小站 | 当然也可能有一些非技术内容</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="VS Tools for AI">
+    <meta name="description" content="大家都知道微软在Connect();17大会上发布了VS Tools for AI，旨在提升Visual Studio和VSCode对日益增长的深度学习需求的体验。看了一圈，网上似乎没有一个完整的中文教程来教你怎么完整配置深度学习方案。 与此同时我也接了一个活，是俱乐部与MSRA的项目，项目的目的之一是向VS Tools for AI的samples库里增加新的算法，所以这篇技术文章就应运而生了。">
+<meta name="keywords" content="VS Tools for AI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【微软大法好】VS Tools for AI全攻略">
+<meta property="og:url" content="http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略/index.html">
+<meta property="og:site_name" content="张逸霄的技术小站">
+<meta property="og:description" content="大家都知道微软在Connect();17大会上发布了VS Tools for AI，旨在提升Visual Studio和VSCode对日益增长的深度学习需求的体验。看了一圈，网上似乎没有一个完整的中文教程来教你怎么完整配置深度学习方案。 与此同时我也接了一个活，是俱乐部与MSRA的项目，项目的目的之一是向VS Tools for AI的samples库里增加新的算法，所以这篇技术文章就应运而生了。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203211702788-1760377837.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203211756507-483638538.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203211843632-1982243054.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203212224304-1535986104.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203212310116-2112595579.png">
+<meta property="og:updated_time" content="2018-11-15T12:41:40.809Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【微软大法好】VS Tools for AI全攻略">
+<meta name="twitter:description" content="大家都知道微软在Connect();17大会上发布了VS Tools for AI，旨在提升Visual Studio和VSCode对日益增长的深度学习需求的体验。看了一圈，网上似乎没有一个完整的中文教程来教你怎么完整配置深度学习方案。 与此同时我也接了一个活，是俱乐部与MSRA的项目，项目的目的之一是向VS Tools for AI的samples库里增加新的算法，所以这篇技术文章就应运而生了。">
+<meta name="twitter:image" content="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203211702788-1760377837.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">张逸霄</h5>
+          <a href="mailto:ldzhangyx@outlook.com" title="ldzhangyx@outlook.com" class="mail">ldzhangyx@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ldzhangyx" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">【微软大法好】VS Tools for AI全攻略</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">【微软大法好】VS Tools for AI全攻略</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-03T13:25:00.000Z" itemprop="datePublished" class="page-time">
+  2017-12-03
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-【微软大法好】VS-Tools-for-AI全攻略"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">【微软大法好】VS Tools for AI全攻略</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-03 21:25:00" datetime="2017-12-03T13:25:00.000Z"  itemprop="datePublished">2017-12-03</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>大家都知道微软在Connect();17大会上发布了VS Tools for AI，旨在提升Visual Studio和VSCode对日益增长的深度学习需求的体验。看了一圈，网上似乎没有一个完整的中文教程来教你怎么完整配置深度学习方案。</p>
+<p>与此同时我也接了一个活，是俱乐部与MSRA的项目，项目的目的之一是向VS Tools for AI的samples库里增加新的算法，所以这篇技术文章就应运而生了。</p>
+<p>本文将分为以下几个部分来进行阐述：</p>
+<p><strong>1，什么是VS Tools for AI</strong></p>
+<p><strong>2，怎么在本地配置好VS Tools for AI的前端</strong></p>
+<p><strong>3，怎么配置Azure云上的后端环境</strong></p>
+<p><strong>4，怎么连接前后端，以及怎么运行TensorFlow实例</strong></p>
+<p>============================================================</p>
+<p><strong>1，什么是VS Tools for AI？</strong></p>
+<p>VS Tools for AI（下称AI组件）的官网地址：<a href="https://www.visualstudio.com/downloads/ai-tools-vs/" target="_blank" rel="noopener">https://www.visualstudio.com/downloads/ai-tools-vs/</a></p>
+<p>GitHub地址：<a href="https://github.com/Microsoft/vs-tools-for-ai" target="_blank" rel="noopener">https://github.com/Microsoft/vs-tools-for-ai</a></p>
+<p>简而言之，AI组件的用处，是让你快速构建、训练一个深度学习Project。</p>
+<p>AI组件的主要功能有：</p>
+<p><span id="result_box" class="short_text" lang="zh-CN"><span>-开发，调试和部署深度学习和人工智能解决方案：<span id="result_box" lang="zh-CN"><span>AI组件是支持CNTK，Google TensorFlow，Theano，Keras，Caffe2等深度学习框架的扩展。 您可以通过开放式架构使用其他深度学习框架。 <span>AI组件利用对Python，C / C ++ / C＃的现有代码支持，并为Cognitive Toolkit BrainScript提供额外的支持。</span>&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</span></span></span></span></p>
+<p><span class="short_text" lang="zh-CN"><span><span lang="zh-CN"><span><span>-使用&ldquo;样本库&rdquo;（就是上文提到的样例）快速构建代码：<span id="result_box" lang="zh-CN"><span>AI组件与Azure机器学习集成在一起，可以轻松浏览使用CNTK，TensorFlow，MMLSpark等的样本实验库。 <span>这使得开始深入学习AI项目很容易。</span>&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</span></span></span></span></span></span></span></p>
+<p><span class="short_text" lang="zh-CN"><span><span lang="zh-CN"><span><span><span lang="zh-CN"><span><span>-<span id="result_box" lang="zh-CN"><span>在Azure中扩展深度学习训练并运行AI模型：<span>用于AI的Visual Studio工具与Azure批处理AI和Azure机器学习服务集成，以便向Azure GPU虚拟机，Spark群集等提交深度学习作业。 <span>您可以监视最近的实验的性能，然后生成一个Web服务来为新的智能应用程序供电。</span>&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span class="short_text" lang="zh-CN"><span><span lang="zh-CN"><span><span><span lang="zh-CN"><span><span><span lang="zh-CN"><span><span><span>-<span id="result_box" lang="zh-CN">高效的AI开发人员工具，可以训练模型并将AI注入到您的应用程序中：AI组件可为开发人员和数据科学家提供最强大的一整套集成工具，用于创建，调试和部署其自定义深度学习模型。 <span>使用Visual Studio的强大功能，您可以使用刚刚培训的模型无缝地构建应用程序，而无需切换IDE。</span>&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span class="short_text" lang="zh-CN"><span><span lang="zh-CN"><span><span><span lang="zh-CN"><span><span><span lang="zh-CN"><span><span><span><span lang="zh-CN"><span>-<span id="result_box" lang="zh-CN"><span>用TensorBoard等集成开放工具可视化您的模型处理：AI组件</span>&lt;/span&gt;<span id="result_box" lang="zh-CN"><span>还集成了使用TensorBoard进行模型训练和实验的监控和可视化。 <span>在TensorBoard中打开您的作业，以在本地和远程虚拟机上运行。</span>&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<hr>
+<p>&nbsp;</p>
+<p>2，怎么在本地配置好你的AI组件前端</p>
+<p>通过阅读上文的overview，我们知道，AI组件可以说是弥补了VS的一个短板，那么要怎么安装AI组件呢？</p>
+<p>&nbsp;</p>
+<p>首先你得安装好Visual Studio 2017。其Community版本依然是免费的，我因为是MSP，拥有VS Enterprise的订阅，感谢微软爸爸给我饭吃。在安装过程中，选择好Python组件，安装Anaconda 4.4以及Python3.</p>
+<p>&nbsp;<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203211702788-1760377837.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>在这里安装，当然你也可以选择独立地安装Anaconda和Python3，并且将其加入到系统变量中，以便于在shell中调用。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203211756507-483638538.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>之后，在上文提到的网址里下载AI组件，作为一个插件安装。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203211843632-1982243054.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>&nbsp;</p>
+<p>&nbsp;安装完毕之后，你已经做好了初步准备。</p>
+<p>&nbsp;</p>
+<p>接下来，请在本机安装好TensorFlow（CPU与GPU均可），版本1.4最佳（最新版本）。CPU版本只需要</p>
+<div class="cnblogs_code">
+<pre>pip install tensorflow</pre>
+</div>
+
+<p>即可，而安装GPU版本则需要安装对应版本的CUDA和CuDNN。因为本学期我换了一台笔记本，轻薄本没有独立显卡，所以我安装的是CPU版本。</p>
+<p>&nbsp;</p>
+<hr>
+<p>&nbsp;</p>
+<p><strong>调试你的TensorFlow代码</strong></p>
+<p>在Visual Studio中创建一个新的TensorFlow项目：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203212224304-1535986104.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>&nbsp;</p>
+<p>如果一切顺利的话，你将可以看见图中的选择框。</p>
+<p>之后熟悉的工作区回来了。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images2018.cnblogs.com/blog/1037202/201712/1037202-20171203212310116-2112595579.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>&nbsp;当然，我觉得TensorFlow的基础知识不需要我来逐一讲解，看这篇博文的人应该都具有一定的TensorFlow编程技巧。</p>
+<p>编写完之后按下F5，自动启动shell，运行程序，console中输出结果。</p>
+<p>&nbsp;</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-11-15T12:41:40.809Z" itemprop="dateUpdated">2018-11-15 20:41:40</time>
+</span><br>
+
+
+        
+        原文地址：<a href="/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略/" target="_blank" rel="external">http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://ldzhangyx.github.io">
+            <img src="/img/avatar.jpg" alt="张逸霄">
+            张逸霄
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VS-Tools-for-AI/">VS Tools for AI</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略/&title=《【微软大法好】VS Tools for AI全攻略》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略/&title=《【微软大法好】VS Tools for AI全攻略》 — 张逸霄的技术小站&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【微软大法好】VS Tools for AI全攻略》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略（2）/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">【微软大法好】VS Tools for AI全攻略（2）</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/11/05/【Python音乐生成】可能有用的一些Python库/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">【Python音乐生成】可能有用的一些Python库</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "vjXNi1yCMdQOFUwuQ8kmMcBC-gzGzoHsz",
+            appKey: "FntMqfzRaFO2Jm4fjUC9Mz4S",
+            avatar: "mm",
+            placeholder: "随便写点什么吧",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        非常感谢~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>张逸霄 &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略/&title=《【微软大法好】VS Tools for AI全攻略》 — 张逸霄的技术小站&pic=http://ldzhangyx.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略/&title=《【微软大法好】VS Tools for AI全攻略》 — 张逸霄的技术小站&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【微软大法好】VS Tools for AI全攻略》 — 张逸霄的技术小站&url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略/&via=http://ldzhangyx.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://ldzhangyx.github.io/2017/12/03/【微软大法好】VS-Tools-for-AI全攻略/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACs0lEQVR42u3awW7bMBAE0Pz/T6dATwHaKDO7pOsCTyfDkCU+CVjSs/z4iI/P38fXz1+/+fOc5Jvnz8nVjh14eHh4o6F/dySXbs9M7vjdr/Ix4+Hh4d3mtYPelPj27vlDxMPDw3s3Xj5hzEp8MpHg4eHh/V+82QI3H/ozAw8PD+/deMltkrL+DMvj2nY8B7IWPDw8vK5K1w2wf/v5en8PDw8Pb9GOaqeKvNmfTxvDceLh4eFd4OVtqucoNg9k23A2ucsPI8fDw8N7OS//q392qthHFXh4eHi3eXlcm0e6s+0CyQRQXBMPDw/vGi8vwfk57YDaVlZ0Ph4eHt5R3qZkzxpmZ4t+HeDi4eHhrXmzcLaNcdsl+D5EHi6s8fDw8Ea8pJS3ZT2/Zj6RPE9ReHh4eK/n5QV3FiW0TbLnRxldGQ8PD+8Qr11Gt/HE5lfJxPPDMh0PDw/vAq+9TbKNYENtY47oCnh4eHhHeXnzfhM3tKHG7Jy/3BEPDw/vAu9Uoyt5HLPQYfbo8fDw8G7z2sZSHt3WDf78bWz+MeDh4eEtePkSNrl0XuLbM2dNODw8PLwbvBvhQj6FbCakYksBHh4e3jXevsHfbjvYxB/Fa8DDw8O7xnse0H5BvCn3m4YZHh4e3g1e24KaxRCbCSAPSvDw8PBeyYsKa1m+88X6qQ1YffsPDw8Pb8LbhBF5vNuW9dnDijZd4eHh4R3izZa8bSM/B+TbrX54GXh4eHhHeZ/lkVP308Ys2ij2lOHh4eGNeLOCm5Ty9tHkGwvyCQkPDw/vHm8THOQhRd7Was+PYlw8PDy8C7zZQPOtBsWARgceHh7e+/Nmy+X8t8N2Fx4eHt6b8c5uyUqWzrOmGh4eHt5reMkgNk2ye5uujmUteHh4eKP156l16WyjQL4JrA5z8fDw8M7wfgFcI7GGWzYF4wAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Yixiao Zhang's Website';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Yixiao Zhang's Website';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

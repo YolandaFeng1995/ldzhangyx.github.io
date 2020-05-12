@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ldzhangyx.github.io/"/>
-  <updated>2020-03-16T02:54:40.995Z</updated>
+  <updated>2020-05-12T05:37:48.289Z</updated>
   <id>http://ldzhangyx.github.io/</id>
   
   <author>
@@ -17,13 +17,40 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>一个罕见的bug：PyCharm无法连接SFTP server，提示could not resolve address</title>
+    <link href="http://ldzhangyx.github.io/2020/05/12/pycharm-ssh-debug/"/>
+    <id>http://ldzhangyx.github.io/2020/05/12/pycharm-ssh-debug/</id>
+    <published>2020-05-12T05:37:48.000Z</published>
+    <updated>2020-05-12T05:37:48.289Z</updated>
+    
+    <content type="html"><![CDATA[<p>bug描述：</p><p>PyCharm 2019.2版本之前建立的file transfer和deployment连接失效，test connection提示：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Connection to xxx failed.</span><br><span class="line">Could not resolve xxx.</span><br></pre></td></tr></table></figure><p>分析：</p><p>这是一个罕见的bug，全网尚无同样的情况发生。由于我使用MobaXTerm仍然可以正常连接server，我推测问题在本机设置，可能是PyCharm或SSH的问题。</p><p>我记起之前在Windows下，我调整了<code>C:\Users\xxx\.ssh</code>文件夹的权限，问题可能出在这里。</p><p>我重新配置了该文件夹的权限，使得我的账户可以完全控制该文件夹和子文件。</p><p>之后我发现<code>known_hosts</code>文件在当前账户下没有写入权限。我重新设置了该文件的权限，分配了当前账户的完全控制权限，并且开启继承。之后用一个同名空文件将该文件覆盖。</p><p>问题解决，连接成功。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;bug描述：&lt;/p&gt;
+&lt;p&gt;PyCharm 2019.2版本之前建立的file transfer和deployment连接失效，test connection提示：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td cla
+      
+    
+    </summary>
+    
+      <category term="开发笔记" scheme="http://ldzhangyx.github.io/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="debug" scheme="http://ldzhangyx.github.io/tags/debug/"/>
+    
+  </entry>
+  
+  <entry>
     <title>matplotlib最佳实践技巧</title>
     <link href="http://ldzhangyx.github.io/2020/03/16/matplotlib-practice/"/>
     <id>http://ldzhangyx.github.io/2020/03/16/matplotlib-practice/</id>
     <published>2020-03-16T02:54:40.000Z</published>
-    <updated>2020-03-16T02:54:40.995Z</updated>
+    <updated>2020-04-20T03:08:18.127Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="在subplot中使用seaborn绘制子图"><a href="#在subplot中使用seaborn绘制子图" class="headerlink" title="在subplot中使用seaborn绘制子图"></a>在subplot中使用seaborn绘制子图</h2><p><a href="https://stackoverflow.com/questions/41384040/subplot-for-seaborn-boxplot" target="_blank" rel="noopener">https://stackoverflow.com/questions/41384040/subplot-for-seaborn-boxplot</a><br><a href="https://matplotlib.org/3.2.0/api/_as_gen/matplotlib.pyplot.subplots.html" target="_blank" rel="noopener">https://matplotlib.org/3.2.0/api/_as_gen/matplotlib.pyplot.subplots.html</a><br><a href="https://stackoverflow.com/questions/34162443/why-do-many-examples-use-fig-ax-plt-subplots-in-matplotlib-pyplot-python" target="_blank" rel="noopener">https://stackoverflow.com/questions/34162443/why-do-many-examples-use-fig-ax-plt-subplots-in-matplotlib-pyplot-python</a></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fig, axes = fig.subplot(nrows, ncolumns, figsize=(A,B)) <span class="comment"># 三个参数可选，如果不填就默认1x1</span></span><br><span class="line">                                                        <span class="comment"># 为什么要这样初始化，请看上面第三个链接</span></span><br><span class="line"><span class="comment"># 这里ax是一个列表，每一个元素就是子图index。</span></span><br><span class="line"><span class="comment"># fig是子图对象列表</span></span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].set_title(<span class="string">'title1'</span>) <span class="comment"># 以这种方式设定title</span></span><br><span class="line">axes[<span class="number">1</span>].set_title(<span class="string">'title1'</span>)</span><br><span class="line"></span><br><span class="line">sns.scatterplot(x, y, data, <span class="comment"># 指定数据</span></span><br><span class="line">                hue, palatte=<span class="string">'rainbow'</span>, <span class="comment"># 指定怎么分类，怎么染色</span></span><br><span class="line">                markers=<span class="keyword">True</span>, <span class="comment"># 指定图例</span></span><br><span class="line">                ax = axes[<span class="number">0</span>] <span class="comment"># 指定绘制在哪个子图里</span></span><br><span class="line">                )</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">axs[<span class="number">1</span>].scatter(x, y) <span class="comment">#plt直接操作</span></span><br></pre></td></tr></table></figure><p>其中axes的内容为：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array([&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7f9ed85feb50&gt;,</span><br><span class="line">       &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7f9ed8980650&gt;],</span><br><span class="line">      dtype=object)</span><br></pre></td></tr></table></figure><h2 id="在subplot中绘制3D图的不优雅的方法"><a href="#在subplot中绘制3D图的不优雅的方法" class="headerlink" title="在subplot中绘制3D图的不优雅的方法"></a>在subplot中绘制3D图的不优雅的方法</h2><p>使用<code>add_subplot()</code>方法，以和上面不一样的方法初始化子图。<br><a href="https://zhuanlan.zhihu.com/p/66306575" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/66306575</a><br><a href="https://matplotlib.org/mpl_toolkits/mplot3d/tutorial.html" target="_blank" rel="noopener">https://matplotlib.org/mpl_toolkits/mplot3d/tutorial.html</a></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</span><br><span class="line"></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax1 = fig.add_subplot(<span class="number">121</span>, projection=<span class="string">'3d'</span>)</span><br><span class="line">ax2 = fig.add_subplot(<span class="number">122</span>) <span class="comment"># 用于别的子图</span></span><br></pre></td></tr></table></figure><p>当然，如果只想画一个3D图，还有别的办法可选，如：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fig = plt.figure()</span><br><span class="line">ax = plt.axes(projection=<span class="string">'3d'</span>)</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h2 id="在subplot中使用seaborn绘制子图"><a href="#在subplot中使用seaborn绘制子图" class="headerlink" title="在subplot中使用seaborn绘制子图"></a>在subplot中使用seaborn绘制子图</h2><p><a href="https://stackoverflow.com/questions/41384040/subplot-for-seaborn-boxplot" target="_blank" rel="noopener">https://stackoverflow.com/questions/41384040/subplot-for-seaborn-boxplot</a><br><a href="https://matplotlib.org/3.2.0/api/_as_gen/matplotlib.pyplot.subplots.html" target="_blank" rel="noopener">https://matplotlib.org/3.2.0/api/_as_gen/matplotlib.pyplot.subplots.html</a><br><a href="https://stackoverflow.com/questions/34162443/why-do-many-examples-use-fig-ax-plt-subplots-in-matplotlib-pyplot-python" target="_blank" rel="noopener">https://stackoverflow.com/questions/34162443/why-do-many-examples-use-fig-ax-plt-subplots-in-matplotlib-pyplot-python</a></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fig, axes = fig.subplot(nrows, ncolumns, figsize=(A,B)) <span class="comment"># 三个参数可选，如果不填就默认1x1</span></span><br><span class="line">                                                        <span class="comment"># 为什么要这样初始化，请看上面第三个链接</span></span><br><span class="line"><span class="comment"># 这里ax是一个列表，每一个元素就是子图index。</span></span><br><span class="line"><span class="comment"># fig是子图对象列表</span></span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].set_title(<span class="string">'title1'</span>) <span class="comment"># 以这种方式设定title</span></span><br><span class="line">axes[<span class="number">1</span>].set_title(<span class="string">'title1'</span>)</span><br><span class="line"></span><br><span class="line">sns.scatterplot(x, y, data, <span class="comment"># 指定数据</span></span><br><span class="line">                hue, palatte=<span class="string">'rainbow'</span>, <span class="comment"># 指定怎么分类，怎么染色</span></span><br><span class="line">                markers=<span class="keyword">True</span>, <span class="comment"># 指定图例</span></span><br><span class="line">                ax = axes[<span class="number">0</span>] <span class="comment"># 指定绘制在哪个子图里</span></span><br><span class="line">                )</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">axs[<span class="number">1</span>].scatter(x, y) <span class="comment">#plt直接操作</span></span><br></pre></td></tr></table></figure><p>其中axes的内容为：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array([&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7f9ed85feb50&gt;,</span><br><span class="line">       &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7f9ed8980650&gt;],</span><br><span class="line">      dtype=object)</span><br></pre></td></tr></table></figure><h2 id="在subplot中绘制3D图的不优雅的方法"><a href="#在subplot中绘制3D图的不优雅的方法" class="headerlink" title="在subplot中绘制3D图的不优雅的方法"></a>在subplot中绘制3D图的不优雅的方法</h2><p>使用<code>add_subplot()</code>方法，以和上面不一样的方法初始化子图。<br><a href="https://zhuanlan.zhihu.com/p/66306575" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/66306575</a><br><a href="https://matplotlib.org/mpl_toolkits/mplot3d/tutorial.html" target="_blank" rel="noopener">https://matplotlib.org/mpl_toolkits/mplot3d/tutorial.html</a></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</span><br><span class="line"></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax1 = fig.add_subplot(<span class="number">121</span>, projection=<span class="string">'3d'</span>)</span><br><span class="line">ax2 = fig.add_subplot(<span class="number">122</span>) <span class="comment"># 用于别的子图</span></span><br></pre></td></tr></table></figure><p>当然，如果只想画一个3D图，还有别的办法可选，如：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fig = plt.figure()</span><br><span class="line">ax = plt.axes(projection=<span class="string">'3d'</span>)</span><br></pre></td></tr></table></figure><h2 id="matplotlib的图做交互式展示"><a href="#matplotlib的图做交互式展示" class="headerlink" title="matplotlib的图做交互式展示"></a>matplotlib的图做交互式展示</h2><p>使用ipympl扩展，在jupyter notebook和jupyter lab上均可使用。</p><p>安装完之后，在jupyter notebook的代码里加一行：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib widget</span><br></pre></td></tr></table></figure><p>这里有一个坑是，2020年4月当前版本的new edge似乎有显示bug。我切换到firefox quantum之后可以正常交互。</p>]]></content>
     
     <summary type="html">
     
@@ -302,9 +329,9 @@
     
       <category term="music generation" scheme="http://ldzhangyx.github.io/tags/music-generation/"/>
     
-      <category term="心得体会" scheme="http://ldzhangyx.github.io/tags/%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"/>
-    
       <category term="PyTorch" scheme="http://ldzhangyx.github.io/tags/PyTorch/"/>
+    
+      <category term="心得体会" scheme="http://ldzhangyx.github.io/tags/%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"/>
     
   </entry>
   
@@ -506,36 +533,6 @@
       <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
     
       <category term="software" scheme="http://ldzhangyx.github.io/tags/software/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Coding on Server! PyCharm远程调试、文件同步、GitHub版本控制简明指南</title>
-    <link href="http://ldzhangyx.github.io/2019/07/29/ssh-for-pycharm/"/>
-    <id>http://ldzhangyx.github.io/2019/07/29/ssh-for-pycharm/</id>
-    <published>2019-07-29T09:22:55.000Z</published>
-    <updated>2019-07-29T10:10:17.026Z</updated>
-    
-    <content type="html"><![CDATA[<p>这个指南适用于想在PyCharm上debug，同时使用远程服务器上的解释器运行代码的人。</p><a id="more"></a><p>使用PyCharm本地编辑代码，调用远程服务器的Python解释器。这个方案支持PyCharm单步调试等操作。</p><ol><li><p>新建或打开你想运行的项目。</p></li><li><p>Tools -&gt; Deployment -&gt; Configuration，打开界面。</p></li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="1.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><ol><li>在界面中配置对服务器的连接。</li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="2.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><ol><li>在Mappings里面设置文件映射，映射到服务器的对应目录。</li></ol><p>注意，对应的目录是步骤3的root path + Mappings的Deployment path。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="3.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><ol><li><p>点击左边侧栏的√，使得服务器名字变为粗体。这代表你启用了这个Deployment。</p></li><li><p>Tools -&gt; Deployment -&gt; Settings，将文件同步设置，更改为仅在ctrl+S时保存。至此，所有的本地代码文件都会被同步到服务器上。</p></li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="5.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><ol><li>File -&gt; Settings -&gt; Project -&gt; Project Interpreter，打开界面，右上角选择小齿轮， Add，选择服务器上的python.exe应用程序，链接到远程解释器。</li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="4.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><ol><li><p>此时不需要特意设置path mappings，因为会沿用Deployment的mapping。</p></li><li><p>我们开始版本控制。VCS -&gt; Import into Version Control -&gt; Share project on GitHub。</p></li></ol><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="6.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>此时你的每一次保存会被视为一次commit。</p><p>配置完毕。</p><p>以下是你可能遇到的问题：</p><ol><li><p>File Transfer失败。可以检查一下mapping地址是否正确。</p></li><li><p>Error:Python helpers are not copied yet to the remote host. Please wait until remote interpreter initialization finishes. 如果你的服务器名称是字符串，推荐改用IP地址；如果无效，请删除服务器上的.pycharm_helper文件夹，等待重新建立index。</p></li></ol><p>以下是一些附带的常用操作。</p><ol><li>PyCharm在debug的时候，可以在右下角的Console Tab点击Python图标，进入交互式Python，你可以在断点debug时运行各种表达式。</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这个指南适用于想在PyCharm上debug，同时使用远程服务器上的解释器运行代码的人。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="简明指南" scheme="http://ldzhangyx.github.io/categories/%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/"/>
-    
-    
-      <category term="python" scheme="http://ldzhangyx.github.io/tags/python/"/>
-    
-      <category term="tutorial" scheme="http://ldzhangyx.github.io/tags/tutorial/"/>
-    
-      <category term="software" scheme="http://ldzhangyx.github.io/tags/software/"/>
-    
-      <category term="PyCharm" scheme="http://ldzhangyx.github.io/tags/PyCharm/"/>
-    
-      <category term="SSH" scheme="http://ldzhangyx.github.io/tags/SSH/"/>
     
   </entry>
   
