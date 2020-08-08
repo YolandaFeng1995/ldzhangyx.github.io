@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ldzhangyx.github.io/about/index.html</loc>
+    
+    <lastmod>2020-08-08T07:54:33.515Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ldzhangyx.github.io/pubs/index.html</loc>
     
     <lastmod>2020-08-08T07:23:08.341Z</lastmod>
@@ -82,13 +89,6 @@
     <loc>http://ldzhangyx.github.io/2020/01/13/binary-tree/</loc>
     
     <lastmod>2020-01-13T07:36:18.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/about/index.html</loc>
-    
-    <lastmod>2020-01-07T08:50:47.000Z</lastmod>
     
   </url>
   
