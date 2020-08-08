@@ -2,247 +2,254 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://ldzhangyx.github.io/2020/05/12/pycharm-ssh-debug/</loc>
+    <loc>http://ldzhangyx.github.io/pubs/index.html</loc>
     
-    <lastmod>2020-05-12T05:37:48.289Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/2020/03/16/matplotlib-practice/</loc>
-    
-    <lastmod>2020-04-20T03:08:18.127Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/game-rank/index.html</loc>
-    
-    <lastmod>2020-04-08T07:23:33.122Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/comic-rank/index.html</loc>
-    
-    <lastmod>2020-04-08T05:04:06.499Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/abc/index.html</loc>
-    
-    <lastmod>2020-04-03T19:04:44.877Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/community/index.html</loc>
-    
-    <lastmod>2020-03-15T07:21:37.090Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/2019/08/05/pytorch-0801/</loc>
-    
-    <lastmod>2020-02-14T18:08:45.357Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/2020/02/07/diora-urnng/</loc>
-    
-    <lastmod>2020-02-10T13:43:37.302Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/2020/01/13/music-practice/</loc>
-    
-    <lastmod>2020-01-13T08:03:05.708Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/2020/01/13/binary-tree/</loc>
-    
-    <lastmod>2020-01-13T07:36:18.357Z</lastmod>
+    <lastmod>2020-08-08T07:23:08.341Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/projects/index.html</loc>
     
-    <lastmod>2020-01-11T08:27:11.840Z</lastmod>
+    <lastmod>2020-08-08T07:22:45.868Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/2020/05/12/pycharm-ssh-debug/</loc>
+    
+    <lastmod>2020-05-12T05:37:48.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/2020/03/16/matplotlib-practice/</loc>
+    
+    <lastmod>2020-04-20T03:08:18.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/game-rank/index.html</loc>
+    
+    <lastmod>2020-04-08T07:23:33.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/comic-rank/index.html</loc>
+    
+    <lastmod>2020-04-08T05:04:06.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/abc/index.html</loc>
+    
+    <lastmod>2020-04-03T19:04:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/community/index.html</loc>
+    
+    <lastmod>2020-03-15T07:21:37.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/2019/08/05/pytorch-0801/</loc>
+    
+    <lastmod>2020-02-14T18:08:45.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/2020/02/07/diora-urnng/</loc>
+    
+    <lastmod>2020-02-10T13:43:37.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/2020/01/13/music-practice/</loc>
+    
+    <lastmod>2020-01-13T08:03:05.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/2020/01/13/binary-tree/</loc>
+    
+    <lastmod>2020-01-13T07:36:18.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/about/index.html</loc>
     
-    <lastmod>2020-01-07T08:50:47.741Z</lastmod>
+    <lastmod>2020-01-07T08:50:47.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/12/09/bernoulli-bool/</loc>
     
-    <lastmod>2019-12-10T08:03:06.148Z</lastmod>
+    <lastmod>2019-12-10T08:03:06.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/12/04/pytorch-skill-1204/</loc>
     
-    <lastmod>2019-12-03T20:49:25.820Z</lastmod>
+    <lastmod>2019-12-03T20:49:25.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/11/26/musescore/</loc>
     
-    <lastmod>2019-11-26T14:09:40.812Z</lastmod>
+    <lastmod>2019-11-26T14:09:40.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/10/16/practice-1016/</loc>
     
-    <lastmod>2019-11-11T07:30:47.266Z</lastmod>
+    <lastmod>2019-11-11T07:30:47.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/10/30/polytree/</loc>
     
-    <lastmod>2019-10-30T10:05:10.618Z</lastmod>
+    <lastmod>2019-10-30T10:05:10.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/10/23/update-1023/</loc>
     
-    <lastmod>2019-10-23T08:11:41.175Z</lastmod>
+    <lastmod>2019-10-23T08:11:41.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/10/16/python-trick-1016/</loc>
     
-    <lastmod>2019-10-16T08:50:16.693Z</lastmod>
+    <lastmod>2019-10-16T08:50:16.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/09/12/music-conference-deadline/</loc>
     
-    <lastmod>2019-10-16T07:23:54.398Z</lastmod>
+    <lastmod>2019-10-16T07:23:54.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/09/11/lstm/</loc>
     
-    <lastmod>2019-09-11T10:20:56.885Z</lastmod>
+    <lastmod>2019-09-11T10:20:56.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/08/10/jiuge/</loc>
     
-    <lastmod>2019-08-10T07:30:27.415Z</lastmod>
+    <lastmod>2019-08-10T07:30:27.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/07/21/music-toolkits/</loc>
     
-    <lastmod>2019-08-09T02:08:25.953Z</lastmod>
+    <lastmod>2019-08-09T02:08:25.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/07/03/on-lstm/</loc>
     
-    <lastmod>2019-08-07T09:29:21.046Z</lastmod>
+    <lastmod>2019-08-07T09:29:21.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/08/07/tree-evaluation/</loc>
     
-    <lastmod>2019-08-07T09:03:45.412Z</lastmod>
+    <lastmod>2019-08-07T09:03:45.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/07/31/awd-lstm/</loc>
     
-    <lastmod>2019-08-01T07:53:53.966Z</lastmod>
+    <lastmod>2019-08-01T07:53:53.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/07/29/ec2vae/</loc>
     
-    <lastmod>2019-07-31T13:28:26.633Z</lastmod>
+    <lastmod>2019-07-31T13:28:26.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/07/30/argparse/</loc>
     
-    <lastmod>2019-07-30T07:49:14.937Z</lastmod>
+    <lastmod>2019-07-30T07:49:14.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/07/29/ssh-for-pycharm/</loc>
     
-    <lastmod>2019-07-29T10:10:17.026Z</lastmod>
+    <lastmod>2019-07-29T10:10:17.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/07/29/mobaxterm-tutorial/</loc>
     
-    <lastmod>2019-07-29T10:10:12.163Z</lastmod>
+    <lastmod>2019-07-29T10:10:12.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/07/26/esac/</loc>
     
-    <lastmod>2019-07-27T08:39:22.296Z</lastmod>
+    <lastmod>2019-07-27T08:39:22.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/07/21/gnn-for-performance/</loc>
     
-    <lastmod>2019-07-21T16:15:10.050Z</lastmod>
+    <lastmod>2019-07-21T16:15:10.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/07/14/abc-midi/</loc>
     
-    <lastmod>2019-07-14T09:38:09.522Z</lastmod>
+    <lastmod>2019-07-14T09:38:09.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/07/12/salami-dataset/</loc>
     
-    <lastmod>2019-07-13T06:00:35.318Z</lastmod>
+    <lastmod>2019-07-13T06:00:35.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ldzhangyx.github.io/2019/07/08/slurm-quickstart/</loc>
     
-    <lastmod>2019-07-08T11:12:53.815Z</lastmod>
+    <lastmod>2019-07-08T11:12:53.000Z</lastmod>
     
   </url>
   
@@ -352,7 +359,7 @@
   </url>
   
   <url>
-    <loc>http://ldzhangyx.github.io/2019/07/02/python-init/</loc>
+    <loc>http://ldzhangyx.github.io/2020/06/20/python-init/</loc>
     
     <lastmod>2018-11-16T05:36:18.000Z</lastmod>
     

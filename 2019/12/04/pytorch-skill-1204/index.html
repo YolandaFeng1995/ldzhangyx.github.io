@@ -40,7 +40,7 @@ ga('send', 'pageview');
 <meta property="og:site_name" content="张逸霄的技术小站">
 <meta property="og:description" content="使用PyTorch编写代码的时候，我们通常将模型整合进一个类，在init方法里声明模型结构，在forward方法里约定模型里数据的正向流动，然后PyTorch自动生成数据的方向传播backward方法。 PyTorch在1.3版本及之后，规定forward方法必须是静态方法。违反了该原则的代码将会在运行时报下列错误： 1&amp;quot;Legacy autograd function with non">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-03T20:49:25.820Z">
+<meta property="og:updated_time" content="2019-12-03T20:49:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PyTorch 1.3及以上版本关于forward函数@staticmethod装饰器的一个坑和解决方案">
 <meta name="twitter:description" content="使用PyTorch编写代码的时候，我们通常将模型整合进一个类，在init方法里声明模型结构，在forward方法里约定模型里数据的正向流动，然后PyTorch自动生成数据的方向传播backward方法。 PyTorch在1.3版本及之后，规定forward方法必须是静态方法。违反了该原则的代码将会在运行时报下列错误： 1&amp;quot;Legacy autograd function with non">
@@ -107,6 +107,13 @@ ga('send', 'pageview');
             </li>
         
             <li class="waves-block waves-effect">
+              <a href="/pubs"  >
+                <i class="icon icon-lg icon-pubs"></i>
+                论文列表
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
               <a href="/projects"  >
                 <i class="icon icon-lg icon-code"></i>
                 项目列表
@@ -128,6 +135,20 @@ ga('send', 'pageview');
             </li>
         
             <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-minus"></i>
+                Minus
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
               <a href="https://yixiao-music.github.io" target="_blank" >
                 <i class="icon icon-lg icon-music"></i>
                 音乐会议Deadline
@@ -138,13 +159,6 @@ ga('send', 'pageview');
               <a href="/abc"  >
                 <i class="icon icon-lg icon-play"></i>
                 ABCjs在线渲染工具
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                关于我
               </a>
             </li>
         
@@ -247,7 +261,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-12-03T20:49:25.820Z" itemprop="dateUpdated">2019-12-04 04:49:25</time>
+    最后更新时间：<time datetime="2019-12-03T20:49:25.000Z" itemprop="dateUpdated">2019-12-04 04:49:25</time>
 </span><br>
 
 
