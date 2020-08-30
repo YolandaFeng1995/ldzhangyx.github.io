@@ -32,13 +32,13 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="music generation,音乐生成,deep learning,toolkit">
-    <meta name="description" content="也许是全网第一篇MusPy评测？ 很久没写笔记了。最近一段时间很忙，预计这几天会陆陆续续将看过的文章的笔记更新上。处于更新列表的文章列于这篇笔记最后。 什么是MusPyMusPy这个词来自于今年ISMIR里的论文：《MusPy: A Toolkit for Symbolic Music Generation》，作者是UCSD计算机音乐组的学生，其中一作Hao-Wen Dong曾是台湾Yi-Hsua">
+    <meta name="description" content="也许是全网第一篇MusPy评测？ 评价写在最前面：这是一个实用性极强的库，为每一个入行的人铺平了道路，使得人们能轻松地获取和清洗数据集。也许我该称呼它为symbolic music界的torchvision？总之，非常推荐作为轮子使用，加入到自己的常备库里。 但是，不可忽略的一点是，使用下来bug不少。建议等几个版本。 很久没写笔记了。最近一段时间很忙，预计这几天会陆陆续续将看过的文章的笔记更新上">
 <meta name="keywords" content="music generation,音乐生成,deep learning,toolkit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="音乐生成工具包MusPy简介和快速上手指南">
 <meta property="og:url" content="http://ldzhangyx.github.io/2020/08/30/muspy/index.html">
 <meta property="og:site_name" content="张逸霄的技术小站">
-<meta property="og:description" content="也许是全网第一篇MusPy评测？ 很久没写笔记了。最近一段时间很忙，预计这几天会陆陆续续将看过的文章的笔记更新上。处于更新列表的文章列于这篇笔记最后。 什么是MusPyMusPy这个词来自于今年ISMIR里的论文：《MusPy: A Toolkit for Symbolic Music Generation》，作者是UCSD计算机音乐组的学生，其中一作Hao-Wen Dong曾是台湾Yi-Hsua">
+<meta property="og:description" content="也许是全网第一篇MusPy评测？ 评价写在最前面：这是一个实用性极强的库，为每一个入行的人铺平了道路，使得人们能轻松地获取和清洗数据集。也许我该称呼它为symbolic music界的torchvision？总之，非常推荐作为轮子使用，加入到自己的常备库里。 但是，不可忽略的一点是，使用下来bug不少。建议等几个版本。 很久没写笔记了。最近一段时间很忙，预计这几天会陆陆续续将看过的文章的笔记更新上">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/08/30/muspy/1.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/08/30/muspy/2.png">
@@ -59,10 +59,10 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/08/30/muspy/18.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/08/30/muspy/19.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/08/30/muspy/20.png">
-<meta property="og:updated_time" content="2020-08-30T19:18:31.314Z">
+<meta property="og:updated_time" content="2020-08-30T19:51:39.896Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="音乐生成工具包MusPy简介和快速上手指南">
-<meta name="twitter:description" content="也许是全网第一篇MusPy评测？ 很久没写笔记了。最近一段时间很忙，预计这几天会陆陆续续将看过的文章的笔记更新上。处于更新列表的文章列于这篇笔记最后。 什么是MusPyMusPy这个词来自于今年ISMIR里的论文：《MusPy: A Toolkit for Symbolic Music Generation》，作者是UCSD计算机音乐组的学生，其中一作Hao-Wen Dong曾是台湾Yi-Hsua">
+<meta name="twitter:description" content="也许是全网第一篇MusPy评测？ 评价写在最前面：这是一个实用性极强的库，为每一个入行的人铺平了道路，使得人们能轻松地获取和清洗数据集。也许我该称呼它为symbolic music界的torchvision？总之，非常推荐作为轮子使用，加入到自己的常备库里。 但是，不可忽略的一点是，使用下来bug不少。建议等几个版本。 很久没写笔记了。最近一段时间很忙，预计这几天会陆陆续续将看过的文章的笔记更新上">
 <meta name="twitter:image" content="http://ldzhangyx.github.io/2020/08/30/muspy/1.png">
     
         <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
@@ -233,7 +233,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是MusPy"><span class="post-toc-number">1.</span> <span class="post-toc-text">什么是MusPy</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Introduction</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Related-Works"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Related Works</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MusPy支持的数据集"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">MusPy支持的数据集</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MusPy允许导出的数据表示"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">MusPy允许导出的数据表示</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MusPy的评估工具"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">MusPy的评估工具</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MusPy快速实战"><span class="post-toc-number">2.</span> <span class="post-toc-text">MusPy快速实战</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装MusPy"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">安装MusPy</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#任务：加载Nottingham数据集，并可视化数据"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">任务：加载Nottingham数据集，并可视化数据</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#"><span class="post-toc-number">3.</span> <span class="post-toc-text">#</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更新计划"><span class="post-toc-number">4.</span> <span class="post-toc-text">更新计划</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">论文笔记</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#软件工程"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">软件工程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#学术界和业界"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">学术界和业界</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是MusPy"><span class="post-toc-number">1.</span> <span class="post-toc-text">什么是MusPy</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Introduction</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Related-Works"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Related Works</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MusPy支持的数据集"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">MusPy支持的数据集</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MusPy允许导出的数据表示"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">MusPy允许导出的数据表示</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MusPy的评估工具"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">MusPy的评估工具</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MusPy快速实战"><span class="post-toc-number">2.</span> <span class="post-toc-text">MusPy快速实战</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装MusPy"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">安装MusPy</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#任务：加载Nottingham数据集，并可视化数据"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">任务：加载Nottingham数据集，并可视化数据</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#任务：评测数据的基本指标"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">任务：评测数据的基本指标</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更新计划"><span class="post-toc-number">3.</span> <span class="post-toc-text">更新计划</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#论文笔记"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">论文笔记</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#软件工程"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">软件工程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#学术界和业界"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">学术界和业界</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -260,6 +260,8 @@ ga('send', 'pageview');
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <p><strong>也许是全网第一篇MusPy评测？</strong></p>
+<p>评价写在最前面：<strong>这是一个实用性极强的库，为每一个入行的人铺平了道路，使得人们能轻松地获取和清洗数据集。也许我该称呼它为symbolic music界的torchvision？总之，非常推荐作为轮子使用，加入到自己的常备库里。</strong></p>
+<p><strong>但是，不可忽略的一点是，使用下来bug不少。建议等几个版本。</strong></p>
 <p>很久没写笔记了。最近一段时间很忙，预计这几天会陆陆续续将看过的文章的笔记更新上。处于更新列表的文章列于这篇笔记最后。</p>
 <h2 id="什么是MusPy"><a href="#什么是MusPy" class="headerlink" title="什么是MusPy"></a>什么是MusPy</h2><p>MusPy这个词来自于今年ISMIR里的论文：《MusPy: A Toolkit for Symbolic Music Generation》，作者是UCSD计算机音乐组的学生，其中一作Hao-Wen Dong曾是台湾Yi-Hsuan Yang组的学生，二作Ke Chen是上纽大Music X Lab的前学生。现两人均在UCSD读博。</p>
 <p>文章中介绍到，MusPy是一个用于生成symbolic music的开源Python库，其功能包括：</p>
@@ -397,7 +399,7 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<p>总之先换一个数据集试试看。NESMusicDatabase目前是正常的。花了8分钟处理完毕，速度还行。</p>
+<p>总之先换一个数据集试试看。<strong>EssenFolksong数据集也不能正常转换，会被卡在927上。</strong>NESMusicDatabase目前是正常的。花了8分钟处理完毕，速度还行。</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -464,7 +466,7 @@ ga('send', 'pageview');
 <p>结论：<strong>除了NottinghamDatabase这个意外，其他大部分函数运作正常，用起来很舒服。文档也还算清晰，值得好评。</strong></p>
 <p>两个issue已经上报：</p>
 <p><a href="https://github.com/salu133445/muspy/issues/2" target="_blank" rel="noopener">https://github.com/salu133445/muspy/issues/2</a><br><a href="https://github.com/salu133445/muspy/issues/3" target="_blank" rel="noopener">https://github.com/salu133445/muspy/issues/3</a></p>
-<h2 id=""><a href="#" class="headerlink" title="#"></a>#</h2><h2 id="更新计划"><a href="#更新计划" class="headerlink" title="更新计划"></a>更新计划</h2><h3 id="论文笔记"><a href="#论文笔记" class="headerlink" title="论文笔记"></a>论文笔记</h3><ul>
+<h3 id="任务：评测数据的基本指标"><a href="#任务：评测数据的基本指标" class="headerlink" title="任务：评测数据的基本指标"></a>任务：评测数据的基本指标</h3><h2 id="更新计划"><a href="#更新计划" class="headerlink" title="更新计划"></a>更新计划</h2><h3 id="论文笔记"><a href="#论文笔记" class="headerlink" title="论文笔记"></a>论文笔记</h3><ul>
 <li>Novice-AI Music Co-Creation via AI-Steering Tools for Deep Generative Models</li>
 <li>Jukebox: A Generative Model for Music</li>
 <li>MixPoet: Diverse Poetry Generation via Learning Controllable Mixed Latent Space</li>
@@ -492,7 +494,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-30T19:18:31.314Z" itemprop="dateUpdated">2020-08-31 03:18:31</time>
+    最后更新时间：<time datetime="2020-08-30T19:51:39.896Z" itemprop="dateUpdated">2020-08-31 03:51:39</time>
 </span><br>
 
 
