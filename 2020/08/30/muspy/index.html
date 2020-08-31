@@ -32,13 +32,13 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="music generation,音乐生成,deep learning,toolkit">
-    <meta name="description" content="也许是全网第一篇MusPy评测？ 评价写在最前面：这是一个实用性极强的库，为每一个入行的人铺平了道路，使得人们能轻松地获取和清洗数据集。也许我该称呼它为symbolic music界的torchvision？总之，非常推荐作为轮子使用，加入到自己的常备库里。 但是，不可忽略的一点是，使用下来bug不少。建议等几个版本。 很久没写笔记了。最近一段时间很忙，预计这几天会陆陆续续将看过的文章的笔记更新上">
+    <meta name="description" content="2020.8.31更新：初版的bug已经被修复，现移除相关描述。 也许是全网第一篇MusPy评测？ 评价写在最前面：这是一个实用性极强的库，为每一个入行的人铺平了道路，使得人们能轻松地获取和清洗数据集。也许我该称呼它为symbolic music界的torchvision。 总之，非常推荐作为轮子使用，加入到自己的常备库里。 很久没写笔记了。最近一段时间很忙，预计这几天会陆陆续续将看过的文章的笔记">
 <meta name="keywords" content="music generation,音乐生成,deep learning,toolkit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="音乐生成工具包MusPy简介和快速上手指南">
 <meta property="og:url" content="http://ldzhangyx.github.io/2020/08/30/muspy/index.html">
 <meta property="og:site_name" content="张逸霄的技术小站">
-<meta property="og:description" content="也许是全网第一篇MusPy评测？ 评价写在最前面：这是一个实用性极强的库，为每一个入行的人铺平了道路，使得人们能轻松地获取和清洗数据集。也许我该称呼它为symbolic music界的torchvision？总之，非常推荐作为轮子使用，加入到自己的常备库里。 但是，不可忽略的一点是，使用下来bug不少。建议等几个版本。 很久没写笔记了。最近一段时间很忙，预计这几天会陆陆续续将看过的文章的笔记更新上">
+<meta property="og:description" content="2020.8.31更新：初版的bug已经被修复，现移除相关描述。 也许是全网第一篇MusPy评测？ 评价写在最前面：这是一个实用性极强的库，为每一个入行的人铺平了道路，使得人们能轻松地获取和清洗数据集。也许我该称呼它为symbolic music界的torchvision。 总之，非常推荐作为轮子使用，加入到自己的常备库里。 很久没写笔记了。最近一段时间很忙，预计这几天会陆陆续续将看过的文章的笔记">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/08/30/muspy/1.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/08/30/muspy/2.png">
@@ -57,12 +57,11 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/08/30/muspy/16.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/08/30/muspy/17.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/08/30/muspy/18.png">
-<meta property="og:image" content="http://ldzhangyx.github.io/2020/08/30/muspy/19.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2020/08/30/muspy/20.png">
-<meta property="og:updated_time" content="2020-08-30T19:51:39.896Z">
+<meta property="og:updated_time" content="2020-08-31T11:56:01.723Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="音乐生成工具包MusPy简介和快速上手指南">
-<meta name="twitter:description" content="也许是全网第一篇MusPy评测？ 评价写在最前面：这是一个实用性极强的库，为每一个入行的人铺平了道路，使得人们能轻松地获取和清洗数据集。也许我该称呼它为symbolic music界的torchvision？总之，非常推荐作为轮子使用，加入到自己的常备库里。 但是，不可忽略的一点是，使用下来bug不少。建议等几个版本。 很久没写笔记了。最近一段时间很忙，预计这几天会陆陆续续将看过的文章的笔记更新上">
+<meta name="twitter:description" content="2020.8.31更新：初版的bug已经被修复，现移除相关描述。 也许是全网第一篇MusPy评测？ 评价写在最前面：这是一个实用性极强的库，为每一个入行的人铺平了道路，使得人们能轻松地获取和清洗数据集。也许我该称呼它为symbolic music界的torchvision。 总之，非常推荐作为轮子使用，加入到自己的常备库里。 很久没写笔记了。最近一段时间很忙，预计这几天会陆陆续续将看过的文章的笔记">
 <meta name="twitter:image" content="http://ldzhangyx.github.io/2020/08/30/muspy/1.png">
     
         <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
@@ -259,9 +258,10 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p><strong>也许是全网第一篇MusPy评测？</strong></p>
-<p>评价写在最前面：<strong>这是一个实用性极强的库，为每一个入行的人铺平了道路，使得人们能轻松地获取和清洗数据集。也许我该称呼它为symbolic music界的torchvision？总之，非常推荐作为轮子使用，加入到自己的常备库里。</strong></p>
-<p><strong>但是，不可忽略的一点是，使用下来bug不少。建议等几个版本。</strong></p>
+            <p>2020.8.31更新：初版的bug已经被修复，现移除相关描述。</p>
+<p><strong>也许是全网第一篇MusPy评测？</strong></p>
+<p>评价写在最前面：<strong>这是一个实用性极强的库，为每一个入行的人铺平了道路，使得人们能轻松地获取和清洗数据集。也许我该称呼它为symbolic music界的torchvision。</strong></p>
+<p><strong>总之，非常推荐作为轮子使用，加入到自己的常备库里。</strong></p>
 <p>很久没写笔记了。最近一段时间很忙，预计这几天会陆陆续续将看过的文章的笔记更新上。处于更新列表的文章列于这篇笔记最后。</p>
 <h2 id="什么是MusPy"><a href="#什么是MusPy" class="headerlink" title="什么是MusPy"></a>什么是MusPy</h2><p>MusPy这个词来自于今年ISMIR里的论文：《MusPy: A Toolkit for Symbolic Music Generation》，作者是UCSD计算机音乐组的学生，其中一作Hao-Wen Dong曾是台湾Yi-Hsuan Yang组的学生，二作Ke Chen是上纽大Music X Lab的前学生。现两人均在UCSD读博。</p>
 <p>文章中介绍到，MusPy是一个用于生成symbolic music的开源Python库，其功能包括：</p>
@@ -430,7 +430,7 @@ ga('send', 'pageview');
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataset = data_collection.to_pytorch_dataset(representation=<span class="string">"pianoroll"</span>)</span><br></pre></td></tr></table></figure>
 <p>这个函数是一个高级封装函数，其中包含了两个重要参数：representation和splits。</p>
 <blockquote>
-<p>representation参数接受‘event’, ‘note’, ‘pianoroll’, ‘monotoken’ and ‘polytoken’，而splits参数接受float或者list，划分为2-3份。</p>
+<p>representation参数接受‘event’, ‘note’, ‘pitch’, ‘pianoroll’，而splits参数接受float或者list，划分为2-3份。</p>
 </blockquote>
 <p>我们先看看representation参数代表了什么：</p>
 <p>参数为pianoroll时，数据被转换为了0-1矩阵，有128维：</p>
@@ -441,15 +441,6 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<p>参数为monotoken时，函数果断报了个错。看来实际上函数只接受四种输入：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="19.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>当参数为pitch note event时，函数返回正常。</p>
 <p>最后试图visualize这个数据：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data_collection[<span class="number">0</span>].show_pianoroll()</span><br></pre></td></tr></table></figure>
 <p>非常正常。</p>
@@ -494,7 +485,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-30T19:51:39.896Z" itemprop="dateUpdated">2020-08-31 03:51:39</time>
+    最后更新时间：<time datetime="2020-08-31T11:56:01.723Z" itemprop="dateUpdated">2020-08-31 19:56:01</time>
 </span><br>
 
 
@@ -575,7 +566,14 @@ ga('send', 'pageview');
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/08/31/mixpoet/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">《MixPoet, Diverse Poetry Generation via Learning Controllable Mixed Latent Space》论文笔记</h4>
+      </a>
+    </div>
   
 
   
