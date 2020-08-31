@@ -2,9 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ldzhangyx.github.io/2020/09/01/vq-cpc/</loc>
+    
+    <lastmod>2020-08-31T16:59:39.039Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/2020/02/07/diora-urnng/</loc>
+    
+    <lastmod>2020-08-31T16:54:13.861Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ldzhangyx.github.io/2020/08/31/mixpoet/</loc>
     
-    <lastmod>2020-08-31T14:59:23.066Z</lastmod>
+    <lastmod>2020-08-31T16:42:28.784Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/2020/09/01/unsupervised-drum/</loc>
+    
+    <lastmod>2020-08-31T16:01:46.199Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ldzhangyx.github.io/2019/07/03/on-lstm/</loc>
+    
+    <lastmod>2020-08-31T15:53:07.354Z</lastmod>
     
   </url>
   
@@ -82,13 +110,6 @@
     <loc>http://ldzhangyx.github.io/2019/08/05/pytorch-0801/</loc>
     
     <lastmod>2020-02-14T18:08:45.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/2020/02/07/diora-urnng/</loc>
-    
-    <lastmod>2020-02-10T13:43:37.000Z</lastmod>
     
   </url>
   
@@ -180,13 +201,6 @@
     <loc>http://ldzhangyx.github.io/2019/07/21/music-toolkits/</loc>
     
     <lastmod>2019-08-09T02:08:25.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ldzhangyx.github.io/2019/07/03/on-lstm/</loc>
-    
-    <lastmod>2019-08-07T09:29:21.000Z</lastmod>
     
   </url>
   

@@ -31,23 +31,23 @@ ga('send', 'pageview');
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="自然语言处理,music generation,NLP,NLG">
-    <meta name="description" content="Ordered Neurons是ICLR 2019的The best paper之一。知乎上对这篇论文也有诸多讨论。本文主要探讨ON-LSTM在结构上的构建和分析，为我之后要做的音乐结构分析做一些准备。 ON-LSTM用一句话来概括这篇论文的核心思想，那就是：重新设计了LSTM中，历史信息的融合更新策略，使其能够显式地分层融合历史信息和当前信息。为了分层地融合信息，本文也设计了一个方法估计信息的层">
-<meta name="keywords" content="自然语言处理,music generation,NLP,NLG">
+    <meta name="keywords" content="自然语言处理,NLP,music generation,NLG">
+    <meta name="description" content="Ordered Neurons是ICLR 2019的The best paper之一。知乎上对这篇论文也有诸多讨论。本文主要探讨ON-LSTM在结构上的构建和分析，为我之后要做的音乐结构分析做一些准备。   ON-LSTM用一句话来概括这篇论文的核心思想，那就是：重新设计了LSTM中，历史信息的融合更新策略，使其能够显式地分层融合历史信息和当前信息。为了分层地融合信息，本文也设计了一个方法估计信息">
+<meta name="keywords" content="自然语言处理,NLP,music generation,NLG">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《Ordered Neurons： Integrating Tree Structures into Recurrent Neural Networks》阅读笔记">
 <meta property="og:url" content="http://ldzhangyx.github.io/2019/07/03/on-lstm/index.html">
 <meta property="og:site_name" content="张逸霄的技术小站">
-<meta property="og:description" content="Ordered Neurons是ICLR 2019的The best paper之一。知乎上对这篇论文也有诸多讨论。本文主要探讨ON-LSTM在结构上的构建和分析，为我之后要做的音乐结构分析做一些准备。 ON-LSTM用一句话来概括这篇论文的核心思想，那就是：重新设计了LSTM中，历史信息的融合更新策略，使其能够显式地分层融合历史信息和当前信息。为了分层地融合信息，本文也设计了一个方法估计信息的层">
+<meta property="og:description" content="Ordered Neurons是ICLR 2019的The best paper之一。知乎上对这篇论文也有诸多讨论。本文主要探讨ON-LSTM在结构上的构建和分析，为我之后要做的音乐结构分析做一些准备。   ON-LSTM用一句话来概括这篇论文的核心思想，那就是：重新设计了LSTM中，历史信息的融合更新策略，使其能够显式地分层融合历史信息和当前信息。为了分层地融合信息，本文也设计了一个方法估计信息">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/07/03/on-lstm/1.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/07/03/on-lstm/2.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/07/03/on-lstm/3.png">
 <meta property="og:image" content="http://ldzhangyx.github.io/2019/07/03/on-lstm/4.png">
-<meta property="og:updated_time" content="2019-08-07T09:29:21.000Z">
+<meta property="og:updated_time" content="2020-08-31T15:53:07.354Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Ordered Neurons： Integrating Tree Structures into Recurrent Neural Networks》阅读笔记">
-<meta name="twitter:description" content="Ordered Neurons是ICLR 2019的The best paper之一。知乎上对这篇论文也有诸多讨论。本文主要探讨ON-LSTM在结构上的构建和分析，为我之后要做的音乐结构分析做一些准备。 ON-LSTM用一句话来概括这篇论文的核心思想，那就是：重新设计了LSTM中，历史信息的融合更新策略，使其能够显式地分层融合历史信息和当前信息。为了分层地融合信息，本文也设计了一个方法估计信息的层">
+<meta name="twitter:description" content="Ordered Neurons是ICLR 2019的The best paper之一。知乎上对这篇论文也有诸多讨论。本文主要探讨ON-LSTM在结构上的构建和分析，为我之后要做的音乐结构分析做一些准备。   ON-LSTM用一句话来概括这篇论文的核心思想，那就是：重新设计了LSTM中，历史信息的融合更新策略，使其能够显式地分层融合历史信息和当前信息。为了分层地融合信息，本文也设计了一个方法估计信息">
 <meta name="twitter:image" content="http://ldzhangyx.github.io/2019/07/03/on-lstm/1.png">
     
         <link rel="alternate" type="application/atom+xml" title="张逸霄的技术小站" href="/atom.xml">
@@ -245,6 +245,8 @@ ga('send', 'pageview');
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>Ordered Neurons是ICLR 2019的The best paper之一。知乎上对这篇论文也有诸多讨论。本文主要探讨ON-LSTM在结构上的构建和分析，为我之后要做的音乐结构分析做一些准备。</p>
+<script async class="speakerdeck-embed" data-id="e8e0975272814e48a34ffc7257f1b63b" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
+
 <h1 id="ON-LSTM"><a href="#ON-LSTM" class="headerlink" title="ON-LSTM"></a>ON-LSTM</h1><p>用一句话来概括这篇论文的核心思想，那就是：<strong>重新设计了LSTM中，历史信息的融合更新策略，使其能够显式地分层融合历史信息和当前信息。为了分层地融合信息，本文也设计了一个方法估计信息的层级，之后也利用层级，推导出了序列信息的树状结构</strong>。</p>
 <h2 id="普通的LSTM"><a href="#普通的LSTM" class="headerlink" title="普通的LSTM"></a>普通的LSTM</h2><p>首先回忆一个普通的LSTM：</p>
 <figure class="image-bubble">
@@ -338,7 +340,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-08-07T09:29:21.000Z" itemprop="dateUpdated">2019-08-07 17:29:21</time>
+    最后更新时间：<time datetime="2020-08-31T15:53:07.354Z" itemprop="dateUpdated">2020-08-31 23:53:07</time>
 </span><br>
 
 
