@@ -31,9 +31,9 @@ ga('send', 'pageview');
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="music generation,MIR,representation learning,polyphonic music">
+    <meta name="keywords" content="MIR,music generation,representation learning,polyphonic music">
     <meta name="description" content="组里的最新工作，投到了ICASSP 2020，提出了一种复调音乐的树结构，并利用结构设计了适当的实验，证明其有效性。">
-<meta name="keywords" content="music generation,MIR,representation learning,polyphonic music">
+<meta name="keywords" content="MIR,music generation,representation learning,polyphonic music">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《Poly-tree： A Tree Structure towards Better Polyphonic Music Representation Learning》论文笔记">
 <meta property="og:url" content="http://ldzhangyx.github.io/2019/10/30/polytree/index.html">
@@ -677,5 +677,20 @@ MathJax.Hub.Queue(function() {
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

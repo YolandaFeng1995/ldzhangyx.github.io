@@ -31,9 +31,9 @@ ga('send', 'pageview');
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="PyTorch,基础,坑">
+    <meta name="keywords" content="基础,PyTorch,坑">
     <meta name="description" content="最近在LSTM这一块有点扯不清，现在回想一下发现自己将两种LSTM记混了。">
-<meta name="keywords" content="PyTorch,基础,坑">
+<meta name="keywords" content="基础,PyTorch,坑">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PyTorch中，LSTM的两种不同形式">
 <meta property="og:url" content="http://ldzhangyx.github.io/2019/09/11/lstm/index.html">
@@ -610,5 +610,20 @@ MathJax.Hub.Queue(function() {
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

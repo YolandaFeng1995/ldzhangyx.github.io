@@ -31,9 +31,9 @@ ga('send', 'pageview');
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="PyTorch,软件工程,Python">
+    <meta name="keywords" content="PyTorch,Python,软件工程">
     <meta name="description" content="提及PyTorch的代码写作，我没有找到一个大家约定俗成的规约。我自己遵循了一些能让Python代码更具有可读性和持续开发的规则，现记录如下。">
-<meta name="keywords" content="PyTorch,软件工程,Python">
+<meta name="keywords" content="PyTorch,Python,软件工程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PyTorch工程中，提升代码体验的几点想法">
 <meta property="og:url" content="http://ldzhangyx.github.io/2020/06/20/python-init/index.html">
@@ -618,5 +618,20 @@ MathJax.Hub.Queue(function() {
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

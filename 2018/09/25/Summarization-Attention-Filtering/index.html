@@ -31,9 +31,9 @@ ga('send', 'pageview');
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="论文笔记,多模态,生成式摘要,自然语言处理">
+    <meta name="keywords" content="自然语言处理,论文笔记,多模态,生成式摘要">
     <meta name="description" content="宗成庆老师的这篇文章发表于ACL’18，同时获得了国家自然科学基金的支持。文章着眼于利用图片信息提升摘要与原文本的相关性。原文：www.nlpr.ia.ac.cn/cip/ZongPublications/2018/2018HaoranLiIJCAI.pdf">
-<meta name="keywords" content="论文笔记,多模态,生成式摘要,自然语言处理">
+<meta name="keywords" content="自然语言处理,论文笔记,多模态,生成式摘要">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《Multi-modal Sentence Summarization with Modality Attention and Image Filtering》论文笔记">
 <meta property="og:url" content="http://ldzhangyx.github.io/2018/09/25/Summarization-Attention-Filtering/index.html">
@@ -660,5 +660,20 @@ MathJax.Hub.Queue(function() {
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
